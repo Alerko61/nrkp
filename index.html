@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NRK Prestige | Véhicules d'occasion premium à Mions (69)</title>
 <meta name="description" content="NRK Prestige, spécialiste véhicules d'occasion haut de gamme à Mions (69780). Mercedes-AMG, BMW M, Audi RS, Porsche.">
-<meta name="keywords" content="voiture occasion premium, NRK Prestige, véhicule luxe occasion, Mercedes AMG occasion Lyon, BMW M occasion, Audi RS occasion, Mions, concessionnaire prestige Lyon">
+<meta name="keywords" content="voiture occasion premium, NRK Prestige, véhicule luxe occasion, Mercedes AMG occasion Lyon, BMW M occasion, Audi RS occasion, Mions, Lyon">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://nrkprestige.fr">
 <meta property="og:title" content="NRK Prestige — Véhicules d'occasion haut de gamme">
@@ -26,47 +26,51 @@ html{scroll-behavior:smooth}
 body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
 :root{--ac:#c0c0c0;--bg:#0a0a0a;--card:#111;--brd:#1a1a1a;--brd-h:rgba(192,192,192,0.18);--w:#f0f0f0;--dim:#444}
 
-/* BG VIDEO / GIF */
-.bg-fixed{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
-.bg-fixed video,.bg-fixed img{width:100%;height:100%;object-fit:cover;filter:brightness(.12) contrast(1.05) saturate(.8)}
-.bg-fade{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(10,10,10,.3) 0%,rgba(10,10,10,.7) 40%,rgba(10,10,10,.92) 70%,rgba(10,10,10,.97) 100%)}
-.content{position:relative;z-index:2}
+/* ===== SCROLL VIDEO TRANSITION ===== */
+.video-section{position:relative;height:250vh;overflow:visible}
+.video-sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.video-sticky video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.18) contrast(1.05) saturate(.8)}
+.video-overlay{position:absolute;inset:0;background:linear-gradient(180deg,#0a0a0a 0%,transparent 20%,transparent 80%,#0a0a0a 100%);transition:opacity .3s}
+.video-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.video-text p{font-family:'Cormorant Garamond',serif;font-size:42px;color:rgba(240,240,240,.5);font-weight:400;font-style:italic;text-align:center;padding:0 40px;opacity:0;transform:translateY(20px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.video-text p.vis{opacity:1;transform:translateY(0)}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lineGrow{from{width:0}to{width:50px}}
 @keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .reveal{opacity:0;transform:translateY(35px);transition:all .85s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
 .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
 
-/* HERO */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative}
+/* ===== HERO ===== */
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:#0a0a0a}
 .hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}
 .hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}
 .hero-h1{font-family:'Cormorant Garamond',serif;font-size:90px;font-weight:700;color:#fff;line-height:.9}
 .hero-h1 em{font-style:italic;font-weight:400;color:var(--ac)}
 .hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}
-.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:var(--ac);opacity:.35;animation:fadeUp 1s 1.5s both}
-.hero-scroll svg{animation:float 2.5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-arrow{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none;display:block;padding:16px}
+.hero-arrow:hover{opacity:1}
+.hero-arrow svg{animation:bounce 2s ease-in-out infinite}
 @media(max-width:768px){.hero-h1{font-size:48px!important}}
 
-/* SECTION */
-.sec{padding:120px 48px;max-width:1240px;margin:0 auto}
+/* ===== SECTION ===== */
+.sec{padding:120px 48px;max-width:1240px;margin:0 auto;position:relative;z-index:2}
 .sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);font-weight:400;text-align:center;display:block}
 .sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}
 .sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}
 @media(max-width:768px){.sec{padding:80px 20px!important}.sec-h2{font-size:32px!important}}
 
-/* VEHICLES */
+/* ===== VEHICLES ===== */
 .v-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px;margin-top:56px}
-.v-card{background:rgba(17,17,17,.85);backdrop-filter:blur(8px);border:1px solid var(--brd);border-radius:10px;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);cursor:pointer}
+.v-card{background:rgba(17,17,17,.92);backdrop-filter:blur(6px);border:1px solid var(--brd);border-radius:10px;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);cursor:pointer}
 .v-card:hover{transform:translateY(-6px);border-color:var(--brd-h);box-shadow:0 28px 60px rgba(0,0,0,.5)}
 .v-card:hover .v-img{transform:scale(1.06)}
 .v-img-w{overflow:hidden;height:240px;background:#0a0a0a;position:relative}
 .v-img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
-.v-img-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);color:#999;font-size:11px;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
+.v-img-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#aaa;font-size:11px;padding:4px 12px;border-radius:20px}
 .v-info{padding:22px 26px 24px}
 .v-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .v-brand{font-size:10px;color:#3a3a3a;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px}
@@ -74,39 +78,39 @@ body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 .v-price{font-size:18px;font-weight:600;color:var(--ac);white-space:nowrap}
 .v-specs{display:flex;gap:20px;flex-wrap:wrap;padding-top:16px;border-top:1px solid #1a1a1a}
 .v-sp{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:5px}
+.v-empty{text-align:center;color:#222;grid-column:1/-1;padding:60px 0;font-size:14px}
 @media(max-width:768px){.v-grid{grid-template-columns:1fr!important}}
 
-/* MODAL */
+/* ===== VEHICLE MODAL ===== */
 .m-ov{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:1001;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .3s}
 .m-ov.open{opacity:1;pointer-events:all}
-.m-box{background:rgba(17,17,17,.95);backdrop-filter:blur(12px);border-radius:12px;max-width:720px;width:100%;border:1px solid #1a1a1a;overflow:hidden;max-height:90vh;overflow-y:auto;animation:modalIn .35s}
-.m-gallery{position:relative;height:340px;background:#0a0a0a}
-.m-gallery img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity .4s}
-.m-gallery img.active{opacity:1}
-.m-gallery-nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
-.m-gallery-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:pointer;transition:all .3s;padding:0}
-.m-gallery-dot.on{background:var(--ac)}
-.m-gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.06);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:14px}
-.m-gallery-arrow:hover{background:rgba(255,255,255,.1)}
-.m-gallery-arrow.prev{left:12px}
-.m-gallery-arrow.next{right:12px}
-.m-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(8px);z-index:5}
+.m-box{background:rgba(17,17,17,.97);backdrop-filter:blur(12px);border-radius:12px;max-width:720px;width:100%;border:1px solid #1a1a1a;overflow:hidden;max-height:90vh;overflow-y:auto;animation:modalIn .35s}
+.m-gal{position:relative;height:360px;background:#080808;overflow:hidden}
+.m-gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.m-gal img.on{opacity:1}
+.m-gal-nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.m-gal-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:all .3s;padding:0}
+.m-gal-dot.on{background:var(--ac)}
+.m-gal-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.7);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:16px;z-index:3}
+.m-gal-arr:hover{background:rgba(255,255,255,.1);color:#fff}
+.m-gal-arr.prev{left:12px}.m-gal-arr.next{right:12px}
+.m-close{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.06);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .3s;backdrop-filter:blur(8px);z-index:5}
 .m-close:hover{background:rgba(255,255,255,.12)}
 .m-body{padding:32px}
 .m-brand{font-size:10px;color:var(--ac);letter-spacing:3px;text-transform:uppercase}
 .m-model{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--w);margin-top:2px}
 .m-price{font-size:24px;font-weight:600;color:var(--ac);margin:14px 0 24px}
 .m-specs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
-.m-spec{background:rgba(13,13,13,.8);border:1px solid #1a1a1a;border-radius:6px;padding:14px;text-align:center}
+.m-spec{background:rgba(10,10,10,.7);border:1px solid #1a1a1a;border-radius:6px;padding:14px;text-align:center}
 .m-spec-l{font-size:9px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
 .m-spec-v{font-size:15px;font-weight:600;color:var(--w)}
 .m-desc{color:#666;line-height:1.8;font-size:14px;margin-bottom:28px}
 .btn-main{background:var(--w);color:#0a0a0a;border:none;padding:14px 44px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:2px;text-decoration:none;display:inline-block}
 .btn-main:hover{background:var(--ac);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
-@media(max-width:768px){.m-specs{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:768px){.m-specs{grid-template-columns:repeat(2,1fr)!important}.m-gal{height:260px}}
 
-/* FOOTER */
-.footer{border-top:1px solid var(--brd);padding:56px 48px 24px;position:relative;z-index:2;background:rgba(10,10,10,.97)}
+/* ===== FOOTER ===== */
+.footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:var(--bg);position:relative;z-index:2}
 .ft-inner{max-width:1240px;margin:0 auto}
 .ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}
 .ft-col-t{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#2a2a2a;margin-bottom:16px;font-weight:500}
@@ -117,85 +121,98 @@ body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 .ft-s:hover{border-color:var(--ac);color:var(--w);transform:translateY(-2px)}
 .ft-s svg{width:15px;height:15px}
 .ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}
-.ft-copy{color:#222;font-size:11px}
-.ft-credit{color:#222;font-size:11px}
+.ft-copy{color:#222;font-size:11px}.ft-credit{color:#222;font-size:11px}
 .ft-credit a{color:#3a3a3a;text-decoration:none;transition:color .3s}
 .ft-credit a:hover{color:var(--w)}
 @media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:24px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
 
-/* ADMIN */
-.fab{position:fixed;bottom:20px;right:20px;z-index:900;width:42px;height:42px;border-radius:50%;background:rgba(17,17,17,.8);border:1px solid #1e1e1e;color:#3a3a3a;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;opacity:.3;backdrop-filter:blur(8px)}
+/* ===== ADMIN FAB ===== */
+.fab{position:fixed;bottom:20px;right:20px;z-index:900;width:42px;height:42px;border-radius:50%;background:rgba(17,17,17,.8);border:1px solid #1e1e1e;color:#3a3a3a;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;opacity:.25;backdrop-filter:blur(8px)}
 .fab:hover{opacity:1;border-color:var(--ac);color:var(--ac)}
 .fab svg{width:17px;height:17px}
-.adm-panel{padding:32px}
+
+/* ===== ADMIN PANEL ===== */
+.adm-panel{padding:32px;max-height:80vh;overflow-y:auto}
 .adm-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--w)}
+.adm-status{font-size:11px;padding:6px 14px;border-radius:20px;display:inline-block;margin-left:12px}
+.adm-status.ok{background:rgba(34,197,94,.1);color:#22c55e}
+.adm-status.err{background:rgba(239,68,68,.1);color:#ef4444}
+.adm-status.load{background:rgba(192,192,192,.08);color:#888}
 .adm-form{background:#0d0d0d;border:1px solid #1a1a1a;border-radius:10px;padding:24px;margin:24px 0}
 .adm-form-t{color:var(--ac);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px;font-weight:500}
 .adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.inp{width:100%;padding:11px 14px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:6px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .3s}
-.inp:focus{border-color:var(--ac)}
-.inp::placeholder{color:#2a2a2a}
+.inp{width:100%;padding:11px 14px;background:#080808;border:1px solid #1e1e1e;border-radius:6px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .3s}
+.inp:focus{border-color:var(--ac)}.inp::placeholder{color:#2a2a2a}
 textarea.inp{resize:vertical;margin-top:10px}
-.upload-zone{border:1px dashed #2a2a2a;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all .3s;margin-top:10px;position:relative;overflow:hidden}
-.upload-zone:hover{border-color:var(--ac)}
+.upload-zone{border:1px dashed #2a2a2a;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .3s;margin-top:10px;position:relative;overflow:hidden}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--ac);background:rgba(192,192,192,.03)}
 .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-zone p{color:#3a3a3a;font-size:12px;pointer-events:none}
-.upload-previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.upload-thumb{width:60px;height:60px;border-radius:6px;object-fit:cover;border:1px solid #1e1e1e}
-.upload-thumb-wrap{position:relative}
-.upload-thumb-rm{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#ff4444;color:#fff;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-.vl-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#0d0d0d;border-radius:6px;margin-bottom:6px;border:1px solid #1a1a1a}
-.vl-brand{color:#444;font-size:11px}.vl-model{font-weight:600;margin-left:6px;font-size:13px}.vl-price{color:var(--ac);margin-left:10px;font-size:13px}
-.btn-del{background:none;border:1px solid #1e1e1e;border-radius:4px;color:#ff4444;cursor:pointer;padding:5px 12px;font-size:11px;transition:all .3s;font-family:'Outfit',sans-serif}
-.btn-del:hover{background:#ff4444;color:#fff;border-color:#ff4444}
-.btn-rst{background:none;border:1px solid #1a1a1a;color:#3a3a3a;padding:10px;border-radius:6px;cursor:pointer;font-size:11px;margin-top:10px;width:100%;font-family:'Outfit',sans-serif;transition:all .3s}
-.btn-rst:hover{border-color:var(--ac);color:var(--ac)}
-.loading{text-align:center;color:#333;font-size:13px;padding:40px 0}
+.upload-zone p{color:#333;font-size:12px;pointer-events:none}
+.upload-zone p span{color:var(--ac)}
+.upload-prev{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.up-thumb{position:relative}
+.up-thumb img{width:64px;height:64px;border-radius:6px;object-fit:cover;border:1px solid #1e1e1e}
+.up-thumb-rm{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;border:none;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.vl-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#0d0d0d;border-radius:8px;margin-bottom:6px;border:1px solid #1a1a1a;transition:border-color .3s}
+.vl-item:hover{border-color:#222}
+.vl-info{display:flex;align-items:center;gap:12px;overflow:hidden}
+.vl-thumb{width:44px;height:44px;border-radius:6px;object-fit:cover;flex-shrink:0}
+.vl-brand{color:#444;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.vl-model{font-weight:600;font-size:13px;color:var(--w)}
+.vl-price{color:var(--ac);font-size:13px;font-weight:500;margin-left:auto;margin-right:12px;white-space:nowrap}
+.btn-del{background:none;border:1px solid #1e1e1e;border-radius:4px;color:#ef4444;cursor:pointer;padding:6px 14px;font-size:11px;transition:all .3s;font-family:'Outfit',sans-serif;flex-shrink:0}
+.btn-del:hover{background:#ef4444;color:#fff;border-color:#ef4444}
+.adm-msg{font-size:12px;color:#888;text-align:center;padding:8px;animation:fadeIn .3s}
+.adm-msg.err{color:#ef4444}.adm-msg.ok{color:#22c55e}
 </style>
 </head>
 <body>
 
-<!-- FIXED BACKGROUND -->
-<div class="bg-fixed">
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="https://cdn.pixabay.com/video/2024/02/14/200712-912981498_large.mp4" type="video/mp4">
-  </video>
-</div>
-<div class="bg-fade"></div>
-
-<div class="content">
-
-<!-- HERO -->
-<header class="hero" id="hero">
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
   <div class="hero-c">
     <p class="hero-tag">Automobile de prestige</p>
     <h1 class="hero-h1">NRK <em>Prestige</em></h1>
-    <div class="hero-line" aria-hidden="true"></div>
+    <div class="hero-line"></div>
   </div>
-  <div class="hero-scroll">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-</header>
+  <a href="#video-transition" class="hero-arrow" aria-label="Descendre">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
 
-<!-- VEHICLES -->
-<section class="sec" id="vehicles">
+<!-- ===== VIDEO TRANSITION ===== -->
+<section class="video-section" id="video-transition">
+  <div class="video-sticky" id="video-sticky">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="https://cdn.pixabay.com/video/2020/07/30/45349-445092845_large.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay" id="video-overlay"></div>
+    <div class="video-text">
+      <p id="video-tagline">L'excellence, livrée à votre porte</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VEHICLES ===== -->
+<section class="sec" id="vehicles" style="background:var(--bg);position:relative;z-index:2">
   <div class="reveal">
     <span class="sec-tag">Notre sélection</span>
     <h2 class="sec-h2">Véhicules Disponibles</h2>
     <div class="sec-line"></div>
   </div>
-  <div id="v-loading" class="loading">Chargement des véhicules...</div>
-  <div class="v-grid" id="v-grid"></div>
+  <div class="v-grid" id="v-grid">
+    <p class="v-empty">Chargement...</p>
+  </div>
 </section>
 
-<!-- VEHICLE MODAL -->
+<!-- ===== VEHICLE MODAL ===== -->
 <div class="m-ov" id="v-modal">
   <div class="m-box" onclick="event.stopPropagation()">
     <div style="position:relative">
-      <div class="m-gallery" id="m-gallery"></div>
+      <div class="m-gal" id="m-gal"></div>
       <button class="m-close" onclick="closeVM()">✕</button>
-      <button class="m-gallery-arrow prev" onclick="galleryNav(-1)">‹</button>
-      <button class="m-gallery-arrow next" onclick="galleryNav(1)">›</button>
+      <button class="m-gal-arr prev" onclick="galNav(-1)">‹</button>
+      <button class="m-gal-arr next" onclick="galNav(1)">›</button>
     </div>
     <div class="m-body">
       <div class="m-brand" id="m-brand"></div>
@@ -208,15 +225,12 @@ textarea.inp{resize:vertical;margin-top:10px}
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ===== FOOTER ===== -->
 <footer class="footer" id="footer">
   <div class="ft-inner">
     <div class="ft-top">
       <div>
-        <div style="margin-bottom:14px">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--w);letter-spacing:4px">NRK</span>
-          <span style="font-size:10px;font-weight:400;letter-spacing:5px;color:#333;text-transform:uppercase;margin-left:6px">Prestige</span>
-        </div>
+        <div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--w);letter-spacing:4px">NRK</span><span style="font-size:10px;font-weight:400;letter-spacing:5px;color:#333;text-transform:uppercase;margin-left:6px">Prestige</span></div>
         <p style="color:#2a2a2a;font-size:12px;line-height:1.8;max-width:240px">Spécialiste en véhicules d'occasion haut de gamme. Qualité, transparence et passion.</p>
       </div>
       <div>
@@ -240,45 +254,65 @@ textarea.inp{resize:vertical;margin-top:10px}
   </div>
 </footer>
 
-</div><!-- .content -->
-
-<!-- ADMIN FAB -->
+<!-- ===== ADMIN FAB ===== -->
 <button class="fab" onclick="openAdm()" title="Administration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
 
-<!-- ADMIN MODAL -->
+<!-- ===== ADMIN MODAL ===== -->
 <div class="m-ov" id="adm-modal" onclick="closeAdm()">
-  <div class="m-box" onclick="event.stopPropagation()" style="max-width:620px">
+  <div class="m-box" onclick="event.stopPropagation()" style="max-width:640px;max-height:92vh">
     <div class="adm-panel">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
-        <h3 class="adm-title">Dashboard</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div style="display:flex;align-items:center">
+          <h3 class="adm-title">Dashboard</h3>
+          <span class="adm-status load" id="db-status">Connexion...</span>
+        </div>
         <button class="m-close" onclick="closeAdm()" style="position:static">✕</button>
       </div>
+
+      <!-- LOGIN -->
       <div id="adm-login">
         <p style="color:#444;margin-bottom:14px;font-size:13px">Mot de passe administrateur</p>
         <input class="inp" type="password" id="adm-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryLogin()">
         <button class="btn-main" style="width:100%;margin-top:14px" onclick="tryLogin()">Connexion</button>
+        <div id="login-msg"></div>
       </div>
+
+      <!-- ADMIN CONTENT -->
       <div id="adm-content" style="display:none">
+        <!-- ADD FORM -->
         <div class="adm-form">
           <div class="adm-form-t">Ajouter un véhicule</div>
           <div class="adm-grid">
             <input class="inp" placeholder="Marque *" id="f-brand">
             <input class="inp" placeholder="Modèle *" id="f-model">
-            <input class="inp" placeholder="Prix" id="f-price">
+            <input class="inp" placeholder="Prix (ex: 42 900€)" id="f-price">
             <input class="inp" placeholder="Kilométrage" id="f-km">
             <input class="inp" placeholder="Année" id="f-year">
             <input class="inp" placeholder="Chevaux" id="f-hp">
             <input class="inp" placeholder="Places" id="f-seats">
+            <div></div>
           </div>
-          <textarea class="inp" placeholder="Description" rows="3" id="f-desc"></textarea>
-          <div class="upload-zone" id="upload-zone">
-            <input type="file" accept="image/*" multiple onchange="handleUpload(event)">
-            <p>📷 Cliquer ou glisser pour ajouter des photos</p>
+          <textarea class="inp" placeholder="Description du véhicule" rows="3" id="f-desc"></textarea>
+
+          <!-- UPLOAD ZONE -->
+          <div class="upload-zone" id="upload-zone"
+            ondragover="event.preventDefault();this.classList.add('drag')"
+            ondragleave="this.classList.remove('drag')"
+            ondrop="event.preventDefault();this.classList.remove('drag');handleDrop(event)">
+            <input type="file" accept="image/*" multiple onchange="handleFiles(this.files)">
+            <p>📷 Cliquer ou glisser pour ajouter des photos<br><span>JPG, PNG — max 1.5 Mo/photo</span></p>
           </div>
-          <div class="upload-previews" id="upload-previews"></div>
-          <button class="btn-main" style="width:100%;margin-top:14px" onclick="addVehicle()">+ Ajouter le véhicule</button>
+          <div class="upload-prev" id="upload-prev"></div>
+
+          <button class="btn-main" style="width:100%;margin-top:16px" id="btn-add" onclick="addVehicle()">+ Ajouter le véhicule</button>
+          <div id="add-msg"></div>
         </div>
-        <div style="font-size:11px;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:500" id="vcount"></div>
+
+        <!-- VEHICLE LIST -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <span style="font-size:11px;color:var(--ac);letter-spacing:2px;text-transform:uppercase;font-weight:500" id="vcount"></span>
+          <button onclick="refreshDB()" style="background:none;border:1px solid #1e1e1e;color:#444;padding:5px 14px;border-radius:4px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .3s" onmouseover="this.style.borderColor='var(--ac)';this.style.color='var(--ac)'" onmouseout="this.style.borderColor='#1e1e1e';this.style.color='#444'">↻ Rafraîchir</button>
+        </div>
         <div id="adm-list"></div>
       </div>
     </div>
@@ -286,263 +320,296 @@ textarea.inp{resize:vertical;margin-top:10px}
 </div>
 
 <script>
-// ========== DEFAULT DATA ==========
-const DEFAULT_V = [
-  {id:"v1",brand:"Mercedes-Benz",model:"CLA 45 AMG",price:"42 900€",km:"38 500",year:"2021",hp:"387",seats:"5",images:["https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80"],description:"CLA 45 AMG en parfait état, full options, toit ouvrant, sièges AMG, système multimédia MBUX."},
-  {id:"v2",brand:"BMW",model:"M4 Competition",price:"67 500€",km:"22 000",year:"2022",hp:"510",seats:"4",images:["https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&q=80"],description:"M4 Competition xDrive, pack carbone, head-up display, Harman Kardon."},
-  {id:"v3",brand:"Audi",model:"RS3 Sportback",price:"54 900€",km:"31 200",year:"2022",hp:"400",seats:"5",images:["https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&q=80"],description:"RS3 Sportback, gris Nardo, échappement sport, virtual cockpit."},
-  {id:"v4",brand:"Mercedes-Benz",model:"Classe C 63 AMG",price:"49 900€",km:"45 000",year:"2020",hp:"476",seats:"5",images:["https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80"],description:"C63 AMG S, V8 biturbo, performance seats, night package."},
-  {id:"v5",brand:"Porsche",model:"718 Cayman S",price:"72 000€",km:"18 500",year:"2023",hp:"350",seats:"2",images:["https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=800&q=80"],description:"718 Cayman S, PDK, Sport Chrono, PASM, sièges sport adaptatifs."},
-  {id:"v6",brand:"BMW",model:"M2 Competition",price:"52 900€",km:"27 800",year:"2022",hp:"410",seats:"4",images:["https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80"],description:"M2 Competition, boîte manuelle, différentiel actif M, freins M."}
-];
+// ============================================================
+//  DATABASE — JSONBlob (shared across all users, no auth needed)
+// ============================================================
+const DB_ID = '019d5405-2008-7de3-8723-402b2a317df0';
+const DB_URL = 'https://jsonblob.com/api/jsonBlob/' + DB_ID;
 
 let V = [];
-let uploadedImages = [];
-let galleryIndex = 0;
-let currentModalImages = [];
+let uploadedImgs = [];
+let galIdx = 0;
+let curImgs = [];
 
-// ========== SHARED STORAGE (DB) ==========
-async function loadFromDB() {
+// --- DB Operations ---
+async function dbRead() {
   try {
-    const result = await window.storage.get('nrk_vehicles_db', true);
-    if (result && result.value) {
-      V = JSON.parse(result.value);
-    } else {
-      V = [...DEFAULT_V];
-      await saveToDB();
-    }
+    const r = await fetch(DB_URL, { headers: { 'Accept': 'application/json' } });
+    if (!r.ok) throw new Error('DB read failed');
+    const d = await r.json();
+    return d.vehicles || [];
   } catch(e) {
-    // Fallback to localStorage
-    try {
-      const s = localStorage.getItem('nrk_v2');
-      if (s) V = JSON.parse(s);
-      else V = [...DEFAULT_V];
-    } catch(e2) {
-      V = [...DEFAULT_V];
-    }
+    console.error('DB read error:', e);
+    return null;
   }
-  document.getElementById('v-loading').style.display = 'none';
+}
+
+async function dbWrite(vehicles) {
+  try {
+    const r = await fetch(DB_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ vehicles })
+    });
+    return r.ok;
+  } catch(e) {
+    console.error('DB write error:', e);
+    return false;
+  }
+}
+
+async function loadDB() {
+  setStatus('load', 'Connexion...');
+  const data = await dbRead();
+  if (data !== null) {
+    V = data;
+    setStatus('ok', 'En ligne');
+  } else {
+    setStatus('err', 'Hors ligne');
+    // Fallback
+    try { const s = localStorage.getItem('nrk_fb'); if(s) V = JSON.parse(s); } catch(e){}
+  }
   renderV();
 }
 
-async function saveToDB() {
-  try {
-    await window.storage.set('nrk_vehicles_db', JSON.stringify(V), true);
-  } catch(e) {}
-  try {
-    localStorage.setItem('nrk_v2', JSON.stringify(V));
-  } catch(e) {}
+async function saveDB() {
+  setStatus('load', 'Sauvegarde...');
+  const ok = await dbWrite(V);
+  if (ok) {
+    setStatus('ok', 'Sauvegardé ✓');
+    setTimeout(() => setStatus('ok', 'En ligne'), 2000);
+  } else {
+    setStatus('err', 'Erreur');
+  }
+  try { localStorage.setItem('nrk_fb', JSON.stringify(V)); } catch(e){}
 }
 
-// ========== RENDER ==========
-function renderV() {
-  const grid = document.getElementById('v-grid');
-  if (V.length === 0) {
-    grid.innerHTML = '<p style="text-align:center;color:#333;grid-column:1/-1;padding:40px 0">Aucun véhicule disponible pour le moment.</p>';
-    return;
+async function refreshDB() {
+  setStatus('load', 'Rafraîchissement...');
+  const data = await dbRead();
+  if (data !== null) {
+    V = data;
+    setStatus('ok', 'À jour ✓');
+    renderV();
+    renderAL();
+    setTimeout(() => setStatus('ok', 'En ligne'), 2000);
+  } else {
+    setStatus('err', 'Erreur');
   }
-  grid.innerHTML = V.map((v, i) => {
-    const img = (v.images && v.images.length > 0) ? v.images[0] : '';
-    const count = (v.images && v.images.length > 1) ? `<span class="v-img-count">📷 ${v.images.length}</span>` : '';
-    return `<article class="v-card reveal" style="transition-delay:${i * .06}s" onclick="openVM('${v.id}')">
-      <div class="v-img-w">
-        ${img ? `<img class="v-img" src="${img}" alt="${v.brand} ${v.model}" loading="lazy" onerror="this.style.display='none'">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#222;font-size:13px">Pas de photo</div>'}
-        ${count}
-      </div>
-      <div class="v-info">
-        <div class="v-top"><div><div class="v-brand">${v.brand}</div><div class="v-model">${v.model}</div></div><div class="v-price">${v.price}</div></div>
-        <div class="v-specs">
-          <span class="v-sp">⚡ ${v.km} km</span><span class="v-sp">📅 ${v.year}</span><span class="v-sp">🐎 ${v.hp} ch</span><span class="v-sp">💺 ${v.seats} pl.</span>
-        </div>
-      </div>
-    </article>`;
+}
+
+function setStatus(type, text) {
+  const el = document.getElementById('db-status');
+  el.className = 'adm-status ' + type;
+  el.textContent = text;
+}
+
+// ============================================================
+//  RENDER
+// ============================================================
+function renderV() {
+  const g = document.getElementById('v-grid');
+  if (!V.length) { g.innerHTML = '<p class="v-empty">Aucun véhicule disponible pour le moment.</p>'; return; }
+  g.innerHTML = V.map((v, i) => {
+    const img = v.images && v.images[0] ? v.images[0] : '';
+    const cnt = v.images && v.images.length > 1 ? `<span class="v-img-count">📷 ${v.images.length}</span>` : '';
+    return `<article class="v-card reveal" style="transition-delay:${i*.06}s" onclick="openVM('${v.id}')">
+      <div class="v-img-w">${img ? `<img class="v-img" src="${img}" alt="${v.brand} ${v.model}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;color:#222\\'>Pas de photo</div>'">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#1a1a1a;font-size:13px">Pas de photo</div>'}${cnt}</div>
+      <div class="v-info"><div class="v-top"><div><div class="v-brand">${v.brand}</div><div class="v-model">${v.model}</div></div><div class="v-price">${v.price}</div></div>
+      <div class="v-specs"><span class="v-sp">⚡ ${v.km} km</span><span class="v-sp">📅 ${v.year}</span><span class="v-sp">🐎 ${v.hp} ch</span><span class="v-sp">💺 ${v.seats} pl.</span></div></div></article>`;
   }).join('');
   setTimeout(obs, 80);
 }
 
 function renderAL() {
   document.getElementById('vcount').textContent = `Véhicules (${V.length})`;
-  document.getElementById('adm-list').innerHTML = V.map(v => `
-    <div class="vl-item">
-      <div><span class="vl-brand">${v.brand}</span><span class="vl-model">${v.model}</span><span class="vl-price">${v.price}</span></div>
-      <button class="btn-del" onclick="delV('${v.id}')">✕</button>
-    </div>`).join('');
+  document.getElementById('adm-list').innerHTML = V.map(v => {
+    const thumb = v.images && v.images[0] ? `<img src="${v.images[0]}" class="vl-thumb" alt="">` : '';
+    return `<div class="vl-item"><div class="vl-info">${thumb}<div><div class="vl-brand">${v.brand}</div><div class="vl-model">${v.model}</div></div></div><span class="vl-price">${v.price}</span><button class="btn-del" onclick="delV('${v.id}')">Supprimer</button></div>`;
+  }).join('');
 }
 
-// ========== GALLERY MODAL ==========
+// ============================================================
+//  GALLERY MODAL
+// ============================================================
 function openVM(id) {
-  const v = V.find(x => x.id === id);
-  if (!v) return;
-  currentModalImages = v.images || [];
-  galleryIndex = 0;
-  renderGallery();
+  const v = V.find(x => x.id === id); if (!v) return;
+  curImgs = v.images || []; galIdx = 0;
+  renderGal();
   document.getElementById('m-brand').textContent = v.brand;
   document.getElementById('m-model').textContent = v.model;
   document.getElementById('m-price').textContent = v.price;
   document.getElementById('m-desc').textContent = v.description || '';
-  document.getElementById('m-specs').innerHTML = [
-    {l:'Kilométrage',v:v.km+' km'},{l:'Année',v:v.year},{l:'Puissance',v:v.hp+' ch'},{l:'Places',v:v.seats}
-  ].map(s => `<div class="m-spec"><div class="m-spec-l">${s.l}</div><div class="m-spec-v">${s.v}</div></div>`).join('');
-  document.getElementById('v-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('m-specs').innerHTML = [{l:'Kilométrage',v:v.km+' km'},{l:'Année',v:v.year},{l:'Puissance',v:v.hp+' ch'},{l:'Places',v:v.seats}].map(s=>`<div class="m-spec"><div class="m-spec-l">${s.l}</div><div class="m-spec-v">${s.v}</div></div>`).join('');
+  document.getElementById('v-modal').classList.add('open'); document.body.style.overflow='hidden';
 }
-
-function renderGallery() {
-  const g = document.getElementById('m-gallery');
-  if (currentModalImages.length === 0) {
-    g.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#222">Pas de photo</div>';
-    return;
-  }
-  const imgs = currentModalImages.map((src, i) =>
-    `<img src="${src}" alt="Photo ${i+1}" class="${i === galleryIndex ? 'active' : ''}" loading="lazy">`
-  ).join('');
-  const dots = currentModalImages.length > 1 ? `<div class="m-gallery-nav">${currentModalImages.map((_, i) =>
-    `<button class="m-gallery-dot ${i === galleryIndex ? 'on' : ''}" onclick="goGallery(${i})"></button>`
-  ).join('')}</div>` : '';
-  g.innerHTML = imgs + dots;
+function renderGal() {
+  const g = document.getElementById('m-gal');
+  if (!curImgs.length) { g.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#1a1a1a">Pas de photo</div>'; return; }
+  g.innerHTML = curImgs.map((s,i)=>`<img src="${s}" alt="Photo ${i+1}" class="${i===galIdx?'on':''}" loading="lazy">`).join('') +
+    (curImgs.length>1 ? `<div class="m-gal-nav">${curImgs.map((_,i)=>`<button class="m-gal-dot ${i===galIdx?'on':''}" onclick="goGal(${i})"></button>`).join('')}</div>` : '');
 }
+function goGal(i){galIdx=i;renderGal()}
+function galNav(d){if(curImgs.length<2)return;galIdx=(galIdx+d+curImgs.length)%curImgs.length;renderGal()}
+function closeVM(){document.getElementById('v-modal').classList.remove('open');document.body.style.overflow=''}
+document.getElementById('v-modal').addEventListener('click',closeVM);
 
-function goGallery(i) { galleryIndex = i; renderGallery(); }
-function galleryNav(dir) {
-  if (currentModalImages.length < 2) return;
-  galleryIndex = (galleryIndex + dir + currentModalImages.length) % currentModalImages.length;
-  renderGallery();
-}
+// ============================================================
+//  PHOTO UPLOAD (base64 with resize)
+// ============================================================
+function handleFiles(files) { Array.from(files).forEach(f => processFile(f)); }
+function handleDrop(e) { handleFiles(e.dataTransfer.files); }
 
-function closeVM() { document.getElementById('v-modal').classList.remove('open'); document.body.style.overflow = ''; }
-document.getElementById('v-modal').addEventListener('click', closeVM);
-
-// ========== PHOTO UPLOAD ==========
-function handleUpload(e) {
-  const files = Array.from(e.target.files);
-  files.forEach(file => {
-    if (file.size > 2 * 1024 * 1024) {
-      // Resize large images
-      resizeImage(file, 800, (dataUrl) => {
-        uploadedImages.push(dataUrl);
-        renderUploadPreviews();
-      });
-    } else {
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Still resize for consistency
-        resizeImage(file, 800, (dataUrl) => {
-          uploadedImages.push(dataUrl);
-          renderUploadPreviews();
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-  e.target.value = '';
-}
-
-function resizeImage(file, maxW, cb) {
+function processFile(file) {
+  if (!file.type.startsWith('image/')) return;
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
     img.onload = () => {
-      const canvas = document.createElement('canvas');
+      const c = document.createElement('canvas');
       let w = img.width, h = img.height;
-      if (w > maxW) { h = h * maxW / w; w = maxW; }
-      canvas.width = w;
-      canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      cb(canvas.toDataURL('image/jpeg', 0.75));
+      const MAX = 900;
+      if (w > MAX) { h = h * MAX / w; w = MAX; }
+      if (h > MAX) { w = w * MAX / h; h = MAX; }
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      uploadedImgs.push(c.toDataURL('image/jpeg', 0.7));
+      renderUpPrev();
     };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
 
-function renderUploadPreviews() {
-  document.getElementById('upload-previews').innerHTML = uploadedImages.map((src, i) =>
-    `<div class="upload-thumb-wrap">
-      <img src="${src}" class="upload-thumb" alt="Photo ${i+1}">
-      <button class="upload-thumb-rm" onclick="removeUpload(${i})">✕</button>
-    </div>`
-  ).join('');
+function renderUpPrev() {
+  document.getElementById('upload-prev').innerHTML = uploadedImgs.map((s,i)=>`<div class="up-thumb"><img src="${s}" alt=""><button class="up-thumb-rm" onclick="rmUp(${i})">✕</button></div>`).join('');
+}
+function rmUp(i) { uploadedImgs.splice(i,1); renderUpPrev(); }
+
+// ============================================================
+//  ADMIN CRUD
+// ============================================================
+function openAdm(){document.getElementById('adm-modal').classList.add('open');document.body.style.overflow='hidden'}
+function closeAdm(){
+  document.getElementById('adm-modal').classList.remove('open');document.body.style.overflow='';
+  document.getElementById('adm-login').style.display='block';
+  document.getElementById('adm-content').style.display='none';
+  document.getElementById('adm-pw').value='';
+  document.getElementById('login-msg').innerHTML='';
 }
 
-function removeUpload(i) {
-  uploadedImages.splice(i, 1);
-  renderUploadPreviews();
-}
-
-// ========== ADMIN ==========
-function openAdm() { document.getElementById('adm-modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeAdm() {
-  document.getElementById('adm-modal').classList.remove('open');
-  document.body.style.overflow = '';
-  document.getElementById('adm-login').style.display = 'block';
-  document.getElementById('adm-content').style.display = 'none';
-  document.getElementById('adm-pw').value = '';
-}
-
-function tryLogin() {
-  if (document.getElementById('adm-pw').value === 'nrk2024') {
-    document.getElementById('adm-login').style.display = 'none';
-    document.getElementById('adm-content').style.display = 'block';
+function tryLogin(){
+  const pw = document.getElementById('adm-pw').value;
+  if(pw==='nrk2024'){
+    document.getElementById('adm-login').style.display='none';
+    document.getElementById('adm-content').style.display='block';
     renderAL();
+    refreshDB();
+  } else {
+    document.getElementById('login-msg').innerHTML='<p class="adm-msg err" style="margin-top:10px">Mot de passe incorrect</p>';
   }
 }
 
-async function addVehicle() {
-  const b = document.getElementById('f-brand').value.trim();
-  const m = document.getElementById('f-model').value.trim();
-  if (!b || !m) return;
+async function addVehicle(){
+  const b=document.getElementById('f-brand').value.trim();
+  const m=document.getElementById('f-model').value.trim();
+  if(!b||!m){showMsg('add-msg','Marque et modèle requis','err');return}
 
-  const images = uploadedImages.length > 0 ? [...uploadedImages] : [];
+  document.getElementById('btn-add').textContent='Sauvegarde...';
+  document.getElementById('btn-add').disabled=true;
+
+  // Re-read DB to avoid conflicts
+  const latest = await dbRead();
+  if(latest!==null) V=latest;
 
   V.unshift({
-    id: 'v' + Date.now(),
-    brand: b,
-    model: m,
-    price: document.getElementById('f-price').value.trim() || '—',
-    km: document.getElementById('f-km').value.trim() || '—',
-    year: document.getElementById('f-year').value.trim() || '—',
-    hp: document.getElementById('f-hp').value.trim() || '—',
-    seats: document.getElementById('f-seats').value.trim() || '—',
-    images: images,
-    description: document.getElementById('f-desc').value.trim() || ''
+    id:'v'+Date.now(),brand:b,model:m,
+    price:document.getElementById('f-price').value.trim()||'—',
+    km:document.getElementById('f-km').value.trim()||'—',
+    year:document.getElementById('f-year').value.trim()||'—',
+    hp:document.getElementById('f-hp').value.trim()||'—',
+    seats:document.getElementById('f-seats').value.trim()||'—',
+    images:[...uploadedImgs],
+    description:document.getElementById('f-desc').value.trim()||''
   });
 
-  await saveToDB();
-  renderV();
-  renderAL();
-  uploadedImages = [];
-  renderUploadPreviews();
-  ['f-brand','f-model','f-price','f-km','f-year','f-hp','f-seats','f-desc'].forEach(id => document.getElementById(id).value = '');
+  await saveDB();
+  renderV(); renderAL();
+  uploadedImgs=[]; renderUpPrev();
+  ['f-brand','f-model','f-price','f-km','f-year','f-hp','f-seats','f-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('btn-add').textContent='+ Ajouter le véhicule';
+  document.getElementById('btn-add').disabled=false;
+  showMsg('add-msg','Véhicule ajouté pour tous les visiteurs ✓','ok');
 }
 
-async function delV(id) {
-  V = V.filter(v => v.id !== id);
-  await saveToDB();
-  renderV();
-  renderAL();
+async function delV(id){
+  if(!confirm('Supprimer ce véhicule pour tous les visiteurs ?')) return;
+  const latest = await dbRead();
+  if(latest!==null) V=latest;
+  V=V.filter(v=>v.id!==id);
+  await saveDB();
+  renderV(); renderAL();
 }
 
-// ========== SCROLL REVEAL ==========
-function obs() {
-  const els = document.querySelectorAll('.reveal:not(.vis)');
-  const o = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); o.unobserve(e.target); } });
-  }, { threshold: .08 });
-  els.forEach(el => o.observe(el));
+function showMsg(elId, text, type) {
+  document.getElementById(elId).innerHTML=`<p class="adm-msg ${type}">${text}</p>`;
+  setTimeout(()=>{document.getElementById(elId).innerHTML=''},3000);
 }
 
-// ========== KEYBOARD ==========
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeVM(); closeAdm(); }
-  if (document.getElementById('v-modal').classList.contains('open')) {
-    if (e.key === 'ArrowLeft') galleryNav(-1);
-    if (e.key === 'ArrowRight') galleryNav(1);
+// ============================================================
+//  SCROLL VIDEO TRANSITION
+// ============================================================
+function handleScroll() {
+  const sec = document.getElementById('video-transition');
+  const rect = sec.getBoundingClientRect();
+  const h = sec.offsetHeight - window.innerHeight;
+  const progress = Math.max(0, Math.min(1, -rect.top / h));
+
+  // Overlay fades: black -> transparent -> black
+  const ov = document.getElementById('video-overlay');
+  if (progress < 0.3) {
+    const p = progress / 0.3;
+    ov.style.background = `linear-gradient(180deg, rgba(10,10,10,${1-p}) 0%, rgba(10,10,10,${1-p*.8}) 30%, rgba(10,10,10,${1-p*.6}) 70%, rgba(10,10,10,1) 100%)`;
+  } else if (progress > 0.7) {
+    const p = (progress - 0.7) / 0.3;
+    ov.style.background = `linear-gradient(180deg, rgba(10,10,10,${p}) 0%, rgba(10,10,10,${p*.8}) 30%, rgba(10,10,10,${p*.6}) 70%, rgba(10,10,10,1) 100%)`;
+  } else {
+    ov.style.background = 'linear-gradient(180deg, transparent 0%, transparent 70%, rgba(10,10,10,.9) 100%)';
+  }
+
+  // Text appears mid-scroll
+  const tag = document.getElementById('video-tagline');
+  tag.classList.toggle('vis', progress > 0.25 && progress < 0.75);
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true });
+
+// ============================================================
+//  SCROLL REVEAL
+// ============================================================
+function obs(){
+  const els=document.querySelectorAll('.reveal:not(.vis)');
+  const o=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target)}})},{threshold:.08});
+  els.forEach(el=>o.observe(el));
+}
+
+// ============================================================
+//  KEYBOARD
+// ============================================================
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeVM();closeAdm()}
+  if(document.getElementById('v-modal').classList.contains('open')){
+    if(e.key==='ArrowLeft')galNav(-1);
+    if(e.key==='ArrowRight')galNav(1);
   }
 });
 
-// ========== INIT ==========
-loadFromDB();
+// ============================================================
+//  INIT
+// ============================================================
+loadDB();
 setTimeout(obs, 200);
+handleScroll();
 </script>
 </body>
 </html>
