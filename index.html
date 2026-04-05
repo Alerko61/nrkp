@@ -344,7 +344,7 @@ window.addEventListener('scroll',handleScroll,{passive:true});
 handleScroll();
 
 // ========== DATA ==========
-const FIREBASE_CONFIG={apiKey:"AIzaSyDEMO_REPLACE_ME",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nrk-prestige"};
+const FIREBASE_CONFIG={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app"};
 const DV=[
 {id:"v1",brand:"Mercedes-Benz",model:"CLA 45 AMG",price:"42 900€",km:"38 500",year:"2021",hp:"387",seats:"5",images:["https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80"],description:"CLA 45 AMG full options, sièges AMG, MBUX."},
 {id:"v2",brand:"BMW",model:"M4 Competition",price:"67 500€",km:"22 000",year:"2022",hp:"510",seats:"4",images:["https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&q=80"],description:"M4 Competition xDrive, pack carbone, Harman Kardon."},
@@ -356,7 +356,7 @@ const DV=[
 let V=[],uImgs=[],gIdx=0,cImgs=[],db=null,fbOK=false;
 
 // ========== FIREBASE ==========
-function initFB(){try{if(FIREBASE_CONFIG.apiKey==="AIzaSyDEMO_REPLACE_ME")return false;firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();return true}catch(e){return false}}
+function initFB(){try{if(FIREBASE_CONFIG.apiKey==="AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g")return false;firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();return true}catch(e){return false}}
 async function dbR(){if(!fbOK)return null;try{const s=await db.ref('vehicles').once('value');const d=s.val();if(!d)return[];return Array.isArray(d)?d.filter(Boolean):Object.values(d)}catch(e){return null}}
 async function dbW(v){if(!fbOK)return false;try{await db.ref('vehicles').set(v);return true}catch(e){return false}}
 function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',s=>{const d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
