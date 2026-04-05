@@ -74,6 +74,7 @@ body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 .v-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .v-brand{font-size:10px;color:#3a3a3a;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px}
 .v-model{font-size:19px;font-weight:600;color:var(--w)}
+.v-fin{font-size:11px;color:var(--dim);margin-top:2px}
 .v-price{font-size:18px;font-weight:600;color:var(--ac);white-space:nowrap}
 .v-specs{display:flex;gap:20px;flex-wrap:wrap;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 .v-sp{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:5px}
@@ -99,14 +100,14 @@ body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 .m-brand{font-size:10px;color:var(--ac);letter-spacing:3px;text-transform:uppercase}
 .m-model{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--w);margin-top:2px}
 .m-price{font-size:24px;font-weight:600;color:var(--ac);margin:14px 0 24px}
-.m-spcs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+.m-spcs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
 .m-sp{background:rgba(10,10,10,.7);border:1px solid #1a1a1a;border-radius:6px;padding:14px;text-align:center}
 .m-sp-l{font-size:9px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
 .m-sp-v{font-size:15px;font-weight:600;color:var(--w)}
 .m-desc{color:#666;line-height:1.8;font-size:14px;margin-bottom:28px}
 .btn{background:var(--w);color:#0a0a0a;border:none;padding:14px 44px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:2px;text-decoration:none;display:inline-block}
 .btn:hover{background:var(--ac);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
-@media(max-width:768px){.m-spcs{grid-template-columns:repeat(3,1fr)!important}.m-gal{height:260px}}
+@media(max-width:768px){.m-spcs{grid-template-columns:repeat(2,1fr)!important}.m-gal{height:260px}}
 
 /* ========== FOOTER ========== */
 .footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a}
@@ -140,6 +141,8 @@ body{background:#0a0a0a;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 .af-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .inp{width:100%;padding:11px 14px;background:#080808;border:1px solid #1e1e1e;border-radius:6px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .3s}
 .inp:focus{border-color:var(--ac)}.inp::placeholder{color:#2a2a2a}
+input[type="month"].inp{color:#d4d4d4}
+input[type="month"].inp::-webkit-calendar-picker-indicator{filter:invert(.6);cursor:pointer}
 textarea.inp{resize:vertical;margin-top:10px}
 .uz{border:1px dashed #2a2a2a;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .3s;margin-top:10px;position:relative;overflow:hidden}
 .uz:hover,.uz.drag{border-color:var(--ac);background:rgba(192,192,192,.02)}
@@ -247,15 +250,13 @@ textarea.inp{resize:vertical;margin-top:10px}
           <div class="af-g">
             <input class="inp" placeholder="Marque *" id="fB">
             <input class="inp" placeholder="Modèle *" id="fM">
+            <input class="inp" placeholder="Finition (ex: AMG Line, RS, M Sport...)" id="fFin">
             <input class="inp" placeholder="Prix" id="fP">
             <input class="inp" placeholder="Kilométrage" id="fK">
-            <input class="inp" placeholder="Année" id="fY">
+            <div><label style="display:block;font-size:10px;color:#444;margin-bottom:4px;letter-spacing:1px;text-transform:uppercase">1ère mise en circulation</label><input class="inp" type="month" id="fY"></div>
             <input class="inp" placeholder="Chevaux" id="fH">
             <select class="inp" id="fFuel"><option value="Essence">⛽ Essence</option><option value="Diesel">⛽ Diesel</option><option value="Hybride">⚡ Hybride</option><option value="Électrique">🔋 Électrique</option></select>
-            <div style="display:flex;gap:16px;align-items:center;padding:6px 0">
-              <label style="display:flex;align-items:center;gap:6px;color:#888;font-size:13px;cursor:pointer"><input type="radio" name="fGear" value="Automatique" checked style="accent-color:var(--ac)"> Automatique</label>
-              <label style="display:flex;align-items:center;gap:6px;color:#888;font-size:13px;cursor:pointer"><input type="radio" name="fGear" value="Manuelle" style="accent-color:var(--ac)"> Manuelle</label>
-            </div>
+            <select class="inp" id="fGear"><option value="Automatique">⚙️ Automatique</option><option value="Manuelle">⚙️ Manuelle</option></select>
           </div>
           <textarea class="inp" placeholder="Description" rows="3" id="fD"></textarea>
           <div class="uz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="event.preventDefault();this.classList.remove('drag');hDrop(event)">
@@ -331,6 +332,12 @@ function fmtPx(v){
   if(isNaN(n))return v;
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' €';
 }
+function fmtDate(v){
+  if(!v||v==='—')return '—';
+  var s=String(v);
+  if(s.indexOf('-')!==-1){var p=s.split('-');if(p.length>=2)return p[1]+'/'+p[0];}
+  return s;
+}
 
 // ========== FIREBASE ==========
 function initFB(){
@@ -395,10 +402,10 @@ function rV(){
     if(img){html+='<img class="v-img" src="'+img+'" alt="'+v.brand+' '+v.model+'" loading="lazy" onerror="this.style.display=\'none\'">';}
     else{html+='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#1a1a1a">Pas de photo</div>';}
     html+=cnt+'</div>';
-    html+='<div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div></div><div class="v-price">'+fmtPx(v.price)+'</div></div>';
+    html+='<div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div>'+(v.fin?'<div class="v-fin">'+v.fin+'</div>':'')+'</div><div class="v-price">'+fmtPx(v.price)+'</div></div>';
     html+='<div class="v-specs">';
     html+='<span class="v-sp">⚡ '+fmtKm(v.km)+'</span>';
-    html+='<span class="v-sp">📅 '+v.year+'</span>';
+    html+='<span class="v-sp">📅 '+fmtDate(v.year)+'</span>';
     html+='<span class="v-sp">🐎 '+v.hp+' ch</span>';
     html+='<span class="v-sp">⛽ '+(v.fuel||'—')+'</span>';
     html+='<span class="v-sp">⚙️ '+(v.gear||'—')+'</span>';
@@ -432,16 +439,17 @@ function openV(id){
   if(!v)return;
   cImgs=v.images||[];gIdx=0;rG();
   document.getElementById('mBrand').textContent=v.brand;
-  document.getElementById('mModel').textContent=v.model;
+  document.getElementById('mModel').textContent=v.model+(v.fin?' — '+v.fin:'');
   document.getElementById('mPrice').textContent=fmtPx(v.price);
   document.getElementById('mDesc').textContent=v.description||'';
   var specs=[
     {l:'Kilométrage',v:fmtKm(v.km)},
-    {l:'Année',v:v.year},
+    {l:'Mise en circulation',v:fmtDate(v.year)},
     {l:'Puissance',v:v.hp+' ch'},
     {l:'Carburant',v:v.fuel||'—'},
     {l:'Boîte',v:v.gear||'—'}
   ];
+  if(v.fin)specs.push({l:'Finition',v:v.fin});
   var sh='';for(var j=0;j<specs.length;j++){sh+='<div class="m-sp"><div class="m-sp-l">'+specs[j].l+'</div><div class="m-sp-v">'+specs[j].v+'</div></div>';}
   document.getElementById('mSpecs').innerHTML=sh;
   document.getElementById('vModal').classList.add('open');
@@ -500,15 +508,15 @@ function addV(){
   var m=document.getElementById('fM').value.trim();
   if(!b||!m){sMsg('aMsg','Marque et modèle requis','err');return}
   var btn=document.getElementById('bAdd');btn.innerHTML='<span class="sp"></span>';btn.disabled=true;
-  var gear=document.querySelector('input[name="fGear"]:checked');
   V.unshift({
     id:'v'+Date.now(),brand:b,model:m,
+    fin:document.getElementById('fFin').value.trim()||'',
     price:document.getElementById('fP').value.trim()||'—',
     km:document.getElementById('fK').value.trim()||'—',
-    year:document.getElementById('fY').value.trim()||'—',
+    year:document.getElementById('fY').value||'—',
     hp:document.getElementById('fH').value.trim()||'—',
     fuel:document.getElementById('fFuel').value,
-    gear:gear?gear.value:'Automatique',
+    gear:document.getElementById('fGear').value,
     images:[].concat(uImgs),
     description:document.getElementById('fD').value.trim()||''
   });
@@ -521,6 +529,7 @@ function editV(id){
   editId=id;
   document.getElementById('fB').value=v.brand||'';
   document.getElementById('fM').value=v.model||'';
+  document.getElementById('fFin').value=v.fin||'';
   document.getElementById('fP').value=v.price||'';
   document.getElementById('fK').value=v.km||'';
   document.getElementById('fY').value=v.year||'';
@@ -528,8 +537,8 @@ function editV(id){
   document.getElementById('fD').value=v.description||'';
   var fuelSel=document.getElementById('fFuel');
   for(var i=0;i<fuelSel.options.length;i++){if(fuelSel.options[i].value===(v.fuel||'Essence')){fuelSel.selectedIndex=i;break;}}
-  var gearRadio=document.querySelector('input[name="fGear"][value="'+(v.gear||'Automatique')+'"]');
-  if(gearRadio)gearRadio.checked=true;
+  var gearSel=document.getElementById('fGear');
+  for(var j=0;j<gearSel.options.length;j++){if(gearSel.options[j].value===(v.gear||'Automatique')){gearSel.selectedIndex=j;break;}}
   uImgs=v.images?[].concat(v.images):[];rUP();
   document.getElementById('bAdd').innerHTML='✏️ Enregistrer les modifications';
   document.getElementById('bAdd').onclick=saveEdit;
@@ -545,14 +554,14 @@ function saveEdit(){
   var m=document.getElementById('fM').value.trim();
   if(!b||!m){sMsg('aMsg','Marque et modèle requis','err');return}
   var btn=document.getElementById('bAdd');btn.innerHTML='<span class="sp"></span>';btn.disabled=true;
-  var gear=document.querySelector('input[name="fGear"]:checked');
   V[idx].brand=b;V[idx].model=m;
+  V[idx].fin=document.getElementById('fFin').value.trim()||'';
   V[idx].price=document.getElementById('fP').value.trim()||'—';
   V[idx].km=document.getElementById('fK').value.trim()||'—';
-  V[idx].year=document.getElementById('fY').value.trim()||'—';
+  V[idx].year=document.getElementById('fY').value||'—';
   V[idx].hp=document.getElementById('fH').value.trim()||'—';
   V[idx].fuel=document.getElementById('fFuel').value;
-  V[idx].gear=gear?gear.value:'Automatique';
+  V[idx].gear=document.getElementById('fGear').value;
   V[idx].images=[].concat(uImgs);
   V[idx].description=document.getElementById('fD').value.trim()||'';
   svDB().then(function(){rV();rAL();cancelEdit();sMsg('aMsg','Véhicule modifié ✓','ok')});
@@ -566,11 +575,11 @@ function cancelEdit(){
 
 function resetForm(){
   uImgs=[];rUP();
-  var ids=['fB','fM','fP','fK','fY','fH','fD'];
+  var ids=['fB','fM','fFin','fP','fK','fH','fD'];
   for(var i=0;i<ids.length;i++){document.getElementById(ids[i]).value='';}
+  document.getElementById('fY').value='';
   document.getElementById('fFuel').selectedIndex=0;
-  var autoRadio=document.querySelector('input[name="fGear"][value="Automatique"]');
-  if(autoRadio)autoRadio.checked=true;
+  document.getElementById('fGear').selectedIndex=0;
 }
 
 function delV(id){
