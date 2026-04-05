@@ -196,7 +196,7 @@ textarea.inp{resize:vertical;margin-top:10px}
       <div>
         <div class="ft-ct">Contact</div>
         <a href="tel:0761509269" class="ft-a">07 61 50 92 69</a>
-        <a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#abc5d9c0dbd9ced8dfc2ccceebccc6cac2c785c8c4c6" class="ft-a"><span class="__cf_email__" data-cfemail="a1cfd3cad1d3c4d2d5c8c6c4e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</span></a>
         <a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" rel="noopener noreferrer" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a>
       </div>
       <div>
@@ -271,7 +271,7 @@ textarea.inp{resize:vertical;margin-top:10px}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ========== SMOKE CANVAS ==========
 (function(){
 const canvas=document.getElementById('smokeCanvas');
@@ -344,7 +344,7 @@ window.addEventListener('scroll',handleScroll,{passive:true});
 handleScroll();
 
 // ========== DATA ==========
-const FIREBASE_CONFIG={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app"};
+const FIREBASE_CONFIG={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",authDomain:"nrk-prestige.firebaseapp.com",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nrk-prestige",storageBucket:"nrk-prestige.firebasestorage.app",messagingSenderId:"671314844628",appId:"1:671314844628:web:6db907b19fc9fb79841441",measurementId:"G-4JB157LXMJ"};
 const DV=[
 {id:"v1",brand:"Mercedes-Benz",model:"CLA 45 AMG",price:"42 900€",km:"38 500",year:"2021",hp:"387",seats:"5",images:["https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80"],description:"CLA 45 AMG full options, sièges AMG, MBUX."},
 {id:"v2",brand:"BMW",model:"M4 Competition",price:"67 500€",km:"22 000",year:"2022",hp:"510",seats:"4",images:["https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&q=80"],description:"M4 Competition xDrive, pack carbone, Harman Kardon."},
@@ -356,7 +356,7 @@ const DV=[
 let V=[],uImgs=[],gIdx=0,cImgs=[],db=null,fbOK=false;
 
 // ========== FIREBASE ==========
-function initFB(){try{if(FIREBASE_CONFIG.apiKey==="AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g")return false;firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();return true}catch(e){return false}}
+function initFB(){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();return true}catch(e){console.error(e);return false}}
 async function dbR(){if(!fbOK)return null;try{const s=await db.ref('vehicles').once('value');const d=s.val();if(!d)return[];return Array.isArray(d)?d.filter(Boolean):Object.values(d)}catch(e){return null}}
 async function dbW(v){if(!fbOK)return false;try{await db.ref('vehicles').set(v);return true}catch(e){return false}}
 function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',s=>{const d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
@@ -397,9 +397,4 @@ function sMsg(el,t,c){document.getElementById(el).innerHTML=`<div class="msg ${c
 // ========== REVEAL ==========
 function obs(){const els=document.querySelectorAll('.reveal:not(.vis)');const o=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target)}})},{threshold:.08});els.forEach(el=>o.observe(el))}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeV();closeA()}if(document.getElementById('vModal').classList.contains('open')){if(e.key==='ArrowLeft')gNav(-1);if(e.key==='ArrowRight')gNav(1)}});
-
-loadDB();setTimeout(obs,200);
-</script>
-</body>
-</html>
+document.addEventListe
