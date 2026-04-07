@@ -62,8 +62,8 @@ function fmtKm(v){var r=fmtN(v);return r==='—'?r:r+' km'}
 function fmtPx(v){var r=fmtN(v);return r==='—'?r:r+' €'}
 function ytId(u){if(!u)return'';var m=u.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:''}
 function mailHref(brand,model){
-  var s=encodeURIComponent('Interesse pour '+brand+' '+model);
-  var b=encodeURIComponent('Bonjour,\n\nJe suis interesse par votre annonce pour la '+brand+' '+model+'.\nPourriez-vous me donner plus d informations sur la disponibilite et organiser une visite ?\n\nCordialement');
+  var s=encodeURIComponent('Intéressé pour '+brand+' '+model);
+  var b=encodeURIComponent('Bonjour,\n\nJe suis intéressé par votre annonce pour la '+brand+' '+model+'.\nPourriez-vous me donner plus d\'informations sur la disponibilité et organiser une visite ?\n\nCordialement');
   var gmail='https://mail.google.com/mail/?view=cm&to=nrkprestige@gmail.com&su='+s+'&body='+b;
   var mailto='mailto:nrkprestige@gmail.com?subject='+s+'&body='+b;
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?mailto:gmail;
