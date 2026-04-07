@@ -81,8 +81,8 @@
       <div>
         <div class="ft-ct">Contact</div>
         <a href="tel:0761509269" class="ft-a">07 61 50 92 69</a>
-        <a href="mailto:ashotsargsyan28&#64;gmail.com" class="ft-a">ashotsargsyan28&#64;gmail.com</a>
-        <a href="mailto:nrkprestige&#64;gmail.com" class="ft-a">nrkprestige&#64;gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#b3d2c0dbdcc7c0d2c1d4c0cad2dd818b9590858788d4ded2dadf9dd0dcde" class="ft-a">ashotsargsyan28&#64;gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#4d233f263d3f283e39242a286b6e7b79762a202c2421632e2220" class="ft-a">nrkprestige&#64;gmail.com</a>
         <a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a>
       </div>
       <div>
@@ -202,7 +202,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){var c=document.getElementById('smokeCanvas'),x=c.getContext('2d'),W,H;function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);function S(){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}S.prototype.update=function(){this.life++;this.x+=this.vx+Math.sin(this.life*.008)*.5;this.y+=this.vy;this.r+=0.3;this.vx*=.999;var p=this.life/this.maxLife;this.opacity=p<.15?p/.15:p>.6?1-(p-.6)/.4:1;this.opacity*=.08;if(this.life>=this.maxLife){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}};S.prototype.draw=function(){var g=x.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);g.addColorStop(0,'rgba(180,180,180,'+this.opacity+')');g.addColorStop(.4,'rgba(140,140,140,'+(this.opacity*.5)+')');g.addColorStop(1,'rgba(100,100,100,0)');x.fillStyle=g;x.beginPath();x.arc(this.x,this.y,this.r,0,Math.PI*2);x.fill()};var P=[];for(var i=0;i<35;i++){var s=new S();s.life=Math.random()*s.maxLife;s.y=Math.random()*H;P.push(s)}(function a(){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){P[i].update();P[i].draw()}requestAnimationFrame(a)})()})();
 function handleScroll(){var y=scrollY,h=innerHeight,p=Math.min(1,y/(h*.6));p=p*p*(3-2*p);document.getElementById('smokeOverlay').style.opacity=1-p*.75}addEventListener('scroll',handleScroll,{passive:true});handleScroll();
 var FC={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",authDomain:"nrk-prestige.firebaseapp.com",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nrk-prestige",storageBucket:"nrk-prestige.firebasestorage.app",messagingSenderId:"671314844628",appId:"1:671314844628:web:6db907b19fc9fb79841441"};
@@ -214,12 +214,12 @@ function ytId(u){if(!u)return'';var m=u.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-
 function initFB(){try{var app;if(firebase.apps&&firebase.apps.length){app=firebase.apps[0]}else{app=firebase.initializeApp(FC)}db=firebase.database(app);return true}catch(e){console.error('FB:',e);return false}}
 function dbR(){if(!fbOK)return Promise.resolve(null);return db.ref('vehicles').once('value').then(function(s){var d=s.val();if(!d)return[];return Array.isArray(d)?d.filter(Boolean):Object.values(d)}).catch(function(){return null})}
 function dbW(v){if(!fbOK)return Promise.resolve(false);return db.ref('vehicles').set(v).then(function(){return true}).catch(function(){return false})}
-function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',function(s){var d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})};
+function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',function(s){var d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
 function loadDB(){setSt('load','');fbOK=initFB();if(fbOK){dbR().then(function(d){if(d!==null){V=d;setSt('ok','En ligne');listenDB()}else{setSt('err','Erreur');ldL()}rV()})}else{setSt('err','Local');ldL();rV()}}
 function ldL(){try{var s=localStorage.getItem('nrk_v5');V=s?JSON.parse(s):[]}catch(e){V=[]}}
 function svL(){try{localStorage.setItem('nrk_v5',JSON.stringify(V))}catch(e){}}
-function svDB(){setSt('load','');if(fbOK){return dbW(V).then(function(ok){setSt(ok?'ok':'err',ok?'OK':'Erreur');if(ok)setTimeout(function(){setSt('ok','En ligne')},2000)})};else{svL();setSt('err','Local');return Promise.resolve()}}
-function refDB(){if(!fbOK){ldL();rV();rAL();return}setSt('load','');dbR().then(function(d){if(d!==null){V=d;rV();rAL();setSt('ok','OK')}else setSt('err','Erreur')})};
+function svDB(){setSt('load','');if(fbOK){return dbW(V).then(function(ok){setSt(ok?'ok':'err',ok?'OK':'Erreur');if(ok)setTimeout(function(){setSt('ok','En ligne')},2000)})}else{svL();setSt('err','Local');return Promise.resolve()}}
+function refDB(){if(!fbOK){ldL();rV();rAL();return}setSt('load','');dbR().then(function(d){if(d!==null){V=d;rV();rAL();setSt('ok','OK')}else setSt('err','Erreur')})}
 function setSt(t,x){var e=document.getElementById('dbSt');e.className='adm-st '+t;e.innerHTML=(t==='load'?'<span class="sp"></span>':'')+x}
 var cardImgIdx={};
 function navCard(id,dir,e){e.stopPropagation();var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}if(!v||!v.images||v.images.length<2)return;if(cardImgIdx[id]===undefined)cardImgIdx[id]=0;cardImgIdx[id]=(cardImgIdx[id]+dir+v.images.length)%v.images.length;var imgs=document.querySelectorAll('[data-card-img="'+id+'"]');for(var j=0;j<imgs.length;j++)imgs[j].classList.remove('on');var t=document.querySelector('[data-card-img="'+id+'"][data-idx="'+cardImgIdx[id]+'"]');if(t)t.classList.add('on');var cnt=document.querySelector('[data-card-cnt="'+id+'"]');if(cnt)cnt.textContent=(cardImgIdx[id]+1)+'/'+v.images.length+' photos';}
@@ -261,10 +261,4 @@ document.addEventListener('DOMContentLoaded',function(){
   cWrap.addEventListener('touchstart',startDrag,{passive:false});
   document.addEventListener('mousemove',moveDrag);
   document.addEventListener('touchmove',moveDrag,{passive:false});
-  document.addEventListener('mouseup',endDrag);
-  document.addEventListener('touchend',endDrag);
-});
-document.getElementById('vModal').addEventListener('click',function(e){if(e.target.id==='vModal')closeV()});
-</script>
-</body>
-</html>
+  document.addEventListener
