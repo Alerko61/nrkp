@@ -84,8 +84,8 @@
       <div>
         <div class="ft-ct">Contact</div>
         <a href="tel:0761509269" class="ft-a">07 61 50 92 69</a>
-        <a id="em1" href="#" class="ft-a"></a>
-        <a id="em2" href="#" class="ft-a"></a>
+        <a href="mailto:ashotsargsyan28&#64;gmail.com" class="ft-a">ashotsargsyan28&#64;gmail.com</a>
+        <a href="mailto:nrkprestige&#64;gmail.com" class="ft-a">nrkprestige&#64;gmail.com</a>
         <a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a>
       </div>
       <div>
@@ -100,10 +100,8 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg>
           </a>
           <!-- LeBonCoin ajouté -->
-          <a href="https://www.leboncoin.fr/boutique/ash_prestige_custom" target="_blank" class="ft-s" aria-label="LeBonCoin">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
-            </svg>
+          <a href="https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm" target="_blank" class="ft-s" aria-label="LeBonCoin" style="padding:4px;overflow:hidden">
+            <img src="https://www.leboncoin.fr/favicon.ico" alt="lbc" style="width:18px;height:18px;object-fit:contain" onerror="this.style.display='none';this.parentNode.innerHTML+='<svg viewBox='0 0 24 24' fill='%23f56b2a' width='15' height='15'><rect x='3' y='3' width='18' height='18' rx='3'/><text x='12' y='16' text-anchor='middle' fill='white' font-size='9' font-family='sans-serif'>lbc</text></svg>'">
           </a>
         </div>
       </div>
@@ -190,7 +188,7 @@ function rV(){
     var lbc=v.leboncoin||'https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm';
     var actH='<div class="v-actions">';
     actH+='<a href="tel:0761509269" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a>';
-    actH+='<a href="'+lbc+'" target="_blank" class="v-action-btn"><img src="https://companieslogo.com/img/orig/leboncoin-5b5f9dd8.png" alt="LeBonCoin">LeBonCoin</a>';
+    actH+='<a href="'+lbc+'" target="_blank" class="v-action-btn"><img src="https://www.leboncoin.fr/favicon.ico" style="width:16px;height:16px;object-fit:contain;border-radius:2px" alt="LeBonCoin">LeBonCoin</a>';
     if(yt) actH+='<a href="https://youtube.com/watch?v='+yt+'" target="_blank" class="v-action-btn"><svg viewBox="0 0 24 24" fill="#ff3333"><path d="M23 9.71s-.23-1.6-.93-2.31c-.89-.93-1.89-.94-2.35-.99C16.4 6.1 12 6.1 12 6.1s-4.4 0-7.72.31c-.46.05-1.46.06-2.35.99-.7.71-.93 2.31-.93 2.31S.77 11.54.77 13.37v1.71c0 1.83.23 3.66.23 3.66s.23 1.6.93 2.31c.89.93 2.07.9 2.59 1 1.88.18 7.48.23 7.48.23s4.4-.01 7.72-.31c.46-.05 1.46-.06 2.35-.99.7-.71.93-2.31.93-2.31s.23-1.83.23-3.66v-1.71c0-1.83-.23-3.66-.23-3.66zM9.55 16.23V9.77L15.73 13l-6.18 3.23z"/></svg>YouTube</a>';
     actH+='</div>';
 
@@ -222,14 +220,7 @@ function rf(){uImgs=[];rUP();['fB','fM','fFin','fP','fK','fY','fH','fCV','fYT','
 function delV(id){if(!confirm('Supprimer ce vehicule ?'))return;V=V.filter(function(v){return v.id!==id});svDB().then(function(){rV();rAL()})}
 function sMsg(el,t,c){document.getElementById(el).innerHTML='<div class="msg '+c+'">'+t+'</div>';setTimeout(function(){try{document.getElementById(el).innerHTML=''}catch(e){}},3500)}
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)'),o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target)}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j])}
-document.addEventListener('DOMContentLoaded',function(){
-  loadDB();obs();
-  var d1='ashotsargsyan28',d2='nrkprestige',g='gmail.com';
-  var e1=document.getElementById('em1');
-  var e2=document.getElementById('em2');
-  if(e1){e1.href='mailto:'+d1+'@'+g;e1.textContent=d1+'@'+g;}
-  if(e2){e2.href='mailto:'+d2+'@'+g;e2.textContent=d2+'@'+g;}
-});
+document.addEventListener('DOMContentLoaded',function(){loadDB();obs();});
 document.getElementById('vModal').addEventListener('click',function(e){if(e.target.id==='vModal')closeV()});
 </script>
 </body>
