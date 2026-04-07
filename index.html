@@ -132,7 +132,7 @@ function fmtN(v){if(!v||v==='—')return'—';var n=parseInt(String(v).replace(/
 function fmtKm(v){var r=fmtN(v);return r==='—'?r:r+' km'}
 function fmtPx(v){var r=fmtN(v);return r==='—'?r:r+' \u20AC'}
 function ytId(u){if(!u)return'';var m=u.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:''}
-function initFB(){try{firebase.initializeApp(FC);db=firebase.database();return true}catch(e){return false}}
+function initFB(){try{var app;if(firebase.apps&&firebase.apps.length){app=firebase.apps[0]}else{app=firebase.initializeApp(FC)}db=firebase.database(app);return true}catch(e){console.error('Firebase init error:',e);return false}}
 function dbR(){if(!fbOK)return Promise.resolve(null);return db.ref('vehicles').once('value').then(function(s){var d=s.val();if(!d)return[];return Array.isArray(d)?d.filter(Boolean):Object.values(d)}).catch(function(){return null})}
 function dbW(v){if(!fbOK)return Promise.resolve(false);return db.ref('vehicles').set(v).then(function(){return true}).catch(function(){return false})}
 function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',function(s){var d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
