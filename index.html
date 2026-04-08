@@ -22,15 +22,34 @@
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes lineGrow{from{width:0}to{width:50px}}@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes spin{to{transform:rotate(360deg)}}.reveal{opacity:0;transform:translateY(35px);transition:all .85s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
 .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative}.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}.hero-h1{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:700;color:#fff;line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-sep{color:#333;font-size:24px;margin:8px 0;letter-spacing:8px}.hero-sub{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ac);line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}.hero-arrow:hover{opacity:1}.hero-arrow svg{animation:bounce 2s ease-in-out infinite}.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}@media(max-width:768px){.hero-h1{font-size:36px!important}.hero-sub{font-size:26px!important}}
 .sec-v{padding:80px 48px 120px;max-width:1240px;margin:0 auto}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}
-.filters{display:flex;flex-direction:column;gap:10px;margin-top:32px;align-items:center}
-.f-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
-.f-btn{background:rgba(255,255,255,.06);border:1px solid #3a3a3a;color:#aaa;padding:7px 16px;border-radius:20px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:1px;cursor:pointer;transition:all .25s;white-space:nowrap}
-.f-btn:hover{border-color:var(--ac);color:var(--w)}
-.f-btn.on{background:rgba(192,192,192,.18);border-color:var(--ac);color:#fff;font-weight:600}
-.f-sep{width:1px;height:18px;background:#1e1e1e}
-.f-range{display:flex;align-items:center;gap:8px;color:#aaa;font-size:11px;font-family:'Outfit',sans-serif}
-.f-range input{width:100px;padding:7px 12px;background:#080808;border:1px solid #1e1e1e;border-radius:20px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:11px;outline:none;text-align:center;transition:border-color .3s}
-.f-range input:focus{border-color:var(--ac)}
+.f-trigger-wrap{display:flex;justify-content:center;margin-top:28px;gap:12px;align-items:center}
+.f-trigger{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid #3a3a3a;color:#ccc;padding:10px 24px;border-radius:24px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.f-trigger:hover{border-color:var(--ac);color:#fff;background:rgba(255,255,255,.12)}
+.f-trigger.active{border-color:var(--ac);color:#fff;background:rgba(192,192,192,.15)}
+.f-badge{background:var(--ac);color:#0a0a0a;border-radius:10px;font-size:9px;font-weight:700;padding:2px 7px;display:none}
+.f-badge.show{display:inline-block}
+.f-panel{display:none;background:rgba(12,12,12,.97);border:1px solid #222;border-radius:14px;padding:28px;margin-top:16px;max-width:680px;margin-left:auto;margin-right:auto;backdrop-filter:blur(20px)}
+.f-panel.open{display:block;animation:fadeUp .3s both}
+.f-section{margin-bottom:24px}
+.f-section:last-child{margin-bottom:0}
+.f-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#555;font-family:'Outfit',sans-serif;margin-bottom:12px}
+.f-chips{display:flex;flex-wrap:wrap;gap:7px}
+.f-chip{background:rgba(255,255,255,.06);border:1px solid #333;color:#aaa;padding:6px 14px;border-radius:16px;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .2s}
+.f-chip:hover{border-color:#888;color:#ddd}
+.f-chip.on{background:rgba(192,192,192,.18);border-color:var(--ac);color:#fff;font-weight:600}
+.f-sliders{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:580px){.f-sliders{grid-template-columns:1fr}}
+.f-slider-item{padding:0}
+.f-slider-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.f-slider-name{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#777;font-family:'Outfit',sans-serif}
+.f-slider-val{font-size:13px;color:#e0e0e0;font-family:'Outfit',sans-serif;font-weight:600}
+.f-slider-track{position:relative;height:3px;background:#2a2a2a;border-radius:2px;margin:8px 8px 4px}
+.f-slider-fill{position:absolute;height:100%;background:var(--ac);border-radius:2px;pointer-events:none}
+.f-slider-thumb{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.6)}
+.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100% + 16px);left:-8px;height:28px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent}
+.f-reset{background:none;border:1px solid #3a3a3a;color:#aaa;padding:8px 22px;border-radius:16px;font-size:10px;font-family:'Outfit',sans-serif;letter-spacing:1px;cursor:pointer;transition:all .2s}
+.f-reset:hover{border-color:var(--ac);color:#fff}
+.f-count{font-size:11px;color:#888;text-align:center;letter-spacing:1px;font-family:'Outfit',sans-serif;margin-top:10px}
 .f-range input::placeholder{color:#333}
 .f-count{font-size:11px;color:#888;text-align:center;margin-top:8px;letter-spacing:1px}
 @media(max-width:768px){.f-btn{font-size:10px;padding:6px 12px}.f-range input{width:80px}}
@@ -59,29 +78,69 @@
 <div class="page">
 <section class="hero" id="hero"><div class="hero-c"><p class="hero-tag">Automobile de prestige</p><h1 class="hero-h1">ASH PRESTIGE CUSTOM</h1><div class="hero-sep">&#10005;</div><div class="hero-sub">NRK PRESTIGE</div><div class="hero-line"></div></div><a href="#vehicles" class="hero-arrow"><span>Explorer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a></section>
 <section class="sec-v" id="vehicles"><div class="reveal"><span class="sec-tag">Notre selection</span><h2 class="sec-h2">Vehicules Disponibles</h2><div class="sec-line"></div></div>
-<div class="filters" id="filters">
-  <div class="f-row">
-    <button class="f-btn on" onclick="setF('status','')">Tous</button>
-    <button class="f-btn" onclick="setF('status','libre')">Disponible</button>
-    <button class="f-btn" onclick="setF('status','reserve')">Reservé</button>
-  </div>
-  <div class="f-row">
-    <button class="f-btn on" onclick="setF('fuel','')">Tous carburants</button>
-    <button class="f-btn" onclick="setF('fuel','Essence')">Essence</button>
-    <button class="f-btn" onclick="setF('fuel','Diesel')">Diesel</button>
-    <button class="f-btn" onclick="setF('fuel','Hybride')">Hybride</button>
-    <button class="f-btn" onclick="setF('fuel','Electrique')">Electrique</button>
-  </div>
-  <div class="f-row">
-    <div class="f-range">
-      <span>Prix max</span>
-      <input type="number" id="fPriceMax" placeholder="€ max" oninput="applyFilters()">
+<div class="f-trigger-wrap">
+  <button class="f-trigger" id="fTrigger" onclick="togglePanel()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filtres
+    <span class="f-badge" id="fBadge">0</span>
+  </button>
+</div>
+<div class="f-panel" id="fPanel">
+  <div class="f-section">
+    <div class="f-section-title">Carburant</div>
+    <div class="f-chips">
+      <button class="f-chip on" data-fuel="">Tous</button>
+      <button class="f-chip" data-fuel="Essence">Essence</button>
+      <button class="f-chip" data-fuel="Diesel">Diesel</button>
+      <button class="f-chip" data-fuel="Hybride">Hybride</button>
+      <button class="f-chip" data-fuel="Electrique">Electrique</button>
     </div>
-    <div class="f-sep"></div>
-    <div class="f-range">
-      <span>Km max</span>
-      <input type="number" id="fKmMax" placeholder="km max" oninput="applyFilters()">
+  </div>
+  <div class="f-section">
+    <div class="f-sliders">
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Prix</span><span class="f-slider-val" id="lblPrice">0 — 100 000 €</span></div>
+        <div class="f-slider-track" id="trackPrice">
+          <div class="f-slider-fill" id="fillPrice"></div>
+          <div class="f-slider-thumb" id="thumbMinPrice"></div>
+          <div class="f-slider-thumb" id="thumbMaxPrice"></div>
+          <input type="range" id="sMinPrice" min="0" max="100000" step="500" value="0" oninput="updateSlider('Price')">
+          <input type="range" id="sMaxPrice" min="0" max="100000" step="500" value="100000" oninput="updateSlider('Price')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Kilométrage</span><span class="f-slider-val" id="lblKm">0 — 300 000 km</span></div>
+        <div class="f-slider-track" id="trackKm">
+          <div class="f-slider-fill" id="fillKm"></div>
+          <div class="f-slider-thumb" id="thumbMinKm"></div>
+          <div class="f-slider-thumb" id="thumbMaxKm"></div>
+          <input type="range" id="sMinKm" min="0" max="300000" step="5000" value="0" oninput="updateSlider('Km')">
+          <input type="range" id="sMaxKm" min="0" max="300000" step="5000" value="300000" oninput="updateSlider('Km')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Année</span><span class="f-slider-val" id="lblYear">2010 — 2025</span></div>
+        <div class="f-slider-track" id="trackYear">
+          <div class="f-slider-fill" id="fillYear"></div>
+          <div class="f-slider-thumb" id="thumbMinYear"></div>
+          <div class="f-slider-thumb" id="thumbMaxYear"></div>
+          <input type="range" id="sMinYear" min="2010" max="2025" step="1" value="2010" oninput="updateSlider('Year')">
+          <input type="range" id="sMaxYear" min="2010" max="2025" step="1" value="2025" oninput="updateSlider('Year')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Puissance</span><span class="f-slider-val" id="lblPower">0 — 600 ch</span></div>
+        <div class="f-slider-track" id="trackPower">
+          <div class="f-slider-fill" id="fillPower"></div>
+          <div class="f-slider-thumb" id="thumbMinPower"></div>
+          <div class="f-slider-thumb" id="thumbMaxPower"></div>
+          <input type="range" id="sMinPower" min="0" max="600" step="10" value="0" oninput="updateSlider('Power')">
+          <input type="range" id="sMaxPower" min="0" max="600" step="10" value="600" oninput="updateSlider('Power')">
+        </div>
+      </div>
     </div>
+    <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #1e1e1e">
+    <button class="f-reset" onclick="resetFilters()">Réinitialiser les filtres</button>
   </div>
 </div>
 <div class="f-count" id="fCount"></div>
@@ -121,29 +180,109 @@ function setSt(t,x){var e=document.getElementById('dbSt');e.className='adm-st '+
 var cardImgIdx={};
 function navCard(id,dir,e){e.stopPropagation();var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}if(!v||!v.images||v.images.length<2)return;if(cardImgIdx[id]===undefined)cardImgIdx[id]=0;cardImgIdx[id]=(cardImgIdx[id]+dir+v.images.length)%v.images.length;var imgs=document.querySelectorAll('[data-card-img="'+id+'"]');for(var j=0;j<imgs.length;j++)imgs[j].classList.remove('on');var t=document.querySelector('[data-card-img="'+id+'"][data-idx="'+cardImgIdx[id]+'"]');if(t)t.classList.add('on');var cnt=document.querySelector('[data-card-cnt="'+id+'"]');if(cnt)cnt.textContent=(cardImgIdx[id]+1)+'/'+v.images.length+' photos'}
 
-var fStatus='',fFuel='';
-function setF(type,val){
-  if(type==='status'){fStatus=val;document.querySelectorAll('#filters .f-btn').forEach(function(b){if(b.textContent.trim()===({'':"Tous",'libre':'Disponible','reserve':'Reservé','vendu':'Vendu'}[val]||'Tous'))b.classList.add('on');else if(['Tous','Disponible','Reservé','Vendu'].indexOf(b.textContent.trim())>=0)b.classList.remove('on')});}
-  if(type==='fuel'){fFuel=val;document.querySelectorAll('#filters .f-btn').forEach(function(b){if(b.textContent.trim()===(val||'Tous carburants'))b.classList.add('on');else if(['Tous carburants','Essence','Diesel','Hybride','Electrique'].indexOf(b.textContent.trim())>=0)b.classList.remove('on')});}
+var fFuels=[];
+function fmtNum(n,suffix){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' '+suffix}
+function togglePanel(){
+  var p=document.getElementById('fPanel');
+  var t=document.getElementById('fTrigger');
+  p.classList.toggle('open');
+  t.classList.toggle('active');
+}
+function toggleFuel(chip){
+  var fuel=chip.getAttribute('data-fuel');
+  if(fuel===''){
+    fFuels=[];
+    document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
+    chip.classList.add('on');
+  } else {
+    document.querySelector('.f-chip[data-fuel=""]').classList.remove('on');
+    chip.classList.toggle('on');
+    fFuels=[];
+    document.querySelectorAll('.f-chip.on').forEach(function(c){if(c.getAttribute('data-fuel'))fFuels.push(c.getAttribute('data-fuel'))});
+    if(fFuels.length===0){document.querySelector('.f-chip[data-fuel=""]').classList.add('on')}
+  }
+  updateBadge();
+  applyFilters();
+}
+function updateBadge(){
+  var count=0;
+  if(fFuels.length>0)count++;
+  if(parseInt(document.getElementById('sMinPrice').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxPrice').value)<100000)count++;
+  if(parseInt(document.getElementById('sMinKm').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxKm').value)<300000)count++;
+  if(parseInt(document.getElementById('sMinYear').value)>2010)count++;
+  if(parseInt(document.getElementById('sMaxYear').value)<2025)count++;
+  if(parseInt(document.getElementById('sMinPower').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxPower').value)<600)count++;
+  var badge=document.getElementById('fBadge');
+  if(count>0){badge.textContent=count;badge.classList.add('show')}else{badge.classList.remove('show')}
+}
+function updateSlider(key){
+  var mn=parseInt(document.getElementById('sMin'+key).value);
+  var mx=parseInt(document.getElementById('sMax'+key).value);
+  if(mn>mx){if(event&&event.target&&event.target.id==='sMin'+key)document.getElementById('sMin'+key).value=mx;else document.getElementById('sMax'+key).value=mn;mn=parseInt(document.getElementById('sMin'+key).value);mx=parseInt(document.getElementById('sMax'+key).value);}
+  var inputMin=document.getElementById('sMin'+key);
+  var minR=parseFloat(inputMin.min),maxR=parseFloat(inputMin.max);
+  var pMin=(mn-minR)/(maxR-minR)*100;
+  var pMax=(mx-minR)/(maxR-minR)*100;
+  document.getElementById('fill'+key).style.left=pMin+'%';
+  document.getElementById('fill'+key).style.width=(pMax-pMin)+'%';
+  var tMin=document.getElementById('thumbMin'+key);
+  var tMax=document.getElementById('thumbMax'+key);
+  if(tMin)tMin.style.left='calc('+pMin+'% - 8px)';
+  if(tMax)tMax.style.left='calc('+pMax+'% - 8px)';
+  var lbl=document.getElementById('lbl'+key);
+  if(key==='Price')lbl.textContent=fmtNum(mn,'')+'— '+fmtNum(mx,'€');
+  else if(key==='Km')lbl.textContent=fmtNum(mn,'')+'— '+fmtNum(mx,'km');
+  else if(key==='Year')lbl.textContent=mn+' — '+mx;
+  else if(key==='Power')lbl.textContent=mn+' — '+mx+' ch';
+  updateBadge();
   applyFilters();
 }
 function applyFilters(){
-  var priceMax=parseInt(document.getElementById('fPriceMax').value)||Infinity;
-  var kmMax=parseInt(document.getElementById('fKmMax').value)||Infinity;
+  var minPrice=parseInt(document.getElementById('sMinPrice').value)||0;
+  var maxPrice=parseInt(document.getElementById('sMaxPrice').value)||Infinity;
+  var minKm=parseInt(document.getElementById('sMinKm').value)||0;
+  var maxKm=parseInt(document.getElementById('sMaxKm').value)||Infinity;
+  var minYear=parseInt(document.getElementById('sMinYear').value)||0;
+  var maxYear=parseInt(document.getElementById('sMaxYear').value)||9999;
+  var minPow=parseInt(document.getElementById('sMinPower').value)||0;
+  var maxPow=parseInt(document.getElementById('sMaxPower').value)||Infinity;
   var cards=document.querySelectorAll('#vGrid .v-card');
   var shown=0;
   for(var i=0;i<V.length;i++){
     var v=V[i];
-    var statusOk=!fStatus||v.status===fStatus;
-    var fuelOk=!fFuel||v.fuel===fFuel;
-    var price=parseInt(String(v.price||'').replace(/[\s€]/g,''))||0;
-    var km=parseInt(String(v.km||'').replace(/[\skm]/g,''))||0;
-    var priceOk=!price||price<=priceMax;
-    var kmOk=!km||km<=kmMax;
-    if(cards[i]){cards[i].style.display=(statusOk&&fuelOk&&priceOk&&kmOk)?'':'none';if(statusOk&&fuelOk&&priceOk&&kmOk)shown++;}
+    var fuelOk=fFuels.length===0||fFuels.indexOf(v.fuel)>=0;
+    var price=parseInt(String(v.price||'').replace(/[^\d]/g,''))||0;
+    var km=parseInt(String(v.km||'').replace(/[^\d]/g,''))||0;
+    var year=parseInt(String(v.year||'').replace(/[^\d]/g,'').substring(0,4))||0;
+    var power=parseInt(v.hp)||0;
+    var priceOk=!price||(price>=minPrice&&price<=maxPrice);
+    var kmOk=!km||(km>=minKm&&km<=maxKm);
+    var yearOk=!year||(year>=minYear&&year<=maxYear);
+    var powOk=!power||(power>=minPow&&power<=maxPow);
+    var ok=fuelOk&&priceOk&&kmOk&&yearOk&&powOk;
+    if(cards[i]){cards[i].style.display=ok?'':'none';if(ok)shown++;}
   }
   var fc=document.getElementById('fCount');
-  if(fc)fc.textContent=shown+' vehicule'+(shown>1?'s':'')+' trouvé'+(shown>1?'s':'');
+  if(fc)fc.textContent=shown>0?shown+' véhicule'+(shown>1?'s':'')+' trouvé'+(shown>1?'s':''):'';
+}
+function resetFilters(){
+  fFuels=[];
+  document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
+  var allChip=document.querySelector('.f-chip[data-fuel=""]');
+  if(allChip)allChip.classList.add('on');
+  ['sMinPrice','sMaxPrice'].forEach(function(id,i){document.getElementById(id).value=i===0?0:100000});
+  ['sMinKm','sMaxKm'].forEach(function(id,i){document.getElementById(id).value=i===0?0:300000});
+  ['sMinYear','sMaxYear'].forEach(function(id,i){document.getElementById(id).value=i===0?2010:2025});
+  ['sMinPower','sMaxPower'].forEach(function(id,i){document.getElementById(id).value=i===0?0:600});
+  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  updateBadge();applyFilters();
+}
+function initSliders(){
+  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  document.querySelectorAll('.f-chip').forEach(function(chip){chip.addEventListener('click',function(){toggleFuel(this)})});
 }
 function rV(){var g=document.getElementById('vGrid');if(!V.length){g.innerHTML='<p class="v-empty">Aucun vehicule disponible.</p>';return}var h='';for(var i=0;i<V.length;i++){var v=V[i],imgs=v.images&&v.images.length?v.images:[],hasMulti=imgs.length>1,st=v.status||'libre',stL={libre:'Disponible',reserve:'Reserve',vendu:'Vendu'};var imgH='';if(imgs.length){for(var k=0;k<imgs.length;k++)imgH+='<img class="v-img'+(k===0?' on':'')+'" src="'+imgs[k]+'" alt="'+v.brand+'" data-card-img="'+v.id+'" data-idx="'+k+'" loading="lazy">';}else imgH='<div class="v-soon">Bientot disponible</div>';var cntH=hasMulti?'<span class="v-img-count" data-card-cnt="'+v.id+'">1/'+imgs.length+' photos</span>':'';var arrH=hasMulti?'<button class="v-arr prev" onclick="navCard(\''+v.id+'\',-1,event)">&#8249;</button><button class="v-arr next" onclick="navCard(\''+v.id+'\',1,event)">&#8250;</button>':'';var yt=ytId(v.youtube),lbc=v.leboncoin||'https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm',ml=mailHref(v.brand,v.model);var actH='<div class="v-actions"><a href="tel:0761509269" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a><a href="'+lbc+'" target="_blank" class="v-action-btn"><img src="https://www.leboncoin.fr/favicon.ico" alt="lbc" onerror="this.style.display=\'none\'">LeBonCoin</a><a href="'+ml+'" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>'+(yt?'<a href="https://youtube.com/watch?v='+yt+'" target="_blank" class="v-action-btn"><svg viewBox="0 0 24 24" fill="#ff3333" width="16" height="16"><path d="M23 9.71s-.23-1.6-.93-2.31c-.89-.93-1.89-.94-2.35-.99C16.4 6.1 12 6.1 12 6.1s-4.4 0-7.72.31c-.46.05-1.46.06-2.35.99-.7.71-.93 2.31-.93 2.31S.77 11.54.77 13.37v1.71c0 1.83.23 3.66.23 3.66s.23 1.6.93 2.31c.89.93 2.07.9 2.59 1 1.88.18 7.48.23 7.48.23s4.4-.01 7.72-.31c.46-.05 1.46-.06 2.35-.99.7-.71.93-2.31.93-2.31s.23-1.83.23-3.66v-1.71c0-1.83-.23-3.66-.23-3.66zM9.55 16.23V9.77L15.73 13l-6.18 3.23z"/></svg>YouTube</a>':'')+'</div>';h+='<article class="v-card reveal" style="transition-delay:'+i*.06+'s"><span class="v-status '+st+'">'+stL[st]+'</span><div class="v-img-w">'+imgH+cntH+arrH+'</div><div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div>'+(v.fin?'<div class="v-fin">'+v.fin+'</div>':'')+'</div><div style="text-align:right"><div class="v-price">'+fmtPx(v.price)+'</div>'+(v.tva?'<span class="v-tva">TVA recuperable</span>':'')+'</div></div><div class="v-specs"><span class="v-sp">'+fmtKm(v.km)+'</span><span class="v-sp">'+(v.year||'—')+'</span><span class="v-sp">'+(v.hp||'—')+' ch</span>'+(v.cv?'<span class="v-sp">'+v.cv+' CV</span>':'')+'<span class="v-sp">'+(v.fuel||'—')+'</span><span class="v-sp">'+(v.gear||'—')+'</span></div>'+actH+'</div></article>';}g.innerHTML=h;setTimeout(function(){obs();applyFilters();},80)}
 function rAL(){document.getElementById('vCnt').textContent='Vehicules ('+V.length+')';var h='';for(var i=0;i<V.length;i++){var v=V[i],st=v.status||'libre',c=st==='reserve'?'#fbbf24':st==='vendu'?'#ef4444':'#22c55e';h+='<div class="vli"><div class="vli-ord"><button onclick="moveV('+i+',-1)">&#9650;</button><button onclick="moveV('+i+',1)">&#9660;</button></div><div class="vli-i">'+(v.images&&v.images[0]?'<img src="'+v.images[0]+'" class="vli-t" alt="">':'<div class="vli-t"></div>')+'<div><div class="vli-b">'+v.brand+'</div><div class="vli-m">'+v.model+'</div></div></div><span style="width:8px;height:8px;border-radius:50%;background:'+c+';flex-shrink:0"></span><span class="vli-p">'+fmtPx(v.price)+'</span><div class="vli-acts"><button onclick="editV(\''+v.id+'\')">Modifier</button><button class="bdel" onclick="delV(\''+v.id+'\')">Suppr.</button></div></div>';}document.getElementById('aList').innerHTML=h}
@@ -176,7 +315,7 @@ function closeCrop(){document.getElementById('cropOv').classList.remove('open');
 function getRelPos(e,el){var r=el.getBoundingClientRect(),cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;return{x:Math.max(0,Math.min(cx-r.left,r.width)),y:Math.max(0,Math.min(cy-r.top,r.height))}}
 function applyCrop(){if(cropIdx<0||cropW<5||cropH<5){closeCrop();return}var img=document.getElementById('cropImg'),scaleX=img.naturalWidth/img.offsetWidth,scaleY=img.naturalHeight/img.offsetHeight,canvas=document.createElement('canvas');canvas.width=Math.round(cropW*scaleX);canvas.height=Math.round(cropH*scaleY);canvas.getContext('2d').drawImage(img,Math.round(cropX*scaleX),Math.round(cropY*scaleY),canvas.width,canvas.height,0,0,canvas.width,canvas.height);uImgs[cropIdx]=canvas.toDataURL('image/jpeg',.85);rUP();closeCrop()}
 document.addEventListener('DOMContentLoaded',function(){
-  loadDB();obs();
+  loadDB();obs();initSliders();
   var cWrap=document.getElementById('cropWrap');
   function startDrag(e){if(!document.getElementById('cropOv').classList.contains('open'))return;e.preventDefault();var p=getRelPos(e,cWrap);cropSX=p.x;cropSY=p.y;cropDragging=true;var sel=document.getElementById('cropSel');sel.style.display='block';sel.style.left=cropSX+'px';sel.style.top=cropSY+'px';sel.style.width='0';sel.style.height='0'}
   function moveDrag(e){if(!cropDragging)return;e.preventDefault();var p=getRelPos(e,cWrap),x=Math.min(p.x,cropSX),y=Math.min(p.y,cropSY),w=Math.abs(p.x-cropSX),h=Math.abs(p.y-cropSY);cropX=x;cropY=y;cropW=w;cropH=h;var sel=document.getElementById('cropSel');sel.style.left=x+'px';sel.style.top=y+'px';sel.style.width=w+'px';sel.style.height=h+'px';document.getElementById('cropInfo').textContent=Math.round(w)+' x '+Math.round(h)+' px'}
