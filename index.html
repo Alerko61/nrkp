@@ -28,8 +28,8 @@
 .f-trigger.active{border-color:var(--ac);color:#fff;background:rgba(192,192,192,.15)}
 .f-badge{background:var(--ac);color:#0a0a0a;border-radius:10px;font-size:9px;font-weight:700;padding:2px 7px;display:none}
 .f-badge.show{display:inline-block}
-.f-panel{display:none;background:rgba(12,12,12,.97);border:1px solid #222;border-radius:14px;padding:28px;margin-top:16px;max-width:680px;margin-left:auto;margin-right:auto;backdrop-filter:blur(20px)}
-.f-panel.open{display:block;animation:fadeUp .3s both}
+.f-panel{display:none;position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:rgba(12,12,12,.98);border:1px solid #2a2a2a;border-radius:14px;padding:28px;width:min(680px,90vw);backdrop-filter:blur(20px);z-index:100;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.f-panel.open{display:block;animation:fadeUp .25s both}
 .f-section{margin-bottom:24px}
 .f-section:last-child{margin-bottom:0}
 .f-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#555;font-family:'Outfit',sans-serif;margin-bottom:12px}
@@ -78,7 +78,7 @@
 <div class="page">
 <section class="hero" id="hero"><div class="hero-c"><p class="hero-tag">Automobile de prestige</p><h1 class="hero-h1">ASH PRESTIGE CUSTOM</h1><div class="hero-sep">&#10005;</div><div class="hero-sub">NRK PRESTIGE</div><div class="hero-line"></div></div><a href="#vehicles" class="hero-arrow"><span>Explorer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a></section>
 <section class="sec-v" id="vehicles"><div class="reveal"><span class="sec-tag">Notre selection</span><h2 class="sec-h2">Vehicules Disponibles</h2><div class="sec-line"></div></div>
-<div class="f-trigger-wrap">
+<div style="position:relative"><div class="f-trigger-wrap">
   <button class="f-trigger" id="fTrigger" onclick="togglePanel()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
     Filtres
@@ -142,6 +142,7 @@
     <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #1e1e1e">
     <button class="f-reset" onclick="resetFilters()">Réinitialiser les filtres</button>
   </div>
+</div>
 </div>
 <div class="f-count" id="fCount"></div>
 <div class="v-grid" id="vGrid"><p class="v-empty"><span class="sp"></span> Chargement...</p></div></section>
