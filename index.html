@@ -46,7 +46,7 @@
 .f-slider-track{position:relative;height:3px;background:#2a2a2a;border-radius:2px;margin:8px 8px 4px}
 .f-slider-fill{position:absolute;height:100%;background:var(--ac);border-radius:2px;pointer-events:none}
 .f-slider-thumb{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.6)}
-.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100% + 16px);left:-8px;height:28px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent;z-index:1}.f-slider-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;cursor:pointer}
+.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100% + 16px);left:-8px;height:28px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent;pointer-events:none}.f-slider-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;cursor:pointer;pointer-events:all}
 .f-reset{background:none;border:1px solid #3a3a3a;color:#aaa;padding:8px 22px;border-radius:16px;font-size:10px;font-family:'Outfit',sans-serif;letter-spacing:1px;cursor:pointer;transition:all .2s}
 .f-reset:hover{border-color:var(--ac);color:#fff}
 .f-count{font-size:11px;color:#888;text-align:center;letter-spacing:1px;font-family:'Outfit',sans-serif;margin-top:10px}
@@ -191,6 +191,7 @@ function updateSlider(key){
   else if(key==='Km')lbl.textContent=fmtNum(mn,'')+'— '+fmtNum(mx,'km');
   else if(key==='Year')lbl.textContent=mn+' — '+mx;
   else if(key==='Power')lbl.textContent=mn+' — '+mx+' ch';
+  updateSliderZ(key);
   updateBadge();
   applyFilters();
 }
@@ -237,6 +238,23 @@ function resetFilters(){
 function initSliders(){
   ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
   document.querySelectorAll('.f-chip').forEach(function(chip){chip.addEventListener('click',function(){toggleFuel(this)})});
+}
+function updateSliderZ(key){
+  var elMin=document.getElementById('sMin'+key);
+  var elMax=document.getElementById('sMax'+key);
+  var mn=parseInt(elMin.value);
+  var mx=parseInt(elMax.value);
+  var minR=parseFloat(elMin.min),maxR=parseFloat(elMin.max);
+  var pMin=(mn-minR)/(maxR-minR);
+  var pMax=(mx-minR)/(maxR-minR);
+  // Si les deux thumbs sont proches, donner priorité selon position
+  if(pMax-pMin<0.05){
+    elMin.style.zIndex=pMin>0.5?2:1;
+    elMax.style.zIndex=pMin>0.5?1:2;
+  } else {
+    elMin.style.zIndex=1;
+    elMax.style.zIndex=2;
+  }
 }
 function rV(){var g=document.getElementById('vGrid');if(!V.length){g.innerHTML='<p class="v-empty">Aucun vehicule disponible.</p>';return}var h='';for(var i=0;i<V.length;i++){var v=V[i],imgs=v.images&&v.images.length?v.images:[],hasMulti=imgs.length>1,st=v.status||'libre',stL={libre:'Disponible',reserve:'Reserve',vendu:'Vendu'};var imgH='';if(imgs.length){for(var k=0;k<imgs.length;k++)imgH+='<img class="v-img'+(k===0?' on':'')+'" src="'+imgs[k]+'" alt="'+v.brand+'" data-card-img="'+v.id+'" data-idx="'+k+'" loading="lazy">';}else imgH='<div class="v-soon">Bientot disponible</div>';var cntH=hasMulti?'<span class="v-img-count" data-card-cnt="'+v.id+'">1/'+imgs.length+' photos</span>':'';var arrH=hasMulti?'<button class="v-arr prev" onclick="navCard(\''+v.id+'\',-1,event)">&#8249;</button><button class="v-arr next" onclick="navCard(\''+v.id+'\',1,event)">&#8250;</button>':'';var yt=ytId(v.youtube),lbc=v.leboncoin||'https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm',ml=mailHref(v.brand,v.model);var actH='<div class="v-actions"><a href="tel:0761509269" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a><a href="'+lbc+'" target="_blank" class="v-action-btn"><img src="https://www.leboncoin.fr/favicon.ico" alt="lbc" onerror="this.style.display=\'none\'">LeBonCoin</a><a href="'+ml+'" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>'+(yt?'<a href="https://youtube.com/watch?v='+yt+'" target="_blank" class="v-action-btn"><svg viewBox="0 0 24 24" fill="#ff3333" width="16" height="16"><path d="M23 9.71s-.23-1.6-.93-2.31c-.89-.93-1.89-.94-2.35-.99C16.4 6.1 12 6.1 12 6.1s-4.4 0-7.72.31c-.46.05-1.46.06-2.35.99-.7.71-.93 2.31-.93 2.31S.77 11.54.77 13.37v1.71c0 1.83.23 3.66.23 3.66s.23 1.6.93 2.31c.89.93 2.07.9 2.59 1 1.88.18 7.48.23 7.48.23s4.4-.01 7.72-.31c.46-.05 1.46-.06 2.35-.99.7-.71.93-2.31.93-2.31s.23-1.83.23-3.66v-1.71c0-1.83-.23-3.66-.23-3.66zM9.55 16.23V9.77L15.73 13l-6.18 3.23z"/></svg>YouTube</a>':'')+'</div>';h+='<article class="v-card reveal" style="transition-delay:'+i*.06+'s"><span class="v-status '+st+'">'+stL[st]+'</span><div class="v-img-w">'+imgH+cntH+arrH+'</div><div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div>'+(v.fin?'<div class="v-fin">'+v.fin+'</div>':'')+'</div><div style="text-align:right"><div class="v-price">'+fmtPx(v.price)+'</div>'+(v.tva?'<span class="v-tva">TVA recuperable</span>':'')+'</div></div><div class="v-specs"><span class="v-sp">'+fmtKm(v.km)+'</span><span class="v-sp">'+(v.year||'—')+'</span><span class="v-sp">'+(v.hp||'—')+' ch</span>'+(v.cv?'<span class="v-sp">'+v.cv+' CV</span>':'')+'<span class="v-sp">'+(v.fuel||'—')+'</span><span class="v-sp">'+(v.gear||'—')+'</span></div>'+actH+'</div></article>';}g.innerHTML=h;setTimeout(function(){obs();applyFilters();},80)}
 function rAL(){document.getElementById('vCnt').textContent='Vehicules ('+V.length+')';var h='';for(var i=0;i<V.length;i++){var v=V[i],st=v.status||'libre',c=st==='reserve'?'#fbbf24':st==='vendu'?'#ef4444':'#22c55e';h+='<div class="vli"><div class="vli-ord"><button onclick="moveV('+i+',-1)">&#9650;</button><button onclick="moveV('+i+',1)">&#9660;</button></div><div class="vli-i">'+(v.images&&v.images[0]?'<img src="'+v.images[0]+'" class="vli-t" alt="">':'<div class="vli-t"></div>')+'<div><div class="vli-b">'+v.brand+'</div><div class="vli-m">'+v.model+'</div></div></div><span style="width:8px;height:8px;border-radius:50%;background:'+c+';flex-shrink:0"></span><span class="vli-p">'+fmtPx(v.price)+'</span><div class="vli-acts"><button onclick="editV(\''+v.id+'\')">Modifier</button><button class="bdel" onclick="delV(\''+v.id+'\')">Suppr.</button></div></div>';}document.getElementById('aList').innerHTML=h}
