@@ -272,7 +272,7 @@ function closeCrop(){document.getElementById('cropOv').classList.remove('open');
 function getRelPos(e,el){var r=el.getBoundingClientRect(),cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;return{x:Math.max(0,Math.min(cx-r.left,r.width)),y:Math.max(0,Math.min(cy-r.top,r.height))}}
 function applyCrop(){if(cropIdx<0||cropW<5||cropH<5){closeCrop();return}var img=document.getElementById('cropImg'),scaleX=img.naturalWidth/img.offsetWidth,scaleY=img.naturalHeight/img.offsetHeight,canvas=document.createElement('canvas');canvas.width=Math.round(cropW*scaleX);canvas.height=Math.round(cropH*scaleY);canvas.getContext('2d').drawImage(img,Math.round(cropX*scaleX),Math.round(cropY*scaleY),canvas.width,canvas.height,0,0,canvas.width,canvas.height);uImgs[cropIdx]=canvas.toDataURL('image/jpeg',.85);rUP();closeCrop()}
 document.addEventListener('DOMContentLoaded',function(){
-  loadDB();obs();initSliders();initSliders();
+  loadDB();obs();initSliders();
   var cWrap=document.getElementById('cropWrap');
   function startDrag(e){if(!document.getElementById('cropOv').classList.contains('open'))return;e.preventDefault();var p=getRelPos(e,cWrap);cropSX=p.x;cropSY=p.y;cropDragging=true;var sel=document.getElementById('cropSel');sel.style.display='block';sel.style.left=cropSX+'px';sel.style.top=cropSY+'px';sel.style.width='0';sel.style.height='0'}
   function moveDrag(e){if(!cropDragging)return;e.preventDefault();var p=getRelPos(e,cWrap),x=Math.min(p.x,cropSX),y=Math.min(p.y,cropSY),w=Math.abs(p.x-cropSX),h=Math.abs(p.y-cropSY);cropX=x;cropY=y;cropW=w;cropH=h;var sel=document.getElementById('cropSel');sel.style.left=x+'px';sel.style.top=y+'px';sel.style.width=w+'px';sel.style.height=h+'px';document.getElementById('cropInfo').textContent=Math.round(w)+' x '+Math.round(h)+' px'}
@@ -285,6 +285,111 @@ document.addEventListener('DOMContentLoaded',function(){
   document.addEventListener('touchend',endDrag);
 });
 document.getElementById('vModal').addEventListener('click',function(e){if(e.target.id==='vModal')closeV()});
+
+var fFuels=[];
+function fmtNum(n,suffix){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+(suffix?' '+suffix:'')}
+function togglePanel(){
+  var p=document.getElementById('fPanel');
+  var t=document.getElementById('fTrigger');
+  var o=document.getElementById('fOverlay');
+  p.classList.toggle('open');
+  t.classList.toggle('active');
+  o.classList.toggle('open');
+  document.body.style.overflow=p.classList.contains('open')?'hidden':'';
+}
+function toggleFuel(chip){
+  var fuel=chip.getAttribute('data-fuel');
+  if(fuel===''){
+    fFuels=[];
+    document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
+    chip.classList.add('on');
+  } else {
+    document.querySelector('.f-chip[data-fuel=""]').classList.remove('on');
+    chip.classList.toggle('on');
+    fFuels=[];
+    document.querySelectorAll('.f-chip.on').forEach(function(c){if(c.getAttribute('data-fuel'))fFuels.push(c.getAttribute('data-fuel'))});
+    if(fFuels.length===0)document.querySelector('.f-chip[data-fuel=""]').classList.add('on');
+  }
+  updateBadge();applyFilters();
+}
+function updateBadge(){
+  var count=fFuels.length>0?1:0;
+  if(parseInt(document.getElementById('sMinPrice').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxPrice').value)<100000)count++;
+  if(parseInt(document.getElementById('sMinKm').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxKm').value)<300000)count++;
+  if(parseInt(document.getElementById('sMinYear').value)>2010)count++;
+  if(parseInt(document.getElementById('sMaxYear').value)<2025)count++;
+  if(parseInt(document.getElementById('sMinPower').value)>0)count++;
+  if(parseInt(document.getElementById('sMaxPower').value)<600)count++;
+  var badge=document.getElementById('fBadge');
+  if(count>0){badge.textContent=count;badge.classList.add('show')}else badge.classList.remove('show');
+}
+function updateSlider(key){
+  var elMin=document.getElementById('sMin'+key);
+  var elMax=document.getElementById('sMax'+key);
+  var mn=parseInt(elMin.value),mx=parseInt(elMax.value);
+  if(mn>=mx){
+    if(event&&event.target===elMin){elMin.value=Math.max(parseFloat(elMin.min),mx-parseInt(elMin.step||1));mn=parseInt(elMin.value);}
+    else{elMax.value=Math.min(parseFloat(elMax.max),mn+parseInt(elMax.step||1));mx=parseInt(elMax.value);}
+  }
+  var minR=parseFloat(elMin.min),maxR=parseFloat(elMin.max);
+  var pMin=(mn-minR)/(maxR-minR)*100;
+  var pMax=(mx-minR)/(maxR-minR)*100;
+  elMin.style.zIndex=pMin>50?2:1;
+  elMax.style.zIndex=pMin>50?1:2;
+  document.getElementById('fill'+key).style.left=pMin+'%';
+  document.getElementById('fill'+key).style.width=(pMax-pMin)+'%';
+  var tMin=document.getElementById('thumbMin'+key);
+  var tMax=document.getElementById('thumbMax'+key);
+  if(tMin)tMin.style.left='calc('+pMin+'% - 7px)';
+  if(tMax)tMax.style.left='calc('+pMax+'% - 7px)';
+  var lbl=document.getElementById('lbl'+key);
+  if(key==='Price')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'€');
+  else if(key==='Km')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'km');
+  else if(key==='Year')lbl.textContent=mn+' — '+mx;
+  else if(key==='Power')lbl.textContent=mn+' — '+mx+' ch';
+  updateBadge();applyFilters();
+}
+function applyFilters(){
+  var minPrice=parseInt(document.getElementById('sMinPrice').value)||0;
+  var maxPrice=parseInt(document.getElementById('sMaxPrice').value)||Infinity;
+  var minKm=parseInt(document.getElementById('sMinKm').value)||0;
+  var maxKm=parseInt(document.getElementById('sMaxKm').value)||Infinity;
+  var minYear=parseInt(document.getElementById('sMinYear').value)||0;
+  var maxYear=parseInt(document.getElementById('sMaxYear').value)||9999;
+  var minPow=parseInt(document.getElementById('sMinPower').value)||0;
+  var maxPow=parseInt(document.getElementById('sMaxPower').value)||Infinity;
+  var cards=document.querySelectorAll('#vGrid .v-card');
+  var shown=0;
+  for(var i=0;i<V.length;i++){
+    var v=V[i];
+    var fuelOk=fFuels.length===0||fFuels.indexOf(v.fuel)>=0;
+    var price=parseInt(String(v.price||'').replace(/[^\d]/g,''))||0;
+    var km=parseInt(String(v.km||'').replace(/[^\d]/g,''))||0;
+    var year=parseInt(String(v.year||'').replace(/[^\d]/g,'').substring(0,4))||0;
+    var power=parseInt(v.hp)||0;
+    var ok=fuelOk&&(!price||(price>=minPrice&&price<=maxPrice))&&(!km||(km>=minKm&&km<=maxKm))&&(!year||(year>=minYear&&year<=maxYear))&&(!power||(power>=minPow&&power<=maxPow));
+    if(cards[i]){cards[i].style.display=ok?'':'none';if(ok)shown++;}
+  }
+  var fc=document.getElementById('fCount');
+  if(fc)fc.textContent=shown>0?shown+' véhicule'+(shown>1?'s':'')+' trouvé'+(shown>1?'s':''):'';
+}
+function resetFilters(){
+  fFuels=[];
+  document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
+  document.querySelector('.f-chip[data-fuel=""]').classList.add('on');
+  document.getElementById('sMinPrice').value=0;document.getElementById('sMaxPrice').value=100000;
+  document.getElementById('sMinKm').value=0;document.getElementById('sMaxKm').value=300000;
+  document.getElementById('sMinYear').value=2010;document.getElementById('sMaxYear').value=2025;
+  document.getElementById('sMinPower').value=0;document.getElementById('sMaxPower').value=600;
+  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  updateBadge();applyFilters();
+}
+function initSliders(){
+  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  document.querySelectorAll('.f-chip').forEach(function(chip){chip.addEventListener('click',function(){toggleFuel(this)})});
+}
 </script>
 </body>
 </html>
