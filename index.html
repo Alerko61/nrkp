@@ -28,8 +28,8 @@
 .f-trigger.active{border-color:var(--ac);color:#fff;background:rgba(192,192,192,.15)}
 .f-badge{background:var(--ac);color:#0a0a0a;border-radius:10px;font-size:9px;font-weight:700;padding:2px 7px;display:none}
 .f-badge.show{display:inline-block}
-.f-panel{display:none;position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:rgba(12,12,12,.98);border:1px solid #2a2a2a;border-radius:14px;padding:28px;width:min(680px,90vw);backdrop-filter:blur(20px);z-index:100;box-shadow:0 20px 60px rgba(0,0,0,.7)}
-.f-panel.open{display:block;animation:fadeUp .25s both}
+.f-panel{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(10,10,10,.98);border:1px solid #2a2a2a;border-radius:14px;padding:28px;width:min(680px,92vw);max-height:85vh;overflow-y:auto;backdrop-filter:blur(24px);z-index:1500;box-shadow:0 30px 80px rgba(0,0,0,.8)}
+.f-panel.open{display:block;animation:fadeUp .25s both}.f-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1499;backdrop-filter:blur(2px)}.f-overlay.open{display:block}
 .f-section{margin-bottom:24px}
 .f-section:last-child{margin-bottom:0}
 .f-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#555;font-family:'Outfit',sans-serif;margin-bottom:12px}
@@ -78,71 +78,12 @@
 <div class="page">
 <section class="hero" id="hero"><div class="hero-c"><p class="hero-tag">Automobile de prestige</p><h1 class="hero-h1">ASH PRESTIGE CUSTOM</h1><div class="hero-sep">&#10005;</div><div class="hero-sub">NRK PRESTIGE</div><div class="hero-line"></div></div><a href="#vehicles" class="hero-arrow"><span>Explorer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a></section>
 <section class="sec-v" id="vehicles"><div class="reveal"><span class="sec-tag">Notre selection</span><h2 class="sec-h2">Vehicules Disponibles</h2><div class="sec-line"></div></div>
-<div style="position:relative"><div class="f-trigger-wrap">
+<div class="f-trigger-wrap">
   <button class="f-trigger" id="fTrigger" onclick="togglePanel()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
     Filtres
     <span class="f-badge" id="fBadge">0</span>
   </button>
-</div>
-<div class="f-panel" id="fPanel">
-  <div class="f-section">
-    <div class="f-section-title">Carburant</div>
-    <div class="f-chips">
-      <button class="f-chip on" data-fuel="">Tous</button>
-      <button class="f-chip" data-fuel="Essence">Essence</button>
-      <button class="f-chip" data-fuel="Diesel">Diesel</button>
-      <button class="f-chip" data-fuel="Hybride">Hybride</button>
-      <button class="f-chip" data-fuel="Electrique">Electrique</button>
-    </div>
-  </div>
-  <div class="f-section">
-    <div class="f-sliders">
-      <div class="f-slider-item">
-        <div class="f-slider-label"><span class="f-slider-name">Prix</span><span class="f-slider-val" id="lblPrice">0 — 100 000 €</span></div>
-        <div class="f-slider-track" id="trackPrice">
-          <div class="f-slider-fill" id="fillPrice"></div>
-          <div class="f-slider-thumb" id="thumbMinPrice"></div>
-          <div class="f-slider-thumb" id="thumbMaxPrice"></div>
-          <input type="range" id="sMinPrice" min="0" max="100000" step="500" value="0" oninput="updateSlider('Price')">
-          <input type="range" id="sMaxPrice" min="0" max="100000" step="500" value="100000" oninput="updateSlider('Price')">
-        </div>
-      </div>
-      <div class="f-slider-item">
-        <div class="f-slider-label"><span class="f-slider-name">Kilométrage</span><span class="f-slider-val" id="lblKm">0 — 300 000 km</span></div>
-        <div class="f-slider-track" id="trackKm">
-          <div class="f-slider-fill" id="fillKm"></div>
-          <div class="f-slider-thumb" id="thumbMinKm"></div>
-          <div class="f-slider-thumb" id="thumbMaxKm"></div>
-          <input type="range" id="sMinKm" min="0" max="300000" step="5000" value="0" oninput="updateSlider('Km')">
-          <input type="range" id="sMaxKm" min="0" max="300000" step="5000" value="300000" oninput="updateSlider('Km')">
-        </div>
-      </div>
-      <div class="f-slider-item">
-        <div class="f-slider-label"><span class="f-slider-name">Année</span><span class="f-slider-val" id="lblYear">2010 — 2025</span></div>
-        <div class="f-slider-track" id="trackYear">
-          <div class="f-slider-fill" id="fillYear"></div>
-          <div class="f-slider-thumb" id="thumbMinYear"></div>
-          <div class="f-slider-thumb" id="thumbMaxYear"></div>
-          <input type="range" id="sMinYear" min="2010" max="2025" step="1" value="2010" oninput="updateSlider('Year')">
-          <input type="range" id="sMaxYear" min="2010" max="2025" step="1" value="2025" oninput="updateSlider('Year')">
-        </div>
-      </div>
-      <div class="f-slider-item">
-        <div class="f-slider-label"><span class="f-slider-name">Puissance</span><span class="f-slider-val" id="lblPower">0 — 600 ch</span></div>
-        <div class="f-slider-track" id="trackPower">
-          <div class="f-slider-fill" id="fillPower"></div>
-          <div class="f-slider-thumb" id="thumbMinPower"></div>
-          <div class="f-slider-thumb" id="thumbMaxPower"></div>
-          <input type="range" id="sMinPower" min="0" max="600" step="10" value="0" oninput="updateSlider('Power')">
-          <input type="range" id="sMaxPower" min="0" max="600" step="10" value="600" oninput="updateSlider('Power')">
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #1e1e1e">
-    <button class="f-reset" onclick="resetFilters()">Réinitialiser les filtres</button>
-  </div>
-</div>
 </div>
 <div class="f-count" id="fCount"></div>
 <div class="v-grid" id="vGrid"><p class="v-empty"><span class="sp"></span> Chargement...</p></div></section>
@@ -186,8 +127,11 @@ function fmtNum(n,suffix){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' 
 function togglePanel(){
   var p=document.getElementById('fPanel');
   var t=document.getElementById('fTrigger');
+  var o=document.getElementById('fOverlay');
   p.classList.toggle('open');
   t.classList.toggle('active');
+  o.classList.toggle('open');
+  document.body.style.overflow=p.classList.contains('open')?'hidden':'';
 }
 function toggleFuel(chip){
   var fuel=chip.getAttribute('data-fuel');
@@ -330,5 +274,64 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 document.getElementById('vModal').addEventListener('click',function(e){if(e.target.id==='vModal')closeV()});
 </script>
+<div class="f-overlay" id="fOverlay" onclick="togglePanel()"></div>
+<div class="f-panel" id="fPanel">
+  <div class="f-section">
+    <div class="f-section-title">Carburant</div>
+    <div class="f-chips">
+      <button class="f-chip on" data-fuel="">Tous</button>
+      <button class="f-chip" data-fuel="Essence">Essence</button>
+      <button class="f-chip" data-fuel="Diesel">Diesel</button>
+      <button class="f-chip" data-fuel="Hybride">Hybride</button>
+      <button class="f-chip" data-fuel="Electrique">Electrique</button>
+    </div>
+  </div>
+  <div class="f-section">
+    <div class="f-sliders">
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Prix</span><span class="f-slider-val" id="lblPrice">0 — 100 000 €</span></div>
+        <div class="f-slider-track" id="trackPrice">
+          <div class="f-slider-fill" id="fillPrice"></div>
+          <div class="f-slider-thumb" id="thumbMinPrice"></div>
+          <div class="f-slider-thumb" id="thumbMaxPrice"></div>
+          <input type="range" id="sMinPrice" min="0" max="100000" step="500" value="0" oninput="updateSlider('Price')">
+          <input type="range" id="sMaxPrice" min="0" max="100000" step="500" value="100000" oninput="updateSlider('Price')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Kilométrage</span><span class="f-slider-val" id="lblKm">0 — 300 000 km</span></div>
+        <div class="f-slider-track" id="trackKm">
+          <div class="f-slider-fill" id="fillKm"></div>
+          <div class="f-slider-thumb" id="thumbMinKm"></div>
+          <div class="f-slider-thumb" id="thumbMaxKm"></div>
+          <input type="range" id="sMinKm" min="0" max="300000" step="5000" value="0" oninput="updateSlider('Km')">
+          <input type="range" id="sMaxKm" min="0" max="300000" step="5000" value="300000" oninput="updateSlider('Km')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Année</span><span class="f-slider-val" id="lblYear">2010 — 2025</span></div>
+        <div class="f-slider-track" id="trackYear">
+          <div class="f-slider-fill" id="fillYear"></div>
+          <div class="f-slider-thumb" id="thumbMinYear"></div>
+          <div class="f-slider-thumb" id="thumbMaxYear"></div>
+          <input type="range" id="sMinYear" min="2010" max="2025" step="1" value="2010" oninput="updateSlider('Year')">
+          <input type="range" id="sMaxYear" min="2010" max="2025" step="1" value="2025" oninput="updateSlider('Year')">
+        </div>
+      </div>
+      <div class="f-slider-item">
+        <div class="f-slider-label"><span class="f-slider-name">Puissance</span><span class="f-slider-val" id="lblPower">0 — 600 ch</span></div>
+        <div class="f-slider-track" id="trackPower">
+          <div class="f-slider-fill" id="fillPower"></div>
+          <div class="f-slider-thumb" id="thumbMinPower"></div>
+          <div class="f-slider-thumb" id="thumbMaxPower"></div>
+          <input type="range" id="sMinPower" min="0" max="600" step="10" value="0" oninput="updateSlider('Power')">
+          <input type="range" id="sMaxPower" min="0" max="600" step="10" value="600" oninput="updateSlider('Power')">
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:1px solid #1e1e1e">
+    <button class="f-reset" onclick="resetFilters()">Réinitialiser les filtres</button>
+  </div>
+</div>
 </body>
 </html>
