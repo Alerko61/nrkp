@@ -46,7 +46,7 @@
 .f-slider-track{position:relative;height:3px;background:#2a2a2a;border-radius:2px;margin:8px 8px 4px}
 .f-slider-fill{position:absolute;height:100%;background:var(--ac);border-radius:2px;pointer-events:none}
 .f-slider-thumb{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.6)}
-.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100% + 16px);left:-8px;height:28px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent}
+.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100% + 16px);left:-8px;height:28px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent;z-index:1}.f-slider-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;cursor:pointer}
 .f-reset{background:none;border:1px solid #3a3a3a;color:#aaa;padding:8px 22px;border-radius:16px;font-size:10px;font-family:'Outfit',sans-serif;letter-spacing:1px;cursor:pointer;transition:all .2s}
 .f-reset:hover{border-color:var(--ac);color:#fff}
 .f-count{font-size:11px;color:#888;text-align:center;letter-spacing:1px;font-family:'Outfit',sans-serif;margin-top:10px}
@@ -164,13 +164,22 @@ function updateBadge(){
   if(count>0){badge.textContent=count;badge.classList.add('show')}else{badge.classList.remove('show')}
 }
 function updateSlider(key){
-  var mn=parseInt(document.getElementById('sMin'+key).value);
-  var mx=parseInt(document.getElementById('sMax'+key).value);
-  if(mn>mx){if(event&&event.target&&event.target.id==='sMin'+key)document.getElementById('sMin'+key).value=mx;else document.getElementById('sMax'+key).value=mn;mn=parseInt(document.getElementById('sMin'+key).value);mx=parseInt(document.getElementById('sMax'+key).value);}
-  var inputMin=document.getElementById('sMin'+key);
-  var minR=parseFloat(inputMin.min),maxR=parseFloat(inputMin.max);
+  var elMin=document.getElementById('sMin'+key);
+  var elMax=document.getElementById('sMax'+key);
+  var mn=parseInt(elMin.value);
+  var mx=parseInt(elMax.value);
+  // Empêcher croisement
+  if(mn>=mx){
+    if(event&&event.target===elMin){elMin.value=mx-parseInt(elMin.step||1);mn=parseInt(elMin.value);}
+    else{elMax.value=mn+parseInt(elMax.step||1);mx=parseInt(elMax.value);}
+  }
+  // Z-index : donner priorité au slider dont le thumb est à gauche
+  var minR=parseFloat(elMin.min),maxR=parseFloat(elMin.max);
   var pMin=(mn-minR)/(maxR-minR)*100;
   var pMax=(mx-minR)/(maxR-minR)*100;
+  // Si min est proche du max (droite), lui donner le z-index supérieur
+  elMin.style.zIndex=pMin>50?2:1;
+  elMax.style.zIndex=pMin>50?1:2;
   document.getElementById('fill'+key).style.left=pMin+'%';
   document.getElementById('fill'+key).style.width=(pMax-pMin)+'%';
   var tMin=document.getElementById('thumbMin'+key);
