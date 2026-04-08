@@ -70,11 +70,11 @@
 .f-slider-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
 .f-slider-name{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#666;font-family:'Outfit',sans-serif}
 .f-slider-val{font-size:13px;color:#ddd;font-family:'Outfit',sans-serif;font-weight:600}
-.f-slider-track{position:relative;height:3px;background:#252525;border-radius:2px;margin:10px 8px 6px}
+.f-slider-track{position:relative;height:4px;background:#252525;border-radius:2px;margin:14px 8px 8px;cursor:pointer;user-select:none}
 .f-slider-fill{position:absolute;height:100%;background:var(--ac);border-radius:2px;pointer-events:none}
-.f-slider-thumb{position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);pointer-events:none;box-shadow:0 1px 6px rgba(0,0,0,.5)}
-.f-slider-track input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;width:calc(100%+16px);left:-8px;height:26px;top:50%;transform:translateY(-50%);opacity:0;cursor:pointer;margin:0;background:transparent;pointer-events:none}
-.f-slider-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;cursor:pointer;pointer-events:all}
+.f-slider-thumb{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);cursor:grab;box-shadow:0 1px 6px rgba(0,0,0,.6);z-index:2;transition:transform .1s}
+.f-slider-thumb:active{cursor:grabbing;transform:translateY(-50%) scale(1.2)}
+.f-slider-thumb.dragging{cursor:grabbing;transform:translateY(-50%) scale(1.2);z-index:3}
 .f-reset{background:none;border:1px solid #2a2a2a;color:#999;padding:8px 22px;border-radius:16px;font-size:10px;font-family:'Outfit',sans-serif;letter-spacing:1px;cursor:pointer;transition:all .2s}
 .f-reset:hover{border-color:var(--ac);color:#fff}
 .f-count{font-size:11px;color:#888;text-align:center;letter-spacing:1px;font-family:'Outfit',sans-serif;margin-top:12px}
@@ -112,43 +112,35 @@
     <div class="f-sliders">
     <div class="f-slider-item">
       <div class="f-slider-label"><span class="f-slider-name">Prix</span><span class="f-slider-val" id="lblPrice">0 — 100 000 €</span></div>
-      <div class="f-slider-track" id="trackPrice">
+      <div class="f-slider-track" id="trackPrice" data-min="0" data-max="100000" data-step="500" data-unit="€" data-key="Price">
         <div class="f-slider-fill" id="fillPrice"></div>
-        <div class="f-slider-thumb" id="thumbMinPrice"></div>
-        <div class="f-slider-thumb" id="thumbMaxPrice"></div>
-        <input type="range" id="sMinPrice" min="0" max="100000" step="500" value="0" oninput="updateSlider('Price')">
-        <input type="range" id="sMaxPrice" min="0" max="100000" step="500" value="100000" oninput="updateSlider('Price')">
-      </div>
+        <div class="f-slider-thumb" id="thumbMinPrice" data-role="min"></div>
+        <div class="f-slider-thumb" id="thumbMaxPrice" data-role="max"></div>
+        </div>
     </div>
     <div class="f-slider-item">
       <div class="f-slider-label"><span class="f-slider-name">Kilométrage</span><span class="f-slider-val" id="lblKm">0 — 300 000 km</span></div>
-      <div class="f-slider-track" id="trackKm">
+      <div class="f-slider-track" id="trackKm" data-min="0" data-max="300000" data-step="5000" data-unit="km" data-key="Km">
         <div class="f-slider-fill" id="fillKm"></div>
-        <div class="f-slider-thumb" id="thumbMinKm"></div>
-        <div class="f-slider-thumb" id="thumbMaxKm"></div>
-        <input type="range" id="sMinKm" min="0" max="300000" step="5000" value="0" oninput="updateSlider('Km')">
-        <input type="range" id="sMaxKm" min="0" max="300000" step="5000" value="300000" oninput="updateSlider('Km')">
-      </div>
+        <div class="f-slider-thumb" id="thumbMinKm" data-role="min"></div>
+        <div class="f-slider-thumb" id="thumbMaxKm" data-role="max"></div>
+        </div>
     </div>
     <div class="f-slider-item">
       <div class="f-slider-label"><span class="f-slider-name">Année</span><span class="f-slider-val" id="lblYear">2010 — 2025</span></div>
-      <div class="f-slider-track" id="trackYear">
+      <div class="f-slider-track" id="trackYear" data-min="2010" data-max="2025" data-step="1" data-unit="" data-key="Year">
         <div class="f-slider-fill" id="fillYear"></div>
-        <div class="f-slider-thumb" id="thumbMinYear"></div>
-        <div class="f-slider-thumb" id="thumbMaxYear"></div>
-        <input type="range" id="sMinYear" min="2010" max="2025" step="1" value="2010" oninput="updateSlider('Year')">
-        <input type="range" id="sMaxYear" min="2010" max="2025" step="1" value="2025" oninput="updateSlider('Year')">
-      </div>
+        <div class="f-slider-thumb" id="thumbMinYear" data-role="min"></div>
+        <div class="f-slider-thumb" id="thumbMaxYear" data-role="max"></div>
+        </div>
     </div>
     <div class="f-slider-item">
       <div class="f-slider-label"><span class="f-slider-name">Puissance</span><span class="f-slider-val" id="lblPower">0 — 600 ch</span></div>
-      <div class="f-slider-track" id="trackPower">
+      <div class="f-slider-track" id="trackPower" data-min="0" data-max="600" data-step="10" data-unit="ch" data-key="Power">
         <div class="f-slider-fill" id="fillPower"></div>
-        <div class="f-slider-thumb" id="thumbMinPower"></div>
-        <div class="f-slider-thumb" id="thumbMaxPower"></div>
-        <input type="range" id="sMinPower" min="0" max="600" step="10" value="0" oninput="updateSlider('Power')">
-        <input type="range" id="sMaxPower" min="0" max="600" step="10" value="600" oninput="updateSlider('Power')">
-      </div>
+        <div class="f-slider-thumb" id="thumbMinPower" data-role="min"></div>
+        <div class="f-slider-thumb" id="thumbMaxPower" data-role="max"></div>
+        </div>
     </div>
     </div>
   </div>
@@ -219,14 +211,10 @@ function updateSlider(key){
   applyFilters();
 }
 function applyFilters(){
-  var minPrice=parseInt(document.getElementById('sMinPrice').value)||0;
-  var maxPrice=parseInt(document.getElementById('sMaxPrice').value)||Infinity;
-  var minKm=parseInt(document.getElementById('sMinKm').value)||0;
-  var maxKm=parseInt(document.getElementById('sMaxKm').value)||Infinity;
-  var minYear=parseInt(document.getElementById('sMinYear').value)||0;
-  var maxYear=parseInt(document.getElementById('sMaxYear').value)||9999;
-  var minPow=parseInt(document.getElementById('sMinPower').value)||0;
-  var maxPow=parseInt(document.getElementById('sMaxPower').value)||Infinity;
+  var minPrice=sliderVals.Price[0],maxPrice=sliderVals.Price[1];
+  var minKm=sliderVals.Km[0],maxKm=sliderVals.Km[1];
+  var minYear=sliderVals.Year[0],maxYear=sliderVals.Year[1];
+  var minPow=sliderVals.Power[0],maxPow=sliderVals.Power[1];
   var cards=document.querySelectorAll('#vGrid .v-card');
   var shown=0;
   for(var i=0;i<V.length;i++){
@@ -322,52 +310,74 @@ function toggleFuel(chip){
 }
 function updateBadge(){
   var count=fFuels.length>0?1:0;
-  if(parseInt(document.getElementById('sMinPrice').value)>0)count++;
-  if(parseInt(document.getElementById('sMaxPrice').value)<100000)count++;
-  if(parseInt(document.getElementById('sMinKm').value)>0)count++;
-  if(parseInt(document.getElementById('sMaxKm').value)<300000)count++;
-  if(parseInt(document.getElementById('sMinYear').value)>2010)count++;
-  if(parseInt(document.getElementById('sMaxYear').value)<2025)count++;
-  if(parseInt(document.getElementById('sMinPower').value)>0)count++;
-  if(parseInt(document.getElementById('sMaxPower').value)<600)count++;
+  if(sliderVals.Price[0]>0||sliderVals.Price[1]<100000)count++;
+  if(sliderVals.Km[0]>0||sliderVals.Km[1]<300000)count++;
+  if(sliderVals.Year[0]>2010||sliderVals.Year[1]<2025)count++;
+  if(sliderVals.Power[0]>0||sliderVals.Power[1]<600)count++;
   var badge=document.getElementById('fBadge');
   if(count>0){badge.textContent=count;badge.classList.add('show')}else badge.classList.remove('show');
 }
-function updateSlider(key){
-  var elMin=document.getElementById('sMin'+key);
-  var elMax=document.getElementById('sMax'+key);
-  var mn=parseInt(elMin.value),mx=parseInt(elMax.value);
-  if(mn>=mx){
-    if(event&&event.target===elMin){elMin.value=Math.max(parseFloat(elMin.min),mx-parseInt(elMin.step||1));mn=parseInt(elMin.value);}
-    else{elMax.value=Math.min(parseFloat(elMax.max),mn+parseInt(elMax.step||1));mx=parseInt(elMax.value);}
-  }
-  var minR=parseFloat(elMin.min),maxR=parseFloat(elMin.max);
-  var pMin=(mn-minR)/(maxR-minR)*100;
-  var pMax=(mx-minR)/(maxR-minR)*100;
-  elMin.style.zIndex=pMin>50?2:1;
-  elMax.style.zIndex=pMin>50?1:2;
+var sliderVals={Price:[0,100000],Km:[0,300000],Year:[2010,2025],Power:[0,600]};
+var sliderCfg={Price:{min:0,max:100000,step:500,unit:'€'},Km:{min:0,max:300000,step:5000,unit:'km'},Year:{min:2010,max:2025,step:1,unit:''},Power:{min:0,max:600,step:10,unit:'ch'}};
+function snapVal(key,v){var s=sliderCfg[key].step;return Math.round(v/s)*s;}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function renderSlider(key){
+  var cfg=sliderCfg[key];
+  var mn=sliderVals[key][0],mx=sliderVals[key][1];
+  var pMin=(mn-cfg.min)/(cfg.max-cfg.min)*100;
+  var pMax=(mx-cfg.min)/(cfg.max-cfg.min)*100;
   document.getElementById('fill'+key).style.left=pMin+'%';
   document.getElementById('fill'+key).style.width=(pMax-pMin)+'%';
-  var tMin=document.getElementById('thumbMin'+key);
-  var tMax=document.getElementById('thumbMax'+key);
-  if(tMin)tMin.style.left='calc('+pMin+'% - 7px)';
-  if(tMax)tMax.style.left='calc('+pMax+'% - 7px)';
+  document.getElementById('thumbMin'+key).style.left='calc('+pMin+'% - 8px)';
+  document.getElementById('thumbMax'+key).style.left='calc('+pMax+'% - 8px)';
   var lbl=document.getElementById('lbl'+key);
-  if(key==='Price')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'€');
-  else if(key==='Km')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'km');
-  else if(key==='Year')lbl.textContent=mn+' — '+mx;
-  else if(key==='Power')lbl.textContent=mn+' — '+mx+' ch';
+  if(cfg.unit==='€')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'€');
+  else if(cfg.unit==='km')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'km');
+  else if(cfg.unit==='ch')lbl.textContent=mn+' — '+mx+' ch';
+  else lbl.textContent=mn+' — '+mx;
   updateBadge();applyFilters();
 }
+function initDrag(key){
+  var track=document.getElementById('track'+key);
+  var cfg=sliderCfg[key];
+  function getVal(clientX){
+    var r=track.getBoundingClientRect();
+    var ratio=clamp((clientX-r.left)/r.width,0,1);
+    return snapVal(key,cfg.min+ratio*(cfg.max-cfg.min));
+  }
+  function startDrag(role,e){
+    e.preventDefault();
+    var thumb=document.getElementById('thumb'+role+key);
+    thumb.classList.add('dragging');
+    function onMove(ev){
+      var cx=ev.touches?ev.touches[0].clientX:ev.clientX;
+      var v=getVal(cx);
+      if(role==='Min'){sliderVals[key][0]=clamp(v,cfg.min,sliderVals[key][1]-cfg.step);}
+      else{sliderVals[key][1]=clamp(v,sliderVals[key][0]+cfg.step,cfg.max);}
+      renderSlider(key);
+    }
+    function onEnd(){
+      thumb.classList.remove('dragging');
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onEnd);
+      document.removeEventListener('touchmove',onMove);
+      document.removeEventListener('touchend',onEnd);
+    }
+    document.addEventListener('mousemove',onMove,{passive:false});
+    document.addEventListener('mouseup',onEnd);
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('touchend',onEnd);
+  }
+  document.getElementById('thumbMin'+key).addEventListener('mousedown',function(e){startDrag('Min',e)});
+  document.getElementById('thumbMin'+key).addEventListener('touchstart',function(e){startDrag('Min',e)},{passive:false});
+  document.getElementById('thumbMax'+key).addEventListener('mousedown',function(e){startDrag('Max',e)});
+  document.getElementById('thumbMax'+key).addEventListener('touchstart',function(e){startDrag('Max',e)},{passive:false});
+}
 function applyFilters(){
-  var minPrice=parseInt(document.getElementById('sMinPrice').value)||0;
-  var maxPrice=parseInt(document.getElementById('sMaxPrice').value)||Infinity;
-  var minKm=parseInt(document.getElementById('sMinKm').value)||0;
-  var maxKm=parseInt(document.getElementById('sMaxKm').value)||Infinity;
-  var minYear=parseInt(document.getElementById('sMinYear').value)||0;
-  var maxYear=parseInt(document.getElementById('sMaxYear').value)||9999;
-  var minPow=parseInt(document.getElementById('sMinPower').value)||0;
-  var maxPow=parseInt(document.getElementById('sMaxPower').value)||Infinity;
+  var minPrice=sliderVals.Price[0],maxPrice=sliderVals.Price[1];
+  var minKm=sliderVals.Km[0],maxKm=sliderVals.Km[1];
+  var minYear=sliderVals.Year[0],maxYear=sliderVals.Year[1];
+  var minPow=sliderVals.Power[0],maxPow=sliderVals.Power[1];
   var cards=document.querySelectorAll('#vGrid .v-card');
   var shown=0;
   for(var i=0;i<V.length;i++){
@@ -387,15 +397,12 @@ function resetFilters(){
   fFuels=[];
   document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
   document.querySelector('.f-chip[data-fuel=""]').classList.add('on');
-  document.getElementById('sMinPrice').value=0;document.getElementById('sMaxPrice').value=100000;
-  document.getElementById('sMinKm').value=0;document.getElementById('sMaxKm').value=300000;
-  document.getElementById('sMinYear').value=2010;document.getElementById('sMaxYear').value=2025;
-  document.getElementById('sMinPower').value=0;document.getElementById('sMaxPower').value=600;
-  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  sliderVals={Price:[0,100000],Km:[0,300000],Year:[2010,2025],Power:[0,600]};
+  ['Price','Km','Year','Power'].forEach(function(k){renderSlider(k)});
   updateBadge();applyFilters();
 }
 function initSliders(){
-  ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k)});
+  ['Price','Km','Year','Power'].forEach(function(k){renderSlider(k);initDrag(k)});
   document.querySelectorAll('.f-chip').forEach(function(chip){chip.addEventListener('click',function(){toggleFuel(this)})});
 }
 </script>
