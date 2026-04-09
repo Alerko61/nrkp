@@ -485,11 +485,13 @@ function applyFilters(){
   var minYear=sliderVals.Year[0],maxYear=sliderVals.Year[1];
   var minPow=sliderVals.Power[0],maxPow=sliderVals.Power[1];
   var isDefault=minPrice===0&&maxPrice===100000&&minKm===0&&maxKm===300000&&minYear===2010&&maxYear===2025&&minPow===0&&maxPow===600&&fFuels.length===0;
+  var cards=document.querySelectorAll('[data-vid]');
+  console.log('applyFilters: V='+V.length+' cards='+cards.length+' isDefault='+isDefault);
   var shown=0;
   for(var i=0;i<V.length;i++){
     var v=V[i];
     var card=document.querySelector('[data-vid="'+v.id+'"]');
-    if(!card)continue;
+    if(!card){console.log('no card for',v.id);continue;}
     if(isDefault){card.style.display='';shown++;continue;}
     var fuelOk=fFuels.length===0||fFuels.indexOf(v.fuel)>=0;
     var price=parseInt(String(v.price||'').replace(/[^0-9]/g,''))||0;
@@ -501,6 +503,7 @@ function applyFilters(){
     var yearOk=year===0||(year>=minYear&&year<=maxYear);
     var powOk=power===0||(power>=minPow&&power<=maxPow);
     var ok=fuelOk&&priceOk&&kmOk&&yearOk&&powOk;
+    if(!ok)console.log('masqué:',v.brand,v.model,'price='+price,'isDefault='+isDefault,'priceOk='+priceOk,'kmOk='+kmOk,'yearOk='+yearOk);
     card.style.display=ok?'':'none';
     if(ok)shown++;
   }
