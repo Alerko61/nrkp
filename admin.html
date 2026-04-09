@@ -210,7 +210,7 @@ function rAL(){
     h+='<div class="vli-info"><div class="vli-brand">'+v.brand+'</div><div class="vli-model">'+v.model+(v.fin?' — '+v.fin:'')+'</div></div>';
     h+='<span style="width:8px;height:8px;border-radius:50%;background:'+c+';flex-shrink:0"></span>';
     h+='<span class="vli-price">'+fmtPx(v.price)+'</span>';
-    h+='<div class="vli-acts"><button onclick="editV(''+v.id+'')">Modifier</button><button class="bdel" onclick="delV(''+v.id+'')">Suppr.</button></div></div>';
+    h+='<div class="vli-acts"><button onclick="editV(\''+v.id+'\')">' + 'Modifier</button><button class="bdel" onclick="delV(\''+v.id+'\')">' + 'Suppr.</button></div></div>';
   }
   document.getElementById('aList').innerHTML=h||'<p style="color:#333;font-size:12px;padding:20px 0;text-align:center">Aucun véhicule</p>';
 }
