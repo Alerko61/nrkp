@@ -222,7 +222,7 @@ function applyFilters(){
     var fuelOk=!fFuel||v.fuel===fFuel;
     var price=parseInt(String(v.price||'').replace(/[^0-9]/g,''))||0;
     var km=parseInt(String(v.km||'').replace(/[^0-9]/g,''))||0;
-    var year=parseInt(String(v.year||'').replace(/[^0-9]/g,'').substring(0,4))||0;
+    var yearStr=String(v.year||'');var yearMatch=yearStr.match(/\b(20\d{2}|19\d{2})\b/);var year=yearMatch?parseInt(yearMatch[1]):0;
     var power=parseInt(v.hp)||0;
     var priceOk=!price||(price>=minPrice&&price<=maxPrice);
     var kmOk=!km||(km>=minKm&&km<=maxKm);
@@ -496,7 +496,7 @@ function applyFilters(){
     var fuelOk=fFuels.length===0||fFuels.indexOf(v.fuel)>=0;
     var price=parseInt(String(v.price||'').replace(/[^0-9]/g,''))||0;
     var km=parseInt(String(v.km||'').replace(/[^0-9]/g,''))||0;
-    var year=parseInt(String(v.year||'').replace(/[^0-9]/g,'').substring(0,4))||0;
+    var yearStr=String(v.year||'');var yearMatch=yearStr.match(/\b(20\d{2}|19\d{2})\b/);var year=yearMatch?parseInt(yearMatch[1]):0;
     var power=parseInt(v.hp)||0;
     var priceOk=price===0||(price>=minPrice&&price<=maxPrice);
     var kmOk=km===0||(km>=minKm&&km<=maxKm);
