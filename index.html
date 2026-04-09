@@ -30,7 +30,7 @@
 .f-badge.show{display:inline-block}
 .f-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1499}
 .f-overlay.open{display:block}
-.f-panel{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#0d0d0d;border:1px solid #252525;border-radius:16px;padding:28px 26px;width:min(660px,94vw);max-height:88vh;overflow-y:auto;z-index:1500;box-shadow:0 24px 80px rgba(0,0,0,.9)}
+.f-panel{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#0d0d0d;border:1px solid #252525;border-radius:16px;padding:28px 26px;width:min(660px,94vw);max-height:88vh;overflow-y:visible;z-index:1500;box-shadow:0 24px 80px rgba(0,0,0,.9)}
 .f-panel.open{display:block}
 .f-section{margin-bottom:26px}
 .f-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#555;font-family:'Outfit',sans-serif;margin-bottom:12px}
@@ -45,8 +45,9 @@
 .f-slider-val{font-size:13px;color:#ddd;font-family:'Outfit',sans-serif;font-weight:600}
 .f-slider-track{position:relative;height:3px;background:#252525;border-radius:2px;margin:10px 8px 6px;cursor:pointer;user-select:none}
 .f-slider-fill{position:absolute;height:100%;background:var(--ac);border-radius:2px;pointer-events:none}
-.f-slider-thumb{position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translateY(-50%);cursor:grab;box-shadow:0 1px 6px rgba(0,0,0,.6);z-index:2}
-.f-slider-thumb.dragging{cursor:grabbing;transform:translateY(-50%) scale(1.2);z-index:3}
+.f-slider-thumb{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ac);top:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 1px 6px rgba(0,0,0,.6);z-index:10;left:0}
+.f-slider-thumb::before{content:"";position:absolute;inset:-12px;border-radius:50%}
+.f-slider-thumb.dragging{cursor:grabbing;transform:translate(-50%,-50%) scale(1.2);z-index:11}
 .f-reset{background:none;border:1px solid #2a2a2a;color:#999;padding:8px 22px;border-radius:16px;font-size:10px;font-family:'Outfit',sans-serif;letter-spacing:1px;cursor:pointer;transition:all .2s}
 .f-reset:hover{border-color:var(--ac);color:#fff}
 .f-count{font-size:11px;color:#888;text-align:center;letter-spacing:1px;font-family:'Outfit',sans-serif;margin-top:12px}
@@ -147,13 +148,13 @@
 </div>
 <div class="f-count"   id="fCount"></div>
 <div class="v-grid" id="vGrid"><p class="v-empty"><span class="sp"></span> Chargement...</p></div></section>
-<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:ashotsargsyan28&#64;gmail.com" class="ft-a">ashotsargsyan28&#64;gmail.com</a><a href="mailto:nrkprestige&#64;gmail.com" class="ft-a">nrkprestige&#64;gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a><a href="https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm" target="_blank" class="ft-s" aria-label="LeBonCoin" style="overflow:hidden;padding:0"><img src="https://www.leboncoin.fr/favicon.ico" alt="lbc" width="22" height="22" style="border-radius:4px" onerror="this.style.display='none'"></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
+<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="/cdn-cgi/l/email-protection#6706140f081314061500141e0609555f414451535c000a060e0b4904080a" class="ft-a">ashotsargsyan28&#64;gmail.com</a><a href="/cdn-cgi/l/email-protection#bcd2ced7ccced9cfc8d5dbd99a9f8a8887dbd1ddd5d092dfd3d1" class="ft-a">nrkprestige&#64;gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a><a href="https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm" target="_blank" class="ft-s" aria-label="LeBonCoin" style="overflow:hidden;padding:0"><img src="https://www.leboncoin.fr/favicon.ico" alt="lbc" width="22" height="22" style="border-radius:4px" onerror="this.style.display='none'"></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 </div>
 <div class="m-ov" id="vModal"><div class="m-box" onclick="event.stopPropagation()"><div style="position:relative"><div class="m-gal" id="mGal"></div><button class="m-x" onclick="closeV()">&#10005;</button><button class="m-arr prev" onclick="gNav(-1)">&#8249;</button><button class="m-arr next" onclick="gNav(1)">&#8250;</button></div><div class="m-body"><div class="m-brand" id="mBrand"></div><h3 class="m-model" id="mModel"></h3><div class="m-price" id="mPrice"></div><div class="m-spcs" id="mSpecs"></div><p class="m-desc" id="mDesc"></p><div id="mYt" style="margin-bottom:20px"></div></div></div></div>
 <button class="fab" onclick="openA()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
 <div class="m-ov" id="aModal" onclick="closeA()"><div class="m-box" onclick="event.stopPropagation()" style="max-width:640px;max-height:92vh"><div class="adm"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="display:flex;align-items:center;gap:4px"><h3>Dashboard</h3><span class="adm-st load" id="dbSt"><span class="sp"></span></span></div><button class="m-x" onclick="closeA()" style="position:static">&#10005;</button></div><div id="aLogin"><p style="color:#444;margin-bottom:10px;font-size:12px">Mot de passe administrateur</p><input class="inp" type="password" id="aPw" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')tryL()"><button class="btn" style="width:100%;margin-top:10px;padding:10px" onclick="tryL()">Connexion</button><div id="lMsg"></div></div><div id="aCont" style="display:none"><div class="af"><div class="af-t" id="formTitle">Ajouter un vehicule</div><div class="af-g"><div><span class="inp-s">Marque *</span><input class="inp" id="fB" placeholder="BMW"></div><div><span class="inp-s">Modele *</span><input class="inp" id="fM" placeholder="Serie 3"></div><div><span class="inp-s">Finition</span><input class="inp" id="fFin" placeholder="M Sport"></div><div><span class="inp-s">Prix</span><input class="inp" id="fP" placeholder="25000"></div><div><span class="inp-s">Kilometrage</span><input class="inp" id="fK" placeholder="85000"></div><div><span class="inp-s">Mise en circulation</span><input class="inp" id="fY" placeholder="03/2021"></div><div><span class="inp-s">Puissance (ch)</span><input class="inp" id="fH" placeholder="190"></div><div><span class="inp-s">CV fiscaux</span><input class="inp" id="fCV" placeholder="10"></div><div><span class="inp-s">Carburant</span><select class="inp" id="fFuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Electrique</option></select></div><div><span class="inp-s">Boite</span><select class="inp" id="fGear"><option>Automatique</option><option>Manuelle</option></select></div><div><span class="inp-s">Statut</span><select class="inp" id="fStat"><option value="libre">Libre</option><option value="reserve">Reserve</option><option value="vendu">Vendu</option></select></div><div style="display:flex;flex-direction:column;justify-content:center"><label class="chk-row"><input type="checkbox" id="fTVA"> TVA Recuperable</label></div></div><div style="margin-top:8px"><span class="inp-s">Video YouTube</span><input class="inp" id="fYT" placeholder="https://youtube.com/watch?v=..."></div><div style="margin-top:8px"><span class="inp-s">Annonce LeBonCoin</span><input class="inp" id="fLBC" placeholder="https://www.leboncoin.fr/voitures/..."></div><textarea class="inp" placeholder="Description" rows="2" id="fD"></textarea><div class="uz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="event.preventDefault();this.classList.remove('drag');hDrop(event)"><input type="file" accept="image/*" multiple onchange="hFiles(this.files)"><p>Glisser ou cliquer pour ajouter des photos</p></div><div class="up" id="uPrev"></div><div style="display:flex;gap:8px;margin-top:12px"><button class="btn" style="flex:1;padding:10px;font-size:10px" id="bAdd" onclick="addV()">+ Ajouter</button><button class="btn" id="bCancel" onclick="cancelEdit()" style="padding:10px;font-size:10px;background:#222;color:#888;display:none">Annuler</button></div><div id="aMsg"></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:10px;color:var(--ac);letter-spacing:2px;text-transform:uppercase;font-weight:500" id="vCnt"></span><button onclick="refDB()" style="background:none;border:1px solid #1e1e1e;color:#444;padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer;font-family:'Outfit'">Rafraichir</button></div><div id="aList"></div></div></div></div></div>
 <div class="crop-ov" id="cropOv"><div class="crop-lbl">Recadrer l'image</div><div class="crop-wrap" id="cropWrap"><img class="crop-img" id="cropImg" alt=""><div class="crop-sel" id="cropSel"></div></div><div class="crop-info" id="cropInfo">Cliquer-glisser pour selectionner la zone</div><div class="crop-actions"><button class="crop-btn ok" onclick="applyCrop()">Appliquer</button><button class="crop-btn cancel" onclick="closeCrop()">Annuler</button></div></div>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){var c=document.getElementById('smokeCanvas'),x=c.getContext('2d'),W,H;function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);function S(){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}S.prototype.update=function(){this.life++;this.x+=this.vx+Math.sin(this.life*.008)*.5;this.y+=this.vy;this.r+=0.3;this.vx*=.999;var p=this.life/this.maxLife;this.opacity=p<.15?p/.15:p>.6?1-(p-.6)/.4:1;this.opacity*=.08;if(this.life>=this.maxLife){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}};S.prototype.draw=function(){var g=x.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);g.addColorStop(0,'rgba(180,180,180,'+this.opacity+')');g.addColorStop(.4,'rgba(140,140,140,'+(this.opacity*.5)+')');g.addColorStop(1,'rgba(100,100,100,0)');x.fillStyle=g;x.beginPath();x.arc(this.x,this.y,this.r,0,Math.PI*2);x.fill()};var P=[];for(var i=0;i<35;i++){var s=new S();s.life=Math.random()*s.maxLife;s.y=Math.random()*H;P.push(s)}(function a(){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){P[i].update();P[i].draw()}requestAnimationFrame(a)})()})();
 function handleScroll(){var y=scrollY,h=innerHeight,p=Math.min(1,y/(h*.6));p=p*p*(3-2*p);document.getElementById('smokeOverlay').style.opacity=0.3+(1-p*.75)*0.3}addEventListener('scroll',handleScroll,{passive:true});handleScroll();
 var FC={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",authDomain:"nrk-prestige.firebaseapp.com",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nrk-prestige",storageBucket:"nrk-prestige.firebasestorage.app",messagingSenderId:"671314844628",appId:"1:671314844628:web:6db907b19fc9fb79841441"};
@@ -190,6 +191,7 @@ function togglePanel(){
   var p=document.getElementById('fPanel'),t=document.getElementById('fTrigger'),o=document.getElementById('fOverlay');
   p.classList.toggle('open');t.classList.toggle('active');o.classList.toggle('open');
   document.body.style.overflow=p.classList.contains('open')?'hidden':'';
+  if(p.classList.contains('open'))['Price','Km','Year','Power'].forEach(function(k){renderSlider(k);});
 }
 function toggleFuel(chip){
   var fuel=chip.getAttribute('data-fuel');
@@ -212,8 +214,8 @@ function renderSlider(key){
   var pMin=(mn-cfg.min)/(cfg.max-cfg.min)*100,pMax=(mx-cfg.min)/(cfg.max-cfg.min)*100;
   document.getElementById('fill'+key).style.left=pMin+'%';
   document.getElementById('fill'+key).style.width=(pMax-pMin)+'%';
-  document.getElementById('thumbMin'+key).style.left='calc('+pMin+'% - 8px)';
-  document.getElementById('thumbMax'+key).style.left='calc('+pMax+'% - 8px)';
+  document.getElementById('thumbMin'+key).style.left=pMin+'%';
+  document.getElementById('thumbMax'+key).style.left=pMax+'%';
   var lbl=document.getElementById('lbl'+key);
   if(cfg.unit==='€')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'€');
   else if(cfg.unit==='km')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'km');
@@ -222,23 +224,38 @@ function renderSlider(key){
   updateBadge();if(document.querySelector('[data-vid]'))applyFilters();
 }
 function initDrag(key){
-  var track=document.getElementById('track'+key),cfg=sliderCfg[key];
-  function getVal(cx){var r=track.getBoundingClientRect();return snapVal(key,cfg.min+clamp((cx-r.left)/r.width,0,1)*(cfg.max-cfg.min));}
+  var cfg=sliderCfg[key];
+  function getVal(cx){
+    // Recalculer à chaque fois car le panel peut avoir été caché
+    var track=document.getElementById('track'+key);
+    var r=track.getBoundingClientRect();
+    if(r.width===0)return sliderVals[key][0];
+    return snapVal(key,cfg.min+clamp((cx-r.left)/r.width,0,1)*(cfg.max-cfg.min));
+  }
   function startDrag(role,e){
-    e.preventDefault();
+    e.preventDefault();e.stopPropagation();
     var thumb=document.getElementById('thumb'+role+key);thumb.classList.add('dragging');
-    function onMove(ev){var cx=ev.touches?ev.touches[0].clientX:ev.clientX,v=getVal(cx);
+    function onMove(ev){
+      ev.preventDefault();
+      var cx=ev.touches?ev.touches[0].clientX:ev.clientX,v=getVal(cx);
       if(role==='Min')sliderVals[key][0]=clamp(v,cfg.min,sliderVals[key][1]-cfg.step);
       else sliderVals[key][1]=clamp(v,sliderVals[key][0]+cfg.step,cfg.max);
-      renderSlider(key);}
-    function onEnd(){thumb.classList.remove('dragging');document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);}
+      renderSlider(key);
+    }
+    function onEnd(){
+      thumb.classList.remove('dragging');
+      document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);
+      document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);
+    }
     document.addEventListener('mousemove',onMove,{passive:false});document.addEventListener('mouseup',onEnd);
     document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);
   }
-  document.getElementById('thumbMin'+key).addEventListener('mousedown',function(e){startDrag('Min',e)});
-  document.getElementById('thumbMin'+key).addEventListener('touchstart',function(e){startDrag('Min',e)},{passive:false});
-  document.getElementById('thumbMax'+key).addEventListener('mousedown',function(e){startDrag('Max',e)});
-  document.getElementById('thumbMax'+key).addEventListener('touchstart',function(e){startDrag('Max',e)},{passive:false});
+  var tMin=document.getElementById('thumbMin'+key);
+  var tMax=document.getElementById('thumbMax'+key);
+  tMin.addEventListener('mousedown',function(e){startDrag('Min',e)});
+  tMin.addEventListener('touchstart',function(e){startDrag('Min',e)},{passive:false});
+  tMax.addEventListener('mousedown',function(e){startDrag('Max',e)});
+  tMax.addEventListener('touchstart',function(e){startDrag('Max',e)},{passive:false});
 }
 function resetFilters(){
   fFuels=[];document.querySelectorAll('.f-chip').forEach(function(c){c.classList.remove('on')});
@@ -337,10 +354,4 @@ document.addEventListener('DOMContentLoaded',function(){
   cWrap.addEventListener('touchstart',startDrag,{passive:false});
   document.addEventListener('mousemove',moveDrag);
   document.addEventListener('touchmove',moveDrag,{passive:false});
-  document.addEventListener('mouseup',endDrag);
-  document.addEventListener('touchend',endDrag);
-});
-document.getElementById('vModal').addEventListener('click',function(e){if(e.target.id==='vModal')closeV()});
-</script>
-</body>
-</html>
+  document.addEventListener(
