@@ -409,8 +409,10 @@ function applyFilters(){
   var minPow=sliderVals.Power[0],maxPow=sliderVals.Power[1];
   var cards=document.querySelectorAll('#vGrid .v-card');
   var shown=0;
+  var isDefault=minPrice===0&&maxPrice===100000&&minKm===0&&maxKm===300000&&minYear===2010&&maxYear===2025&&minPow===0&&maxPow===600&&fFuels.length===0;
   for(var i=0;i<V.length;i++){
     var v=V[i];
+    if(isDefault){if(cards[i]){cards[i].style.display='';shown++;} continue;}
     var fuelOk=fFuels.length===0||fFuels.indexOf(v.fuel)>=0;
     var price=parseInt(String(v.price||'').replace(/[^\d]/g,''))||0;
     var km=parseInt(String(v.km||'').replace(/[^\d]/g,''))||0;
