@@ -441,7 +441,7 @@ function renderSlider(key){
   else if(cfg.unit==='km')lbl.textContent=fmtNum(mn)+' — '+fmtNum(mx,'km');
   else if(cfg.unit==='ch')lbl.textContent=mn+' — '+mx+' ch';
   else lbl.textContent=mn+' — '+mx;
-  updateBadge();applyFilters();
+  updateBadge();if(document.querySelector('[data-vid]'))applyFilters();
 }
 function initDrag(key){
   var track=document.getElementById('track'+key);
