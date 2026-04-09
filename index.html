@@ -305,10 +305,62 @@ function delV(id){if(!confirm('Supprimer ce vehicule ?'))return;V=V.filter(funct
 function sMsg(el,t,c){document.getElementById(el).innerHTML='<div class="msg '+c+'">'+t+'</div>';setTimeout(function(){try{document.getElementById(el).innerHTML=''}catch(e){}},3500)}
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)'),o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target)}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j])}
 var cropIdx=-1,cropDragging=false,cropSX=0,cropSY=0,cropX=0,cropY=0,cropW=0,cropH=0;
-function openCrop(idx){cropIdx=idx;var img=document.getElementById('cropImg');img.onload=function(){document.getElementById('cropSel').style.display='none';cropX=cropY=cropW=cropH=0;document.getElementById('cropInfo').textContent='Cliquer-glisser pour selectionner la zone';document.getElementById('cropOv').classList.add('open');document.body.style.overflow='hidden';};img.src=uImgs[idx]}
+function openCrop(idx){
+  cropIdx=idx;
+  var img=document.getElementById('cropImg');
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    document.getElementById('cropSel').style.display='none';
+    cropX=cropY=cropW=cropH=0;
+    document.getElementById('cropInfo').textContent='Cliquer-glisser pour selectionner la zone';
+    document.getElementById('cropOv').classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+  img.onerror=function(){
+    sMsg('aMsg','Recadrage impossible sur cette image','err');
+  };
+  // Ajouter ?_cb= pour contourner le cache et forcer CORS
+  var src=uImgs[idx];
+  if(src.indexOf('cloudinary.com')>-1){
+    src=src.replace('/upload/','/upload/');
+    img.src=src+'?_cb='+Date.now();
+  } else {
+    img.src=src;
+  }
+}
 function closeCrop(){document.getElementById('cropOv').classList.remove('open');document.body.style.overflow=''}
 function getRelPos(e,el){var r=el.getBoundingClientRect(),cx=e.touches?e.touches[0].clientX:e.clientX,cy=e.touches?e.touches[0].clientY:e.clientY;return{x:Math.max(0,Math.min(cx-r.left,r.width)),y:Math.max(0,Math.min(cy-r.top,r.height))}}
-function applyCrop(){if(cropIdx<0||cropW<5||cropH<5){closeCrop();return}var img=document.getElementById('cropImg'),scaleX=img.naturalWidth/img.offsetWidth,scaleY=img.naturalHeight/img.offsetHeight,canvas=document.createElement('canvas');canvas.width=Math.round(cropW*scaleX);canvas.height=Math.round(cropH*scaleY);canvas.getContext('2d').drawImage(img,Math.round(cropX*scaleX),Math.round(cropY*scaleY),canvas.width,canvas.height,0,0,canvas.width,canvas.height);uImgs[cropIdx]=canvas.toDataURL('image/jpeg',.85);rUP();closeCrop()}
+function applyCrop(){
+  if(cropIdx<0||cropW<5||cropH<5){closeCrop();return}
+  var img=document.getElementById('cropImg');
+  var scaleX=img.naturalWidth/img.offsetWidth;
+  var scaleY=img.naturalHeight/img.offsetHeight;
+  var canvas=document.createElement('canvas');
+  canvas.width=Math.round(cropW*scaleX);
+  canvas.height=Math.round(cropH*scaleY);
+  try{
+    canvas.getContext('2d').drawImage(img,Math.round(cropX*scaleX),Math.round(cropY*scaleY),canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+    canvas.toBlob(function(blob){
+      var idx=cropIdx;
+      uImgs[idx]='loading';
+      rUP();
+      closeCrop();
+      var fd=new FormData();
+      fd.append('file',blob,'crop.jpg');
+      fd.append('upload_preset','ml_default');
+      fetch('https://api.cloudinary.com/v1_1/dhjgfftkw/image/upload',{method:'POST',body:fd})
+        .then(function(r){return r.json()})
+        .then(function(d){
+          if(d.secure_url){uImgs[idx]=d.secure_url;rUP();}
+          else{uImgs.splice(idx,1);rUP();sMsg('aMsg','Erreur upload recadrage','err');}
+        })
+        .catch(function(){uImgs.splice(idx,1);rUP();sMsg('aMsg','Erreur recadrage','err');});
+    },'image/jpeg',0.85);
+  }catch(e){
+    sMsg('aMsg','Recadrage bloqué (CORS). Téléchargez l image recadrée manuellement.','err');
+    closeCrop();
+  }
+}
 document.addEventListener('DOMContentLoaded',function(){
   loadDB();obs();initSliders();
   var cWrap=document.getElementById('cropWrap');
