@@ -173,9 +173,9 @@ function mailHref(brand,model){
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?mailto:gmail;
 }
 function initFB(){try{var app=firebase.apps&&firebase.apps.length?firebase.apps[0]:firebase.initializeApp(FC);db=firebase.database(app);return true}catch(e){console.error('FB:',e);return false}}
-function dbR(){if(!fbOK)return Promise.resolve(null);return db.ref('vehicles').once('value').then(function(s){var d=s.val();if(!d)return[];return Array.isArray(d)?d.filter(Boolean):Object.values(d)}).catch(function(){return null})}
+function dbR(){if(!fbOK)return Promise.resolve(null);return db.ref('vehicles').once('value').then(function(s){var d=s.val();if(!d)return[];var arr=[];if(Array.isArray(d)){arr=d.filter(Boolean);}else{Object.keys(d).forEach(function(k){if(d[k]&&typeof d[k]==='object')arr.push(d[k]);});}return arr;}).catch(function(e){console.error('dbR error:',e);return null;})}
 function dbW(v){if(!fbOK)return Promise.resolve(false);return db.ref('vehicles').set(v).then(function(){return true}).catch(function(){return false})}
-function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',function(s){var d=s.val();if(d){V=Array.isArray(d)?d.filter(Boolean):Object.values(d);rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
+function listenDB(){if(!fbOK)return;db.ref('vehicles').on('value',function(s){var d=s.val();if(d){var arr=[];if(Array.isArray(d)){arr=d.filter(Boolean);}else{Object.keys(d).forEach(function(k){if(d[k]&&typeof d[k]==='object')arr.push(d[k]);});}V=arr;console.log('Firebase: '+V.length+' vehicules');rV();if(document.getElementById('aCont').style.display!=='none')rAL()}})}
 function loadDB(){setSt('load','');fbOK=initFB();if(fbOK){dbR().then(function(d){if(d!==null){V=d;setSt('ok','En ligne');listenDB()}else{setSt('err','Erreur');ldL()}rV()})}else{setSt('err','Local');ldL();rV()}}
 function ldL(){try{var s=localStorage.getItem('nrk_v5');V=s?JSON.parse(s):[]}catch(e){V=[]}}
 function svL(){try{localStorage.setItem('nrk_v5',JSON.stringify(V))}catch(e){}}
