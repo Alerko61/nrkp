@@ -161,50 +161,55 @@ textarea.inp{resize:vertical}
 .adm-toolbar-btn{background:rgba(255,255,255,.03);border:1px solid #1a1a1a;color:#666;padding:7px 14px;border-radius:8px;font-size:10px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
 .adm-toolbar-btn:hover{border-color:var(--ac);color:var(--w)}
 .adm-toolbar-btn.active{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06)}
-.vli{display:flex;align-items:stretch;padding:0;background:#0d0d0d;border-radius:14px;margin-bottom:10px;border:1px solid #1a1a1a;gap:0;transition:all .4s cubic-bezier(.16,1,.3,1);animation:vliIn .5s ease both;overflow:hidden}
-.vli:hover{border-color:#2a2a2a;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
-@keyframes vliIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.vli-img-wrap{width:140px;height:110px;flex-shrink:0;overflow:hidden;position:relative;background:#080808}
-.vli-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.vli:hover .vli-img-wrap img{transform:scale(1.08)}
+/* Inventory Grid */
+#aList{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+
+.vli{display:flex;flex-direction:column;padding:0;background:#0d0d0d;border-radius:14px;border:1px solid #1a1a1a;gap:0;transition:all .4s cubic-bezier(.16,1,.3,1);animation:vliIn .5s ease both;overflow:hidden}
+.vli:hover{border-color:#2a2a2a;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+@keyframes vliIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.vli-img-wrap{width:100%;height:170px;flex-shrink:0;overflow:hidden;position:relative;background:#080808}
+.vli-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vli:hover .vli-img-wrap img{transform:scale(1.06)}
 .vli-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0a0a,#111);color:#2a2a2a}
-.vli-body{flex:1;padding:16px 20px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0}
-.vli-row-top{display:flex;align-items:center;gap:8px}
+.vli-img-overlay{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:flex-start;z-index:2}
+.vli-ord{display:flex;gap:4px}
+.vli-ord button{background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);color:#ccc;width:26px;height:26px;font-size:10px;cursor:pointer;border-radius:8px;padding:0;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.vli-ord button:hover{background:rgba(0,0,0,.8);color:#fff;transform:scale(1.1)}
+.vli-body{flex:1;padding:14px 16px 0;display:flex;flex-direction:column;gap:3px;min-width:0}
+.vli-row-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .vli-b{font-size:9px;color:#888;letter-spacing:2px;text-transform:uppercase;font-weight:500}
-.vli-status-badge{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:20px;font-weight:600;line-height:1}
+.vli-status-badge{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:600;line-height:1}
 .vli-status-badge.st-libre{background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.15)}
 .vli-status-badge.st-reserve{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.15)}
 .vli-status-badge.st-vendu{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.15)}
-.vli-m{font-size:16px;font-weight:600;color:var(--w)}
-.vli-m span{color:#666;font-weight:400;font-size:13px}
-.vli-details{display:flex;gap:14px;margin-top:2px}
-.vli-detail{font-size:11px;color:#777}
-.vli-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;padding:16px 18px;flex-shrink:0;gap:8px}
-.vli-p{color:var(--w);font-size:18px;white-space:nowrap;font-weight:700;font-family:'Cormorant Garamond',serif;letter-spacing:1px}
-.vli-acts{display:flex;gap:6px}
-.vli-acts button{background:rgba(255,255,255,.04);border:1px solid #222;border-radius:8px;cursor:pointer;padding:8px 16px;font-size:11px;transition:all .3s cubic-bezier(.16,1,.3,1);font-family:'Outfit',sans-serif;color:#999;font-weight:500;display:flex;align-items:center;gap:5px}
-.vli-acts button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.08);transform:translateY(-1px)}
-.vli-acts button svg{width:12px;height:12px;flex-shrink:0}
-.vli-acts .bdel{color:#ef4444;border-color:rgba(239,68,68,.15)}
-.vli-acts .bdel:hover{background:rgba(239,68,68,.1);color:#ff6b6b;border-color:rgba(239,68,68,.3);transform:translateY(-1px)}
-.vli-ord{display:flex;flex-direction:column;gap:3px;padding:14px 6px 14px 0;justify-content:center;flex-shrink:0}
-.vli-ord button{background:rgba(255,255,255,.03);border:1px solid #1a1a1a;color:#666;width:24px;height:22px;font-size:10px;cursor:pointer;border-radius:6px;padding:0;display:flex;align-items:center;justify-content:center;transition:all .25s}
-.vli-ord button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06);transform:scale(1.1)}
+.vli-m{font-size:15px;font-weight:600;color:var(--w);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vli-m span{color:#666;font-weight:400;font-size:12px}
+.vli-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.vli-p{color:var(--w);font-size:20px;white-space:nowrap;font-weight:700;font-family:'Cormorant Garamond',serif;letter-spacing:1px}
+.vli-details{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.vli-detail{font-size:10px;color:#777;background:rgba(255,255,255,.03);padding:3px 8px;border-radius:6px;border:1px solid #1a1a1a}
 
 /* TVA Toggle */
-.vli-tva{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;transition:all .3s}
-.vli-tva-track{width:36px;height:20px;border-radius:10px;background:#1a1a1a;border:1px solid #252525;position:relative;transition:all .35s cubic-bezier(.16,1,.3,1);flex-shrink:0}
-.vli-tva-track::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#444;transition:all .35s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.vli-tva{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;transition:all .3s;padding:10px 16px;border-top:1px solid #151515;margin-top:10px}
+.vli-tva-track{width:34px;height:18px;border-radius:9px;background:#1a1a1a;border:1px solid #252525;position:relative;transition:all .35s cubic-bezier(.16,1,.3,1);flex-shrink:0}
+.vli-tva-track::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#444;transition:all .35s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .vli-tva.on .vli-tva-track{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3)}
 .vli-tva.on .vli-tva-track::after{left:18px;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.4)}
 .vli-tva-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#555;margin-left:8px;font-weight:500;transition:color .3s;white-space:nowrap}
 .vli-tva.on .vli-tva-label{color:#22c55e}
-@media(max-width:768px){
-  .vli{flex-direction:column}
-  .vli-img-wrap{width:100%;height:160px}
-  .vli-right{flex-direction:row;align-items:center;padding:12px 16px;border-top:1px solid #151515}
-  .vli-ord{flex-direction:row;padding:0 16px 12px}
-}
+
+/* Action buttons row */
+.vli-footer{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #151515}
+.vli-action{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 8px;font-size:10px;font-family:'Outfit',sans-serif;color:#888;font-weight:500;cursor:pointer;transition:all .3s;background:none;border:none;letter-spacing:.5px}
+.vli-action:first-child{border-right:1px solid #151515}
+.vli-action svg{width:13px;height:13px;flex-shrink:0}
+.vli-action:hover{color:var(--w);background:rgba(192,192,192,.04)}
+.vli-action.act-del{color:#ef4444}
+.vli-action.act-del:hover{background:rgba(239,68,68,.06);color:#ff6b6b}
+
+@media(max-width:1100px){#aList{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
+@media(max-width:768px){#aList{grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:480px){#aList{grid-template-columns:1fr}}
 .msg{font-size:11px;text-align:center;padding:10px 16px;animation:msgIn .4s cubic-bezier(.16,1,.3,1);border-radius:8px;margin-top:10px;font-weight:500;letter-spacing:.3px}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .msg.err{color:#ef4444;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1)}
@@ -648,35 +653,47 @@ function rAL(){
     var stClass=st==='reserve'?'st-reserve':st==='vendu'?'st-vendu':'st-libre';
     var stLabel=st==='reserve'?'Réservé':st==='vendu'?'Vendu':'Disponible';
     h+='<div class="vli" style="animation-delay:'+i*0.06+'s">';
-    h+='<div class="vli-ord"><button onclick="moveV('+i+',-1)">&#9650;</button><button onclick="moveV('+i+',1)">&#9660;</button></div>';
+
+    // Image with overlay controls
     h+='<div class="vli-img-wrap">';
     if(v.images&&v.images[0]){
       h+='<img src="'+v.images[0]+'" alt="'+v.brand+' '+v.model+'">';
     }else{
       h+='<div class="vli-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>';
     }
+    h+='<div class="vli-img-overlay">';
+    h+='<span class="vli-status-badge '+stClass+'">'+stLabel+'</span>';
+    h+='<div class="vli-ord"><button onclick="moveV('+i+',-1)">&#9650;</button><button onclick="moveV('+i+',1)">&#9660;</button></div>';
     h+='</div>';
+    h+='</div>';
+
+    // Body
     h+='<div class="vli-body">';
-    h+='<div class="vli-row-top"><span class="vli-b">'+v.brand+'</span><span class="vli-status-badge '+stClass+'">'+stLabel+'</span></div>';
+    h+='<div class="vli-row-top"><span class="vli-b">'+v.brand+'</span></div>';
     h+='<div class="vli-m">'+v.model+(v.fin?' <span>'+v.fin+'</span>':'')+'</div>';
+    h+='<div class="vli-price-row"><span class="vli-p">'+fmtPx(v.price)+'</span></div>';
     h+='<div class="vli-details">';
     if(v.km&&v.km!=='—')h+='<span class="vli-detail">'+fmtKm(v.km)+'</span>';
     if(v.year&&v.year!=='—')h+='<span class="vli-detail">'+v.year+'</span>';
     if(v.fuel)h+='<span class="vli-detail">'+v.fuel+'</span>';
     if(v.hp&&v.hp!=='—')h+='<span class="vli-detail">'+v.hp+' ch</span>';
     h+='</div>';
+
+    // TVA toggle
     h+='<div class="vli-tva'+(v.tva?' on':'')+'" onclick="toggleTVA(\''+v.id+'\',this)">';
     h+='<div class="vli-tva-track"></div>';
     h+='<span class="vli-tva-label">'+(v.tva?'TVA récup.':'TVA non récup.')+'</span>';
     h+='</div>';
     h+='</div>';
-    h+='<div class="vli-right">';
-    h+='<span class="vli-p">'+fmtPx(v.price)+'</span>';
-    h+='<div class="vli-acts">';
-    h+='<button onclick="editV(\''+v.id+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Modifier</button>';
-    h+='<button class="bdel" onclick="delV(\''+v.id+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>Suppr.</button>';
+
+    // Footer actions
+    h+='<div class="vli-footer">';
+    h+='<button class="vli-action" onclick="editV(\''+v.id+'\')">';
+    h+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Modifier</button>';
+    h+='<button class="vli-action act-del" onclick="delV(\''+v.id+'\')">';
+    h+='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>Supprimer</button>';
     h+='</div>';
-    h+='</div>';
+
     h+='</div>';
   }
   document.getElementById('aList').innerHTML=h;
