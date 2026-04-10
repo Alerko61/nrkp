@@ -42,111 +42,143 @@
 .m-ov{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:1001;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(20px)}.m-ov.open{display:flex}.m-box{background:rgba(17,17,17,.97);border-radius:12px;max-width:720px;width:100%;border:1px solid #1a1a1a;overflow:hidden;max-height:90vh;overflow-y:auto;animation:modalIn .35s}.m-gal{position:relative;height:360px;background:#080808;overflow:hidden}.m-gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}.m-gal img.on{opacity:1}.m-gal-nav{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}.m-gal-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;transition:all .3s;padding:0}.m-gal-dot.on{background:var(--ac)}.m-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.05);color:rgba(255,255,255,.7);width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:3}.m-arr.prev{left:12px}.m-arr.next{right:12px}.m-x{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:5}.m-body{padding:32px}.m-brand{font-size:10px;color:var(--ac);letter-spacing:3px;text-transform:uppercase}.m-model{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--w);margin-top:2px}.m-price{font-size:24px;font-weight:600;color:var(--ac);margin:14px 0 24px}.m-spcs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}.m-sp{background:rgba(10,10,10,.7);border:1px solid #1a1a1a;border-radius:6px;padding:14px;text-align:center}.m-sp-l{font-size:9px;color:#333;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}.m-sp-v{font-size:15px;font-weight:600;color:var(--w)}.m-desc{color:#666;line-height:1.8;font-size:14px;margin-bottom:28px}.btn{background:var(--w);color:#0a0a0a;border:none;padding:14px 44px;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:2px;text-decoration:none;display:inline-block}.btn:hover{background:var(--ac);transform:translateY(-2px)}@media(max-width:768px){.m-spcs{grid-template-columns:repeat(2,1fr)!important}.m-gal{height:260px}}
 .footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-soc{display:flex;gap:14px;margin-top:4px}.ft-s{width:36px;height:36px;border-radius:50%;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#3a3a3a;transition:all .3s;text-decoration:none}.ft-s:hover{border-color:var(--ac);color:var(--w);transform:translateY(-2px)}.ft-s svg{width:15px;height:15px}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}@media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}.ft-a{text-align:center;display:block}.ft-ct{text-align:center}.ft-top>div{display:flex;flex-direction:column;align-items:center}}
 .fab{position:fixed;bottom:20px;right:20px;z-index:900;width:42px;height:42px;border-radius:50%;background:rgba(17,17,17,.8);border:1px solid #1e1e1e;color:#3a3a3a;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;opacity:.25}.fab:hover{opacity:1;border-color:var(--ac);color:var(--ac)}.fab svg{width:17px;height:17px}
-/* ===== DASHBOARD PRO REDESIGN ===== */
-.adm{padding:0;max-height:80vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
-.adm h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--w)}
-.adm-header{padding:24px 28px 0;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;background:rgba(17,17,17,.98);backdrop-filter:blur(16px);border-bottom:1px solid #1a1a1a;padding-bottom:16px}
-.adm-header-left{display:flex;align-items:center;gap:12px}
-.adm-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1a1a1a,#252525);border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center;color:var(--ac);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700}
-.adm-st{font-size:9px;padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-left:6px;letter-spacing:.5px;font-weight:500}
+/* ===== FULLSCREEN ADMIN PANEL ===== */
+.adm-full{position:fixed;inset:0;z-index:1001;display:none;background:#080808}
+.adm-full.open{display:block;animation:admOpen .5s cubic-bezier(.16,1,.3,1)}
+@keyframes admOpen{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+
+/* LOGIN SCREEN */
+.adm-login-screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.adm-login-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,#151515 0%,#080808 50%,#050505 100%)}
+.adm-login-card{position:relative;text-align:center;padding:56px 48px;max-width:420px;width:92%;animation:fadeUp .8s .1s both}
+.adm-login-brand{margin-bottom:48px}
+.adm-login-brand-line{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto}
+.adm-login-brand-tag{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);display:block;margin:16px 0 10px;font-weight:400}
+.adm-login-brand-h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:6px;line-height:1;animation:fadeUp .8s .3s both}
+.adm-login-brand-sep{color:#252525;font-size:16px;margin:6px 0;letter-spacing:8px}
+.adm-login-brand-sub{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#555;letter-spacing:8px;display:block;margin-bottom:16px}
+.adm-login-form{display:flex;flex-direction:column;gap:12px;align-items:center}
+.adm-login-icon{width:48px;height:48px;border-radius:50%;background:rgba(192,192,192,.05);border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#444;margin-bottom:8px}
+.adm-login-inp{text-align:center;max-width:300px;width:100%;border-radius:10px;padding:14px 20px;font-size:13px;background:#0a0a0a;border:1px solid #1a1a1a}
+.adm-login-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,rgba(192,192,192,.12),rgba(192,192,192,.06));border:1px solid rgba(192,192,192,.15);color:var(--w);padding:14px 36px;border-radius:10px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;max-width:300px;width:100%}
+.adm-login-btn:hover{background:linear-gradient(135deg,rgba(192,192,192,.2),rgba(192,192,192,.1));border-color:rgba(192,192,192,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.adm-login-close{position:absolute;top:20px;right:20px;background:none;border:1px solid #1e1e1e;color:#444;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.adm-login-close:hover{border-color:var(--ac);color:var(--w)}
+
+/* PANEL LAYOUT */
+.adm-panel{display:flex;height:100vh;width:100%}
+
+/* SIDEBAR */
+.adm-side{width:220px;background:#0a0a0a;border-right:1px solid #151515;display:flex;flex-direction:column;padding:0;flex-shrink:0;animation:sideIn .5s .1s both}
+@keyframes sideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+.adm-side-brand{padding:28px 24px 24px;border-bottom:1px solid #151515}
+.adm-side-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;letter-spacing:4px;display:block}
+.adm-side-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#333;display:block;margin-top:2px}
+.adm-side-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+.adm-nav-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:none;border:none;color:#555;font-size:13px;font-family:'Outfit',sans-serif;font-weight:500;cursor:pointer;transition:all .25s;text-align:left;width:100%;position:relative;overflow:hidden}
+.adm-nav-item::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:0;background:var(--ac);border-radius:0 2px 2px 0;transition:height .25s}
+.adm-nav-item:hover{color:#aaa;background:rgba(255,255,255,.02)}
+.adm-nav-item.active{color:var(--w);background:rgba(192,192,192,.06)}
+.adm-nav-item.active::before{height:20px}
+.adm-nav-item.active svg{color:var(--ac)}
+.adm-side-status{padding:12px 20px;border-top:1px solid #151515}
+.adm-side-logout{display:flex;align-items:center;gap:10px;padding:16px 20px;border-top:1px solid #151515;background:none;border-left:none;border-right:none;border-bottom:none;color:#333;font-size:11px;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s;width:100%;text-align:left;letter-spacing:1px}
+.adm-side-logout:hover{color:#ef4444;background:rgba(239,68,68,.03)}
+
+/* MAIN AREA */
+.adm-main{flex:1;display:flex;flex-direction:column;overflow:hidden;animation:mainIn .5s .2s both}
+@keyframes mainIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.adm-topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid #151515;background:#0a0a0a;flex-shrink:0}
+.adm-topbar-left{display:flex;align-items:center;gap:12px}
+.adm-topbar-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--w);letter-spacing:1px}
+.adm-mobile-menu{display:none;background:none;border:1px solid #1e1e1e;color:#666;width:36px;height:36px;border-radius:8px;cursor:pointer;align-items:center;justify-content:center}
+.adm-stats-mini{display:flex;gap:8px}
+.adm-stat-pill{font-size:11px;color:#666;background:rgba(255,255,255,.03);border:1px solid #1a1a1a;padding:6px 14px;border-radius:20px;font-weight:500}
+.adm-stat-pill span{color:var(--w);font-weight:700;margin-right:3px}
+.adm-stat-pill.green span{color:#22c55e}
+.adm-stat-pill.orange span{color:#fbbf24}
+.adm-content-scroll{flex:1;overflow-y:auto;padding:28px 32px;scrollbar-width:thin;scrollbar-color:#1a1a1a transparent}
+.adm-tab-content{display:none;flex:1;overflow:hidden;flex-direction:column}
+.adm-tab-content.active{display:flex;animation:tabFade .4s ease}
+@keyframes tabFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* MOBILE */
+@media(max-width:768px){
+  .adm-side{position:fixed;left:-240px;top:0;bottom:0;z-index:100;width:240px;transition:left .3s cubic-bezier(.16,1,.3,1);box-shadow:none}
+  .adm-side.mob-open{left:0;box-shadow:20px 0 60px rgba(0,0,0,.7)}
+  .adm-mobile-menu{display:flex}
+  .adm-topbar{padding:16px 20px}
+  .adm-content-scroll{padding:20px}
+  .adm-stats-mini{display:none}
+  .adm-login-brand-h1{font-size:28px!important}
+  .adm-login-card{padding:36px 24px}
+}
+
+/* FORM / TOOLBAR / STATUS - kept from previous */
+.adm-st{font-size:9px;padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;letter-spacing:.5px;font-weight:500}
 .adm-st.ok{background:rgba(34,197,94,.06);color:#22c55e;border:1px solid rgba(34,197,94,.12)}
 .adm-st.ok::before{content:'';width:5px;height:5px;border-radius:50%;background:#22c55e;animation:stPulse 2s ease-in-out infinite}
 @keyframes stPulse{0%,100%{opacity:1}50%{opacity:.4}}
 .adm-st.err{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}
 .adm-st.load{background:rgba(192,192,192,.04);color:#666;border:1px solid #1e1e1e}
 
-/* Stats bar */
-.adm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 28px 0}
-.adm-stat{background:linear-gradient(145deg,#111,#0d0d0d);border:1px solid #1e1e1e;border-radius:12px;padding:16px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
-.adm-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}
-.adm-stat:hover::before{opacity:.5}
-.adm-stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--w);line-height:1}
-.adm-stat-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#444;margin-top:6px;font-weight:500}
-
-/* Tabs */
-.adm-tabs{display:flex;gap:0;padding:16px 28px 0;border-bottom:1px solid #1a1a1a;margin-bottom:0}
-.adm-tab{padding:10px 20px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:1px;color:#555;cursor:pointer;border:none;background:none;position:relative;transition:color .3s}
-.adm-tab:hover{color:#aaa}
-.adm-tab.active{color:var(--w)}
-.adm-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--ac);border-radius:1px;animation:tabSlide .3s ease}
-@keyframes tabSlide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.adm-tab-content{display:none;padding:20px 28px 28px;animation:tabFade .35s ease}
-.adm-tab-content.active{display:block}
-@keyframes tabFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* Form redesign */
 .af{background:transparent;border:none;border-radius:0;padding:0;margin:0}
-.af-t{color:var(--ac);font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;font-weight:600;display:flex;align-items:center;gap:8px}
-.af-t::before{content:'';width:3px;height:14px;background:var(--ac);border-radius:2px}
-.af-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.af-t{color:var(--w);font-size:16px;letter-spacing:1px;margin-bottom:20px;font-weight:600;display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',serif}
+.af-t::before{content:'';width:3px;height:18px;background:var(--ac);border-radius:2px}
+.af-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 @media(max-width:600px){.af-g{grid-template-columns:1fr 1fr!important}}
-.inp{width:100%;padding:11px 14px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:8px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:12px;outline:none;transition:all .3s}
+.inp{width:100%;padding:12px 14px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;color:#d4d4d4;font-family:'Outfit',sans-serif;font-size:12px;outline:none;transition:all .3s}
 .inp:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(192,192,192,.06)}
 .inp::placeholder{color:#2a2a2a}
 .inp-s{font-size:9px;color:#555;margin-bottom:4px;display:block;letter-spacing:.5px;font-weight:500;text-transform:uppercase}
-textarea.inp{resize:vertical;margin-top:8px}
+textarea.inp{resize:vertical}
 .chk-row{display:flex;align-items:center;gap:8px;color:#888;font-size:12px;padding:6px 0;cursor:pointer;transition:color .2s}
 .chk-row:hover{color:var(--w)}
 .chk-row input{accent-color:var(--ac);cursor:pointer;width:15px;height:15px}
-
-/* Section dividers in form */
-.af-section{margin-top:20px;padding-top:18px;border-top:1px solid #151515}
+.af-section{margin-top:24px;padding-top:20px;border-top:1px solid #151515}
 .af-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#333;margin-bottom:12px;font-weight:500}
-
-/* Upload zone */
-.uz{border:2px dashed #1e1e1e;border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .3s;margin-top:12px;position:relative;overflow:hidden;background:rgba(10,10,10,.5)}
-.uz:hover,.uz.drag{border-color:var(--ac);background:rgba(192,192,192,.03)}
+.uz{border:2px dashed #1a1a1a;border-radius:12px;padding:32px 16px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;background:rgba(10,10,10,.5)}
+.uz:hover,.uz.drag{border-color:var(--ac);background:rgba(192,192,192,.02)}
 .uz input{position:absolute;inset:0;opacity:0;cursor:pointer}
 .uz p{color:#444;font-size:11px;pointer-events:none}
-.uz-icon{color:#2a2a2a;margin-bottom:6px;pointer-events:none}
-.up{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.uz-icon{color:#222;margin-bottom:8px;pointer-events:none}
+.up{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .ut{display:flex;flex-direction:column;align-items:center;gap:5px}
 .ut-img-wrap{position:relative}
-.ut img{width:64px;height:64px;border-radius:8px;object-fit:cover;border:1px solid #1e1e1e;display:block;transition:transform .2s}
+.ut img{width:68px;height:68px;border-radius:8px;object-fit:cover;border:1px solid #1e1e1e;display:block;transition:transform .2s}
 .ut img:hover{transform:scale(1.05)}
-.ut-x{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;border:2px solid #111;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.ut-x{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;border:2px solid #0d0d0d;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s}
 .ut-x:hover{transform:scale(1.15)}
 .ut-crop{background:none;border:1px solid #2a2a2a;border-radius:6px;color:#555;font-size:9px;cursor:pointer;font-family:'Outfit',sans-serif;padding:3px 8px;transition:all .2s;white-space:nowrap}
 .ut-crop:hover{border-color:var(--ac);color:var(--ac)}
-
-/* Action buttons */
-.adm-btn-primary{background:linear-gradient(135deg,#c0c0c0,#999);color:#0a0a0a;border:none;padding:12px 24px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:8px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
-.adm-btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(192,192,192,.15)}
-.adm-btn-secondary{background:rgba(255,255,255,.04);color:#777;border:1px solid #2a2a2a;padding:12px 24px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:8px}
-.adm-btn-secondary:hover{border-color:#555;color:var(--w)}
-
-/* Vehicle list redesign */
-.vli{display:flex;align-items:center;padding:14px 16px;background:linear-gradient(135deg,#0d0d0d,#111);border-radius:10px;margin-bottom:6px;border:1px solid #1a1a1a;gap:12px;transition:all .3s;animation:vliIn .4s ease both}
-.vli:hover{border-color:#2a2a2a;background:linear-gradient(135deg,#111,#151515)}
-@keyframes vliIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.adm-btn-primary{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w);padding:14px 28px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+.adm-btn-primary:hover{background:linear-gradient(135deg,rgba(192,192,192,.22),rgba(192,192,192,.12));border-color:rgba(192,192,192,.35);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.adm-btn-secondary{background:rgba(255,255,255,.03);color:#666;border:1px solid #1e1e1e;padding:14px 24px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Outfit',sans-serif;border-radius:10px}
+.adm-btn-secondary:hover{border-color:#444;color:var(--w)}
+.adm-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #151515}
+.adm-toolbar-count{font-size:10px;color:var(--ac);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.adm-toolbar-actions{display:flex;gap:6px}
+.adm-toolbar-btn{background:rgba(255,255,255,.03);border:1px solid #1a1a1a;color:#666;padding:7px 14px;border-radius:8px;font-size:10px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
+.adm-toolbar-btn:hover{border-color:var(--ac);color:var(--w)}
+.adm-toolbar-btn.active{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06)}
+.vli{display:flex;align-items:center;padding:14px 16px;background:linear-gradient(135deg,#0d0d0d,#101010);border-radius:10px;margin-bottom:6px;border:1px solid #161616;gap:12px;transition:all .3s;animation:vliIn .4s ease both}
+.vli:hover{border-color:#222;background:linear-gradient(135deg,#111,#141414)}
+@keyframes vliIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
 .vli-i{display:flex;align-items:center;gap:12px;flex:1;min-width:0;overflow:hidden}
-.vli-t{width:48px;height:48px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#080808;border:1px solid #1e1e1e}
+.vli-t{width:50px;height:50px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#0a0a0a;border:1px solid #1a1a1a}
 .vli-b{font-size:9px;color:#555;letter-spacing:1.5px;text-transform:uppercase}
-.vli-m{font-size:13px;font-weight:600;color:var(--w);margin-top:1px}
-.vli-p{color:var(--ac);font-size:13px;white-space:nowrap;font-weight:600}
+.vli-m{font-size:13px;font-weight:600;color:var(--w);margin-top:2px}
+.vli-p{color:var(--ac);font-size:14px;white-space:nowrap;font-weight:600}
 .vli-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;position:relative}
 .vli-status::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1px solid currentColor;opacity:.2}
 .vli-acts{display:flex;gap:5px;flex-shrink:0}
-.vli-acts button{background:rgba(255,255,255,.03);border:1px solid #1e1e1e;border-radius:6px;cursor:pointer;padding:6px 12px;font-size:10px;transition:all .25s;font-family:'Outfit',sans-serif;color:#777;font-weight:500}
-.vli-acts button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06);transform:translateY(-1px)}
-.vli-acts .bdel{color:#ef4444;border-color:rgba(239,68,68,.15)}
-.vli-acts .bdel:hover{background:rgba(239,68,68,.1);color:#ff6b6b;border-color:rgba(239,68,68,.3);transform:translateY(-1px)}
+.vli-acts button{background:rgba(255,255,255,.03);border:1px solid #1a1a1a;border-radius:8px;cursor:pointer;padding:7px 14px;font-size:10px;transition:all .25s;font-family:'Outfit',sans-serif;color:#666;font-weight:500}
+.vli-acts button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.05)}
+.vli-acts .bdel{color:#ef4444;border-color:rgba(239,68,68,.12)}
+.vli-acts .bdel:hover{background:rgba(239,68,68,.08);color:#ff6b6b;border-color:rgba(239,68,68,.25)}
 .vli-ord{display:flex;flex-direction:column;gap:2px}
-.vli-ord button{background:rgba(255,255,255,.03);border:1px solid #1e1e1e;color:#555;width:22px;height:18px;font-size:9px;cursor:pointer;border-radius:4px;padding:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.vli-ord button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06)}
-
-/* List toolbar */
-.adm-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #151515}
-.adm-toolbar-actions{display:flex;gap:6px}
-.adm-toolbar-btn{background:rgba(255,255,255,.03);border:1px solid #1e1e1e;color:#666;padding:6px 14px;border-radius:6px;font-size:10px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500;letter-spacing:.5px}
-.adm-toolbar-btn:hover{border-color:var(--ac);color:var(--w)}
-.adm-toolbar-btn.active{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06)}
-
-/* Login redesign */
-.adm-login{padding:48px 36px;text-align:center}
-.adm-login-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#151515,#1a1a1a);border:1px solid #252525;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;color:#555}
-.adm-login-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--w);margin-bottom:6px}
-.adm-login-sub{font-size:12px;color:#444;margin-bottom:24px}
+.vli-ord button{background:rgba(255,255,255,.02);border:1px solid #1a1a1a;color:#444;width:22px;height:18px;font-size:9px;cursor:pointer;border-radius:5px;padding:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.vli-ord button:hover{border-color:var(--ac);color:var(--w)}
 .msg{font-size:11px;text-align:center;padding:10px 16px;animation:msgIn .4s cubic-bezier(.16,1,.3,1);border-radius:8px;margin-top:10px;font-weight:500;letter-spacing:.3px}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .msg.err{color:#ef4444;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1)}
@@ -288,139 +320,156 @@ textarea.inp{resize:vertical;margin-top:8px}
 </div>
 <div class="m-ov" id="vModal"><div class="m-box" onclick="event.stopPropagation()"><div style="position:relative"><div class="m-gal" id="mGal"></div><button class="m-x" onclick="closeV()">&#10005;</button><button class="m-arr prev" onclick="gNav(-1)">&#8249;</button><button class="m-arr next" onclick="gNav(1)">&#8250;</button></div><div class="m-body"><div class="m-brand" id="mBrand"></div><h3 class="m-model" id="mModel"></h3><div class="m-price" id="mPrice"></div><div class="m-spcs" id="mSpecs"></div><p class="m-desc" id="mDesc"></p><div id="mYt" style="margin-bottom:20px"></div></div></div></div>
 <button class="fab" onclick="openA()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-<div class="m-ov" id="aModal" onclick="closeA()"><div class="m-box" onclick="event.stopPropagation()" style="max-width:700px;max-height:92vh"><div class="adm">
 
-<!-- HEADER -->
-<div class="adm-header">
-  <div class="adm-header-left">
-    <div class="adm-logo">A</div>
-    <div>
-      <h3 style="font-size:18px;margin:0;line-height:1">Dashboard</h3>
+<!-- FULLSCREEN ADMIN PANEL -->
+<div class="adm-full" id="aModal">
+
+<!-- Login Screen -->
+<div id="aLogin" class="adm-login-screen">
+  <div class="adm-login-bg"></div>
+  <div class="adm-login-card">
+    <div class="adm-login-brand">
+      <div class="adm-login-brand-line"></div>
+      <span class="adm-login-brand-tag">Administration</span>
+      <h1 class="adm-login-brand-h1">ASH PRESTIGE</h1>
+      <div class="adm-login-brand-sep">&#10005;</div>
+      <span class="adm-login-brand-sub">CUSTOM</span>
+      <div class="adm-login-brand-line"></div>
+    </div>
+    <div class="adm-login-form">
+      <div class="adm-login-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+      </div>
+      <input class="inp adm-login-inp" type="password" id="aPw" placeholder="Mot de passe administrateur" onkeydown="if(event.key==='Enter')tryL()">
+      <button class="adm-login-btn" onclick="tryL()">
+        <span>Accéder au panel</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div id="lMsg"></div>
+    </div>
+    <button class="adm-login-close" onclick="closeA()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Main Panel -->
+<div id="aCont" style="display:none" class="adm-panel">
+  <!-- Sidebar -->
+  <aside class="adm-side">
+    <div class="adm-side-brand">
+      <span class="adm-side-logo">ASH</span>
+      <span class="adm-side-label">Admin Panel</span>
+    </div>
+    <nav class="adm-side-nav">
+      <button class="adm-nav-item active" onclick="switchTab('add',this)" data-tab="add">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Ajouter</span>
+      </button>
+      <button class="adm-nav-item" onclick="switchTab('list',this)" data-tab="list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Inventaire</span>
+      </button>
+    </nav>
+    <div class="adm-side-status">
       <span class="adm-st load" id="dbSt"><span class="sp"></span></span>
     </div>
-  </div>
-  <button class="m-x" onclick="closeA()" style="position:static;width:32px;height:32px;font-size:14px;background:rgba(255,255,255,.04);border:1px solid #1e1e1e">&#10005;</button>
-</div>
-
-<!-- LOGIN -->
-<div id="aLogin">
-  <div class="adm-login">
-    <div class="adm-login-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
-    </div>
-    <div class="adm-login-title">Espace Administrateur</div>
-    <div class="adm-login-sub">Connectez-vous pour gérer vos véhicules</div>
-    <input class="inp" type="password" id="aPw" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')tryL()" style="text-align:center;max-width:280px;margin:0 auto">
-    <button class="adm-btn-primary" style="max-width:280px;margin:14px auto 0" onclick="tryL()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Connexion
+    <button class="adm-side-logout" onclick="closeA()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <span>Quitter</span>
     </button>
-    <div id="lMsg"></div>
-  </div>
-</div>
+  </aside>
 
-<!-- MAIN CONTENT -->
-<div id="aCont" style="display:none">
-
-  <!-- Stats -->
-  <div class="adm-stats" id="admStats">
-    <div class="adm-stat">
-      <div class="adm-stat-val" id="statTotal">0</div>
-      <div class="adm-stat-lbl">Véhicules</div>
-    </div>
-    <div class="adm-stat">
-      <div class="adm-stat-val" id="statDispo">0</div>
-      <div class="adm-stat-lbl">Disponibles</div>
-    </div>
-    <div class="adm-stat">
-      <div class="adm-stat-val" id="statReserve">0</div>
-      <div class="adm-stat-lbl">Réservés</div>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="adm-tabs">
-    <button class="adm-tab active" onclick="switchTab('add',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="margin-right:4px;vertical-align:-1px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Ajouter
-    </button>
-    <button class="adm-tab" onclick="switchTab('list',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" style="margin-right:4px;vertical-align:-1px"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-      Inventaire
-    </button>
-  </div>
-
-  <!-- Tab 1: Add/Edit Form -->
-  <div class="adm-tab-content active" id="tabAdd">
-    <div class="af">
-      <div class="af-t" id="formTitle">Ajouter un véhicule</div>
-      <div class="af-g">
-        <div><span class="inp-s">Marque *</span><input class="inp" id="fB" placeholder="BMW"></div>
-        <div><span class="inp-s">Modèle *</span><input class="inp" id="fM" placeholder="Série 3"></div>
-        <div><span class="inp-s">Finition</span><input class="inp" id="fFin" placeholder="M Sport"></div>
-        <div><span class="inp-s">Prix €</span><input class="inp" id="fP" placeholder="25000"></div>
-        <div><span class="inp-s">Kilométrage</span><input class="inp" id="fK" placeholder="85000"></div>
-        <div><span class="inp-s">Mise en circulation</span><input class="inp" id="fY" placeholder="03/2021"></div>
-        <div><span class="inp-s">Puissance (ch)</span><input class="inp" id="fH" placeholder="190"></div>
-        <div><span class="inp-s">CV fiscaux</span><input class="inp" id="fCV" placeholder="10"></div>
-        <div><span class="inp-s">Carburant</span><select class="inp" id="fFuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Electrique</option></select></div>
-        <div><span class="inp-s">Boîte</span><select class="inp" id="fGear"><option>Automatique</option><option>Manuelle</option></select></div>
-        <div><span class="inp-s">Statut</span><select class="inp" id="fStat"><option value="libre">Libre</option><option value="reserve">Réservé</option><option value="vendu">Vendu</option></select></div>
-        <div style="display:flex;flex-direction:column;justify-content:center"><label class="chk-row"><input type="checkbox" id="fTVA"> TVA Récupérable</label></div>
-      </div>
-
-      <div class="af-section">
-        <div class="af-section-title">Liens externes</div>
-        <div class="af-g" style="grid-template-columns:1fr 1fr">
-          <div><span class="inp-s">YouTube</span><input class="inp" id="fYT" placeholder="https://youtube.com/watch?v=..."></div>
-          <div><span class="inp-s">LeBonCoin</span><input class="inp" id="fLBC" placeholder="https://www.leboncoin.fr/..."></div>
-        </div>
-        <div style="margin-top:8px"><span class="inp-s">HistoVec</span><input class="inp" id="fHV" placeholder="https://histovec.interieur.gouv.fr/..."></div>
-      </div>
-
-      <div class="af-section">
-        <div class="af-section-title">Description</div>
-        <textarea class="inp" placeholder="Description détaillée du véhicule..." rows="3" id="fD"></textarea>
-      </div>
-
-      <div class="af-section">
-        <div class="af-section-title">Photos</div>
-        <div class="uz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="event.preventDefault();this.classList.remove('drag');hDrop(event)">
-          <input type="file" accept="image/*" multiple onchange="hFiles(this.files)">
-          <div class="uz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <p>Glisser ou cliquer pour ajouter des photos (max 5)</p>
-        </div>
-        <div class="up" id="uPrev"></div>
-      </div>
-
-      <div style="display:flex;gap:10px;margin-top:20px">
-        <button class="adm-btn-primary" style="flex:1" id="bAdd" onclick="addV()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Ajouter le véhicule
+  <!-- Main content -->
+  <main class="adm-main">
+    <!-- Top bar -->
+    <header class="adm-topbar">
+      <div class="adm-topbar-left">
+        <button class="adm-mobile-menu" onclick="document.querySelector('.adm-side').classList.toggle('mob-open')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
-        <button class="adm-btn-secondary" id="bCancel" onclick="cancelEdit()" style="display:none">Annuler</button>
+        <h2 class="adm-topbar-title" id="admPageTitle">Ajouter un véhicule</h2>
       </div>
-      <div id="aMsg"></div>
-    </div>
-  </div>
+      <div class="adm-topbar-right">
+        <div class="adm-stats-mini">
+          <div class="adm-stat-pill"><span id="statTotal">0</span> total</div>
+          <div class="adm-stat-pill green"><span id="statDispo">0</span> dispo</div>
+          <div class="adm-stat-pill orange"><span id="statReserve">0</span> réservé</div>
+        </div>
+      </div>
+    </header>
 
-  <!-- Tab 2: Vehicle List -->
-  <div class="adm-tab-content" id="tabList">
-    <div class="adm-toolbar">
-      <span style="font-size:10px;color:var(--ac);letter-spacing:2px;text-transform:uppercase;font-weight:600" id="vCnt"></span>
-      <div class="adm-toolbar-actions">
-        <button onclick="sortV('asc')" id="sortAsc" class="adm-toolbar-btn">Prix ↑</button>
-        <button onclick="sortV('desc')" id="sortDesc" class="adm-toolbar-btn">Prix ↓</button>
-        <button onclick="refDB()" class="adm-toolbar-btn" style="color:#444">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11" style="vertical-align:-1px"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-        </button>
+    <!-- Tab: Add -->
+    <div class="adm-tab-content active" id="tabAdd">
+      <div class="adm-content-scroll">
+        <div class="af">
+          <div class="af-t" id="formTitle">Nouveau véhicule</div>
+          <div class="af-g">
+            <div><span class="inp-s">Marque *</span><input class="inp" id="fB" placeholder="BMW"></div>
+            <div><span class="inp-s">Modèle *</span><input class="inp" id="fM" placeholder="Série 3"></div>
+            <div><span class="inp-s">Finition</span><input class="inp" id="fFin" placeholder="M Sport"></div>
+            <div><span class="inp-s">Prix €</span><input class="inp" id="fP" placeholder="25000"></div>
+            <div><span class="inp-s">Kilométrage</span><input class="inp" id="fK" placeholder="85000"></div>
+            <div><span class="inp-s">Mise en circulation</span><input class="inp" id="fY" placeholder="03/2021"></div>
+            <div><span class="inp-s">Puissance (ch)</span><input class="inp" id="fH" placeholder="190"></div>
+            <div><span class="inp-s">CV fiscaux</span><input class="inp" id="fCV" placeholder="10"></div>
+            <div><span class="inp-s">Carburant</span><select class="inp" id="fFuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Electrique</option></select></div>
+            <div><span class="inp-s">Boîte</span><select class="inp" id="fGear"><option>Automatique</option><option>Manuelle</option></select></div>
+            <div><span class="inp-s">Statut</span><select class="inp" id="fStat"><option value="libre">Libre</option><option value="reserve">Réservé</option><option value="vendu">Vendu</option></select></div>
+            <div style="display:flex;flex-direction:column;justify-content:center"><label class="chk-row"><input type="checkbox" id="fTVA"> TVA Récupérable</label></div>
+          </div>
+          <div class="af-section">
+            <div class="af-section-title">Liens externes</div>
+            <div class="af-g" style="grid-template-columns:1fr 1fr">
+              <div><span class="inp-s">YouTube</span><input class="inp" id="fYT" placeholder="https://youtube.com/watch?v=..."></div>
+              <div><span class="inp-s">LeBonCoin</span><input class="inp" id="fLBC" placeholder="https://www.leboncoin.fr/..."></div>
+            </div>
+            <div style="margin-top:10px"><span class="inp-s">HistoVec</span><input class="inp" id="fHV" placeholder="https://histovec.interieur.gouv.fr/..."></div>
+          </div>
+          <div class="af-section">
+            <div class="af-section-title">Description</div>
+            <textarea class="inp" placeholder="Description détaillée du véhicule..." rows="3" id="fD"></textarea>
+          </div>
+          <div class="af-section">
+            <div class="af-section-title">Photos</div>
+            <div class="uz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="event.preventDefault();this.classList.remove('drag');hDrop(event)">
+              <input type="file" accept="image/*" multiple onchange="hFiles(this.files)">
+              <div class="uz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+              <p>Glisser ou cliquer — max 5 photos</p>
+            </div>
+            <div class="up" id="uPrev"></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:24px">
+            <button class="adm-btn-primary" style="flex:1" id="bAdd" onclick="addV()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Ajouter le véhicule
+            </button>
+            <button class="adm-btn-secondary" id="bCancel" onclick="cancelEdit()" style="display:none">Annuler</button>
+          </div>
+          <div id="aMsg"></div>
+        </div>
       </div>
     </div>
-    <div id="aList"></div>
-  </div>
 
+    <!-- Tab: List -->
+    <div class="adm-tab-content" id="tabList">
+      <div class="adm-content-scroll">
+        <div class="adm-toolbar">
+          <span class="adm-toolbar-count" id="vCnt"></span>
+          <div class="adm-toolbar-actions">
+            <button onclick="sortV('asc')" id="sortAsc" class="adm-toolbar-btn">Prix ↑</button>
+            <button onclick="sortV('desc')" id="sortDesc" class="adm-toolbar-btn">Prix ↓</button>
+            <button onclick="refDB()" class="adm-toolbar-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="aList"></div>
+      </div>
+    </div>
+  </main>
 </div>
-</div></div></div>
+</div>
 
 <!-- DELETE CONFIRMATION MODAL -->
 <div class="del-ov" id="delModal">
@@ -588,10 +637,13 @@ function rAL(){
 
 /* Tab switching */
 function switchTab(tab,btn){
-  document.querySelectorAll('.adm-tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.adm-nav-item').forEach(function(t){t.classList.remove('active')});
   document.querySelectorAll('.adm-tab-content').forEach(function(c){c.classList.remove('active')});
   btn.classList.add('active');
   document.getElementById(tab==='add'?'tabAdd':'tabList').classList.add('active');
+  var title=document.getElementById('admPageTitle');
+  if(title)title.textContent=tab==='add'?'Ajouter un véhicule':'Inventaire';
+  var side=document.querySelector('.adm-side');if(side)side.classList.remove('mob-open');
 }
 function moveV(i,d){var j=i+d;if(j<0||j>=V.length)return;var t=V[i];V[i]=V[j];V[j]=t;svDB().then(function(){rV();rAL()})}
 function rG(){var g=document.getElementById('mGal');if(!cImgs.length){g.innerHTML='<div class="v-soon">Bientot disponible</div>';return}var h='';for(var i=0;i<cImgs.length;i++)h+='<img src="'+cImgs[i]+'" alt="" class="'+(i===gIdx?'on':'')+'">';if(cImgs.length>1){h+='<div class="m-gal-nav">';for(var j=0;j<cImgs.length;j++)h+='<button class="m-gal-dot '+(j===gIdx?'on':'')+'" onclick="goG('+j+')"></button>';h+='</div>';}g.innerHTML=h}
@@ -632,13 +684,13 @@ function pFile(f){
 function rUP(){var h='';for(var i=0;i<uImgs.length;i++){if(uImgs[i]==='loading'){h+='<div class="ut"><div class="ut-img-wrap" style="width:60px;height:60px;background:#111;border-radius:5px;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center"><span class="sp"></span></div></div>';}else{h+='<div class="ut"><div class="ut-img-wrap"><img src="'+uImgs[i]+'" alt=""><button class="ut-x" onclick="rmU('+i+')">&#10005;</button></div><button class="ut-crop" onclick="openCrop('+i+')">&#9986; Recadrer</button></div>';}}document.getElementById('uPrev').innerHTML=h}
 function rmU(i){uImgs.splice(i,1);rUP()}
 function openA(){document.getElementById('aModal').classList.add('open');document.body.style.overflow='hidden'}
-function closeA(){document.getElementById('aModal').classList.remove('open');document.body.style.overflow='';document.getElementById('aLogin').style.display='block';document.getElementById('aCont').style.display='none';document.getElementById('aPw').value='';document.getElementById('lMsg').innerHTML='';cancelEdit()}
-function tryL(){if(document.getElementById('aPw').value==='nrk2024'){document.getElementById('aLogin').style.display='none';document.getElementById('aCont').style.display='block';rAL()}else document.getElementById('lMsg').innerHTML='<div class="msg err">Mot de passe incorrect</div>'}
+function closeA(){document.getElementById('aModal').classList.remove('open');document.body.style.overflow='';document.getElementById('aLogin').style.display='flex';document.getElementById('aCont').style.display='none';document.getElementById('aPw').value='';document.getElementById('lMsg').innerHTML='';cancelEdit();var side=document.querySelector('.adm-side');if(side)side.classList.remove('mob-open')}
+function tryL(){if(document.getElementById('aPw').value==='nrk2024'){document.getElementById('aLogin').style.display='none';document.getElementById('aCont').style.display='flex';rAL()}else document.getElementById('lMsg').innerHTML='<div class="msg err">Mot de passe incorrect</div>'}
 function gf(){return{brand:document.getElementById('fB').value.trim(),model:document.getElementById('fM').value.trim(),fin:document.getElementById('fFin').value.trim()||'',price:document.getElementById('fP').value.trim()||'—',km:document.getElementById('fK').value.trim()||'—',year:document.getElementById('fY').value.trim()||'—',hp:document.getElementById('fH').value.trim()||'—',cv:document.getElementById('fCV').value.trim()||'',fuel:document.getElementById('fFuel').value,gear:document.getElementById('fGear').value,status:document.getElementById('fStat').value,tva:document.getElementById('fTVA').checked,youtube:document.getElementById('fYT').value.trim()||'',leboncoin:document.getElementById('fLBC').value.trim()||'',histovec:document.getElementById('fHV').value.trim()||'',images:[].concat(uImgs),description:document.getElementById('fD').value.trim()||''}}
 function addV(){var f=gf();if(!f.brand||!f.model){sMsg('aMsg','Marque et modele requis','err');return}f.id='v'+Date.now();V.unshift(f);svDB().then(function(){rV();rAL();rf();sMsg('aMsg','Vehicule ajoute','ok')})}
 function editV(id){var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}if(!v)return;editId=id;document.getElementById('fB').value=v.brand||'';document.getElementById('fM').value=v.model||'';document.getElementById('fFin').value=v.fin||'';document.getElementById('fP').value=v.price||'';document.getElementById('fK').value=v.km||'';document.getElementById('fY').value=v.year||'';document.getElementById('fH').value=v.hp||'';document.getElementById('fCV').value=v.cv||'';document.getElementById('fYT').value=v.youtube||'';document.getElementById('fLBC').value=v.leboncoin||'';document.getElementById('fHV').value=v.histovec||'';document.getElementById('fD').value=v.description||'';document.getElementById('fTVA').checked=!!v.tva;setSel('fFuel',v.fuel||'Essence');setSel('fGear',v.gear||'Automatique');setSel('fStat',v.status||'libre');uImgs=v.images?[].concat(v.images):[];rUP();document.getElementById('formTitle').textContent='Modifier le véhicule';document.getElementById('bAdd').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Enregistrer';document.getElementById('bAdd').onclick=saveEdit;document.getElementById('bCancel').style.display='';
   // Switch to form tab
-  var tabs=document.querySelectorAll('.adm-tab');if(tabs.length){tabs[0].click();}
+  var addTab=document.querySelector('.adm-nav-item[data-tab="add"]');if(addTab)switchTab('add',addTab);
   sMsg('aMsg','Modification : '+v.brand+' '+v.model,'ok');document.getElementById('formTitle').scrollIntoView({behavior:'smooth',block:'start'});}
 function setSel(id,val){var s=document.getElementById(id);for(var i=0;i<s.options.length;i++)if(s.options[i].value===val){s.selectedIndex=i;break;}}
 function saveEdit(){if(!editId)return;var idx=-1;for(var i=0;i<V.length;i++)if(V[i].id===editId){idx=i;break;}if(idx===-1)return;var f=gf();if(!f.brand||!f.model){sMsg('aMsg','Marque et modele requis','err');return}f.id=editId;V[idx]=f;svDB().then(function(){rV();rAL();cancelEdit();sMsg('aMsg','Vehicule modifie','ok')})}
