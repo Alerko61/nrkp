@@ -190,6 +190,15 @@ textarea.inp{resize:vertical}
 .vli-ord{display:flex;flex-direction:column;gap:3px;padding:14px 6px 14px 0;justify-content:center;flex-shrink:0}
 .vli-ord button{background:rgba(255,255,255,.03);border:1px solid #1a1a1a;color:#666;width:24px;height:22px;font-size:10px;cursor:pointer;border-radius:6px;padding:0;display:flex;align-items:center;justify-content:center;transition:all .25s}
 .vli-ord button:hover{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.06);transform:scale(1.1)}
+
+/* TVA Toggle */
+.vli-tva{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;transition:all .3s}
+.vli-tva-track{width:36px;height:20px;border-radius:10px;background:#1a1a1a;border:1px solid #252525;position:relative;transition:all .35s cubic-bezier(.16,1,.3,1);flex-shrink:0}
+.vli-tva-track::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#444;transition:all .35s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.vli-tva.on .vli-tva-track{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3)}
+.vli-tva.on .vli-tva-track::after{left:18px;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.4)}
+.vli-tva-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#555;margin-left:8px;font-weight:500;transition:color .3s;white-space:nowrap}
+.vli-tva.on .vli-tva-label{color:#22c55e}
 @media(max-width:768px){
   .vli{flex-direction:column}
   .vli-img-wrap{width:100%;height:160px}
@@ -656,6 +665,10 @@ function rAL(){
     if(v.fuel)h+='<span class="vli-detail">'+v.fuel+'</span>';
     if(v.hp&&v.hp!=='—')h+='<span class="vli-detail">'+v.hp+' ch</span>';
     h+='</div>';
+    h+='<div class="vli-tva'+(v.tva?' on':'')+'" onclick="toggleTVA(\''+v.id+'\',this)">';
+    h+='<div class="vli-tva-track"></div>';
+    h+='<span class="vli-tva-label">'+(v.tva?'TVA récup.':'TVA non récup.')+'</span>';
+    h+='</div>';
     h+='</div>';
     h+='<div class="vli-right">';
     h+='<span class="vli-p">'+fmtPx(v.price)+'</span>';
@@ -678,6 +691,24 @@ function switchTab(tab,btn){
   var title=document.getElementById('admPageTitle');
   if(title)title.textContent=tab==='add'?'Ajouter un véhicule':'Inventaire';
   var side=document.querySelector('.adm-side');if(side)side.classList.remove('mob-open');
+}
+
+/* TVA Toggle */
+function toggleTVA(id,el){
+  var idx=-1;
+  for(var i=0;i<V.length;i++)if(V[i].id===id){idx=i;break;}
+  if(idx===-1)return;
+  V[idx].tva=!V[idx].tva;
+  // Instant UI update
+  if(V[idx].tva){
+    el.classList.add('on');
+    el.querySelector('.vli-tva-label').textContent='TVA récup.';
+  }else{
+    el.classList.remove('on');
+    el.querySelector('.vli-tva-label').textContent='TVA non récup.';
+  }
+  // Save to DB and refresh public view
+  svDB().then(function(){rV()});
 }
 function moveV(i,d){var j=i+d;if(j<0||j>=V.length)return;var t=V[i];V[i]=V[j];V[j]=t;svDB().then(function(){rV();rAL()})}
 function rG(){var g=document.getElementById('mGal');if(!cImgs.length){g.innerHTML='<div class="v-soon">Bientot disponible</div>';return}var h='';for(var i=0;i<cImgs.length;i++)h+='<img src="'+cImgs[i]+'" alt="" class="'+(i===gIdx?'on':'')+'">';if(cImgs.length>1){h+='<div class="m-gal-nav">';for(var j=0;j<cImgs.length;j++)h+='<button class="m-gal-dot '+(j===gIdx?'on':'')+'" onclick="goG('+j+')"></button>';h+='</div>';}g.innerHTML=h}
