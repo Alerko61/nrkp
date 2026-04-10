@@ -92,11 +92,17 @@
 .adm-topbar-left{display:flex;align-items:center;gap:12px}
 .adm-topbar-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--w);letter-spacing:1px}
 .adm-mobile-menu{display:none;background:none;border:1px solid #1e1e1e;color:#666;width:36px;height:36px;border-radius:8px;cursor:pointer;align-items:center;justify-content:center}
-.adm-stats-mini{display:flex;gap:8px}
-.adm-stat-pill{font-size:11px;color:#999;background:rgba(255,255,255,.03);border:1px solid #1e1e1e;padding:6px 14px;border-radius:20px;font-weight:500}
+.adm-stats-mini{display:flex;gap:6px}
+.adm-stat-pill{font-size:11px;color:#999;background:rgba(255,255,255,.03);border:1px solid #1e1e1e;padding:6px 14px;border-radius:20px;font-weight:500;cursor:pointer;transition:all .3s;user-select:none}
+.adm-stat-pill:hover{border-color:#333;background:rgba(255,255,255,.06)}
 .adm-stat-pill span{color:var(--w);font-weight:700;margin-right:3px}
 .adm-stat-pill.green span{color:#22c55e}
 .adm-stat-pill.orange span{color:#fbbf24}
+.adm-stat-pill.red span{color:#ef4444}
+.adm-stat-pill.active{border-color:var(--ac);background:rgba(192,192,192,.08);color:var(--w)}
+.adm-stat-pill.green.active{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
+.adm-stat-pill.orange.active{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+.adm-stat-pill.red.active{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08)}
 .adm-content-scroll{flex:1;overflow-y:auto;padding:28px 32px;scrollbar-width:thin;scrollbar-color:#1a1a1a transparent}
 .adm-tab-content{display:none;flex:1;overflow:hidden;flex-direction:column}
 .adm-tab-content.active{display:flex;animation:tabFade .4s ease}
@@ -423,9 +429,10 @@ textarea.inp{resize:vertical}
       </div>
       <div class="adm-topbar-right">
         <div class="adm-stats-mini">
-          <div class="adm-stat-pill"><span id="statTotal">0</span> total</div>
-          <div class="adm-stat-pill green"><span id="statDispo">0</span> dispo</div>
-          <div class="adm-stat-pill orange"><span id="statReserve">0</span> réservé</div>
+          <div class="adm-stat-pill active" onclick="filterInventory('all',this)" data-filter="all"><span id="statTotal">0</span> total</div>
+          <div class="adm-stat-pill green" onclick="filterInventory('libre',this)" data-filter="libre"><span id="statDispo">0</span> dispo</div>
+          <div class="adm-stat-pill orange" onclick="filterInventory('reserve',this)" data-filter="reserve"><span id="statReserve">0</span> réservé</div>
+          <div class="adm-stat-pill red" onclick="filterInventory('vendu',this)" data-filter="vendu"><span id="statVendu">0</span> vendu</div>
         </div>
       </div>
     </header>
@@ -635,24 +642,27 @@ function sortV(dir){
   document.getElementById('sortDesc').className='adm-toolbar-btn'+(dir==='desc'?' active':'');
   svDB().then(function(){rV();rAL()});
 }
+var admFilter='all';
 function rAL(){
   document.getElementById('vCnt').textContent='Inventaire ('+V.length+')';
-  var total=V.length,dispo=0,reserve=0;
+  var total=V.length,dispo=0,reserve=0,vendu=0;
   for(var i=0;i<V.length;i++){
     var st=V[i].status||'libre';
     if(st==='libre')dispo++;
     else if(st==='reserve')reserve++;
+    else if(st==='vendu')vendu++;
   }
   var eT=document.getElementById('statTotal');if(eT)eT.textContent=total;
   var eD=document.getElementById('statDispo');if(eD)eD.textContent=dispo;
   var eR=document.getElementById('statReserve');if(eR)eR.textContent=reserve;
+  var eV=document.getElementById('statVendu');if(eV)eV.textContent=vendu;
 
   var h='';
   for(var i=0;i<V.length;i++){
     var v=V[i],st=v.status||'libre';
     var stClass=st==='reserve'?'st-reserve':st==='vendu'?'st-vendu':'st-libre';
     var stLabel=st==='reserve'?'Réservé':st==='vendu'?'Vendu':'Disponible';
-    h+='<div class="vli" style="animation-delay:'+i*0.06+'s">';
+    h+='<div class="vli" style="animation-delay:'+i*0.06+'s" data-status="'+st+'">';
 
     // Image with overlay controls
     h+='<div class="vli-img-wrap">';
@@ -697,6 +707,7 @@ function rAL(){
     h+='</div>';
   }
   document.getElementById('aList').innerHTML=h;
+  applyInventoryFilter();
 }
 
 /* Tab switching */
@@ -716,7 +727,6 @@ function toggleTVA(id,el){
   for(var i=0;i<V.length;i++)if(V[i].id===id){idx=i;break;}
   if(idx===-1)return;
   V[idx].tva=!V[idx].tva;
-  // Instant UI update
   if(V[idx].tva){
     el.classList.add('on');
     el.querySelector('.vli-tva-label').textContent='TVA récup.';
@@ -724,8 +734,33 @@ function toggleTVA(id,el){
     el.classList.remove('on');
     el.querySelector('.vli-tva-label').textContent='TVA non récup.';
   }
-  // Save to DB and refresh public view
   svDB().then(function(){rV()});
+}
+
+/* Inventory Filter */
+function filterInventory(filter,btn){
+  admFilter=filter;
+  // Update active pill
+  document.querySelectorAll('.adm-stat-pill').forEach(function(p){p.classList.remove('active')});
+  btn.classList.add('active');
+  // Switch to inventory tab if not already
+  var listTab=document.querySelector('.adm-nav-item[data-tab="list"]');
+  if(listTab&&!listTab.classList.contains('active'))switchTab('list',listTab);
+  applyInventoryFilter();
+}
+function applyInventoryFilter(){
+  var cards=document.querySelectorAll('#aList .vli');
+  var shown=0;
+  cards.forEach(function(c){
+    if(admFilter==='all'||c.getAttribute('data-status')===admFilter){
+      c.style.display='';
+      shown++;
+    }else{
+      c.style.display='none';
+    }
+  });
+  var label=admFilter==='all'?'Inventaire':'Inventaire — '+(admFilter==='libre'?'Disponibles':admFilter==='reserve'?'Réservés':'Vendus');
+  document.getElementById('vCnt').textContent=label+' ('+shown+')';
 }
 function moveV(i,d){var j=i+d;if(j<0||j>=V.length)return;var t=V[i];V[i]=V[j];V[j]=t;svDB().then(function(){rV();rAL()})}
 function rG(){var g=document.getElementById('mGal');if(!cImgs.length){g.innerHTML='<div class="v-soon">Bientot disponible</div>';return}var h='';for(var i=0;i<cImgs.length;i++)h+='<img src="'+cImgs[i]+'" alt="" class="'+(i===gIdx?'on':'')+'">';if(cImgs.length>1){h+='<div class="m-gal-nav">';for(var j=0;j<cImgs.length;j++)h+='<button class="m-gal-dot '+(j===gIdx?'on':'')+'" onclick="goG('+j+')"></button>';h+='</div>';}g.innerHTML=h}
