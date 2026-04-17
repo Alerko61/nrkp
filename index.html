@@ -486,58 +486,6 @@ textarea.inp{resize:vertical}
       </div>
     </header>
 
-    <!-- Tab: Add - removed, now in popup -->
-    <div class="adm-tab-content" id="tabAdd" style="display:none!important">
-      <div class="adm-content-scroll">
-        <div class="af">
-          <div class="af-t" id="formTitle">Nouveau véhicule</div>
-          <div class="af-g">
-            <div><span class="inp-s">Marque *</span><input class="inp" id="fB" placeholder="BMW"></div>
-            <div><span class="inp-s">Modèle *</span><input class="inp" id="fM" placeholder="Série 3"></div>
-            <div><span class="inp-s">Finition</span><input class="inp" id="fFin" placeholder="M Sport"></div>
-            <div><span class="inp-s">Prix €</span><input class="inp" id="fP" placeholder="25000"></div>
-            <div><span class="inp-s">Kilométrage</span><input class="inp" id="fK" placeholder="85000"></div>
-            <div><span class="inp-s">Mise en circulation</span><input class="inp" id="fY" placeholder="03/2021"></div>
-            <div><span class="inp-s">Puissance (ch)</span><input class="inp" id="fH" placeholder="190"></div>
-            <div><span class="inp-s">CV fiscaux</span><input class="inp" id="fCV" placeholder="10"></div>
-            <div><span class="inp-s">Carburant</span><select class="inp" id="fFuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Electrique</option></select></div>
-            <div><span class="inp-s">Boîte</span><select class="inp" id="fGear"><option>Automatique</option><option>Manuelle</option></select></div>
-            <div><span class="inp-s">Boîte</span><select class="inp" id="fGear2" style="display:none"><option>Automatique</option><option>Manuelle</option></select>
-            <select class="inp" id="fStat" style="display:none"><option value="libre" selected>Libre</option><option value="reserve">Réservé</option><option value="vendu">Vendu</option></select>
-            <input type="checkbox" id="fTVA" style="display:none"></div>
-          </div>
-          <div class="af-section">
-            <div class="af-section-title">Liens externes</div>
-            <div class="af-g" style="grid-template-columns:1fr 1fr">
-              <div><span class="inp-s">YouTube</span><input class="inp" id="fYT" placeholder="https://youtube.com/watch?v=..."></div>
-              <div><span class="inp-s">LeBonCoin</span><input class="inp" id="fLBC" placeholder="https://www.leboncoin.fr/..."></div>
-            </div>
-            <div style="margin-top:10px"><span class="inp-s">HistoVec</span><input class="inp" id="fHV" placeholder="https://histovec.interieur.gouv.fr/..."></div>
-          </div>
-          <div class="af-section">
-            <div class="af-section-title">Description</div>
-            <textarea class="inp" placeholder="Description détaillée du véhicule..." rows="3" id="fD"></textarea>
-          </div>
-          <div class="af-section">
-            <div class="af-section-title">Photos</div>
-            <div class="uz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="event.preventDefault();this.classList.remove('drag');hDrop(event)">
-              <input type="file" accept="image/*" multiple onchange="hFiles(this.files)">
-              <div class="uz-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-              <p>Glisser ou cliquer — max 5 photos</p>
-            </div>
-            <div class="up" id="uPrev"></div>
-          </div>
-          <div style="display:flex;gap:10px;margin-top:24px">
-            <button class="adm-btn-primary" style="flex:1" id="bAdd" onclick="addV()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Ajouter le véhicule
-            </button>
-            <button class="adm-btn-secondary" id="bCancel" onclick="cancelEdit()" style="display:none">Annuler</button>
-          </div>
-          <div id="aMsg"></div>
-        </div>
-      </div>
-    </div>
 
     <!-- Tab: List -->
     <div class="adm-tab-content active" id="tabList">
@@ -597,10 +545,6 @@ textarea.inp{resize:vertical}
           <div><span class="inp-s">LeBonCoin</span><input class="inp" id="fLBC2" placeholder="https://www.leboncoin.fr/..."></div>
         </div>
         <div style="margin-top:10px"><span class="inp-s">HistoVec</span><input class="inp" id="fHV2" placeholder="https://histovec.interieur.gouv.fr/..."></div>
-      </div>
-      <div class="af-section">
-        <div class="af-section-title">Description</div>
-        <textarea class="inp" placeholder="Description détaillée du véhicule..." rows="3" id="fD2"></textarea>
       </div>
       <div class="af-section">
         <div class="af-section-title">Photos</div>
@@ -813,8 +757,9 @@ function rAL(){
     // Body
     h+='<div class="vli-body">';
     h+='<div class="vli-row-top"><span class="vli-b">'+v.brand+'</span></div>';
-    h+='<div class="vli-m">'+v.model+(v.fin?' — <span>'+v.fin+'</span>':'')+'</div>';
-    h+='<div class="vli-price-row"><span class="vli-p">'+fmtPx(v.price)+'</span></div>';
+    h+='<div class="vli-m">'+v.model+(v.fin?' <span>'+v.fin+'</span>':'')+'</div>';
+    var hasPrice=v.price&&v.price!=='\u2014'&&v.price!=='0'&&v.price!=='';
+    h+='<div class="vli-price-row"><span class="vli-p"'+(hasPrice?'':' style="font-size:14px;color:#fbbf24"')+'>'+( hasPrice?fmtPx(v.price):'En Pr\u00e9paration')+'</span></div>';
     h+='<div class="vli-details">';
     if(v.km&&v.km!=='—')h+='<span class="vli-detail">'+fmtKm(v.km)+'</span>';
     if(v.year&&v.year!=='—')h+='<span class="vli-detail">'+v.year+'</span>';
@@ -969,7 +914,8 @@ function generateAffichette(id){
   w.document.write('<div class="nm">'+v.model+'</div>');
   if(v.fin)w.document.write('<div class="fn">'+v.fin+'</div>');
   else w.document.write('<div style="margin-bottom:40px"></div>');
-  w.document.write('<div class="pr">'+fmtPx(v.price)+'</div>');
+  var hasP=v.price&&v.price!=='\u2014'&&v.price!=='0'&&v.price!=='';
+  w.document.write('<div class="pr"'+(hasP?'':' style="font-size:52px;color:#b8860b"')+'>'+( hasP?fmtPx(v.price):'En Pr\u00e9paration')+'</div>');
   if(v.tva)w.document.write('<div class="tva">TVA R\u00e9cup\u00e9rable</div>');
   else w.document.write('<div style="margin-bottom:40px"></div>');
   w.document.write('<div class="sep"></div>');
