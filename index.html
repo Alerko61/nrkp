@@ -98,11 +98,11 @@
 .adm-stat-pill span{color:var(--w);font-weight:700;margin-right:3px}
 .adm-stat-pill.green span{color:#22c55e}
 .adm-stat-pill.orange span{color:#fbbf24}
-.adm-stat-pill.red span{color:#ef4444}
+.adm-stat-pill.red span{color:#fbbf24}
 .adm-stat-pill.active{border-color:var(--ac);background:rgba(192,192,192,.08);color:var(--w)}
 .adm-stat-pill.green.active{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
 .adm-stat-pill.orange.active{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
-.adm-stat-pill.red.active{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08)}
+.adm-stat-pill.red.active{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
 .adm-content-scroll{flex:1;overflow-y:auto;padding:28px 32px;scrollbar-width:thin;scrollbar-color:#1a1a1a transparent}
 .adm-tab-content{display:none;flex:1;overflow:hidden;flex-direction:column}
 .adm-tab-content.active{display:flex;animation:tabFade .4s ease}
@@ -481,7 +481,7 @@ textarea.inp{resize:vertical}
           <div class="adm-stat-pill active" onclick="filterInventory('all',this)" data-filter="all"><span id="statTotal">0</span> total</div>
           <div class="adm-stat-pill green" onclick="filterInventory('libre',this)" data-filter="libre"><span id="statDispo">0</span> dispo</div>
           <div class="adm-stat-pill orange" onclick="filterInventory('reserve',this)" data-filter="reserve"><span id="statReserve">0</span> réservé</div>
-          <div class="adm-stat-pill red" onclick="filterInventory('vendu',this)" data-filter="vendu"><span id="statVendu">0</span> vendu</div>
+          <div class="adm-stat-pill red" onclick="filterInventory('nouveau',this)" data-filter="nouveau"><span id="statVendu">0</span> nouveauté</div>
         </div>
       </div>
     </header>
@@ -776,24 +776,26 @@ function sortV(dir){
 var admFilter='all';
 function rAL(){
   document.getElementById('vCnt').textContent='Inventaire ('+V.length+')';
-  var total=V.length,dispo=0,reserve=0,vendu=0;
+  var total=V.length,dispo=0,reserve=0,nouveau=0;
   for(var i=0;i<V.length;i++){
     var st=V[i].status||'libre';
+    var hasP=V[i].price&&V[i].price!=='\u2014'&&V[i].price!=='0'&&V[i].price!=='';
+    if(!hasP){nouveau++;continue;}
     if(st==='libre')dispo++;
     else if(st==='reserve')reserve++;
-    else if(st==='vendu')vendu++;
   }
   var eT=document.getElementById('statTotal');if(eT)eT.textContent=total;
   var eD=document.getElementById('statDispo');if(eD)eD.textContent=dispo;
   var eR=document.getElementById('statReserve');if(eR)eR.textContent=reserve;
-  var eV=document.getElementById('statVendu');if(eV)eV.textContent=vendu;
+  var eV=document.getElementById('statVendu');if(eV)eV.textContent=nouveau;
 
   var h='';
   for(var i=0;i<V.length;i++){
     var v=V[i],st=v.status||'libre';
     var stClass=st==='reserve'?'st-reserve':st==='vendu'?'st-vendu':'st-libre';
     var stLabel=st==='reserve'?'Réservé':st==='vendu'?'Vendu':'Disponible';
-    h+='<div class="vli" style="animation-delay:'+i*0.06+'s" data-status="'+st+'">';
+    var hasPrice=v.price&&v.price!=='\u2014'&&v.price!=='0'&&v.price!=='';
+    h+='<div class="vli" style="animation-delay:'+i*0.06+'s" data-status="'+st+'" data-nouveau="'+(hasPrice?'0':'1')+'">';
 
     // Image with overlay controls
     h+='<div class="vli-img-wrap">';
@@ -891,14 +893,13 @@ function applyInventoryFilter(){
   var cards=document.querySelectorAll('#aList .vli');
   var shown=0;
   cards.forEach(function(c){
-    if(admFilter==='all'||c.getAttribute('data-status')===admFilter){
-      c.style.display='';
-      shown++;
-    }else{
-      c.style.display='none';
-    }
+    var match=false;
+    if(admFilter==='all')match=true;
+    else if(admFilter==='nouveau')match=c.getAttribute('data-nouveau')==='1';
+    else match=c.getAttribute('data-status')===admFilter&&c.getAttribute('data-nouveau')==='0';
+    if(match){c.style.display='';shown++;}else{c.style.display='none';}
   });
-  var label=admFilter==='all'?'Inventaire':'Inventaire — '+(admFilter==='libre'?'Disponibles':admFilter==='reserve'?'Réservés':'Vendus');
+  var label=admFilter==='all'?'Inventaire':admFilter==='libre'?'Disponibles':admFilter==='reserve'?'Réservés':'Nouveautés';
   document.getElementById('vCnt').textContent=label+' ('+shown+')';
 }
 /* Add/Edit popup */
@@ -931,49 +932,53 @@ function generateAffichette(id){
   var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}
   if(!v)return;
   var w=window.open('','_blank');
-  var imgTag=v.images&&v.images[0]?'<img src="'+v.images[0]+'" class="af-img">':'';
   var specs=[];
-  if(v.km&&v.km!=='\u2014')specs.push(['Km',fmtKm(v.km)]);
-  if(v.year&&v.year!=='\u2014')specs.push(['Ann\u00e9e',v.year]);
+  if(v.km&&v.km!=='\u2014')specs.push(['Kilom\u00e9trage',fmtKm(v.km)]);
+  if(v.year&&v.year!=='\u2014')specs.push(['Mise en circulation',v.year]);
   if(v.fuel)specs.push(['Carburant',v.fuel]);
   if(v.hp&&v.hp!=='\u2014')specs.push(['Puissance',v.hp+' ch']);
   if(v.gear)specs.push(['Bo\u00eete',v.gear]);
-  if(v.cv)specs.push(['CV',v.cv+' CV']);
-  var specH='';for(var s=0;s<specs.length;s++){specH+='<div class="af-spec"><span class="af-spec-v">'+specs[s][1]+'</span><span class="af-spec-l">'+specs[s][0]+'</span></div>';}
-  var css='*{margin:0;padding:0;box-sizing:border-box}body{font-family:Outfit,sans-serif;background:#fff;color:#111;width:210mm;min-height:297mm;margin:0 auto;position:relative;overflow:hidden}';
-  css+='.af-page{display:flex;flex-direction:column;min-height:297mm;position:relative}';
-  css+='.af-top{background:#0a0a0a;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}';
-  css+='.af-logo{font-family:Cormorant Garamond,serif;font-size:22px;font-weight:700;letter-spacing:4px;text-transform:uppercase}';
-  css+='.af-logo-sub{font-size:8px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-top:1px}';
-  css+='.af-top-right{text-align:right;font-size:10px;color:#aaa;line-height:1.6}';
-  css+='.af-img{width:100%;height:340px;object-fit:cover;display:block}';
-  css+='.af-body{padding:28px 36px;flex:1}';
-  css+='.af-brand{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:4px}';
-  css+='.af-model{font-family:Cormorant Garamond,serif;font-size:38px;font-weight:700;line-height:1.1;color:#111}';
-  css+='.af-fin{font-size:15px;color:#777;margin-top:4px;font-weight:400}';
-  css+='.af-price-bar{display:flex;align-items:center;justify-content:space-between;margin:24px 0;padding:22px 28px;background:#0a0a0a;border-radius:12px}';
-  css+='.af-price-val{font-family:Cormorant Garamond,serif;font-size:48px;font-weight:700;color:#fff;letter-spacing:2px}';
-  css+='.af-price-side{text-align:right}';
-  css+='.af-tva-badge{display:inline-block;background:#16a34a;color:#fff;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px}';
-  css+='.af-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}';
-  css+='.af-spec{text-align:center;padding:16px 8px;border:1.5px solid #e5e5e5;border-radius:10px}';
-  css+='.af-spec-v{font-size:16px;font-weight:700;display:block;margin-bottom:3px}';
-  css+='.af-spec-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#aaa}';
-  css+='.af-bottom{background:#0a0a0a;color:#fff;padding:20px 36px;display:flex;align-items:center;justify-content:space-between;margin-top:auto}';
-  css+='.af-bottom-phone{font-size:24px;font-weight:700;letter-spacing:2px}';
-  css+='.af-bottom-addr{font-size:11px;color:#888;text-align:right;line-height:1.5}';
-  css+='@media print{body{width:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}.af-top,.af-price-bar,.af-bottom{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+v.brand+' '+v.model+' — ASH Prestige Custom</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet"><style>'+css+'</style></head><body><div class="af-page">');
-  w.document.write('<div class="af-top"><div><div class="af-logo">ASH Prestige Custom</div><div class="af-logo-sub">Automobiles de prestige</div></div><div class="af-top-right">07 61 50 92 69<br>Mions (69)</div></div>');
-  w.document.write(imgTag);
-  w.document.write('<div class="af-body"><div class="af-brand">'+v.brand+'</div><div class="af-model">'+v.model+'</div>'+(v.fin?'<div class="af-fin">'+v.fin+'</div>':''));
-  w.document.write('<div class="af-price-bar"><span class="af-price-val">'+fmtPx(v.price)+'</span><div class="af-price-side">'+(v.tva?'<span class="af-tva-badge">TVA R\u00e9cup\u00e9rable</span>':'')+'</div></div>');
-  w.document.write('<div class="af-specs">'+specH+'</div>');
+  if(v.cv)specs.push(['CV fiscaux',v.cv+' CV']);
+  var specH='';for(var s=0;s<specs.length;s++){specH+='<div class="s"><div class="sv">'+specs[s][1]+'</div><div class="sl">'+specs[s][0]+'</div></div>';}
+  var css='*{margin:0;padding:0;box-sizing:border-box}';
+  css+='body{font-family:Outfit,sans-serif;background:#fff;color:#111;width:210mm;height:297mm;margin:0 auto;overflow:hidden}';
+  css+='.p{display:flex;flex-direction:column;height:297mm;width:210mm}';
+  css+='.top{background:#0a0a0a;color:#fff;padding:28px 40px;display:flex;align-items:center;justify-content:space-between}';
+  css+='.logo{font-family:Cormorant Garamond,serif;font-size:32px;font-weight:700;letter-spacing:5px;text-transform:uppercase}';
+  css+='.logo-s{font-size:9px;letter-spacing:4px;color:#777;text-transform:uppercase;margin-top:2px}';
+  css+='.tr{text-align:right;font-size:12px;color:#999;line-height:1.7}';
+  css+='.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center}';
+  css+='.br{font-size:16px;letter-spacing:6px;text-transform:uppercase;color:#999;margin-bottom:12px}';
+  css+='.nm{font-family:Cormorant Garamond,serif;font-size:72px;font-weight:700;line-height:1;letter-spacing:3px;margin-bottom:6px}';
+  css+='.fn{font-size:22px;color:#666;margin-bottom:40px;font-weight:400;letter-spacing:1px}';
+  css+='.pr{font-family:Cormorant Garamond,serif;font-size:80px;font-weight:700;letter-spacing:3px;margin-bottom:10px}';
+  css+='.tva{display:inline-block;background:#16a34a;color:#fff;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:8px 24px;border-radius:30px;margin-bottom:40px}';
+  css+='.sep{width:60px;height:2px;background:#ddd;margin:0 auto 36px}';
+  css+='.sg{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;max-width:560px}';
+  css+='.s{min-width:140px;padding:18px 24px;border:2px solid #e5e5e5;border-radius:12px;text-align:center}';
+  css+='.sv{font-size:22px;font-weight:700;margin-bottom:4px}';
+  css+='.sl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#aaa}';
+  css+='.bot{background:#0a0a0a;color:#fff;padding:24px 40px;display:flex;align-items:center;justify-content:space-between}';
+  css+='.ph{font-size:28px;font-weight:700;letter-spacing:3px}';
+  css+='.ad{text-align:right;font-size:12px;color:#888;line-height:1.6}';
+  css+='@media print{body{width:auto;height:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{size:A4;margin:0}}';
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+v.brand+' '+v.model+'</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet"><style>'+css+'</style></head><body><div class="p">');
+  w.document.write('<div class="top"><div><div class="logo">ASH Prestige Custom</div><div class="logo-s">Automobiles de prestige \u2014 Mions (69)</div></div><div class="tr">07 61 50 92 69<br>33 Rue Joliot Curie<br>69780 Mions</div></div>');
+  w.document.write('<div class="mid">');
+  w.document.write('<div class="br">'+v.brand+'</div>');
+  w.document.write('<div class="nm">'+v.model+'</div>');
+  if(v.fin)w.document.write('<div class="fn">'+v.fin+'</div>');
+  else w.document.write('<div style="margin-bottom:40px"></div>');
+  w.document.write('<div class="pr">'+fmtPx(v.price)+'</div>');
+  if(v.tva)w.document.write('<div class="tva">TVA R\u00e9cup\u00e9rable</div>');
+  else w.document.write('<div style="margin-bottom:40px"></div>');
+  w.document.write('<div class="sep"></div>');
+  w.document.write('<div class="sg">'+specH+'</div>');
   w.document.write('</div>');
-  w.document.write('<div class="af-bottom"><div class="af-bottom-phone">07 61 50 92 69</div><div class="af-bottom-addr">ASH Prestige Custom<br>33 Rue Joliot Curie, 69780 Mions</div></div>');
+  w.document.write('<div class="bot"><div class="ph">07 61 50 92 69</div><div class="ad">ASH Prestige Custom<br>33 Rue Joliot Curie, 69780 Mions</div></div>');
   w.document.write('</div></body></html>');
   w.document.close();
-  setTimeout(function(){w.print()},600);
+  setTimeout(function(){w.print()},500);
 }
 
 function moveV(i,d){var j=i+d;if(j<0||j>=V.length)return;var t=V[i];V[i]=V[j];V[j]=t;svDB().then(function(){rV();rAL()})}
@@ -1019,13 +1024,17 @@ function closeA(){document.getElementById('aModal').classList.remove('open');doc
 function tryL(){if(document.getElementById('aPw').value==='nrk2024'){document.getElementById('aLogin').style.display='none';document.getElementById('aCont').style.display='flex';rAL()}else document.getElementById('lMsg').innerHTML='<div class="msg err">Mot de passe incorrect</div>'}
 function gf(){return{brand:document.getElementById('fB2').value.trim(),model:document.getElementById('fM2').value.trim(),fin:document.getElementById('fFin2').value.trim()||'',price:document.getElementById('fP2').value.trim()||'\u2014',km:document.getElementById('fK2').value.trim()||'\u2014',year:document.getElementById('fY2').value.trim()||'\u2014',hp:document.getElementById('fH2').value.trim()||'\u2014',cv:document.getElementById('fCV2').value.trim()||'',fuel:document.getElementById('fFuel2').value,gear:document.getElementById('fGear2b').value,status:'libre',tva:false,youtube:document.getElementById('fYT2').value.trim()||'',leboncoin:document.getElementById('fLBC2').value.trim()||'',histovec:document.getElementById('fHV2').value.trim()||'',images:[].concat(uImgs),description:document.getElementById('fD2').value.trim()||''}}
 function addV(){var f=gf();if(!f.brand||!f.model){sMsg('aMsg','Marque et mod\u00e8le requis','err');return}f.id='v'+Date.now();V.unshift(f);svDB().then(function(){rV();rAL();closeAddModal();sMsg('aMsg','V\u00e9hicule ajout\u00e9','ok')})}
-function editV(id){var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}if(!v)return;editId=id;document.getElementById('fB').value=v.brand||'';document.getElementById('fM').value=v.model||'';document.getElementById('fFin').value=v.fin||'';document.getElementById('fP').value=v.price||'';document.getElementById('fK').value=v.km||'';document.getElementById('fY').value=v.year||'';document.getElementById('fH').value=v.hp||'';document.getElementById('fCV').value=v.cv||'';document.getElementById('fYT').value=v.youtube||'';document.getElementById('fLBC').value=v.leboncoin||'';document.getElementById('fHV').value=v.histovec||'';document.getElementById('fD').value=v.description||'';document.getElementById('fTVA').checked=!!v.tva;setSel('fFuel',v.fuel||'Essence');setSel('fGear',v.gear||'Automatique');setSel('fStat',v.status||'libre');uImgs=v.images?[].concat(v.images):[];rUP();document.getElementById('formTitle').textContent='Modifier le véhicule';document.getElementById('bAdd').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Enregistrer';document.getElementById('bAdd').onclick=saveEdit;document.getElementById('bCancel').style.display='';
-  // Switch to form tab
-  var addTab=document.querySelector('.adm-nav-item[data-tab="add"]');if(addTab)switchTab('add',addTab);
-  sMsg('aMsg','Modification : '+v.brand+' '+v.model,'ok');document.getElementById('formTitle').scrollIntoView({behavior:'smooth',block:'start'});}
+function editV(id){var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}if(!v)return;editId=id;
+  document.getElementById('fB2').value=v.brand||'';document.getElementById('fM2').value=v.model||'';document.getElementById('fFin2').value=v.fin||'';document.getElementById('fP2').value=v.price||'';document.getElementById('fK2').value=v.km||'';document.getElementById('fY2').value=v.year||'';document.getElementById('fH2').value=v.hp||'';document.getElementById('fCV2').value=v.cv||'';document.getElementById('fYT2').value=v.youtube||'';document.getElementById('fLBC2').value=v.leboncoin||'';document.getElementById('fHV2').value=v.histovec||'';document.getElementById('fD2').value=v.description||'';
+  setSel('fFuel2',v.fuel||'Essence');setSel('fGear2b',v.gear||'Automatique');
+  uImgs=v.images?[].concat(v.images):[];rUP();
+  document.getElementById('addModalTitle').textContent='Modifier le v\u00e9hicule';
+  document.getElementById('addModalBtn').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Enregistrer';
+  document.getElementById('addModalBtn').onclick=saveEdit;
+  document.getElementById('addModal').classList.add('open');}
 function setSel(id,val){var s=document.getElementById(id);for(var i=0;i<s.options.length;i++)if(s.options[i].value===val){s.selectedIndex=i;break;}}
 function saveEdit(){if(!editId)return;var idx=-1;for(var i=0;i<V.length;i++)if(V[i].id===editId){idx=i;break;}if(idx===-1)return;var f=gf();if(!f.brand||!f.model){sMsg('aMsg','Marque et mod\u00e8le requis','err');return}f.id=editId;f.status=V[idx].status||'libre';f.tva=V[idx].tva||false;V[idx]=f;svDB().then(function(){rV();rAL();closeAddModal();sMsg('aMsg','V\u00e9hicule modifi\u00e9','ok')})}
-function cancelEdit(){editId=null;rf();document.getElementById('formTitle').textContent='Ajouter un véhicule';document.getElementById('bAdd').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Ajouter le véhicule';document.getElementById('bAdd').onclick=addV;document.getElementById('bCancel').style.display='none'}
+function cancelEdit(){editId=null;rf()}
 function rf(){uImgs=[];rUP();['fB2','fM2','fFin2','fP2','fK2','fY2','fH2','fCV2','fYT2','fLBC2','fHV2','fD2'].forEach(function(x){var el=document.getElementById(x);if(el)el.value=''});var f2=document.getElementById('fFuel2');if(f2)f2.selectedIndex=0;var g2=document.getElementById('fGear2b');if(g2)g2.selectedIndex=0}
 
 /* ===== CUSTOM DELETE CONFIRMATION MODAL ===== */
