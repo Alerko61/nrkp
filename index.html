@@ -54,7 +54,7 @@
 .adm-login-brand{margin-bottom:48px}
 .adm-login-brand-line{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);margin:0 auto}
 .adm-login-brand-tag{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);display:block;margin:16px 0 10px;font-weight:400}
-.adm-login-brand-h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:6px;line-height:1;animation:fadeUp .8s .3s both}
+.adm-login-brand-h1{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#fff;letter-spacing:5px;line-height:1.1;animation:fadeUp .8s .3s both}
 .adm-login-brand-sep{color:#2a2a2a;font-size:12px;margin:4px 0;letter-spacing:12px}
 .adm-login-brand-sub{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#888;letter-spacing:8px;display:block;margin-bottom:16px}
 .adm-login-form{display:flex;flex-direction:column;gap:12px;align-items:center}
@@ -196,7 +196,8 @@ textarea.inp{resize:vertical}
 .vli-detail{font-size:10px;color:#777;background:rgba(255,255,255,.03);padding:3px 8px;border-radius:6px;border:1px solid #1a1a1a}
 
 /* TVA Toggle */
-.vli-tva{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;transition:all .3s;padding:10px 16px;border-top:1px solid #151515;margin-top:10px}
+.vli-toggles{display:flex;align-items:center;gap:16px;padding:10px 16px;border-top:1px solid #151515;margin-top:10px;flex-wrap:wrap}
+.vli-tva{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;transition:all .3s}
 .vli-tva-track{width:34px;height:18px;border-radius:9px;background:#1a1a1a;border:1px solid #252525;position:relative;transition:all .35s cubic-bezier(.16,1,.3,1);flex-shrink:0}
 .vli-tva-track::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#444;transition:all .35s cubic-bezier(.16,1,.3,1);box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .vli-tva.on .vli-tva-track{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3)}
@@ -418,9 +419,7 @@ textarea.inp{resize:vertical}
     <div class="adm-login-brand">
       <div class="adm-login-brand-line"></div>
       <span class="adm-login-brand-tag">Administration</span>
-      <h1 class="adm-login-brand-h1">ASH PRESTIGE</h1>
-      <div class="adm-login-brand-sep">—</div>
-      <span class="adm-login-brand-sub">CUSTOM</span>
+      <h1 class="adm-login-brand-h1">ASH PRESTIGE CUSTOM</h1>
       <div class="adm-login-brand-line"></div>
     </div>
     <div class="adm-login-form">
@@ -746,7 +745,7 @@ function applyFilters(){
 function initSliders(){
   ['Price','Km','Year','Power'].forEach(function(k){updateSlider(k);});
 }
-function rV(){var g=document.getElementById('vGrid');if(!V.length){g.innerHTML='<p class="v-empty">Aucun vehicule disponible.</p>';return}var h='';for(var i=0;i<V.length;i++){var v=V[i],imgs=v.images&&v.images.length?v.images:[],hasMulti=imgs.length>1,st=v.status||'libre',stL={libre:'Disponible',reserve:'Reserve',vendu:'Vendu'};var imgH='';if(imgs.length){for(var k=0;k<imgs.length;k++)imgH+='<img class="v-img'+(k===0?' on':'')+'" src="'+imgs[k]+'" alt="'+v.brand+'" data-card-img="'+v.id+'" data-idx="'+k+'" loading="lazy">';}else imgH='<div class="v-soon">Bientot disponible</div>';var cntH=hasMulti?'<span class="v-img-count" data-card-cnt="'+v.id+'">1/'+imgs.length+' photos</span>':'';var arrH=hasMulti?'<button class="v-arr prev" onclick="navCard(\''+v.id+'\',-1,event)">&#8249;</button><button class="v-arr next" onclick="navCard(\''+v.id+'\',1,event)">&#8250;</button>':'';var yt=ytId(v.youtube),lbc=v.leboncoin||'https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm',ml=mailHref(v.brand,v.model);var nbBtn=3+(v.histovec?1:0)+(yt?1:0);var actH='<div class="v-actions'+(nbBtn>=5?' has-5':'')+'"><a href="tel:0761509269" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a><a href="'+lbc+'" target="_blank" class="v-action-btn">LeBonCoin</a><a href="'+ml+'" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>'+(v.histovec?'<a href="'+v.histovec+'" target="_blank" class="v-action-btn btn-histo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>HistoVec</a>':'')+''+(yt?'<a href="https://youtube.com/watch?v='+yt+'" target="_blank" class="v-action-btn btn-yt"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23 9.71s-.23-1.6-.93-2.31c-.89-.93-1.89-.94-2.35-.99C16.4 6.1 12 6.1 12 6.1s-4.4 0-7.72.31c-.46.05-1.46.06-2.35.99-.7.71-.93 2.31-.93 2.31S.77 11.54.77 13.37v1.71c0 1.83.23 3.66.23 3.66s.23 1.6.93 2.31c.89.93 2.07.9 2.59 1 1.88.18 7.48.23 7.48.23s4.4-.01 7.72-.31c.46-.05 1.46-.06 2.35-.99.7-.71.93-2.31.93-2.31s.23-1.83.23-3.66v-1.71c0-1.83-.23-3.66-.23-3.66zM9.55 16.23V9.77L15.73 13l-6.18 3.23z"/></svg>YouTube</a>':'')+'</div>';h+='<article class="v-card reveal" data-vid="'+v.id+'" style="transition-delay:'+i*.06+'s"><span class="v-status '+st+'">'+stL[st]+'</span><div class="v-img-w">'+imgH+cntH+arrH+'</div><div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div>'+(v.fin?'<div class="v-fin">'+v.fin+'</div>':'')+'</div><div style="text-align:right"><div class="v-price">'+fmtPx(v.price)+'</div>'+(v.tva?'<span class="v-tva">TVA recuperable</span>':'')+'</div></div><div class="v-specs"><span class="v-sp">'+fmtKm(v.km)+'</span><span class="v-sp">'+(v.year||'—')+'</span><span class="v-sp">'+(v.hp||'—')+' ch</span>'+(v.cv?'<span class="v-sp">'+v.cv+' CV</span>':'')+'<span class="v-sp">'+(v.fuel||'—')+'</span><span class="v-sp">'+(v.gear||'—')+'</span></div>'+actH+'</div></article>';}g.innerHTML=h;
+function rV(){var g=document.getElementById('vGrid');if(!V.length){g.innerHTML='<p class="v-empty">Aucun vehicule disponible.</p>';return}var h='';for(var i=0;i<V.length;i++){var v=V[i];var hasPrice=v.price&&v.price!=='—'&&v.price!=='0'&&v.price!=='';if(!hasPrice)continue;var imgs=v.images&&v.images.length?v.images:[],hasMulti=imgs.length>1,st=v.status||'libre',stL={libre:'Disponible',reserve:'Reserve',vendu:'Vendu'};var imgH='';if(imgs.length){for(var k=0;k<imgs.length;k++)imgH+='<img class="v-img'+(k===0?' on':'')+'" src="'+imgs[k]+'" alt="'+v.brand+'" data-card-img="'+v.id+'" data-idx="'+k+'" loading="lazy">';}else imgH='<div class="v-soon">Bientot disponible</div>';var cntH=hasMulti?'<span class="v-img-count" data-card-cnt="'+v.id+'">1/'+imgs.length+' photos</span>':'';var arrH=hasMulti?'<button class="v-arr prev" onclick="navCard(\''+v.id+'\',-1,event)">&#8249;</button><button class="v-arr next" onclick="navCard(\''+v.id+'\',1,event)">&#8250;</button>':'';var yt=ytId(v.youtube),lbc=v.leboncoin||'https://www.leboncoin.fr/boutique/3872571/ash_prestige_custom.htm',ml=mailHref(v.brand,v.model);var nbBtn=3+(v.histovec?1:0)+(yt?1:0);var actH='<div class="v-actions'+(nbBtn>=5?' has-5':'')+'"><a href="tel:0761509269" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a><a href="'+lbc+'" target="_blank" class="v-action-btn">LeBonCoin</a><a href="'+ml+'" class="v-action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a>'+(v.histovec?'<a href="'+v.histovec+'" target="_blank" class="v-action-btn btn-histo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>HistoVec</a>':'')+''+(yt?'<a href="https://youtube.com/watch?v='+yt+'" target="_blank" class="v-action-btn btn-yt"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23 9.71s-.23-1.6-.93-2.31c-.89-.93-1.89-.94-2.35-.99C16.4 6.1 12 6.1 12 6.1s-4.4 0-7.72.31c-.46.05-1.46.06-2.35.99-.7.71-.93 2.31-.93 2.31S.77 11.54.77 13.37v1.71c0 1.83.23 3.66.23 3.66s.23 1.6.93 2.31c.89.93 2.07.9 2.59 1 1.88.18 7.48.23 7.48.23s4.4-.01 7.72-.31c.46-.05 1.46-.06 2.35-.99.7-.71.93-2.31.93-2.31s.23-1.83.23-3.66v-1.71c0-1.83-.23-3.66-.23-3.66zM9.55 16.23V9.77L15.73 13l-6.18 3.23z"/></svg>YouTube</a>':'')+'</div>';h+='<article class="v-card reveal" data-vid="'+v.id+'" style="transition-delay:'+i*.06+'s"><span class="v-status '+st+'">'+stL[st]+'</span><div class="v-img-w">'+imgH+cntH+arrH+'</div><div class="v-info"><div class="v-top"><div><div class="v-brand">'+v.brand+'</div><div class="v-model">'+v.model+'</div>'+(v.fin?'<div class="v-fin">'+v.fin+'</div>':'')+'</div><div style="text-align:right"><div class="v-price">'+fmtPx(v.price)+'</div>'+(v.tva?'<span class="v-tva">TVA recuperable</span>':'')+'</div></div><div class="v-specs"><span class="v-sp">'+fmtKm(v.km)+'</span><span class="v-sp">'+(v.year||'—')+'</span><span class="v-sp">'+(v.hp||'—')+' ch</span>'+(v.cv?'<span class="v-sp">'+v.cv+' CV</span>':'')+'<span class="v-sp">'+(v.fuel||'—')+'</span><span class="v-sp">'+(v.gear||'—')+'</span></div>'+actH+'</div></article>';}g.innerHTML=h;
   // Render Nouveautés section
   var newH='',newCount=0;
   for(var ni=0;ni<V.length;ni++){
@@ -821,16 +820,17 @@ function rAL(){
     if(v.hp&&v.hp!=='—')h+='<span class="vli-detail">'+v.hp+' ch</span>';
     h+='</div>';
 
-    // TVA toggle
+    // TVA + Status toggles row
+    h+='<div class="vli-toggles">';
     h+='<div class="vli-tva'+(v.tva?' on':'')+'" onclick="toggleTVA(\''+v.id+'\',this)">';
     h+='<div class="vli-tva-track"></div>';
     h+='<span class="vli-tva-label">'+(v.tva?'TVA récup.':'TVA non récup.')+'</span>';
     h+='</div>';
-    // Status toggle (Disponible)
     var isLibre=st==='libre';
     h+='<div class="vli-status-toggle'+(isLibre?' on':'')+'" onclick="toggleStatus(\''+v.id+'\',this)">';
     h+='<div class="vli-tva-track"></div>';
     h+='<span class="vli-tva-label">'+(isLibre?'Disponible':'Réservé')+'</span>';
+    h+='</div>';
     h+='</div>';
     h+='</div>';
 
@@ -931,23 +931,47 @@ function generateAffichette(id){
   var v;for(var i=0;i<V.length;i++)if(V[i].id===id){v=V[i];break;}
   if(!v)return;
   var w=window.open('','_blank');
-  var imgTag=v.images&&v.images[0]?'<img src="'+v.images[0]+'" style="width:100%;height:320px;object-fit:cover;border-radius:12px;margin-bottom:20px">':'';
-  var specs='';
-  if(v.km&&v.km!=='\u2014')specs+='<div class="af-spec"><div class="af-spec-l">Kilom\u00e9trage</div><div class="af-spec-v">'+fmtKm(v.km)+'</div></div>';
-  if(v.year&&v.year!=='\u2014')specs+='<div class="af-spec"><div class="af-spec-l">Mise en circulation</div><div class="af-spec-v">'+v.year+'</div></div>';
-  if(v.fuel)specs+='<div class="af-spec"><div class="af-spec-l">Carburant</div><div class="af-spec-v">'+v.fuel+'</div></div>';
-  if(v.hp&&v.hp!=='\u2014')specs+='<div class="af-spec"><div class="af-spec-l">Puissance</div><div class="af-spec-v">'+v.hp+' ch</div></div>';
-  if(v.gear)specs+='<div class="af-spec"><div class="af-spec-l">Bo\u00eete</div><div class="af-spec-v">'+v.gear+'</div></div>';
-  if(v.cv)specs+='<div class="af-spec"><div class="af-spec-l">CV fiscaux</div><div class="af-spec-v">'+v.cv+'</div></div>';
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Affichette - '+v.brand+' '+v.model+'</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Outfit,sans-serif;background:#fff;padding:28px;max-width:700px;margin:0 auto;color:#111}.af-header{text-align:center;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #111}.af-brand-name{font-family:Cormorant Garamond,serif;font-size:28px;font-weight:700;letter-spacing:6px;text-transform:uppercase}.af-brand-sub{font-size:10px;letter-spacing:4px;color:#888;text-transform:uppercase;margin-top:2px}.af-vehicle{margin-bottom:20px}.af-marque{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:2px}.af-model{font-family:Cormorant Garamond,serif;font-size:32px;font-weight:700}.af-fin{font-size:14px;color:#666;margin-top:2px}.af-price{font-family:Cormorant Garamond,serif;font-size:42px;font-weight:700;text-align:center;margin:20px 0;padding:16px;background:#f5f5f5;border-radius:12px}'+(v.tva?'.af-tva{text-align:center;font-size:12px;color:#16a34a;margin-top:-12px;margin-bottom:16px;font-weight:600}':'')+'.af-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}.af-spec{padding:10px 14px;background:#fafafa;border-radius:8px;border:1px solid #eee}.af-spec-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:2px}.af-spec-v{font-size:14px;font-weight:600}.af-contact{text-align:center;padding-top:16px;border-top:2px solid #111}.af-phone{font-size:22px;font-weight:700;margin:8px 0}.af-addr{font-size:12px;color:#888}@media print{body{padding:20px}}</style></head><body>');
-  w.document.write('<div class="af-header"><div class="af-brand-name">ASH Prestige Custom</div><div class="af-brand-sub">Automobiles de prestige</div></div>');
+  var imgTag=v.images&&v.images[0]?'<img src="'+v.images[0]+'" class="af-img">':'';
+  var specs=[];
+  if(v.km&&v.km!=='\u2014')specs.push(['Km',fmtKm(v.km)]);
+  if(v.year&&v.year!=='\u2014')specs.push(['Ann\u00e9e',v.year]);
+  if(v.fuel)specs.push(['Carburant',v.fuel]);
+  if(v.hp&&v.hp!=='\u2014')specs.push(['Puissance',v.hp+' ch']);
+  if(v.gear)specs.push(['Bo\u00eete',v.gear]);
+  if(v.cv)specs.push(['CV',v.cv+' CV']);
+  var specH='';for(var s=0;s<specs.length;s++){specH+='<div class="af-spec"><span class="af-spec-v">'+specs[s][1]+'</span><span class="af-spec-l">'+specs[s][0]+'</span></div>';}
+  var css='*{margin:0;padding:0;box-sizing:border-box}body{font-family:Outfit,sans-serif;background:#fff;color:#111;width:210mm;min-height:297mm;margin:0 auto;position:relative;overflow:hidden}';
+  css+='.af-page{display:flex;flex-direction:column;min-height:297mm;position:relative}';
+  css+='.af-top{background:#0a0a0a;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between}';
+  css+='.af-logo{font-family:Cormorant Garamond,serif;font-size:22px;font-weight:700;letter-spacing:4px;text-transform:uppercase}';
+  css+='.af-logo-sub{font-size:8px;letter-spacing:3px;color:#888;text-transform:uppercase;margin-top:1px}';
+  css+='.af-top-right{text-align:right;font-size:10px;color:#aaa;line-height:1.6}';
+  css+='.af-img{width:100%;height:340px;object-fit:cover;display:block}';
+  css+='.af-body{padding:28px 36px;flex:1}';
+  css+='.af-brand{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:4px}';
+  css+='.af-model{font-family:Cormorant Garamond,serif;font-size:38px;font-weight:700;line-height:1.1;color:#111}';
+  css+='.af-fin{font-size:15px;color:#777;margin-top:4px;font-weight:400}';
+  css+='.af-price-bar{display:flex;align-items:center;justify-content:space-between;margin:24px 0;padding:22px 28px;background:#0a0a0a;border-radius:12px}';
+  css+='.af-price-val{font-family:Cormorant Garamond,serif;font-size:48px;font-weight:700;color:#fff;letter-spacing:2px}';
+  css+='.af-price-side{text-align:right}';
+  css+='.af-tva-badge{display:inline-block;background:#16a34a;color:#fff;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px}';
+  css+='.af-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}';
+  css+='.af-spec{text-align:center;padding:16px 8px;border:1.5px solid #e5e5e5;border-radius:10px}';
+  css+='.af-spec-v{font-size:16px;font-weight:700;display:block;margin-bottom:3px}';
+  css+='.af-spec-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#aaa}';
+  css+='.af-bottom{background:#0a0a0a;color:#fff;padding:20px 36px;display:flex;align-items:center;justify-content:space-between;margin-top:auto}';
+  css+='.af-bottom-phone{font-size:24px;font-weight:700;letter-spacing:2px}';
+  css+='.af-bottom-addr{font-size:11px;color:#888;text-align:right;line-height:1.5}';
+  css+='@media print{body{width:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}.af-top,.af-price-bar,.af-bottom{-webkit-print-color-adjust:exact;print-color-adjust:exact}}';
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+v.brand+' '+v.model+' — ASH Prestige Custom</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet"><style>'+css+'</style></head><body><div class="af-page">');
+  w.document.write('<div class="af-top"><div><div class="af-logo">ASH Prestige Custom</div><div class="af-logo-sub">Automobiles de prestige</div></div><div class="af-top-right">07 61 50 92 69<br>Mions (69)</div></div>');
   w.document.write(imgTag);
-  w.document.write('<div class="af-vehicle"><div class="af-marque">'+v.brand+'</div><div class="af-model">'+v.model+(v.fin?' — '+v.fin:'')+'</div></div>');
-  w.document.write('<div class="af-price">'+fmtPx(v.price)+'</div>');
-  if(v.tva)w.document.write('<div class="af-tva">TVA R\u00e9cup\u00e9rable</div>');
-  w.document.write('<div class="af-specs">'+specs+'</div>');
-  w.document.write('<div class="af-contact"><div class="af-brand-name" style="font-size:18px">ASH Prestige Custom</div><div class="af-phone">07 61 50 92 69</div><div class="af-addr">33 Rue Joliot Curie, 69780 Mions</div></div>');
-  w.document.write('</body></html>');
+  w.document.write('<div class="af-body"><div class="af-brand">'+v.brand+'</div><div class="af-model">'+v.model+'</div>'+(v.fin?'<div class="af-fin">'+v.fin+'</div>':''));
+  w.document.write('<div class="af-price-bar"><span class="af-price-val">'+fmtPx(v.price)+'</span><div class="af-price-side">'+(v.tva?'<span class="af-tva-badge">TVA R\u00e9cup\u00e9rable</span>':'')+'</div></div>');
+  w.document.write('<div class="af-specs">'+specH+'</div>');
+  w.document.write('</div>');
+  w.document.write('<div class="af-bottom"><div class="af-bottom-phone">07 61 50 92 69</div><div class="af-bottom-addr">ASH Prestige Custom<br>33 Rue Joliot Curie, 69780 Mions</div></div>');
+  w.document.write('</div></body></html>');
   w.document.close();
   setTimeout(function(){w.print()},600);
 }
