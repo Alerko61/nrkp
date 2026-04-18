@@ -8,783 +8,245 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-::selection{background:#c0c0c0;color:#000}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:#0a0a0a}
-::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
-html{scroll-behavior:smooth}
-body{background:#000;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
 :root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444;--green:#22c55e}
-
-/* === ANIMATIONS === */
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-@keyframes lineGrow{from{width:0}to{width:50px}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes lineGrow{from{width:0}to{width:50px}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}@keyframes gridIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 .reveal{opacity:0;transform:translateY(35px);transition:all .85s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
-
-/* === NAV === */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04);transition:all .3s}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:3px;text-decoration:none;text-transform:uppercase}
-.nav-logo span{color:var(--ac);font-weight:400}
-.nav-links{display:flex;gap:6px}
-.nav-link{padding:8px 18px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;border:1px solid transparent}
-.nav-link.vehicles{color:#999;background:rgba(255,255,255,.04);border-color:#1e1e1e}
-.nav-link.vehicles:hover{border-color:var(--ac);color:var(--w)}
-.nav-link.carrosserie{color:#fff;background:rgba(192,192,192,.1);border-color:rgba(192,192,192,.2)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,8,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04)}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:3px;text-decoration:none;text-transform:uppercase}.nav-logo span{color:var(--ac);font-weight:400}.nav-links{display:flex;gap:6px}.nav-link{padding:8px 18px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;border:1px solid transparent}.nav-link.vehicles{color:#999;background:rgba(255,255,255,.04);border-color:#1e1e1e}.nav-link.vehicles:hover{border-color:var(--ac);color:var(--w)}.nav-link.carrosserie{color:#fff;background:rgba(192,192,192,.1);border-color:rgba(192,192,192,.2)}
 @media(max-width:600px){.nav{padding:12px 16px}.nav-link{font-size:9px;padding:6px 12px}}
-
-/* === HERO === */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at 50% 30%,#111 0%,#000 70%)}
-.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}
-.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}
-.hero-h1{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:#fff;line-height:1.05;text-transform:uppercase;letter-spacing:4px}
-.hero-sub{font-size:15px;color:#666;margin-top:16px;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto}
-.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}
-.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}
-.hero-arrow:hover{opacity:1}
-.hero-arrow svg{animation:bounce 2s ease-in-out infinite}
-.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at 50% 30%,#0d0d12 0%,#050508 70%)}.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}.hero-h1{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:#fff;line-height:1.05;text-transform:uppercase;letter-spacing:4px}.hero-sub{font-size:15px;color:#666;margin-top:16px;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto}.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}.hero-arrow:hover{opacity:1}.hero-arrow svg{animation:bounce 2s ease-in-out infinite}.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
 @media(max-width:768px){.hero-h1{font-size:32px!important}.hero-sub{font-size:13px}}
-
-/* === SECTIONS === */
-.sec{padding:80px 48px 100px;max-width:1240px;margin:0 auto}
-.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}
-.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}
-.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}
-.sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
+.sec{padding:80px 48px 100px;max-width:1240px;margin:0 auto}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}.sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
 @media(max-width:768px){.sec{padding:60px 20px 80px}.sec-h2{font-size:30px}}
 
-/* === 3D CAR VIEWER === */
-.car-section{padding:40px 20px 60px;max-width:1100px;margin:0 auto}
-.car-container{position:relative;margin:0 auto;max-width:960px}
-.car-viewer{width:100%;height:520px;border-radius:16px;background:radial-gradient(ellipse at 50% 60%,#111 0%,#080808 70%);border:1px solid #1a1a1a;position:relative;overflow:hidden;cursor:grab;touch-action:none}
-.car-viewer:active{cursor:grabbing}
-.car-viewer canvas{display:block;width:100%;height:100%}
-.car-hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px;pointer-events:none;transition:opacity .5s}
-.car-hint svg{animation:bounce 2s ease-in-out infinite}
-.car-part-label{position:absolute;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid #2a2a2a;color:var(--w);padding:6px 14px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap}
-.car-part-label.vis{opacity:1}
-.car-legend{display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap}
-.car-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
-.car-legend-dot{width:10px;height:10px;border-radius:50%;border:2px solid}
-@media(max-width:768px){.car-viewer{height:380px}}
+/* ===== BLUEPRINT DIAGRAM ===== */
+.bp-wrap{max-width:640px;margin:48px auto 0;animation:gridIn .8s .3s both}
+.bp-view{background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;position:relative;overflow:hidden;padding:12px}
+.bp-view::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(192,192,192,.012) 0%,transparent 70%);pointer-events:none}
+.bp-view svg{display:block;width:100%;height:auto}
+.cp{cursor:pointer;fill:rgba(180,190,210,.06);stroke:#2a2a30;stroke-width:1;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.cp:hover{fill:rgba(192,192,192,.12);stroke:var(--ac);stroke-width:1.5;filter:drop-shadow(0 0 8px rgba(192,192,192,.12))}
+.cp.dmg-1{fill:rgba(251,191,36,.15);stroke:var(--yellow);stroke-width:1.5;animation:pulse 2.5s infinite}
+.cp.dmg-2{fill:rgba(249,115,22,.18);stroke:var(--orange);stroke-width:1.5;animation:pulse 2.5s infinite}
+.cp.dmg-3{fill:rgba(239,68,68,.2);stroke:var(--red);stroke-width:1.5;animation:pulse 2.5s infinite}
+.cg{fill:rgba(100,150,200,.07);stroke:#2a2a30;stroke-width:.7}
+.cw{fill:#0a0a0e;stroke:#222;stroke-width:1}
+.cl{font-size:9px;fill:#666;text-anchor:middle;pointer-events:none;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase;dominant-baseline:central}
+.cl-s{font-size:7px}
+.cl-dir{font-size:8px;fill:#333;text-anchor:middle;letter-spacing:4px;text-transform:uppercase;font-family:'Outfit',sans-serif;font-weight:600}
+.bp-legend{display:flex;justify-content:center;gap:28px;margin-top:20px;flex-wrap:wrap}
+.bp-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
+.bp-legend-dot{width:10px;height:10px;border-radius:50%;border:2px solid}
 
-/* === DAMAGE POPUP === */
-.dmg-ov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(16px)}
-.dmg-ov.open{display:flex}
-.dmg-box{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:16px;width:min(440px,94vw);overflow:hidden;animation:popIn .35s cubic-bezier(.16,1,.3,1);box-shadow:0 32px 80px rgba(0,0,0,.6)}
-.dmg-header{padding:24px 28px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between}
-.dmg-header-left{display:flex;align-items:center;gap:12px}
-.dmg-part-icon{width:40px;height:40px;border-radius:10px;background:rgba(192,192,192,.06);border:1px solid #2a2a2a;display:flex;align-items:center;justify-content:center}
-.dmg-part-icon svg{width:20px;height:20px;color:var(--ac)}
-.dmg-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}
-.dmg-sub{font-size:11px;color:#666;margin-top:1px}
-.dmg-close{background:rgba(255,255,255,.04);border:1px solid #1e1e1e;color:#666;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:14px}
-.dmg-close:hover{border-color:var(--ac);color:var(--w)}
-.dmg-body{padding:24px 28px}
-.dmg-options{display:flex;flex-direction:column;gap:10px}
-.dmg-opt{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;border:1px solid #1e1e1e;background:rgba(255,255,255,.02);cursor:pointer;transition:all .35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
-.dmg-opt::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s}
-.dmg-opt:hover{border-color:#333;transform:translateX(4px)}
-.dmg-opt.selected{border-width:2px}
-.dmg-opt[data-level="1"]{}.dmg-opt[data-level="1"].selected{border-color:var(--yellow);background:rgba(251,191,36,.06)}
-.dmg-opt[data-level="2"]{}.dmg-opt[data-level="2"].selected{border-color:var(--orange);background:rgba(249,115,22,.06)}
-.dmg-opt[data-level="3"]{}.dmg-opt[data-level="3"].selected{border-color:var(--red);background:rgba(239,68,68,.06)}
-.dmg-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid #333;transition:all .3s}
-.dmg-opt[data-level="1"] .dmg-dot{border-color:var(--yellow)}.dmg-opt[data-level="1"].selected .dmg-dot{background:var(--yellow)}
-.dmg-opt[data-level="2"] .dmg-dot{border-color:var(--orange)}.dmg-opt[data-level="2"].selected .dmg-dot{background:var(--orange)}
-.dmg-opt[data-level="3"] .dmg-dot{border-color:var(--red)}.dmg-opt[data-level="3"].selected .dmg-dot{background:var(--red)}
-.dmg-opt-info{flex:1}
-.dmg-opt-name{font-size:14px;font-weight:600;color:var(--w)}
-.dmg-opt-desc{font-size:11px;color:#666;margin-top:2px}
-.dmg-footer{padding:16px 28px;border-top:1px solid #1a1a1a;display:flex;gap:10px}
-.dmg-btn{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}
-.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e1e}
-.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}
-.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}
-.dmg-btn.confirm:hover{background:linear-gradient(135deg,rgba(192,192,192,.22),rgba(192,192,192,.12));transform:translateY(-1px)}
-.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}
-.dmg-btn.reset:hover{background:rgba(239,68,68,.1);color:#ff6b6b}
+/* POPUPS & QUOTE */
+.dmg-ov{position:fixed;inset:0;background:rgba(5,5,8,.9);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(16px)}.dmg-ov.open{display:flex}
+.dmg-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(440px,94vw);overflow:hidden;animation:popIn .35s cubic-bezier(.16,1,.3,1);box-shadow:0 32px 80px rgba(0,0,0,.6)}
+.dmg-header{padding:24px 28px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}.dmg-header-left{display:flex;align-items:center;gap:12px}.dmg-part-icon{width:40px;height:40px;border-radius:10px;background:rgba(192,192,192,.06);border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center}.dmg-part-icon svg{width:20px;height:20px;color:var(--ac)}.dmg-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}.dmg-sub{font-size:11px;color:#666;margin-top:1px}.dmg-close{background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#666;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:14px}.dmg-close:hover{border-color:var(--ac);color:var(--w)}
+.dmg-body{padding:24px 28px}.dmg-options{display:flex;flex-direction:column;gap:10px}
+.dmg-opt{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;border:1px solid #1e1e22;background:rgba(255,255,255,.02);cursor:pointer;transition:all .35s cubic-bezier(.16,1,.3,1)}.dmg-opt:hover{border-color:#333;transform:translateX(4px)}.dmg-opt.selected{border-width:2px}
+.dmg-opt[data-level="1"].selected{border-color:var(--yellow);background:rgba(251,191,36,.06)}.dmg-opt[data-level="2"].selected{border-color:var(--orange);background:rgba(249,115,22,.06)}.dmg-opt[data-level="3"].selected{border-color:var(--red);background:rgba(239,68,68,.06)}
+.dmg-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;border:2px solid #333;transition:all .3s}.dmg-opt[data-level="1"] .dmg-dot{border-color:var(--yellow)}.dmg-opt[data-level="1"].selected .dmg-dot{background:var(--yellow)}.dmg-opt[data-level="2"] .dmg-dot{border-color:var(--orange)}.dmg-opt[data-level="2"].selected .dmg-dot{background:var(--orange)}.dmg-opt[data-level="3"] .dmg-dot{border-color:var(--red)}.dmg-opt[data-level="3"].selected .dmg-dot{background:var(--red)}
+.dmg-opt-info{flex:1}.dmg-opt-name{font-size:14px;font-weight:600;color:var(--w)}.dmg-opt-desc{font-size:11px;color:#666;margin-top:2px}
+.dmg-footer{padding:16px 28px;border-top:1px solid #1a1a1e;display:flex;gap:10px}.dmg-btn{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}.dmg-btn.reset:hover{background:rgba(239,68,68,.1)}
 
-/* === QUOTE SUMMARY === */
-.quote{max-width:700px;margin:40px auto 0;border:1px solid #1e1e1e;border-radius:16px;background:#0a0a0a;overflow:hidden;animation:slideUp .5s ease}
-.quote-header{padding:20px 28px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between}
-.quote-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}
-.quote-count{font-size:11px;color:#888;background:rgba(255,255,255,.04);border:1px solid #1e1e1e;padding:4px 12px;border-radius:20px}
-.quote-items{padding:8px 28px}
-.quote-item{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #111}
-.quote-item:last-child{border-bottom:none}
-.quote-item-left{display:flex;align-items:center;gap:12px}
-.quote-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.quote-item-dot.l1{background:var(--yellow)}
-.quote-item-dot.l2{background:var(--orange)}
-.quote-item-dot.l3{background:var(--red)}
-.quote-item-name{font-size:13px;color:var(--w);font-weight:500}
-.quote-item-type{font-size:11px;color:#666}
-.quote-empty{text-align:center;padding:32px;color:#333;font-size:13px}
-.quote-footer{padding:20px 28px;border-top:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.quote-total-label{font-size:11px;color:#888;letter-spacing:2px;text-transform:uppercase}
-.quote-total-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--w)}
-.quote-cta{display:flex;gap:10px}
-.quote-cta-btn{padding:12px 24px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;border:none;display:flex;align-items:center;gap:8px}
-.quote-cta-btn.primary{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}
-.quote-cta-btn.primary:hover{background:linear-gradient(135deg,rgba(192,192,192,.22),rgba(192,192,192,.12));transform:translateY(-1px)}
-.quote-cta-btn.reset{background:none;border:1px solid #1e1e1e;color:#666}
-.quote-cta-btn.reset:hover{border-color:#ef4444;color:#ef4444}
+.quote{max-width:700px;margin:40px auto 0;border:1px solid #1e1e22;border-radius:16px;background:#0a0a0e;overflow:hidden}.quote-header{padding:20px 28px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}.quote-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}.quote-count{font-size:11px;color:#888;background:rgba(255,255,255,.04);border:1px solid #1e1e22;padding:4px 12px;border-radius:20px}.quote-items{padding:8px 28px}.quote-item{display:flex;align-items:center;padding:14px 0;border-bottom:1px solid #111}.quote-item:last-child{border-bottom:none}.quote-item-left{display:flex;align-items:center;gap:12px}.quote-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.quote-item-dot.l1{background:var(--yellow)}.quote-item-dot.l2{background:var(--orange)}.quote-item-dot.l3{background:var(--red)}.quote-item-name{font-size:13px;color:var(--w);font-weight:500}.quote-item-type{font-size:11px;color:#666}
+.quote-footer{padding:20px 28px;border-top:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.quote-total-label{font-size:11px;color:#888;letter-spacing:2px;text-transform:uppercase}.quote-total-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--w)}.quote-cta{display:flex;gap:10px}.quote-cta-btn{padding:12px 24px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;border:none;display:flex;align-items:center;gap:8px}.quote-cta-btn.primary{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.quote-cta-btn.primary:hover{transform:translateY(-1px)}.quote-cta-btn.reset{background:none;border:1px solid #1e1e22;color:#666}.quote-cta-btn.reset:hover{border-color:#ef4444;color:#ef4444}
 
-/* === SERVICES GRID === */
-.srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:48px}
-.srv-card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:14px;padding:28px 24px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
-.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}
-.srv-card:hover{border-color:#2a2a2a;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
-.srv-card:hover::before{opacity:.6}
-.srv-icon{width:44px;height:44px;border-radius:12px;background:rgba(192,192,192,.05);border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:var(--ac);margin-bottom:18px}
-.srv-icon svg{width:20px;height:20px}
-.srv-name{font-size:16px;font-weight:600;color:var(--w);margin-bottom:6px}
-.srv-desc{font-size:12px;color:#777;line-height:1.7}
-
-/* === TARIFS === */
-.tarif-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:48px}
-.tarif-card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:14px;padding:24px;text-align:center;transition:all .3s}
-.tarif-card:hover{border-color:#2a2a2a}
-.tarif-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--w)}
-.tarif-unit{font-size:11px;color:#666;margin-top:2px}
-.tarif-label{font-size:12px;color:#999;margin-top:10px;font-weight:500}
-
-/* === FOOTER === */
-.footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a}
-.ft-inner{max-width:1240px;margin:0 auto}
-.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}
-.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}
-.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}
-.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}
-.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
+.srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:48px}.srv-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:28px 24px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}.srv-card:hover{border-color:#2a2a2e;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}.srv-card:hover::before{opacity:.6}.srv-icon{width:44px;height:44px;border-radius:12px;background:rgba(192,192,192,.05);border:1px solid #1e1e22;display:flex;align-items:center;justify-content:center;color:var(--ac);margin-bottom:18px}.srv-icon svg{width:20px;height:20px}.srv-name{font-size:16px;font-weight:600;color:var(--w);margin-bottom:6px}.srv-desc{font-size:12px;color:#777;line-height:1.7}
+.tarif-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:48px}.tarif-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:24px;text-align:center;transition:all .3s}.tarif-card:hover{border-color:#2a2a2e}.tarif-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--w)}.tarif-unit{font-size:11px;color:#666;margin-top:2px}.tarif-label{font-size:12px;color:#999;margin-top:10px;font-weight:500}
+.footer{border-top:1px solid #1a1a1e;padding:56px 48px 24px;background:#08080c}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141418}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
 @media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
 </style>
 </head>
 <body>
+<nav class="nav"><a href="index.html" class="nav-logo">ASH <span>Prestige Custom</span></a><div class="nav-links"><a href="index.html" class="nav-link vehicles">Véhicules</a><a href="carrosserie.html" class="nav-link carrosserie">Carrosserie</a></div></nav>
+<section class="hero"><div class="hero-c"><p class="hero-tag">Service Carrosserie</p><h1 class="hero-h1">ESPACE<br>CARROSSERIE</h1><p class="hero-sub">Réparation, peinture, débosselage — estimez vos réparations en ligne.</p><div class="hero-line"></div></div><a href="#devis" class="hero-arrow"><span>Estimer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a></section>
 
-<!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-logo">ASH <span>Prestige Custom</span></a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link vehicles">Véhicules</a>
-    <a href="carrosserie.html" class="nav-link carrosserie">Carrosserie</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-c">
-    <p class="hero-tag">Service Carrosserie</p>
-    <h1 class="hero-h1">ESPACE<br>CARROSSERIE</h1>
-    <p class="hero-sub">Réparation, peinture, débosselage — un service professionnel pour redonner vie à votre véhicule. Estimez vos réparations en ligne.</p>
-    <div class="hero-line"></div>
-  </div>
-  <a href="#devis" class="hero-arrow">
-    <span>Estimer</span>
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
-  </a>
-</section>
-
-<!-- INTERACTIVE DIAGRAM -->
 <section class="sec" id="devis">
-  <div class="reveal">
-    <span class="sec-tag">Devis en ligne</span>
-    <h2 class="sec-h2">Sélectionnez les zones endommagées</h2>
-    <div class="sec-line"></div>
-    <p class="sec-sub">Cliquez sur chaque élément de la carrosserie pour indiquer le type de dégât. Le devis se calcule automatiquement.</p>
-  </div>
+  <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
 
-  <div class="car-section">
-    <div class="car-container">
-      <div class="car-viewer" id="carViewer">
-        <div class="car-hint" id="carHint">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 9l4-4 4 4"/><path d="M15 15l4 4-4 4"/><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>
-          Glisser pour tourner — Cliquer sur une zone
-        </div>
-        <div class="car-part-label" id="partLabel"></div>
-      </div>
-      <div class="car-legend">
-        <div class="car-legend-item"><div class="car-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
-        <div class="car-legend-item"><div class="car-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
-        <div class="car-legend-item"><div class="car-legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
-      </div>
+  <div class="bp-wrap">
+    <div class="bp-view">
+      <svg viewBox="0 0 500 880" xmlns="http://www.w3.org/2000/svg">
+        <!-- Direction labels -->
+        <text class="cl-dir" x="250" y="22">&#9650; AVANT</text>
+        <text class="cl-dir" x="250" y="870">ARRIÈRE &#9660;</text>
+        <text class="cl-dir" x="18" y="440" transform="rotate(-90,18,440)">GAUCHE</text>
+        <text class="cl-dir" x="482" y="440" transform="rotate(90,482,440)">DROITE</text>
+
+        <!-- ===== PARE-CHOCS AVANT ===== -->
+        <path class="cp" data-id="pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
+          d="M145,55 Q150,38 250,32 Q350,38 355,55 L360,78 L140,78 Z"/>
+        <text class="cl" x="250" y="60">Pare-chocs avant</text>
+
+        <!-- ===== CAPOT ===== -->
+        <path class="cp" data-id="capot" onclick="openDmg('capot','Capot')"
+          d="M140,78 L360,78 L365,200 L135,200 Z"/>
+        <text class="cl" x="250" y="145">Capot</text>
+
+        <!-- Phares -->
+        <ellipse cx="175" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
+        <ellipse cx="325" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
+
+        <!-- ===== PARE-BRISE ===== -->
+        <path class="cp cg" data-id="parebrise" onclick="openDmg('parebrise','Pare-brise')"
+          d="M135,200 L365,200 L355,240 L145,240 Z"/>
+        <text class="cl" x="250" y="223">Pare-brise</text>
+
+        <!-- ===== AILE AV GAUCHE ===== -->
+        <path class="cp" data-id="aile-av-g" onclick="openDmg('aile-av-g','Aile avant gauche')"
+          d="M110,90 L140,78 L135,200 L105,200 Q100,150 102,120 Z"/>
+        <text class="cl cl-s" x="108" y="148">Aile AV</text>
+
+        <!-- ===== AILE AV DROITE ===== -->
+        <path class="cp" data-id="aile-av-d" onclick="openDmg('aile-av-d','Aile avant droite')"
+          d="M390,90 L360,78 L365,200 L395,200 Q400,150 398,120 Z"/>
+        <text class="cl cl-s" x="392" y="148">Aile AV</text>
+
+        <!-- ===== RETRO GAUCHE ===== -->
+        <ellipse class="cp" data-id="retro-g" onclick="openDmg('retro-g','Rétroviseur gauche')" cx="96" cy="215" rx="10" ry="6"/>
+        <text class="cl" x="72" y="215" font-size="6">Rétro</text>
+
+        <!-- ===== RETRO DROIT ===== -->
+        <ellipse class="cp" data-id="retro-d" onclick="openDmg('retro-d','Rétroviseur droit')" cx="404" cy="215" rx="10" ry="6"/>
+        <text class="cl" x="428" y="215" font-size="6">Rétro</text>
+
+        <!-- ===== PORTE AV GAUCHE ===== -->
+        <path class="cp" data-id="porte-av-g" onclick="openDmg('porte-av-g','Porte avant gauche')"
+          d="M105,200 L145,200 L145,390 L100,390 Q95,300 98,240 Z"/>
+        <text class="cl cl-s" x="108" y="300">Porte AV</text>
+
+        <!-- ===== PORTE AV DROITE ===== -->
+        <path class="cp" data-id="porte-av-d" onclick="openDmg('porte-av-d','Porte avant droite')"
+          d="M395,200 L355,200 L355,390 L400,390 Q405,300 402,240 Z"/>
+        <text class="cl cl-s" x="392" y="300">Porte AV</text>
+
+        <!-- ===== TOIT ===== -->
+        <path class="cp" data-id="toit" onclick="openDmg('toit','Toit')"
+          d="M145,240 L355,240 L355,560 L145,560 Z"/>
+        <text class="cl" x="250" y="405">Toit</text>
+
+        <!-- Séparation vitres latérales -->
+        <line x1="145" y1="390" x2="355" y2="390" stroke="#1e1e22" stroke-width=".5" stroke-dasharray="4,4"/>
+        <text class="cl" x="250" y="383" font-size="6" fill="#333">Montant B</text>
+
+        <!-- ===== PORTE AR GAUCHE ===== -->
+        <path class="cp" data-id="porte-ar-g" onclick="openDmg('porte-ar-g','Porte arrière gauche')"
+          d="M100,390 L145,390 L145,560 L100,560 Q95,480 98,430 Z"/>
+        <text class="cl cl-s" x="108" y="480">Porte AR</text>
+
+        <!-- ===== PORTE AR DROITE ===== -->
+        <path class="cp" data-id="porte-ar-d" onclick="openDmg('porte-ar-d','Porte arrière droite')"
+          d="M400,390 L355,390 L355,560 L400,560 Q405,480 402,430 Z"/>
+        <text class="cl cl-s" x="392" y="480">Porte AR</text>
+
+        <!-- ===== LUNETTE ARRIÈRE ===== -->
+        <path class="cp cg" data-id="lunette" onclick="openDmg('lunette','Lunette arrière')"
+          d="M145,560 L355,560 L365,600 L135,600 Z"/>
+        <text class="cl" x="250" y="583">Lunette arrière</text>
+
+        <!-- ===== AILE AR GAUCHE ===== -->
+        <path class="cp" data-id="aile-ar-g" onclick="openDmg('aile-ar-g','Aile arrière gauche')"
+          d="M100,560 L135,560 L135,710 L112,710 Q98,670 98,620 Z"/>
+        <text class="cl cl-s" x="108" y="640">Aile AR</text>
+
+        <!-- ===== AILE AR DROITE ===== -->
+        <path class="cp" data-id="aile-ar-d" onclick="openDmg('aile-ar-d','Aile arrière droite')"
+          d="M400,560 L365,560 L365,710 L388,710 Q402,670 402,620 Z"/>
+        <text class="cl cl-s" x="392" y="640">Aile AR</text>
+
+        <!-- ===== COFFRE ===== -->
+        <path class="cp" data-id="coffre" onclick="openDmg('coffre','Coffre')"
+          d="M135,600 L365,600 L365,710 L355,740 L145,740 L135,710 Z"/>
+        <text class="cl" x="250" y="675">Coffre</text>
+
+        <!-- ===== PARE-CHOCS ARRIERE ===== -->
+        <path class="cp" data-id="pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
+          d="M145,740 L355,740 L360,760 Q350,800 250,808 Q150,800 140,760 Z"/>
+        <text class="cl" x="250" y="775">Pare-chocs arrière</text>
+
+        <!-- ===== BAS DE CAISSE GAUCHE ===== -->
+        <path class="cp" data-id="bas-caisse-g" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')"
+          d="M80,120 L100,90 L98,240 L100,390 L100,560 L98,620 Q96,670 100,710 L80,740 Q72,700 72,440 Q72,180 80,120 Z"/>
+        <text class="cl" x="62" y="440" transform="rotate(-90,62,440)" font-size="7">Bas de caisse G</text>
+
+        <!-- ===== BAS DE CAISSE DROIT ===== -->
+        <path class="cp" data-id="bas-caisse-d" onclick="openDmg('bas-caisse-d','Bas de caisse droit')"
+          d="M420,120 L400,90 L402,240 L400,390 L400,560 L402,620 Q404,670 400,710 L420,740 Q428,700 428,440 Q428,180 420,120 Z"/>
+        <text class="cl" x="438" y="440" transform="rotate(90,438,440)" font-size="7">Bas de caisse D</text>
+
+        <!-- Feux arrière -->
+        <ellipse cx="175" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
+        <ellipse cx="325" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
+
+        <!-- Roues -->
+        <rect class="cw" x="85" y="118" width="16" height="48" rx="6"/>
+        <rect class="cw" x="399" y="118" width="16" height="48" rx="6"/>
+        <rect class="cw" x="85" y="648" width="16" height="48" rx="6"/>
+        <rect class="cw" x="399" y="648" width="16" height="48" rx="6"/>
+
+        <!-- Ligne centrale -->
+        <line x1="250" y1="38" x2="250" y2="802" stroke="#141418" stroke-width=".5" stroke-dasharray="3,8"/>
+      </svg>
     </div>
 
-    <!-- QUOTE SUMMARY -->
+    <div class="bp-legend">
+      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
+      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
+      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
+    </div>
+  </div>
+
+  <div style="max-width:700px;margin:0 auto;padding:0 20px">
     <div class="quote" id="quoteSummary" style="display:none">
-      <div class="quote-header">
-        <span class="quote-title">Récapitulatif</span>
-        <span class="quote-count" id="quoteCount">0 élément</span>
-      </div>
+      <div class="quote-header"><span class="quote-title">Récapitulatif</span><span class="quote-count" id="quoteCount">0</span></div>
       <div class="quote-items" id="quoteItems"></div>
-      <div class="quote-footer">
-        <div>
-          <div class="quote-total-label">Estimation</div>
-          <div class="quote-total-val" id="quoteTotal">Contactez-nous</div>
-        </div>
-        <div class="quote-cta">
-          <button class="quote-cta-btn reset" onclick="resetAll()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-            Réinitialiser
-          </button>
-          <a href="tel:0761509269" class="quote-cta-btn primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
-            Nous contacter
-          </a>
-        </div>
-      </div>
+      <div class="quote-footer"><div><div class="quote-total-label">Estimation</div><div class="quote-total-val" id="quoteTotal">Contactez-nous</div></div><div class="quote-cta"><button class="quote-cta-btn reset" onclick="resetAll()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Réinitialiser</button><a href="tel:0761509269" class="quote-cta-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Nous contacter</a></div></div>
     </div>
   </div>
 </section>
 
-<!-- DAMAGE POPUP -->
-<div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()">
-  <div class="dmg-box">
-    <div class="dmg-header">
-      <div class="dmg-header-left">
-        <div class="dmg-part-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-        </div>
-        <div>
-          <div class="dmg-title" id="dmgTitle">—</div>
-          <div class="dmg-sub">Sélectionnez le type de dégât</div>
-        </div>
-      </div>
-      <button class="dmg-close" onclick="closeDmg()">&#10005;</button>
-    </div>
-    <div class="dmg-body">
-      <div class="dmg-options">
-        <div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)">
-          <div class="dmg-dot"></div>
-          <div class="dmg-opt-info">
-            <div class="dmg-opt-name">Rayure simple</div>
-            <div class="dmg-opt-desc">Rayure superficielle, micro-rayures, éclat de peinture</div>
-          </div>
-        </div>
-        <div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)">
-          <div class="dmg-dot"></div>
-          <div class="dmg-opt-info">
-            <div class="dmg-opt-name">Enfoncement léger</div>
-            <div class="dmg-opt-desc">Petite bosse, enfoncement sans déchirure de peinture</div>
-          </div>
-        </div>
-        <div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)">
-          <div class="dmg-dot"></div>
-          <div class="dmg-opt-info">
-            <div class="dmg-opt-name">Dégâts importants</div>
-            <div class="dmg-opt-desc">Enfoncement sévère, déchirure, remplacement nécessaire</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="dmg-footer">
-      <button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button>
-      <button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button>
-      <button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button>
-    </div>
-  </div>
-</div>
+<div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()"><div class="dmg-box"><div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">—</div><div class="dmg-sub">Sélectionnez le type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div><div class="dmg-body"><div class="dmg-options"><div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Rayure simple</div><div class="dmg-opt-desc">Rayure superficielle, micro-rayures, éclat de peinture</div></div></div><div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Enfoncement léger</div><div class="dmg-opt-desc">Petite bosse, enfoncement sans déchirure</div></div></div><div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Dégâts importants</div><div class="dmg-opt-desc">Enfoncement sévère, déchirure, remplacement</div></div></div></div></div><div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div></div></div>
 
-<!-- SERVICES -->
-<section class="sec" id="services">
-  <div class="reveal">
-    <span class="sec-tag">Nos prestations</span>
-    <h2 class="sec-h2">Services Carrosserie</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="srv-grid">
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
-      <div class="srv-name">Réparation carrosserie</div>
-      <div class="srv-desc">Débosselage, redressage, remplacement de panneaux. Travail soigné pour un résultat impeccable.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-      <div class="srv-name">Peinture complète</div>
-      <div class="srv-desc">Mise en peinture partielle ou totale, raccords, vernis. Teintes d'origine ou personnalisées.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-      <div class="srv-name">Remontage kit carrosserie</div>
-      <div class="srv-desc">Montage de kits carrosserie, spoilers, jupes latérales, élargisseurs d'aile.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
-      <div class="srv-name">Remontage volant</div>
-      <div class="srv-desc">Remplacement et remontage de volants, airbags, commandes au volant.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
-      <div class="srv-name">Rénovation jantes</div>
-      <div class="srv-desc">Réparation, ponçage, peinture et vernis de vos jantes alu. Résultat comme neuf.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-      <div class="srv-name">Vitres teintées</div>
-      <div class="srv-desc">Pose de films teintés homologués. Plusieurs niveaux de teinte disponibles.</div>
-    </div>
-    <div class="srv-card reveal">
-      <div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-      <div class="srv-name">Devis sur mesure</div>
-      <div class="srv-desc">Chaque véhicule est unique. Contactez-nous pour un devis personnalisé adapté à vos besoins.</div>
-    </div>
-  </div>
-</section>
+<section class="sec" id="services"><div class="reveal"><span class="sec-tag">Nos prestations</span><h2 class="sec-h2">Services Carrosserie</h2><div class="sec-line"></div></div><div class="srv-grid"><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="srv-name">Réparation carrosserie</div><div class="srv-desc">Débosselage, redressage, remplacement de panneaux.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="srv-name">Peinture complète</div><div class="srv-desc">Peinture partielle ou totale, raccords, vernis.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="srv-name">Remontage kit</div><div class="srv-desc">Kits carrosserie, spoilers, jupes latérales.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><div class="srv-name">Remontage volant</div><div class="srv-desc">Volants, airbags, commandes au volant.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><div class="srv-name">Rénovation jantes</div><div class="srv-desc">Ponçage, peinture et vernis jantes alu.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><div class="srv-name">Vitres teintées</div><div class="srv-desc">Films homologués, plusieurs niveaux de teinte.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="srv-name">Devis sur mesure</div><div class="srv-desc">Devis personnalisé adapté à vos besoins.</div></div></div></section>
 
-<!-- TARIFS -->
 <section class="sec" style="padding-top:0">
-  <div class="reveal">
-    <span class="sec-tag">Transparence</span>
-    <h2 class="sec-h2">Nos Tarifs</h2>
+  <div class="reveal" style="text-align:center">
+    <span class="sec-tag">Contactez-nous</span>
+    <h2 class="sec-h2">Un devis personnalisé ?</h2>
     <div class="sec-line"></div>
-    <p class="sec-sub">Des tarifs compétitifs pour un travail de qualité professionnelle. Prise en charge assurance disponible.</p>
-  </div>
-  <div class="tarif-grid">
-    <div class="tarif-card reveal">
-      <div class="tarif-val">55€</div>
-      <div class="tarif-unit">/ heure</div>
-      <div class="tarif-label">Taux horaire carrosserie</div>
-    </div>
-    <div class="tarif-card reveal">
-      <div class="tarif-val">55€</div>
-      <div class="tarif-unit">/ heure</div>
-      <div class="tarif-label">Taux horaire peinture</div>
-    </div>
-    <div class="tarif-card reveal">
-      <div class="tarif-val">55€</div>
-      <div class="tarif-unit">/ heure</div>
-      <div class="tarif-label">Taux horaire assurance</div>
-    </div>
-    <div class="tarif-card reveal">
-      <div class="tarif-val">Sur devis</div>
-      <div class="tarif-unit">&nbsp;</div>
-      <div class="tarif-label">Vitres teintées</div>
+    <p class="sec-sub">Appelez-nous ou envoyez un email pour obtenir une estimation adaptée à votre véhicule. Prise en charge assurance disponible.</p>
+    <div style="display:flex;justify-content:center;gap:14px;margin-top:36px;flex-wrap:wrap">
+      <a href="tel:0761509269" style="display:flex;align-items:center;gap:10px;padding:16px 36px;border-radius:12px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .3s;background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+        07 61 50 92 69
+      </a>
+      <a href="mailto:nrkprestige@gmail.com" style="display:flex;align-items:center;gap:10px;padding:16px 36px;border-radius:12px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .3s;background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#999" onmouseover="this.style.borderColor='var(--ac)';this.style.color='#fff';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#1e1e22';this.style.color='#999';this.style.transform=''">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Envoyer un email
+      </a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="ft-inner">
-    <div class="ft-top">
-      <div>
-        <div style="margin-bottom:14px">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span>
-          <span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span>
-        </div>
-        <p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p>
-      </div>
-      <div>
-        <div class="ft-ct">Contact</div>
-        <a href="tel:0761509269" class="ft-a">07 61 50 92 69</a>
-        <a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a>
-        <a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a>
-      </div>
-      <div>
-        <div class="ft-ct">Navigation</div>
-        <a href="index.html" class="ft-a">Véhicules d'occasion</a>
-        <a href="carrosserie.html" class="ft-a">Espace carrosserie</a>
-        <a href="tel:0761509269" class="ft-a">Demander un devis</a>
-      </div>
-    </div>
-    <div class="ft-bot">
-      <span class="ft-c">&copy; 2025 Ash Prestige Custom</span>
-      <span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span>
-    </div>
-  </div>
-</footer>
+<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Navigation</div><a href="index.html" class="ft-a">Véhicules d'occasion</a><a href="carrosserie.html" class="ft-a">Espace carrosserie</a><a href="tel:0761509269" class="ft-a">Demander un devis</a></div></div><div class="ft-bot"><span class="ft-c">&copy; 2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
-// Damage state
-var damages={};
-var currentPart=null;
-var currentPartName='';
-var selectedLevel=0;
-
+var damages={},currentPart=null,currentPartName='',selectedLevel=0;
 var dmgLabels={1:'Rayure simple',2:'Enfoncement léger',3:'Dégâts importants'};
+var partNames={'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise','toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite','porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite','porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite','aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite','retro-g':'Rétroviseur gauche','retro-d':'Rétroviseur droit','bas-caisse-g':'Bas de caisse gauche','bas-caisse-d':'Bas de caisse droit'};
 
-function openDmg(partId,partName){
-  currentPart=partId;
-  currentPartName=partName;
-  selectedLevel=damages[partId]||0;
-  document.getElementById('dmgTitle').textContent=partName;
-  // Reset options
-  document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});
-  if(selectedLevel>0){
-    var sel=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');
-    if(sel)sel.classList.add('selected');
-    document.getElementById('dmgRemoveBtn').style.display='';
-  }else{
-    document.getElementById('dmgRemoveBtn').style.display='none';
-  }
-  document.getElementById('dmgModal').classList.add('open');
-}
-
-function closeDmg(){
-  document.getElementById('dmgModal').classList.remove('open');
-  currentPart=null;selectedLevel=0;
-}
-
-function selectDmg(el,level){
-  document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});
-  el.classList.add('selected');
-  selectedLevel=level;
-}
-
-function confirmDmg(){
-  if(!currentPart||!selectedLevel)return;
-  damages[currentPart]=selectedLevel;
-  updateCarVisual();
-  updateQuote();
-  closeDmg();
-}
-
-function removeDmg(){
-  if(!currentPart)return;
-  delete damages[currentPart];
-  updateCarVisual();
-  updateQuote();
-  closeDmg();
-}
-
-function resetAll(){
-  damages={};
-  updateCarVisual();
-  updateQuote();
-}
-
-function updateCarVisual(){
-  // Update 3D car part colors
-  if(!window.carParts)return;
-  Object.keys(window.carParts).forEach(function(k){
-    var mesh=window.carParts[k];
-    var lvl=damages[k]||0;
-    if(lvl===1)mesh.material.color.setHex(0xfbbf24);
-    else if(lvl===2)mesh.material.color.setHex(0xf97316);
-    else if(lvl===3)mesh.material.color.setHex(0xef4444);
-    else mesh.material.color.setHex(mesh.userData.baseColor||0x222222);
-    mesh.material.emissive.setHex(lvl?mesh.material.color.getHex():0x000000);
-    mesh.material.emissiveIntensity=lvl?0.15:0;
-  });
-}
-
-function updateQuote(){
-  var keys=Object.keys(damages);
-  var summary=document.getElementById('quoteSummary');
-  if(!keys.length){summary.style.display='none';return;}
-  summary.style.display='';
-
-  var partNames={'toit':'Toit','parebrise':'Pare-brise','lunette':'Lunette arrière','capot':'Capot','pc-avant':'Pare-chocs avant','aile-av':'Aile avant','porte-av':'Porte avant','porte-ar':'Porte arrière','aile-ar':'Aile arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','bas-caisse':'Bas de caisse','retro':'Rétroviseur'};
-
-  var h='';
-  keys.forEach(function(k){
-    var lvl=damages[k];
-    h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+lvl+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[lvl]+'</div></div></div></div>';
-  });
-  document.getElementById('quoteItems').innerHTML=h;
-  document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');
-
-  // Show "Contactez-nous" for personalized quote
-  if(keys.length>=3){
-    document.getElementById('quoteTotal').textContent='Devis personnalisé';
-    document.getElementById('quoteTotal').style.color='var(--ac)';
-  }else{
-    document.getElementById('quoteTotal').textContent='Contactez-nous';
-    document.getElementById('quoteTotal').style.color='var(--w)';
-  }
-}
-
-// Scroll reveal
-function obs(){
-  var els=document.querySelectorAll('.reveal:not(.vis)');
-  var o=new IntersectionObserver(function(en){
-    for(var i=0;i<en.length;i++){
-      if(en[i].isIntersecting){
-        en[i].target.classList.add('vis');
-        o.unobserve(en[i].target);
-      }
-    }
-  },{threshold:.08});
-  for(var j=0;j<els.length;j++)o.observe(els[j]);
-}
-document.addEventListener('DOMContentLoaded',function(){
-  obs();
-  init3DCar();
-});
-
-function init3DCar(){
-  var container=document.getElementById('carViewer');
-  var W=container.clientWidth,H=container.clientHeight;
-  var scene=new THREE.Scene();
-  var camera=new THREE.PerspectiveCamera(40,W/H,0.1,100);
-  camera.position.set(6,3,6);
-  camera.lookAt(0,0.5,0);
-
-  var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-  renderer.setSize(W,H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.shadowMap.enabled=true;
-  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.2;
-  container.insertBefore(renderer.domElement,container.firstChild);
-
-  // Lights
-  var ambLight=new THREE.AmbientLight(0xffffff,0.4);
-  scene.add(ambLight);
-  var dirLight=new THREE.DirectionalLight(0xffffff,0.8);
-  dirLight.position.set(5,8,5);dirLight.castShadow=true;
-  dirLight.shadow.mapSize.width=1024;dirLight.shadow.mapSize.height=1024;
-  scene.add(dirLight);
-  var fillLight=new THREE.DirectionalLight(0x8888ff,0.2);
-  fillLight.position.set(-5,3,-5);
-  scene.add(fillLight);
-  var rimLight=new THREE.DirectionalLight(0xffffff,0.3);
-  rimLight.position.set(0,2,-6);
-  scene.add(rimLight);
-
-  // Ground
-  var groundGeo=new THREE.CircleGeometry(8,64);
-  var groundMat=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.9});
-  var ground=new THREE.Mesh(groundGeo,groundMat);
-  ground.rotation.x=-Math.PI/2;ground.position.y=-0.01;ground.receiveShadow=true;
-  scene.add(ground);
-
-  // Ground ring
-  var ringGeo=new THREE.RingGeometry(3.8,4,64);
-  var ringMat=new THREE.MeshBasicMaterial({color:0x1a1a1a,side:THREE.DoubleSide});
-  var ring=new THREE.Mesh(ringGeo,ringMat);
-  ring.rotation.x=-Math.PI/2;ring.position.y=0.001;
-  scene.add(ring);
-
-  // Car group
-  var car=new THREE.Group();
-  window.carParts={};
-  var partNames={'capot':'Capot','pc-avant':'Pare-chocs avant','aile-av':'Aile avant','porte-av':'Porte avant','porte-ar':'Porte arrière','aile-ar':'Aile arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','toit':'Toit','bas-caisse':'Bas de caisse','parebrise':'Pare-brise','lunette':'Lunette arrière','retro':'Rétroviseur'};
-
-  function makeMat(color,metal,rough){
-    return new THREE.MeshStandardMaterial({color:color,metalness:metal||0.6,roughness:rough||0.3});
-  }
-  function glassMat(){
-    return new THREE.MeshStandardMaterial({color:0x334455,metalness:0.9,roughness:0.1,transparent:true,opacity:0.35});
-  }
-  function addPart(id,geo,mat,pos,rot){
-    var m=new THREE.Mesh(geo,mat);
-    m.position.set(pos[0],pos[1],pos[2]);
-    if(rot)m.rotation.set(rot[0]||0,rot[1]||0,rot[2]||0);
-    m.castShadow=true;m.receiveShadow=true;
-    m.userData={partId:id,partName:partNames[id]||id,baseColor:mat.color.getHex()};
-    car.add(m);
-    if(!window.carParts[id])window.carParts[id]=m;
-    return m;
-  }
-
-  var bodyColor=0x1a1a1a;
-
-  // === BODY === (built from boxes and shapes)
-  // Main body lower
-  var bodyGeo=new THREE.BoxGeometry(4.2,0.55,1.7);
-  bodyGeo=roundEdges(bodyGeo,0.08);
-  addPart('bas-caisse',bodyGeo,makeMat(bodyColor,0.7,0.25),[0,0.45,0]);
-
-  // Hood
-  var hoodGeo=new THREE.BoxGeometry(1.2,0.08,1.58);
-  hoodGeo=roundEdges(hoodGeo,0.06);
-  addPart('capot',hoodGeo,makeMat(bodyColor,0.7,0.2),[1.35,0.78,0],[-.05,0,0]);
-
-  // Front bumper
-  var fbGeo=new THREE.BoxGeometry(0.35,0.45,1.72);
-  fbGeo=roundEdges(fbGeo,0.1);
-  addPart('pc-avant',fbGeo,makeMat(0x151515,0.5,0.4),[2.22,0.42,0]);
-
-  // Rear bumper
-  var rbGeo=new THREE.BoxGeometry(0.35,0.45,1.72);
-  rbGeo=roundEdges(rbGeo,0.1);
-  addPart('pc-arriere',rbGeo,makeMat(0x151515,0.5,0.4),[-2.22,0.42,0]);
-
-  // Front fenders (left+right)
-  var fenderGeo=new THREE.BoxGeometry(0.9,0.5,0.18);
-  fenderGeo=roundEdges(fenderGeo,0.05);
-  addPart('aile-av',fenderGeo,makeMat(bodyColor,0.7,0.2),[1.2,0.55,0.88]);
-  addPart('aile-av',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[1.2,0.55,-0.88]);
-
-  // Rear fenders (left+right)
-  addPart('aile-ar',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[-1.2,0.55,0.88]);
-  addPart('aile-ar',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[-1.2,0.55,-0.88]);
-
-  // Cabin/roof
-  var cabinGeo=new THREE.BoxGeometry(2.2,0.6,1.45);
-  cabinGeo=roundEdges(cabinGeo,0.12);
-  addPart('toit',cabinGeo,makeMat(bodyColor,0.7,0.2),[0,1.12,0]);
-
-  // Front door left
-  var doorGeo=new THREE.BoxGeometry(0.95,0.52,0.08);
-  addPart('porte-av',doorGeo,makeMat(bodyColor,0.65,0.25),[0.45,0.65,0.84]);
-  addPart('porte-av',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[0.45,0.65,-0.84]);
-
-  // Rear door left
-  addPart('porte-ar',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[-0.5,0.65,0.84]);
-  addPart('porte-ar',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[-0.5,0.65,-0.84]);
-
-  // Trunk
-  var trunkGeo=new THREE.BoxGeometry(1.0,0.08,1.58);
-  trunkGeo=roundEdges(trunkGeo,0.06);
-  addPart('coffre',trunkGeo,makeMat(bodyColor,0.7,0.2),[-1.45,0.78,0],[.03,0,0]);
-
-  // Windshield
-  var wsGeo=new THREE.BoxGeometry(0.02,0.55,1.38);
-  addPart('parebrise',wsGeo,glassMat(),[0.95,1.05,0],[0,0,0.35]);
-
-  // Rear window
-  addPart('lunette',wsGeo.clone(),glassMat(),[-0.95,1.05,0],[0,0,-0.35]);
-
-  // Side windows (decorative)
-  var swGeo=new THREE.BoxGeometry(1.8,0.35,0.02);
-  var swm=glassMat();
-  var sw1=new THREE.Mesh(swGeo,swm);sw1.position.set(0,1.0,0.73);car.add(sw1);
-  var sw2=new THREE.Mesh(swGeo.clone(),swm);sw2.position.set(0,1.0,-0.73);car.add(sw2);
-
-  // Mirrors
-  var mirGeo=new THREE.BoxGeometry(0.12,0.08,0.14);
-  addPart('retro',mirGeo,makeMat(bodyColor,0.6,0.3),[0.85,0.88,0.95]);
-  addPart('retro',mirGeo.clone(),makeMat(bodyColor,0.6,0.3),[0.85,0.88,-0.95]);
-
-  // Headlights
-  var hlGeo=new THREE.SphereGeometry(0.12,16,8);
-  var hlMat=new THREE.MeshStandardMaterial({color:0xffffee,emissive:0xffffaa,emissiveIntensity:0.3,transparent:true,opacity:0.8});
-  var hl1=new THREE.Mesh(hlGeo,hlMat);hl1.position.set(2.1,0.55,0.55);car.add(hl1);
-  var hl2=new THREE.Mesh(hlGeo.clone(),hlMat.clone());hl2.position.set(2.1,0.55,-0.55);car.add(hl2);
-
-  // Taillights
-  var tlMat=new THREE.MeshStandardMaterial({color:0xff2222,emissive:0xff0000,emissiveIntensity:0.2,transparent:true,opacity:0.7});
-  var tl1=new THREE.Mesh(hlGeo.clone(),tlMat);tl1.position.set(-2.1,0.55,0.55);car.add(tl1);
-  var tl2=new THREE.Mesh(hlGeo.clone(),tlMat.clone());tl2.position.set(-2.1,0.55,-0.55);car.add(tl2);
-
-  // Wheels
-  function makeWheel(x,z){
-    var g=new THREE.Group();
-    var tire=new THREE.TorusGeometry(0.32,0.12,12,24);
-    var tm=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.9});
-    var t=new THREE.Mesh(tire,tm);t.rotation.y=Math.PI/2;g.add(t);
-    var rim=new THREE.CylinderGeometry(0.22,0.22,0.15,20);
-    var rm=new THREE.MeshStandardMaterial({color:0x888888,metalness:0.9,roughness:0.2});
-    var r=new THREE.Mesh(rim,rm);r.rotation.x=Math.PI/2;g.add(r);
-    // Spokes
-    for(var s=0;s<5;s++){
-      var spoke=new THREE.BoxGeometry(0.03,0.18,0.04);
-      var sm2=new THREE.Mesh(spoke,rm);
-      sm2.rotation.z=s*(Math.PI*2/5);
-      sm2.rotation.x=Math.PI/2;
-      g.add(sm2);
-    }
-    g.position.set(x,0.32,z);g.castShadow=true;
-    car.add(g);
-  }
-  makeWheel(1.4,0.88);makeWheel(1.4,-0.88);
-  makeWheel(-1.4,0.88);makeWheel(-1.4,-0.88);
-
-  scene.add(car);
-
-  // Round edges helper
-  function roundEdges(geo,r){return geo;} // Three r128 doesn't have bevel on BoxGeo, keeping sharp for compat
-
-  // === ORBIT CONTROLS (manual) ===
-  var angle=0.8,vAngle=0.35,dist=7.5,dragging=false,lastX=0,lastY=0,autoRotate=true;
-
-  function updateCam(){
-    camera.position.x=Math.cos(angle)*Math.cos(vAngle)*dist;
-    camera.position.y=Math.sin(vAngle)*dist+0.8;
-    camera.position.z=Math.sin(angle)*Math.cos(vAngle)*dist;
-    camera.lookAt(0,0.6,0);
-  }
-  updateCam();
-
-  container.addEventListener('pointerdown',function(e){dragging=true;lastX=e.clientX;lastY=e.clientY;autoRotate=false;
-    document.getElementById('carHint').style.opacity='0';});
-  window.addEventListener('pointermove',function(e){if(!dragging)return;
-    angle+=(e.clientX-lastX)*0.008;
-    vAngle=Math.max(0.05,Math.min(1.2,vAngle+(e.clientY-lastY)*0.005));
-    lastX=e.clientX;lastY=e.clientY;updateCam();});
-  window.addEventListener('pointerup',function(){dragging=false;});
-
-  // Zoom
-  container.addEventListener('wheel',function(e){e.preventDefault();
-    dist=Math.max(4,Math.min(12,dist+e.deltaY*0.005));updateCam();},{passive:false});
-
-  // Click/tap to select part
-  var raycaster=new THREE.Raycaster();
-  var mouse=new THREE.Vector2();
-  var label=document.getElementById('partLabel');
-  var clickStart={x:0,y:0};
-
-  container.addEventListener('pointerdown',function(e){clickStart={x:e.clientX,y:e.clientY};});
-  container.addEventListener('pointerup',function(e){
-    if(Math.abs(e.clientX-clickStart.x)>5||Math.abs(e.clientY-clickStart.y)>5)return;
-    var rect=renderer.domElement.getBoundingClientRect();
-    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
-    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
-    raycaster.setFromCamera(mouse,camera);
-    var meshes=[];
-    Object.values(window.carParts).forEach(function(m){meshes.push(m)});
-    // Also check duplicates
-    car.children.forEach(function(c){if(c.userData&&c.userData.partId)meshes.push(c)});
-    var hits=raycaster.intersectObjects(meshes,false);
-    if(hits.length>0){
-      var hit=hits[0].object;
-      if(hit.userData&&hit.userData.partId){
-        openDmg(hit.userData.partId,hit.userData.partName);
-      }
-    }
-  });
-
-  // Hover label
-  container.addEventListener('pointermove',function(e){
-    if(dragging)return;
-    var rect=renderer.domElement.getBoundingClientRect();
-    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
-    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
-    raycaster.setFromCamera(mouse,camera);
-    var meshes=[];
-    car.children.forEach(function(c){if(c.userData&&c.userData.partId)meshes.push(c)});
-    var hits=raycaster.intersectObjects(meshes,false);
-    if(hits.length>0&&hits[0].object.userData.partName){
-      label.textContent=hits[0].object.userData.partName;
-      label.style.left=(e.clientX-container.getBoundingClientRect().left+14)+'px';
-      label.style.top=(e.clientY-container.getBoundingClientRect().top-10)+'px';
-      label.classList.add('vis');
-      container.style.cursor='pointer';
-    }else{
-      label.classList.remove('vis');
-      container.style.cursor='grab';
-    }
-  });
-
-  // Render loop
-  function animate(){
-    requestAnimationFrame(animate);
-    if(autoRotate)angle+=0.003;
-    if(autoRotate)updateCam();
-    renderer.render(scene,camera);
-  }
-  animate();
-
-  // Resize
-  window.addEventListener('resize',function(){
-    W=container.clientWidth;H=container.clientHeight;
-    camera.aspect=W/H;camera.updateProjectionMatrix();
-    renderer.setSize(W,H);
-  });
-}
+function openDmg(id,name){currentPart=id;currentPartName=name;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
+function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
+function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});el.classList.add('selected');selectedLevel=l;}
+function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
+function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
+function resetAll(){damages={};updateVis();updateQuote();}
+function updateVis(){document.querySelectorAll('.cp[data-id]').forEach(function(p){var id=p.getAttribute('data-id');p.classList.remove('dmg-1','dmg-2','dmg-3');if(damages[id])p.classList.add('dmg-'+damages[id]);});}
+function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
+function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
+document.addEventListener('DOMContentLoaded',obs);
 </script>
 </body>
 </html>
