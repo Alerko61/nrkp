@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 ::selection{background:#c0c0c0;color:#000}
@@ -61,31 +62,20 @@ body{background:#000;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hi
 .sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
 @media(max-width:768px){.sec{padding:60px 20px 80px}.sec-h2{font-size:30px}}
 
-/* === CAR DIAGRAM === */
-.car-section{padding:40px 20px 80px;max-width:1100px;margin:0 auto}
-.car-container{position:relative;margin:0 auto;max-width:900px}
-.car-svg-wrap{position:relative;width:100%;padding-bottom:42%;margin-bottom:20px}
-.car-svg-wrap svg{position:absolute;inset:0;width:100%;height:100%}
-.car-part{cursor:pointer;fill:rgba(255,255,255,.03);stroke:#2a2a2a;stroke-width:1.2;transition:all .35s cubic-bezier(.16,1,.3,1)}
-.car-part:hover{fill:rgba(192,192,192,.08);stroke:var(--ac);stroke-width:1.8}
-.car-part.dmg-1{fill:rgba(251,191,36,.12);stroke:var(--yellow);stroke-width:2;animation:pulse 2s infinite}
-.car-part.dmg-2{fill:rgba(249,115,22,.15);stroke:var(--orange);stroke-width:2;animation:pulse 2s infinite}
-.car-part.dmg-3{fill:rgba(239,68,68,.15);stroke:var(--red);stroke-width:2;animation:pulse 2s infinite}
-.car-label{font-size:9px;fill:#555;text-anchor:middle;pointer-events:none;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase;transition:fill .3s}
-.car-part:hover+.car-label,.car-part:hover~.car-label{fill:var(--w)}
-.car-legend{display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap}
+/* === 3D CAR VIEWER === */
+.car-section{padding:40px 20px 60px;max-width:1100px;margin:0 auto}
+.car-container{position:relative;margin:0 auto;max-width:960px}
+.car-viewer{width:100%;height:520px;border-radius:16px;background:radial-gradient(ellipse at 50% 60%,#111 0%,#080808 70%);border:1px solid #1a1a1a;position:relative;overflow:hidden;cursor:grab;touch-action:none}
+.car-viewer:active{cursor:grabbing}
+.car-viewer canvas{display:block;width:100%;height:100%}
+.car-hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px;pointer-events:none;transition:opacity .5s}
+.car-hint svg{animation:bounce 2s ease-in-out infinite}
+.car-part-label{position:absolute;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid #2a2a2a;color:var(--w);padding:6px 14px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap}
+.car-part-label.vis{opacity:1}
+.car-legend{display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap}
 .car-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
 .car-legend-dot{width:10px;height:10px;border-radius:50%;border:2px solid}
-
-/* View toggle */
-.view-toggle{display:flex;justify-content:center;gap:6px;margin:24px 0 8px}
-.view-btn{display:flex;align-items:center;gap:7px;padding:9px 20px;border-radius:20px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:1px;cursor:pointer;transition:all .3s;border:1px solid #1e1e1e;background:rgba(255,255,255,.03);color:#888}
-.view-btn:hover{border-color:#444;color:var(--w)}
-.view-btn.active{border-color:var(--ac);color:var(--w);background:rgba(192,192,192,.08)}
-.view-btn svg{flex-shrink:0}
-
-/* Top view specific */
-.car-top-view{max-width:480px;margin:0 auto}
+@media(max-width:768px){.car-viewer{height:380px}}
 
 /* === DAMAGE POPUP === */
 .dmg-ov{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(16px)}
@@ -216,280 +206,13 @@ body{background:#000;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hi
 
   <div class="car-section">
     <div class="car-container">
-      <div class="car-svg-wrap">
-        <svg viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="rgba(120,180,220,.08)"/>
-              <stop offset="100%" stop-color="rgba(60,100,140,.03)"/>
-            </linearGradient>
-            <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-
-          <!-- Shadow under car -->
-          <ellipse cx="500" cy="370" rx="360" ry="14" fill="rgba(255,255,255,.015)"/>
-
-          <!-- ===== CLICKABLE BODY PANELS ===== -->
-
-          <!-- Pare-chocs avant -->
-          <path class="car-part" id="part-pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-            d="M95,258 Q88,240 92,222 L108,208 L130,195 L148,190 L148,220 L140,255 Q130,268 115,272 L100,270 Z"/>
-
-          <!-- Capot -->
-          <path class="car-part" id="part-capot" onclick="openDmg('capot','Capot')"
-            d="M148,190 L230,158 L295,148 L295,175 L290,200 L250,218 L148,220 Z"/>
-
-          <!-- Aile avant -->
-          <path class="car-part" id="part-aile-av" onclick="openDmg('aile-av','Aile avant')"
-            d="M148,220 L250,218 L290,200 L295,230 L295,280 L280,300 Q250,320 220,320 Q185,318 168,298 L155,272 L140,255 Z"/>
-
-          <!-- Pare-brise -->
-          <path class="car-part" id="part-parebrise" onclick="openDmg('parebrise','Pare-brise')" style="fill:url(#glassGrad)"
-            d="M295,148 L340,100 L370,82 L380,80 L380,145 L295,145 Z"/>
-
-          <!-- Toit -->
-          <path class="car-part" id="part-toit" onclick="openDmg('toit','Toit')"
-            d="M380,80 L400,68 L580,62 L640,68 L660,82 L660,90 L380,90 Z"/>
-
-          <!-- Lunette arrière -->
-          <path class="car-part" id="part-lunette" onclick="openDmg('lunette','Lunette arrière')" style="fill:url(#glassGrad)"
-            d="M660,82 L700,108 L718,140 L718,155 L660,155 L660,90 Z"/>
-
-          <!-- Porte avant -->
-          <path class="car-part" id="part-porte-av" onclick="openDmg('porte-av','Porte avant')"
-            d="M295,145 L380,145 L380,90 L380,80 L370,82 L340,100 L295,148 Z
-               M295,145 L295,280 L300,300 Q310,305 320,300 L385,300 L460,300 L460,145 Z"/>
-
-          <!-- Porte arrière -->
-          <path class="car-part" id="part-porte-ar" onclick="openDmg('porte-ar','Porte arrière')"
-            d="M460,145 L460,300 L560,300 L610,300 Q620,305 628,298 L640,280 L660,155 L660,90 L660,82 L660,155 Z
-               M460,145 L660,145 L660,155 L460,155 Z"/>
-
-          <!-- Aile arrière -->
-          <path class="car-part" id="part-aile-ar" onclick="openDmg('aile-ar','Aile arrière')"
-            d="M640,280 L660,240 L718,200 L760,200 L780,215 L790,240 L790,270 L780,298 Q755,322 725,322 Q695,320 678,300 L660,280 Z"/>
-
-          <!-- Coffre -->
-          <path class="car-part" id="part-coffre" onclick="openDmg('coffre','Coffre')"
-            d="M718,140 L718,200 L760,200 L810,195 L830,192 L842,195 L842,210 L835,218 L790,215 L780,215 L760,200 L718,200 L718,155 Z"/>
-
-          <!-- Pare-chocs arrière -->
-          <path class="car-part" id="part-pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-            d="M835,218 L842,210 L842,195 L855,198 Q870,205 875,225 Q878,245 872,260 L858,272 L842,275 L830,272 L790,270 L790,240 Z"/>
-
-          <!-- Bas de caisse -->
-          <path class="car-part" id="part-bas-caisse" onclick="openDmg('bas-caisse','Bas de caisse')"
-            d="M155,300 L168,298 Q185,318 220,320 L225,330 L300,335 L320,330 L385,330 L460,330 L560,330 L610,330 L640,332 L680,330 Q695,320 725,322 L730,332 L780,330 L790,300 L790,310 L785,335 L735,340 L680,338 L300,340 L225,338 L155,335 L145,320 Z"/>
-
-          <!-- Rétroviseur -->
-          <path class="car-part" id="part-retro" onclick="openDmg('retro','Rétroviseur')"
-            d="M282,160 Q278,152 280,145 L292,142 L298,148 L296,162 Q290,168 284,165 Z"/>
-
-          <!-- ===== NON-CLICKABLE DETAILS ===== -->
-
-          <!-- Window frames (decorative) -->
-          <path d="M380,90 L380,145 L295,145 L340,100 L370,82 Z" fill="none" stroke="#333" stroke-width=".6"/>
-          <path d="M380,90 L660,90 L660,145 L380,145 Z" fill="rgba(80,140,180,.03)" stroke="#333" stroke-width=".6"/>
-          <line x1="460" y1="90" x2="460" y2="145" stroke="#2a2a2a" stroke-width=".8"/>
-          <path d="M660,90 L660,155 L718,155 L718,140 L700,108 Z" fill="none" stroke="#333" stroke-width=".6"/>
-
-          <!-- Door handles -->
-          <rect x="400" y="185" width="28" height="5" rx="2.5" fill="none" stroke="#3a3a3a" stroke-width="1"/>
-          <rect x="530" y="185" width="28" height="5" rx="2.5" fill="none" stroke="#3a3a3a" stroke-width="1"/>
-
-          <!-- Body line -->
-          <path d="M130,225 L290,210 L460,210 L660,210 L780,220" fill="none" stroke="#222" stroke-width=".8"/>
-
-          <!-- Headlight -->
-          <path d="M108,208 L130,195 L148,190 L148,208 Z" fill="rgba(255,220,100,.04)" stroke="#3a3a3a" stroke-width=".8"/>
-
-          <!-- Taillight -->
-          <path d="M842,195 L855,198 L855,220 L842,218 Z" fill="rgba(239,68,68,.06)" stroke="#3a3a3a" stroke-width=".8"/>
-
-          <!-- Front wheel -->
-          <circle cx="250" cy="320" r="48" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="1.5"/>
-          <circle cx="250" cy="320" r="38" fill="none" stroke="#1e1e1e" stroke-width="8"/>
-          <circle cx="250" cy="320" r="32" fill="none" stroke="#222" stroke-width=".5"/>
-          <circle cx="250" cy="320" r="16" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-          <circle cx="250" cy="320" r="5" fill="#1a1a1a"/>
-          <!-- Spokes -->
-          <g stroke="#1e1e1e" stroke-width="1.2">
-            <line x1="250" y1="290" x2="250" y2="304"/><line x1="250" y1="336" x2="250" y2="350"/>
-            <line x1="220" y1="320" x2="234" y2="320"/><line x1="266" y1="320" x2="280" y2="320"/>
-            <line x1="229" y1="299" x2="238" y2="308"/><line x1="262" y1="332" x2="271" y2="341"/>
-            <line x1="271" y1="299" x2="262" y2="308"/><line x1="238" y1="332" x2="229" y2="341"/>
-          </g>
-
-          <!-- Rear wheel -->
-          <circle cx="710" cy="320" r="48" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="1.5"/>
-          <circle cx="710" cy="320" r="38" fill="none" stroke="#1e1e1e" stroke-width="8"/>
-          <circle cx="710" cy="320" r="32" fill="none" stroke="#222" stroke-width=".5"/>
-          <circle cx="710" cy="320" r="16" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-          <circle cx="710" cy="320" r="5" fill="#1a1a1a"/>
-          <g stroke="#1e1e1e" stroke-width="1.2">
-            <line x1="710" y1="290" x2="710" y2="304"/><line x1="710" y1="336" x2="710" y2="350"/>
-            <line x1="680" y1="320" x2="694" y2="320"/><line x1="726" y1="320" x2="740" y2="320"/>
-            <line x1="689" y1="299" x2="698" y2="308"/><line x1="722" y1="332" x2="731" y2="341"/>
-            <line x1="731" y1="299" x2="722" y2="308"/><line x1="698" y1="332" x2="689" y2="341"/>
-          </g>
-
-          <!-- ===== LABELS ===== -->
-          <text class="car-label" x="118" y="248">PC Avant</text>
-          <text class="car-label" x="218" y="180">Capot</text>
-          <text class="car-label" x="210" y="258">Aile AV</text>
-          <text class="car-label" x="310" y="118">Pare-brise</text>
-          <text class="car-label" x="520" y="78">Toit</text>
-          <text class="car-label" x="695" y="125">Lunette</text>
-          <text class="car-label" x="375" y="230">Porte AV</text>
-          <text class="car-label" x="555" y="230">Porte AR</text>
-          <text class="car-label" x="730" y="258">Aile AR</text>
-          <text class="car-label" x="780" y="185">Coffre</text>
-          <text class="car-label" x="860" y="248">PC AR</text>
-          <text class="car-label" x="480" y="348">Bas de caisse</text>
-          <text class="car-label" x="275" y="140" font-size="7">Rétro</text>
-        </svg>
+      <div class="car-viewer" id="carViewer">
+        <div class="car-hint" id="carHint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 9l4-4 4 4"/><path d="M15 15l4 4-4 4"/><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>
+          Glisser pour tourner — Cliquer sur une zone
+        </div>
+        <div class="car-part-label" id="partLabel"></div>
       </div>
-
-      <!-- VIEW TOGGLE -->
-      <div class="view-toggle">
-        <button class="view-btn active" onclick="switchView('side',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
-          Vue latérale
-        </button>
-        <button class="view-btn" onclick="switchView('top',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><rect x="4" y="2" width="16" height="20" rx="3"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
-          Vue du dessus
-        </button>
-      </div>
-
-      <!-- TOP VIEW -->
-      <div class="car-svg-wrap car-top-view" id="carTopView" style="display:none;padding-bottom:75%">
-        <svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="glassGradTop" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="rgba(120,180,220,.06)"/>
-              <stop offset="100%" stop-color="rgba(60,100,140,.03)"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Shadow -->
-          <ellipse cx="300" cy="400" rx="145" ry="340" fill="rgba(255,255,255,.01)"/>
-
-          <!-- ===== BODY OUTLINE ===== -->
-          <!-- Main body shape -->
-          <path d="M190,120 Q180,100 200,75 Q240,40 300,30 Q360,40 400,75 Q420,100 410,120
-                   L415,200 L420,350 L420,500 L415,620
-                   Q420,700 400,730 Q360,760 300,770 Q240,760 200,730 Q180,700 185,620
-                   L180,500 L180,350 L185,200 Z"
-                fill="none" stroke="#2a2a2a" stroke-width="1"/>
-
-          <!-- ===== CLICKABLE PARTS ===== -->
-
-          <!-- Capot (top) -->
-          <path class="car-part" id="part-top-capot" onclick="openDmg('capot','Capot')"
-            d="M200,75 Q240,42 300,32 Q360,42 400,75 L410,120 L415,180 L185,180 L190,120 Z"/>
-          <text class="car-label" x="300" y="120">Capot</text>
-
-          <!-- Pare-brise -->
-          <path class="car-part" id="part-top-parebrise" onclick="openDmg('parebrise','Pare-brise')" style="fill:url(#glassGradTop)"
-            d="M185,180 L415,180 L408,220 Q380,225 300,228 Q220,225 192,220 Z"/>
-          <text class="car-label" x="300" y="208">Pare-brise</text>
-
-          <!-- Toit -->
-          <path class="car-part" id="part-top-toit" onclick="openDmg('toit','Toit')"
-            d="M192,220 Q220,225 300,228 Q380,225 408,220 L410,420 Q380,425 300,428 Q220,425 190,420 Z"/>
-          <text class="car-label" x="300" y="330">Toit</text>
-
-          <!-- Lunette arrière -->
-          <path class="car-part" id="part-top-lunette" onclick="openDmg('lunette','Lunette arrière')" style="fill:url(#glassGradTop)"
-            d="M190,420 Q220,425 300,428 Q380,425 410,420 L415,470 L185,470 Z"/>
-          <text class="car-label" x="300" y="452">Lunette</text>
-
-          <!-- Coffre -->
-          <path class="car-part" id="part-top-coffre" onclick="openDmg('coffre','Coffre')"
-            d="M185,470 L415,470 L415,620 Q420,700 400,730 Q360,760 300,770 Q240,760 200,730 Q180,700 185,620 Z"/>
-          <text class="car-label" x="300" y="630">Coffre</text>
-
-          <!-- Aile avant gauche -->
-          <path class="car-part" id="part-top-aile-av-g" onclick="openDmg('aile-av','Aile avant')"
-            d="M185,100 L190,120 L185,180 L165,180 L160,155 Q158,130 165,110 Z"/>
-          <text class="car-label" x="150" y="148" font-size="7">Aile AV</text>
-
-          <!-- Aile avant droite -->
-          <path class="car-part" id="part-top-aile-av-d" onclick="openDmg('aile-av','Aile avant')"
-            d="M415,100 L410,120 L415,180 L435,180 L440,155 Q442,130 435,110 Z"/>
-          <text class="car-label" x="450" y="148" font-size="7">Aile AV</text>
-
-          <!-- Porte avant gauche -->
-          <path class="car-part" id="part-top-porte-av-g" onclick="openDmg('porte-av','Porte avant')"
-            d="M165,180 L185,180 L185,320 L170,320 Q162,300 160,260 L160,200 Z"/>
-          <text class="car-label" x="148" y="255" font-size="7">Porte AV</text>
-
-          <!-- Porte avant droite -->
-          <path class="car-part" id="part-top-porte-av-d" onclick="openDmg('porte-av','Porte avant')"
-            d="M435,180 L415,180 L415,320 L430,320 Q438,300 440,260 L440,200 Z"/>
-          <text class="car-label" x="455" y="255" font-size="7">Porte AV</text>
-
-          <!-- Porte arrière gauche -->
-          <path class="car-part" id="part-top-porte-ar-g" onclick="openDmg('porte-ar','Porte arrière')"
-            d="M170,320 L185,320 L185,470 L170,470 Q162,440 160,400 L160,360 Q162,340 170,320 Z"/>
-          <text class="car-label" x="145" y="400" font-size="7">Porte AR</text>
-
-          <!-- Porte arrière droite -->
-          <path class="car-part" id="part-top-porte-ar-d" onclick="openDmg('porte-ar','Porte arrière')"
-            d="M430,320 L415,320 L415,470 L430,470 Q438,440 440,400 L440,360 Q438,340 430,320 Z"/>
-          <text class="car-label" x="458" y="400" font-size="7">Porte AR</text>
-
-          <!-- Aile arrière gauche -->
-          <path class="car-part" id="part-top-aile-ar-g" onclick="openDmg('aile-ar','Aile arrière')"
-            d="M170,470 L185,470 L185,620 L165,620 Q160,570 160,530 L160,500 Q162,480 170,470 Z"/>
-          <text class="car-label" x="145" y="550" font-size="7">Aile AR</text>
-
-          <!-- Aile arrière droite -->
-          <path class="car-part" id="part-top-aile-ar-d" onclick="openDmg('aile-ar','Aile arrière')"
-            d="M430,470 L415,470 L415,620 L435,620 Q440,570 440,530 L440,500 Q438,480 430,470 Z"/>
-          <text class="car-label" x="458" y="550" font-size="7">Aile AR</text>
-
-          <!-- PC Avant -->
-          <path class="car-part" id="part-top-pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-            d="M200,75 L185,100 L165,110 Q155,80 170,55 Q210,25 300,18 Q390,25 430,55 Q445,80 435,110 L415,100 L400,75 Q360,42 300,32 Q240,42 200,75 Z"/>
-          <text class="car-label" x="300" y="55">PC Avant</text>
-
-          <!-- PC Arrière -->
-          <path class="car-part" id="part-top-pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-            d="M200,730 L185,700 L165,690 Q155,720 170,745 Q210,775 300,782 Q390,775 430,745 Q445,720 435,690 L415,700 L400,730 Q360,760 300,770 Q240,760 200,730 Z"/>
-          <text class="car-label" x="300" y="758">PC Arrière</text>
-
-          <!-- Rétroviseur gauche -->
-          <ellipse class="car-part" id="part-top-retro-g" onclick="openDmg('retro','Rétroviseur')"
-            cx="152" cy="195" rx="12" ry="8"/>
-          <text class="car-label" x="130" y="195" font-size="6">Rétro</text>
-
-          <!-- Rétroviseur droit -->
-          <ellipse class="car-part" id="part-top-retro-d" onclick="openDmg('retro','Rétroviseur')"
-            cx="448" cy="195" rx="12" ry="8"/>
-          <text class="car-label" x="468" y="195" font-size="6">Rétro</text>
-
-          <!-- ===== DECORATIVE DETAILS ===== -->
-          <!-- Center line -->
-          <line x1="300" y1="35" x2="300" y2="768" stroke="#1a1a1a" stroke-width=".5" stroke-dasharray="4,8"/>
-
-          <!-- Wheels -->
-          <rect x="148" y="118" width="18" height="52" rx="6" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-          <rect x="434" y="118" width="18" height="52" rx="6" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-          <rect x="148" y="530" width="18" height="52" rx="6" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-          <rect x="434" y="530" width="18" height="52" rx="6" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-
-          <!-- Headlights -->
-          <ellipse cx="220" cy="42" rx="22" ry="6" fill="rgba(255,220,100,.04)" stroke="#2a2a2a" stroke-width=".6"/>
-          <ellipse cx="380" cy="42" rx="22" ry="6" fill="rgba(255,220,100,.04)" stroke="#2a2a2a" stroke-width=".6"/>
-
-          <!-- Taillights -->
-          <ellipse cx="220" cy="758" rx="22" ry="6" fill="rgba(239,68,68,.05)" stroke="#2a2a2a" stroke-width=".6"/>
-          <ellipse cx="380" cy="758" rx="22" ry="6" fill="rgba(239,68,68,.05)" stroke="#2a2a2a" stroke-width=".6"/>
-        </svg>
-      </div>
-
       <div class="car-legend">
         <div class="car-legend-item"><div class="car-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
         <div class="car-legend-item"><div class="car-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
@@ -741,20 +464,18 @@ function resetAll(){
 }
 
 function updateCarVisual(){
-  document.querySelectorAll('.car-part').forEach(function(p){
-    var rawId=p.id.replace('part-','').replace('part-top-','').replace('-g','').replace('-d','');
-    p.classList.remove('dmg-1','dmg-2','dmg-3');
-    if(damages[rawId])p.classList.add('dmg-'+damages[rawId]);
+  // Update 3D car part colors
+  if(!window.carParts)return;
+  Object.keys(window.carParts).forEach(function(k){
+    var mesh=window.carParts[k];
+    var lvl=damages[k]||0;
+    if(lvl===1)mesh.material.color.setHex(0xfbbf24);
+    else if(lvl===2)mesh.material.color.setHex(0xf97316);
+    else if(lvl===3)mesh.material.color.setHex(0xef4444);
+    else mesh.material.color.setHex(mesh.userData.baseColor||0x222222);
+    mesh.material.emissive.setHex(lvl?mesh.material.color.getHex():0x000000);
+    mesh.material.emissiveIntensity=lvl?0.15:0;
   });
-}
-
-function switchView(view,btn){
-  document.querySelectorAll('.view-btn').forEach(function(b){b.classList.remove('active')});
-  btn.classList.add('active');
-  var sideWrap=document.querySelector('.car-svg-wrap:not(.car-top-view)');
-  var topWrap=document.getElementById('carTopView');
-  if(view==='side'){sideWrap.style.display='';topWrap.style.display='none';}
-  else{sideWrap.style.display='none';topWrap.style.display='';}
 }
 
 function updateQuote(){
@@ -796,7 +517,274 @@ function obs(){
   },{threshold:.08});
   for(var j=0;j<els.length;j++)o.observe(els[j]);
 }
-document.addEventListener('DOMContentLoaded',obs);
+document.addEventListener('DOMContentLoaded',function(){
+  obs();
+  init3DCar();
+});
+
+function init3DCar(){
+  var container=document.getElementById('carViewer');
+  var W=container.clientWidth,H=container.clientHeight;
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(40,W/H,0.1,100);
+  camera.position.set(6,3,6);
+  camera.lookAt(0,0.5,0);
+
+  var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setSize(W,H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.2;
+  container.insertBefore(renderer.domElement,container.firstChild);
+
+  // Lights
+  var ambLight=new THREE.AmbientLight(0xffffff,0.4);
+  scene.add(ambLight);
+  var dirLight=new THREE.DirectionalLight(0xffffff,0.8);
+  dirLight.position.set(5,8,5);dirLight.castShadow=true;
+  dirLight.shadow.mapSize.width=1024;dirLight.shadow.mapSize.height=1024;
+  scene.add(dirLight);
+  var fillLight=new THREE.DirectionalLight(0x8888ff,0.2);
+  fillLight.position.set(-5,3,-5);
+  scene.add(fillLight);
+  var rimLight=new THREE.DirectionalLight(0xffffff,0.3);
+  rimLight.position.set(0,2,-6);
+  scene.add(rimLight);
+
+  // Ground
+  var groundGeo=new THREE.CircleGeometry(8,64);
+  var groundMat=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.9});
+  var ground=new THREE.Mesh(groundGeo,groundMat);
+  ground.rotation.x=-Math.PI/2;ground.position.y=-0.01;ground.receiveShadow=true;
+  scene.add(ground);
+
+  // Ground ring
+  var ringGeo=new THREE.RingGeometry(3.8,4,64);
+  var ringMat=new THREE.MeshBasicMaterial({color:0x1a1a1a,side:THREE.DoubleSide});
+  var ring=new THREE.Mesh(ringGeo,ringMat);
+  ring.rotation.x=-Math.PI/2;ring.position.y=0.001;
+  scene.add(ring);
+
+  // Car group
+  var car=new THREE.Group();
+  window.carParts={};
+  var partNames={'capot':'Capot','pc-avant':'Pare-chocs avant','aile-av':'Aile avant','porte-av':'Porte avant','porte-ar':'Porte arrière','aile-ar':'Aile arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','toit':'Toit','bas-caisse':'Bas de caisse','parebrise':'Pare-brise','lunette':'Lunette arrière','retro':'Rétroviseur'};
+
+  function makeMat(color,metal,rough){
+    return new THREE.MeshStandardMaterial({color:color,metalness:metal||0.6,roughness:rough||0.3});
+  }
+  function glassMat(){
+    return new THREE.MeshStandardMaterial({color:0x334455,metalness:0.9,roughness:0.1,transparent:true,opacity:0.35});
+  }
+  function addPart(id,geo,mat,pos,rot){
+    var m=new THREE.Mesh(geo,mat);
+    m.position.set(pos[0],pos[1],pos[2]);
+    if(rot)m.rotation.set(rot[0]||0,rot[1]||0,rot[2]||0);
+    m.castShadow=true;m.receiveShadow=true;
+    m.userData={partId:id,partName:partNames[id]||id,baseColor:mat.color.getHex()};
+    car.add(m);
+    if(!window.carParts[id])window.carParts[id]=m;
+    return m;
+  }
+
+  var bodyColor=0x1a1a1a;
+
+  // === BODY === (built from boxes and shapes)
+  // Main body lower
+  var bodyGeo=new THREE.BoxGeometry(4.2,0.55,1.7);
+  bodyGeo=roundEdges(bodyGeo,0.08);
+  addPart('bas-caisse',bodyGeo,makeMat(bodyColor,0.7,0.25),[0,0.45,0]);
+
+  // Hood
+  var hoodGeo=new THREE.BoxGeometry(1.2,0.08,1.58);
+  hoodGeo=roundEdges(hoodGeo,0.06);
+  addPart('capot',hoodGeo,makeMat(bodyColor,0.7,0.2),[1.35,0.78,0],[-.05,0,0]);
+
+  // Front bumper
+  var fbGeo=new THREE.BoxGeometry(0.35,0.45,1.72);
+  fbGeo=roundEdges(fbGeo,0.1);
+  addPart('pc-avant',fbGeo,makeMat(0x151515,0.5,0.4),[2.22,0.42,0]);
+
+  // Rear bumper
+  var rbGeo=new THREE.BoxGeometry(0.35,0.45,1.72);
+  rbGeo=roundEdges(rbGeo,0.1);
+  addPart('pc-arriere',rbGeo,makeMat(0x151515,0.5,0.4),[-2.22,0.42,0]);
+
+  // Front fenders (left+right)
+  var fenderGeo=new THREE.BoxGeometry(0.9,0.5,0.18);
+  fenderGeo=roundEdges(fenderGeo,0.05);
+  addPart('aile-av',fenderGeo,makeMat(bodyColor,0.7,0.2),[1.2,0.55,0.88]);
+  addPart('aile-av',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[1.2,0.55,-0.88]);
+
+  // Rear fenders (left+right)
+  addPart('aile-ar',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[-1.2,0.55,0.88]);
+  addPart('aile-ar',fenderGeo.clone(),makeMat(bodyColor,0.7,0.2),[-1.2,0.55,-0.88]);
+
+  // Cabin/roof
+  var cabinGeo=new THREE.BoxGeometry(2.2,0.6,1.45);
+  cabinGeo=roundEdges(cabinGeo,0.12);
+  addPart('toit',cabinGeo,makeMat(bodyColor,0.7,0.2),[0,1.12,0]);
+
+  // Front door left
+  var doorGeo=new THREE.BoxGeometry(0.95,0.52,0.08);
+  addPart('porte-av',doorGeo,makeMat(bodyColor,0.65,0.25),[0.45,0.65,0.84]);
+  addPart('porte-av',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[0.45,0.65,-0.84]);
+
+  // Rear door left
+  addPart('porte-ar',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[-0.5,0.65,0.84]);
+  addPart('porte-ar',doorGeo.clone(),makeMat(bodyColor,0.65,0.25),[-0.5,0.65,-0.84]);
+
+  // Trunk
+  var trunkGeo=new THREE.BoxGeometry(1.0,0.08,1.58);
+  trunkGeo=roundEdges(trunkGeo,0.06);
+  addPart('coffre',trunkGeo,makeMat(bodyColor,0.7,0.2),[-1.45,0.78,0],[.03,0,0]);
+
+  // Windshield
+  var wsGeo=new THREE.BoxGeometry(0.02,0.55,1.38);
+  addPart('parebrise',wsGeo,glassMat(),[0.95,1.05,0],[0,0,0.35]);
+
+  // Rear window
+  addPart('lunette',wsGeo.clone(),glassMat(),[-0.95,1.05,0],[0,0,-0.35]);
+
+  // Side windows (decorative)
+  var swGeo=new THREE.BoxGeometry(1.8,0.35,0.02);
+  var swm=glassMat();
+  var sw1=new THREE.Mesh(swGeo,swm);sw1.position.set(0,1.0,0.73);car.add(sw1);
+  var sw2=new THREE.Mesh(swGeo.clone(),swm);sw2.position.set(0,1.0,-0.73);car.add(sw2);
+
+  // Mirrors
+  var mirGeo=new THREE.BoxGeometry(0.12,0.08,0.14);
+  addPart('retro',mirGeo,makeMat(bodyColor,0.6,0.3),[0.85,0.88,0.95]);
+  addPart('retro',mirGeo.clone(),makeMat(bodyColor,0.6,0.3),[0.85,0.88,-0.95]);
+
+  // Headlights
+  var hlGeo=new THREE.SphereGeometry(0.12,16,8);
+  var hlMat=new THREE.MeshStandardMaterial({color:0xffffee,emissive:0xffffaa,emissiveIntensity:0.3,transparent:true,opacity:0.8});
+  var hl1=new THREE.Mesh(hlGeo,hlMat);hl1.position.set(2.1,0.55,0.55);car.add(hl1);
+  var hl2=new THREE.Mesh(hlGeo.clone(),hlMat.clone());hl2.position.set(2.1,0.55,-0.55);car.add(hl2);
+
+  // Taillights
+  var tlMat=new THREE.MeshStandardMaterial({color:0xff2222,emissive:0xff0000,emissiveIntensity:0.2,transparent:true,opacity:0.7});
+  var tl1=new THREE.Mesh(hlGeo.clone(),tlMat);tl1.position.set(-2.1,0.55,0.55);car.add(tl1);
+  var tl2=new THREE.Mesh(hlGeo.clone(),tlMat.clone());tl2.position.set(-2.1,0.55,-0.55);car.add(tl2);
+
+  // Wheels
+  function makeWheel(x,z){
+    var g=new THREE.Group();
+    var tire=new THREE.TorusGeometry(0.32,0.12,12,24);
+    var tm=new THREE.MeshStandardMaterial({color:0x111111,roughness:0.9});
+    var t=new THREE.Mesh(tire,tm);t.rotation.y=Math.PI/2;g.add(t);
+    var rim=new THREE.CylinderGeometry(0.22,0.22,0.15,20);
+    var rm=new THREE.MeshStandardMaterial({color:0x888888,metalness:0.9,roughness:0.2});
+    var r=new THREE.Mesh(rim,rm);r.rotation.x=Math.PI/2;g.add(r);
+    // Spokes
+    for(var s=0;s<5;s++){
+      var spoke=new THREE.BoxGeometry(0.03,0.18,0.04);
+      var sm2=new THREE.Mesh(spoke,rm);
+      sm2.rotation.z=s*(Math.PI*2/5);
+      sm2.rotation.x=Math.PI/2;
+      g.add(sm2);
+    }
+    g.position.set(x,0.32,z);g.castShadow=true;
+    car.add(g);
+  }
+  makeWheel(1.4,0.88);makeWheel(1.4,-0.88);
+  makeWheel(-1.4,0.88);makeWheel(-1.4,-0.88);
+
+  scene.add(car);
+
+  // Round edges helper
+  function roundEdges(geo,r){return geo;} // Three r128 doesn't have bevel on BoxGeo, keeping sharp for compat
+
+  // === ORBIT CONTROLS (manual) ===
+  var angle=0.8,vAngle=0.35,dist=7.5,dragging=false,lastX=0,lastY=0,autoRotate=true;
+
+  function updateCam(){
+    camera.position.x=Math.cos(angle)*Math.cos(vAngle)*dist;
+    camera.position.y=Math.sin(vAngle)*dist+0.8;
+    camera.position.z=Math.sin(angle)*Math.cos(vAngle)*dist;
+    camera.lookAt(0,0.6,0);
+  }
+  updateCam();
+
+  container.addEventListener('pointerdown',function(e){dragging=true;lastX=e.clientX;lastY=e.clientY;autoRotate=false;
+    document.getElementById('carHint').style.opacity='0';});
+  window.addEventListener('pointermove',function(e){if(!dragging)return;
+    angle+=(e.clientX-lastX)*0.008;
+    vAngle=Math.max(0.05,Math.min(1.2,vAngle+(e.clientY-lastY)*0.005));
+    lastX=e.clientX;lastY=e.clientY;updateCam();});
+  window.addEventListener('pointerup',function(){dragging=false;});
+
+  // Zoom
+  container.addEventListener('wheel',function(e){e.preventDefault();
+    dist=Math.max(4,Math.min(12,dist+e.deltaY*0.005));updateCam();},{passive:false});
+
+  // Click/tap to select part
+  var raycaster=new THREE.Raycaster();
+  var mouse=new THREE.Vector2();
+  var label=document.getElementById('partLabel');
+  var clickStart={x:0,y:0};
+
+  container.addEventListener('pointerdown',function(e){clickStart={x:e.clientX,y:e.clientY};});
+  container.addEventListener('pointerup',function(e){
+    if(Math.abs(e.clientX-clickStart.x)>5||Math.abs(e.clientY-clickStart.y)>5)return;
+    var rect=renderer.domElement.getBoundingClientRect();
+    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+    raycaster.setFromCamera(mouse,camera);
+    var meshes=[];
+    Object.values(window.carParts).forEach(function(m){meshes.push(m)});
+    // Also check duplicates
+    car.children.forEach(function(c){if(c.userData&&c.userData.partId)meshes.push(c)});
+    var hits=raycaster.intersectObjects(meshes,false);
+    if(hits.length>0){
+      var hit=hits[0].object;
+      if(hit.userData&&hit.userData.partId){
+        openDmg(hit.userData.partId,hit.userData.partName);
+      }
+    }
+  });
+
+  // Hover label
+  container.addEventListener('pointermove',function(e){
+    if(dragging)return;
+    var rect=renderer.domElement.getBoundingClientRect();
+    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+    raycaster.setFromCamera(mouse,camera);
+    var meshes=[];
+    car.children.forEach(function(c){if(c.userData&&c.userData.partId)meshes.push(c)});
+    var hits=raycaster.intersectObjects(meshes,false);
+    if(hits.length>0&&hits[0].object.userData.partName){
+      label.textContent=hits[0].object.userData.partName;
+      label.style.left=(e.clientX-container.getBoundingClientRect().left+14)+'px';
+      label.style.top=(e.clientY-container.getBoundingClientRect().top-10)+'px';
+      label.classList.add('vis');
+      container.style.cursor='pointer';
+    }else{
+      label.classList.remove('vis');
+      container.style.cursor='grab';
+    }
+  });
+
+  // Render loop
+  function animate(){
+    requestAnimationFrame(animate);
+    if(autoRotate)angle+=0.003;
+    if(autoRotate)updateCam();
+    renderer.render(scene,camera);
+  }
+  animate();
+
+  // Resize
+  window.addEventListener('resize',function(){
+    W=container.clientWidth;H=container.clientHeight;
+    camera.aspect=W/H;camera.updateProjectionMatrix();
+    renderer.setSize(W,H);
+  });
+}
 </script>
 </body>
 </html>
