@@ -119,110 +119,116 @@
 <script>
 var damages={},currentPart=null,currentPartName='',selectedLevel=0,skApi=null;
 var dmgLabels={1:'Rayure simple',2:'Enfoncement léger',3:'Dégâts importants'};
-var dmgColors={1:[251/255,191/255,36/255],2:[249/255,115/255,22/255],3:[239/255,68/255,68/255]};
+var dmgColors={1:[1,.75,.14],2:[.98,.45,.09],3:[.94,.27,.17]};
 var partNames={'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise','toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite','porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite','porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite','aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite','retro-g':'Rétroviseur gauche','retro-d':'Rétroviseur droit','bas-caisse':'Bas de caisse'};
 
-// Map Sketchfab node names to our part IDs
-var nodeMap={
-  'hood':'capot','bonnet':'capot','capot':'capot',
-  'roof':'toit','top':'toit','toit':'toit',
-  'trunk':'coffre','boot':'coffre','coffre':'coffre',
-  'front_bumper':'pc-avant','bumper_front':'pc-avant','bumper_f':'pc-avant','pare_choc_avant':'pc-avant',
-  'rear_bumper':'pc-arriere','bumper_rear':'pc-arriere','bumper_r':'pc-arriere','pare_choc_arriere':'pc-arriere',
-  'door_fl':'porte-av-g','door_fr':'porte-av-d','front_door_l':'porte-av-g','front_door_r':'porte-av-d',
-  'door_rl':'porte-ar-g','door_rr':'porte-ar-d','rear_door_l':'porte-ar-g','rear_door_r':'porte-ar-d',
-  'fender_fl':'aile-av-g','fender_fr':'aile-av-d','front_fender_l':'aile-av-g','front_fender_r':'aile-av-d',
-  'fender_rl':'aile-ar-g','fender_rr':'aile-ar-d','rear_fender_l':'aile-ar-g','rear_fender_r':'aile-ar-d','quarter_panel_l':'aile-ar-g','quarter_panel_r':'aile-ar-d',
-  'windshield':'parebrise','windscreen':'parebrise','pare_brise':'parebrise',
-  'rear_window':'lunette','rear_glass':'lunette','lunette':'lunette',
-  'mirror_l':'retro-g','mirror_r':'retro-d','side_mirror_l':'retro-g','side_mirror_r':'retro-d',
-  'rocker_panel':'bas-caisse','side_skirt':'bas-caisse','bas_caisse':'bas-caisse',
-  'body':'bas-caisse','body_shell':'bas-caisse'
-};
 var nodeInstances={}; // instanceID -> partId
-var nodeMaterials={}; // instanceID -> original material channel
+var origMaterials={}; // instanceID -> cloned original material
+var hoveredIID=null;
+var tooltip=null;
 
 function matchPart(name){
   if(!name)return null;
   var n=name.toLowerCase().replace(/[\s\-\.]/g,'_');
-  // Direct match
-  if(nodeMap[n])return nodeMap[n];
-  // Partial match
-  for(var k in nodeMap){
-    if(n.indexOf(k)>=0)return nodeMap[k];
+  // Keywords
+  if(/hood|capot|bonnet/.test(n))return'capot';
+  if(/roof|toit/.test(n)&&!/proof/.test(n))return'toit';
+  if(/trunk|coffre|boot|tailgate|hatch/.test(n))return'coffre';
+  if(/bumper/.test(n)||/pare.?choc/.test(n)){
+    if(/front|avant|frt|_f[^a-z]/.test(n))return'pc-avant';
+    if(/rear|arri|rr|_r[^a-z]/.test(n))return'pc-arriere';
+    return'pc-avant';
   }
-  // Keyword match
-  if(n.indexOf('hood')>=0||n.indexOf('capot')>=0||n.indexOf('bonnet')>=0)return'capot';
-  if(n.indexOf('roof')>=0||n.indexOf('toit')>=0||n.indexOf('top')>=0)return'toit';
-  if(n.indexOf('trunk')>=0||n.indexOf('coffre')>=0||n.indexOf('boot')>=0||n.indexOf('tailgate')>=0)return'coffre';
-  if(n.indexOf('bumper')>=0&&(n.indexOf('front')>=0||n.indexOf('avant')>=0||n.indexOf('_f')>=0))return'pc-avant';
-  if(n.indexOf('bumper')>=0&&(n.indexOf('rear')>=0||n.indexOf('arriere')>=0||n.indexOf('_r')>=0))return'pc-arriere';
-  if(n.indexOf('bumper')>=0)return'pc-avant';
-  if(n.indexOf('door')>=0||n.indexOf('porte')>=0){
-    var isRear=n.indexOf('rear')>=0||n.indexOf('_r')>=0||n.indexOf('arriere')>=0;
-    var isRight=n.indexOf('right')>=0||n.indexOf('_r')>=0||n.indexOf('droit')>=0;
-    if(isRear)return isRight?'porte-ar-d':'porte-ar-g';
-    return isRight?'porte-av-d':'porte-av-g';
+  if(/door|porte/.test(n)){
+    var rear=/rear|arri|rl|rr|_r[^ie]/.test(n);
+    var right=/right|droit|_r$|fr$|rr$|passenger/.test(n);
+    if(rear)return right?'porte-ar-d':'porte-ar-g';
+    return right?'porte-av-d':'porte-av-g';
   }
-  if(n.indexOf('fender')>=0||n.indexOf('aile')>=0||n.indexOf('quarter')>=0){
-    var isR2=n.indexOf('rear')>=0||n.indexOf('arriere')>=0||n.indexOf('quarter')>=0;
-    var isRt=n.indexOf('right')>=0||n.indexOf('_r')>=0||n.indexOf('droit')>=0;
-    if(isR2)return isRt?'aile-ar-d':'aile-ar-g';
-    return isRt?'aile-av-d':'aile-av-g';
+  if(/fender|aile|quarter|panel/.test(n)&&!/dash|inst/.test(n)){
+    var rear2=/rear|arri|quarter|rl|rr/.test(n);
+    var right2=/right|droit|_r$|fr$|rr$/.test(n);
+    if(rear2)return right2?'aile-ar-d':'aile-ar-g';
+    return right2?'aile-av-d':'aile-av-g';
   }
-  if(n.indexOf('windshield')>=0||n.indexOf('windscreen')>=0||n.indexOf('pare')>=0)return'parebrise';
-  if(n.indexOf('mirror')>=0||n.indexOf('retro')>=0)return n.indexOf('r')>=0?'retro-d':'retro-g';
-  if(n.indexOf('rocker')>=0||n.indexOf('skirt')>=0||n.indexOf('sill')>=0)return'bas-caisse';
+  if(/windshield|windscreen|pare.?brise/.test(n))return'parebrise';
+  if(/rear.?window|rear.?glass|lunette/.test(n))return'lunette';
+  if(/mirror|retro/.test(n)){
+    return/right|_r$|rr/.test(n)?'retro-d':'retro-g';
+  }
+  if(/rocker|skirt|sill|bas.?caisse/.test(n))return'bas-caisse';
+  if(/body|chassis|frame|shell/.test(n)&&!/underbody/.test(n))return'bas-caisse';
   return null;
 }
 
 function initViewer(){
   var iframe=document.getElementById('api-frame');
-  var uid='f1906b45599f473b9a18d45a71df2dc0'; // Mercedes C300 AMG
+  tooltip=document.getElementById('carTooltip');
+  // Generic Sedan Car by MMC Works — separated parts, textures, not smooth
+  var uid='58c33766470d46e7b2aed542650494e5';
   var client=new Sketchfab(iframe);
   client.init(uid,{
     success:function(api){
       skApi=api;
       api.start();
       api.addEventListener('viewerready',function(){
-        console.log('Viewer ready');
-        // Map nodes
+        // Map all nodes
         api.getNodeMap(function(err,nodes){
           if(err)return;
-          Object.values(nodes).forEach(function(node){
+          var vals=Object.values(nodes);
+          vals.forEach(function(node){
             var pid=matchPart(node.name);
             if(pid){
               nodeInstances[node.instanceID]=pid;
-              console.log('Mapped:',node.name,'->',pid,'(instance:',node.instanceID,')');
             }
           });
+          console.log('Mapped '+Object.keys(nodeInstances).length+' parts');
         });
-        // Click handler
+
+        // HOVER: highlight on mouse enter
+        api.addEventListener('nodeMouseEnter',function(node){
+          if(!node||node.instanceID===undefined)return;
+          var pid=nodeInstances[node.instanceID];
+          if(!pid)pid=matchPart(node.name);
+          if(!pid)return;
+          hoveredIID=node.instanceID;
+          var label=partNames[pid]||pid;
+          tooltip.textContent=label;
+          tooltip.classList.add('vis');
+          // Highlight: brighten the material
+          highlightNode(node.instanceID,true);
+        },{pick:'fast'});
+
+        // HOVER: unhighlight on mouse leave
+        api.addEventListener('nodeMouseLeave',function(node){
+          if(!node||node.instanceID===undefined)return;
+          tooltip.classList.remove('vis');
+          highlightNode(node.instanceID,false);
+          hoveredIID=null;
+        },{pick:'fast'});
+
+        // CLICK: select part for damage
         api.addEventListener('click',function(info){
-          if(info.instanceID!==undefined){
-            // Walk up to find a mapped part
-            var pid=nodeInstances[info.instanceID];
-            if(!pid){
-              // Try parent nodes
-              api.getNodeMap(function(err,nodes){
-                var node=nodes[info.instanceID];
-                if(node){
-                  // Check name
-                  pid=matchPart(node.name);
-                  if(!pid){
-                    // Just use the raw name for unmapped parts
-                    var rawName=node.name||'Élément';
-                    var cleanName=rawName.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
-                    // Assign to a generic part
-                    pid=rawName.toLowerCase().replace(/\s+/g,'-');
-                    if(!partNames[pid])partNames[pid]=cleanName;
-                  }
-                  openDmg(pid,partNames[pid]||pid);
-                }
-              });
-            }else{
-              openDmg(pid,partNames[pid]);
-            }
+          if(info.instanceID===undefined)return;
+          var pid=nodeInstances[info.instanceID];
+          if(!pid){
+            // Try to match name directly
+            api.getNodeMap(function(err,nodes){
+              if(err)return;
+              var node=nodes[info.instanceID];
+              if(!node)return;
+              pid=matchPart(node.name);
+              if(!pid){
+                var raw=node.name||'Element';
+                var clean=raw.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
+                pid=raw.toLowerCase().replace(/\s+/g,'-');
+                if(!partNames[pid])partNames[pid]=clean;
+              }
+              nodeInstances[info.instanceID]=pid;
+              openDmg(pid,partNames[pid]||pid);
+            });
+          }else{
+            openDmg(pid,partNames[pid]);
           }
         },{pick:'slow'});
       });
@@ -247,29 +253,60 @@ function initViewer(){
   });
 }
 
+// Track mouse position for tooltip
+document.addEventListener('DOMContentLoaded',function(){
+  var viewer=document.getElementById('carViewer');
+  viewer.addEventListener('mousemove',function(e){
+    if(!tooltip)return;
+    var r=viewer.getBoundingClientRect();
+    tooltip.style.left=(e.clientX-r.left+16)+'px';
+    tooltip.style.top=(e.clientY-r.top-12)+'px';
+  });
+});
+
+function highlightNode(iid,on){
+  if(!skApi)return;
+  var pid=nodeInstances[iid];
+  var lvl=pid?damages[pid]:0;
+
+  if(on&&!lvl){
+    // Highlight: set emissive to silver glow
+    skApi.setColor(iid,[.7,.72,.75]); 
+  }else if(!on&&!lvl){
+    // Restore original
+    skApi.setColor(iid,null);
+  }
+  // If damaged, keep damage color
+  if(lvl&&!on){
+    skApi.setColor(iid,dmgColors[lvl]);
+  }
+}
+
+function updateVis(){
+  if(!skApi)return;
+  // Apply damage colors to all mapped nodes
+  Object.keys(nodeInstances).forEach(function(iid){
+    var pid=nodeInstances[iid];
+    var lvl=damages[pid]||0;
+    if(lvl){
+      skApi.setColor(parseInt(iid),dmgColors[lvl]);
+    }else{
+      skApi.setColor(parseInt(iid),null);
+    }
+  });
+}
+
 function openDmg(id,name){currentPart=id;currentPartName=name;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
 function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
 function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});el.classList.add('selected');selectedLevel=l;}
 function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
 function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
 function resetAll(){damages={};updateVis();updateQuote();}
-function updateVis(){
-  // Update 3D model colors via Sketchfab API if available
-  if(skApi){
-    Object.keys(nodeInstances).forEach(function(iid){
-      var pid=nodeInstances[iid];
-      var lvl=damages[pid]||0;
-      // We'd need material manipulation here - Sketchfab API can set materials
-      // For now the visual feedback is in the quote panel
-    });
-  }
-}
+
 function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
 
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
-
-
 </script>
 </body>
 </html>
