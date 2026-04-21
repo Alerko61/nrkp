@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
 :root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444;--green:#22c55e}
@@ -68,76 +69,11 @@
   <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
 
   <div class="car-viewer-wrap">
-    <!-- Realistic 3D Model Viewer -->
-    <div class="car-viewer" style="cursor:default">
-      <div class="sketchfab-embed-wrapper" style="width:100%;height:100%">
-        <iframe title="Mercedes-Benz" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" style="width:100%;height:100%;border-radius:16px" src="https://sketchfab.com/models/f1906b45599f473b9a18d45a71df2dc0/embed?autostart=1&transparent=1&ui_theme=dark&dnt=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0"></iframe>
-      </div>
+    <div class="car-viewer" id="carViewer">
+      <iframe src="" id="api-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" style="width:100%;height:100%;border:none;border-radius:16px"></iframe>
+      <div id="carTooltip" style="position:absolute;background:rgba(5,5,8,.85);backdrop-filter:blur(8px);border:1px solid #2a2a2e;color:var(--w);padding:7px 16px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap;top:10px;left:10px"></div>
     </div>
-    <p style="text-align:center;font-size:10px;color:#333;margin-top:8px;letter-spacing:2px;text-transform:uppercase">Modèle 3D interactif — glisser pour tourner</p>
-  </div>
-
-  <!-- Interactive diagram below for damage selection -->
-  <div style="max-width:640px;margin:40px auto 0">
-    <div style="text-align:center;margin-bottom:20px">
-      <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--ac)">Sélectionnez les zones</span>
-    </div>
-    <div class="bp-view" style="background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;padding:12px;position:relative;overflow:hidden">
-      <svg viewBox="0 0 500 880" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
-        <text class="cl-dir" x="250" y="22">&#9650; AVANT</text>
-        <text class="cl-dir" x="250" y="870">ARRIÈRE &#9660;</text>
-        <text class="cl-dir" x="18" y="440" transform="rotate(-90,18,440)">GAUCHE</text>
-        <text class="cl-dir" x="482" y="440" transform="rotate(90,482,440)">DROITE</text>
-        <path class="cp" data-id="pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')" d="M145,55 Q150,38 250,32 Q350,38 355,55 L360,78 L140,78 Z"/>
-        <text class="cl" x="250" y="60">Pare-chocs avant</text>
-        <path class="cp" data-id="capot" onclick="openDmg('capot','Capot')" d="M140,78 L360,78 L365,200 L135,200 Z"/>
-        <text class="cl" x="250" y="145">Capot</text>
-        <ellipse cx="175" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
-        <ellipse cx="325" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
-        <path class="cp cg" data-id="parebrise" onclick="openDmg('parebrise','Pare-brise')" d="M135,200 L365,200 L355,240 L145,240 Z"/>
-        <text class="cl" x="250" y="223">Pare-brise</text>
-        <path class="cp" data-id="aile-av-g" onclick="openDmg('aile-av-g','Aile avant gauche')" d="M95,80 L140,78 L135,200 L90,200 Q88,130 90,100 Z"/>
-        <text class="cl cl-s" x="100" y="148">Aile AV</text>
-        <path class="cp" data-id="aile-av-d" onclick="openDmg('aile-av-d','Aile avant droite')" d="M405,80 L360,78 L365,200 L410,200 Q412,130 410,100 Z"/>
-        <text class="cl cl-s" x="400" y="148">Aile AV</text>
-        <ellipse class="cp" data-id="retro-g" onclick="openDmg('retro-g','Rétroviseur gauche')" cx="82" cy="215" rx="10" ry="6"/>
-        <text class="cl" x="60" y="215" font-size="6">Rétro</text>
-        <ellipse class="cp" data-id="retro-d" onclick="openDmg('retro-d','Rétroviseur droit')" cx="418" cy="215" rx="10" ry="6"/>
-        <text class="cl" x="440" y="215" font-size="6">Rétro</text>
-        <path class="cp" data-id="porte-av-g" onclick="openDmg('porte-av-g','Porte avant gauche')" d="M90,200 L145,200 L145,390 L85,390 Q82,300 85,240 Z"/>
-        <text class="cl cl-s" x="100" y="300">Porte AV</text>
-        <path class="cp" data-id="porte-av-d" onclick="openDmg('porte-av-d','Porte avant droite')" d="M410,200 L355,200 L355,390 L415,390 Q418,300 415,240 Z"/>
-        <text class="cl cl-s" x="400" y="300">Porte AV</text>
-        <path class="cp" data-id="toit" onclick="openDmg('toit','Toit')" d="M145,240 L355,240 L355,560 L145,560 Z"/>
-        <text class="cl" x="250" y="405">Toit</text>
-        <line x1="145" y1="390" x2="355" y2="390" stroke="#1e1e22" stroke-width=".5" stroke-dasharray="4,4"/>
-        <path class="cp" data-id="porte-ar-g" onclick="openDmg('porte-ar-g','Porte arrière gauche')" d="M85,390 L145,390 L145,560 L85,560 Q82,480 85,430 Z"/>
-        <text class="cl cl-s" x="100" y="480">Porte AR</text>
-        <path class="cp" data-id="porte-ar-d" onclick="openDmg('porte-ar-d','Porte arrière droite')" d="M415,390 L355,390 L355,560 L415,560 Q418,480 415,430 Z"/>
-        <text class="cl cl-s" x="400" y="480">Porte AR</text>
-        <path class="cp cg" data-id="lunette" onclick="openDmg('lunette','Lunette arrière')" d="M145,560 L355,560 L365,600 L135,600 Z"/>
-        <text class="cl" x="250" y="583">Lunette arrière</text>
-        <path class="cp" data-id="aile-ar-g" onclick="openDmg('aile-ar-g','Aile arrière gauche')" d="M85,560 L135,560 L135,710 L100,710 Q85,670 85,620 Z"/>
-        <text class="cl cl-s" x="96" y="640">Aile AR</text>
-        <path class="cp" data-id="aile-ar-d" onclick="openDmg('aile-ar-d','Aile arrière droite')" d="M415,560 L365,560 L365,710 L400,710 Q415,670 415,620 Z"/>
-        <text class="cl cl-s" x="404" y="640">Aile AR</text>
-        <path class="cp" data-id="coffre" onclick="openDmg('coffre','Coffre')" d="M135,600 L365,600 L365,710 L355,740 L145,740 L135,710 Z"/>
-        <text class="cl" x="250" y="675">Coffre</text>
-        <path class="cp" data-id="pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')" d="M145,740 L355,740 L360,760 Q350,800 250,808 Q150,800 140,760 Z"/>
-        <text class="cl" x="250" y="775">Pare-chocs arrière</text>
-        <path class="cp" data-id="bas-caisse-g" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" d="M72,120 L95,80 L90,200 L85,390 L85,560 L85,620 Q83,670 85,710 L72,740 Q65,700 65,440 Q65,180 72,120 Z"/>
-        <text class="cl" x="50" y="440" transform="rotate(-90,50,440)" font-size="7">Bas de caisse G</text>
-        <path class="cp" data-id="bas-caisse-d" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" d="M428,120 L405,80 L410,200 L415,390 L415,560 L415,620 Q417,670 415,710 L428,740 Q435,700 435,440 Q435,180 428,120 Z"/>
-        <text class="cl" x="450" y="440" transform="rotate(90,450,440)" font-size="7">Bas de caisse D</text>
-        <ellipse cx="175" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
-        <ellipse cx="325" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
-        <rect class="cw" x="78" y="118" width="16" height="48" rx="6"/>
-        <rect class="cw" x="406" y="118" width="16" height="48" rx="6"/>
-        <rect class="cw" x="78" y="648" width="16" height="48" rx="6"/>
-        <rect class="cw" x="406" y="648" width="16" height="48" rx="6"/>
-        <line x1="250" y1="38" x2="250" y2="802" stroke="#141418" stroke-width=".5" stroke-dasharray="3,8"/>
-      </svg>
-    </div>
+    <p style="text-align:center;font-size:10px;color:#555;margin-top:10px;letter-spacing:2px;text-transform:uppercase">Cliquez sur une partie du véhicule pour sélectionner un dégât — Glissez pour tourner</p>
     <div class="bp-legend">
       <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
       <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
@@ -181,9 +117,135 @@
 <footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Navigation</div><a href="index.html" class="ft-a">Véhicules d'occasion</a><a href="carrosserie.html" class="ft-a">Espace carrosserie</a><a href="tel:0761509269" class="ft-a">Demander un devis</a></div></div><div class="ft-bot"><span class="ft-c">&copy; 2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
-var damages={},currentPart=null,currentPartName='',selectedLevel=0;
+var damages={},currentPart=null,currentPartName='',selectedLevel=0,skApi=null;
 var dmgLabels={1:'Rayure simple',2:'Enfoncement léger',3:'Dégâts importants'};
-var partNames={'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise','toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite','porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite','porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite','aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite','retro-g':'Rétroviseur gauche','retro-d':'Rétroviseur droit','bas-caisse-g':'Bas de caisse gauche','bas-caisse-d':'Bas de caisse droit'};
+var dmgColors={1:[251/255,191/255,36/255],2:[249/255,115/255,22/255],3:[239/255,68/255,68/255]};
+var partNames={'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise','toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite','porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite','porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite','aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite','retro-g':'Rétroviseur gauche','retro-d':'Rétroviseur droit','bas-caisse':'Bas de caisse'};
+
+// Map Sketchfab node names to our part IDs
+var nodeMap={
+  'hood':'capot','bonnet':'capot','capot':'capot',
+  'roof':'toit','top':'toit','toit':'toit',
+  'trunk':'coffre','boot':'coffre','coffre':'coffre',
+  'front_bumper':'pc-avant','bumper_front':'pc-avant','bumper_f':'pc-avant','pare_choc_avant':'pc-avant',
+  'rear_bumper':'pc-arriere','bumper_rear':'pc-arriere','bumper_r':'pc-arriere','pare_choc_arriere':'pc-arriere',
+  'door_fl':'porte-av-g','door_fr':'porte-av-d','front_door_l':'porte-av-g','front_door_r':'porte-av-d',
+  'door_rl':'porte-ar-g','door_rr':'porte-ar-d','rear_door_l':'porte-ar-g','rear_door_r':'porte-ar-d',
+  'fender_fl':'aile-av-g','fender_fr':'aile-av-d','front_fender_l':'aile-av-g','front_fender_r':'aile-av-d',
+  'fender_rl':'aile-ar-g','fender_rr':'aile-ar-d','rear_fender_l':'aile-ar-g','rear_fender_r':'aile-ar-d','quarter_panel_l':'aile-ar-g','quarter_panel_r':'aile-ar-d',
+  'windshield':'parebrise','windscreen':'parebrise','pare_brise':'parebrise',
+  'rear_window':'lunette','rear_glass':'lunette','lunette':'lunette',
+  'mirror_l':'retro-g','mirror_r':'retro-d','side_mirror_l':'retro-g','side_mirror_r':'retro-d',
+  'rocker_panel':'bas-caisse','side_skirt':'bas-caisse','bas_caisse':'bas-caisse',
+  'body':'bas-caisse','body_shell':'bas-caisse'
+};
+var nodeInstances={}; // instanceID -> partId
+var nodeMaterials={}; // instanceID -> original material channel
+
+function matchPart(name){
+  if(!name)return null;
+  var n=name.toLowerCase().replace(/[\s\-\.]/g,'_');
+  // Direct match
+  if(nodeMap[n])return nodeMap[n];
+  // Partial match
+  for(var k in nodeMap){
+    if(n.indexOf(k)>=0)return nodeMap[k];
+  }
+  // Keyword match
+  if(n.indexOf('hood')>=0||n.indexOf('capot')>=0||n.indexOf('bonnet')>=0)return'capot';
+  if(n.indexOf('roof')>=0||n.indexOf('toit')>=0||n.indexOf('top')>=0)return'toit';
+  if(n.indexOf('trunk')>=0||n.indexOf('coffre')>=0||n.indexOf('boot')>=0||n.indexOf('tailgate')>=0)return'coffre';
+  if(n.indexOf('bumper')>=0&&(n.indexOf('front')>=0||n.indexOf('avant')>=0||n.indexOf('_f')>=0))return'pc-avant';
+  if(n.indexOf('bumper')>=0&&(n.indexOf('rear')>=0||n.indexOf('arriere')>=0||n.indexOf('_r')>=0))return'pc-arriere';
+  if(n.indexOf('bumper')>=0)return'pc-avant';
+  if(n.indexOf('door')>=0||n.indexOf('porte')>=0){
+    var isRear=n.indexOf('rear')>=0||n.indexOf('_r')>=0||n.indexOf('arriere')>=0;
+    var isRight=n.indexOf('right')>=0||n.indexOf('_r')>=0||n.indexOf('droit')>=0;
+    if(isRear)return isRight?'porte-ar-d':'porte-ar-g';
+    return isRight?'porte-av-d':'porte-av-g';
+  }
+  if(n.indexOf('fender')>=0||n.indexOf('aile')>=0||n.indexOf('quarter')>=0){
+    var isR2=n.indexOf('rear')>=0||n.indexOf('arriere')>=0||n.indexOf('quarter')>=0;
+    var isRt=n.indexOf('right')>=0||n.indexOf('_r')>=0||n.indexOf('droit')>=0;
+    if(isR2)return isRt?'aile-ar-d':'aile-ar-g';
+    return isRt?'aile-av-d':'aile-av-g';
+  }
+  if(n.indexOf('windshield')>=0||n.indexOf('windscreen')>=0||n.indexOf('pare')>=0)return'parebrise';
+  if(n.indexOf('mirror')>=0||n.indexOf('retro')>=0)return n.indexOf('r')>=0?'retro-d':'retro-g';
+  if(n.indexOf('rocker')>=0||n.indexOf('skirt')>=0||n.indexOf('sill')>=0)return'bas-caisse';
+  return null;
+}
+
+function initViewer(){
+  var iframe=document.getElementById('api-frame');
+  var uid='f1906b45599f473b9a18d45a71df2dc0'; // Mercedes C300 AMG
+  var client=new Sketchfab(iframe);
+  client.init(uid,{
+    success:function(api){
+      skApi=api;
+      api.start();
+      api.addEventListener('viewerready',function(){
+        console.log('Viewer ready');
+        // Map nodes
+        api.getNodeMap(function(err,nodes){
+          if(err)return;
+          Object.values(nodes).forEach(function(node){
+            var pid=matchPart(node.name);
+            if(pid){
+              nodeInstances[node.instanceID]=pid;
+              console.log('Mapped:',node.name,'->',pid,'(instance:',node.instanceID,')');
+            }
+          });
+        });
+        // Click handler
+        api.addEventListener('click',function(info){
+          if(info.instanceID!==undefined){
+            // Walk up to find a mapped part
+            var pid=nodeInstances[info.instanceID];
+            if(!pid){
+              // Try parent nodes
+              api.getNodeMap(function(err,nodes){
+                var node=nodes[info.instanceID];
+                if(node){
+                  // Check name
+                  pid=matchPart(node.name);
+                  if(!pid){
+                    // Just use the raw name for unmapped parts
+                    var rawName=node.name||'Élément';
+                    var cleanName=rawName.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
+                    // Assign to a generic part
+                    pid=rawName.toLowerCase().replace(/\s+/g,'-');
+                    if(!partNames[pid])partNames[pid]=cleanName;
+                  }
+                  openDmg(pid,partNames[pid]||pid);
+                }
+              });
+            }else{
+              openDmg(pid,partNames[pid]);
+            }
+          }
+        },{pick:'slow'});
+      });
+    },
+    error:function(){console.log('Viewer error')},
+    autostart:1,
+    ui_theme:'dark',
+    ui_infos:0,
+    ui_controls:1,
+    ui_stop:0,
+    ui_inspector:0,
+    ui_watermark:0,
+    ui_watermark_link:0,
+    ui_ar:0,
+    ui_help:0,
+    ui_settings:0,
+    ui_vr:0,
+    ui_fullscreen:0,
+    ui_annotations:0,
+    transparent:1,
+    dnt:1
+  });
+}
 
 function openDmg(id,name){currentPart=id;currentPartName=name;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
 function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
@@ -191,10 +253,21 @@ function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(
 function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
 function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
 function resetAll(){damages={};updateVis();updateQuote();}
-function updateVis(){document.querySelectorAll('.cp[data-id]').forEach(function(p){var id=p.getAttribute('data-id');p.classList.remove('dmg-1','dmg-2','dmg-3');if(damages[id])p.classList.add('dmg-'+damages[id]);});}
+function updateVis(){
+  // Update 3D model colors via Sketchfab API if available
+  if(skApi){
+    Object.keys(nodeInstances).forEach(function(iid){
+      var pid=nodeInstances[iid];
+      var lvl=damages[pid]||0;
+      // We'd need material manipulation here - Sketchfab API can set materials
+      // For now the visual feedback is in the quote panel
+    });
+  }
+}
 function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
+
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
-document.addEventListener('DOMContentLoaded',obs);
+document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
 
 
 </script>
