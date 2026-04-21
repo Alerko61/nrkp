@@ -20,11 +20,12 @@
 .sec{padding:80px 48px 100px;max-width:1240px;margin:0 auto}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}.sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
 @media(max-width:768px){.sec{padding:60px 20px 80px}.sec-h2{font-size:30px}}
 
-/* ===== BLUEPRINT DIAGRAM ===== */
-.bp-wrap{max-width:640px;margin:48px auto 0;animation:gridIn .8s .3s both}
-.bp-view{background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;position:relative;overflow:hidden;padding:12px}
+/* ===== CAR VIEWER & BLUEPRINT ===== */
+.car-viewer-wrap{max-width:960px;margin:48px auto 0;animation:gridIn .8s .3s both}
+.car-viewer{width:100%;height:520px;border-radius:16px;background:#080810;border:1px solid #1a1a1e;position:relative;overflow:hidden}
+@media(max-width:768px){.car-viewer{height:340px}}
+.bp-view{background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;padding:12px;position:relative;overflow:hidden}
 .bp-view::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(192,192,192,.012) 0%,transparent 70%);pointer-events:none}
-.bp-view svg{display:block;width:100%;height:auto}
 .cp{cursor:pointer;fill:rgba(180,190,210,.06);stroke:#2a2a30;stroke-width:1;transition:all .4s cubic-bezier(.16,1,.3,1)}
 .cp:hover{fill:rgba(192,192,192,.12);stroke:var(--ac);stroke-width:1.5;filter:drop-shadow(0 0 8px rgba(192,192,192,.12))}
 .cp.dmg-1{fill:rgba(251,191,36,.15);stroke:var(--yellow);stroke-width:1.5;animation:pulse 2.5s infinite}
@@ -66,137 +67,84 @@
 <section class="sec" id="devis">
   <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
 
-  <div class="bp-wrap">
-    <div class="bp-view">
-      <svg viewBox="0 0 500 880" xmlns="http://www.w3.org/2000/svg">
-        <!-- Direction labels -->
+  <div class="car-viewer-wrap">
+    <!-- Realistic 3D Model Viewer -->
+    <div class="car-viewer" style="cursor:default">
+      <div class="sketchfab-embed-wrapper" style="width:100%;height:100%">
+        <iframe title="Mercedes-Benz" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" style="width:100%;height:100%;border-radius:16px" src="https://sketchfab.com/models/f1906b45599f473b9a18d45a71df2dc0/embed?autostart=1&transparent=1&ui_theme=dark&dnt=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0"></iframe>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:10px;color:#333;margin-top:8px;letter-spacing:2px;text-transform:uppercase">Modèle 3D interactif — glisser pour tourner</p>
+  </div>
+
+  <!-- Interactive diagram below for damage selection -->
+  <div style="max-width:640px;margin:40px auto 0">
+    <div style="text-align:center;margin-bottom:20px">
+      <span style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--ac)">Sélectionnez les zones</span>
+    </div>
+    <div class="bp-view" style="background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;padding:12px;position:relative;overflow:hidden">
+      <svg viewBox="0 0 500 880" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
         <text class="cl-dir" x="250" y="22">&#9650; AVANT</text>
         <text class="cl-dir" x="250" y="870">ARRIÈRE &#9660;</text>
         <text class="cl-dir" x="18" y="440" transform="rotate(-90,18,440)">GAUCHE</text>
         <text class="cl-dir" x="482" y="440" transform="rotate(90,482,440)">DROITE</text>
-
-        <!-- ===== PARE-CHOCS AVANT ===== -->
-        <path class="cp" data-id="pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-          d="M145,55 Q150,38 250,32 Q350,38 355,55 L360,78 L140,78 Z"/>
+        <path class="cp" data-id="pc-avant" onclick="openDmg('pc-avant','Pare-chocs avant')" d="M145,55 Q150,38 250,32 Q350,38 355,55 L360,78 L140,78 Z"/>
         <text class="cl" x="250" y="60">Pare-chocs avant</text>
-
-        <!-- ===== CAPOT ===== -->
-        <path class="cp" data-id="capot" onclick="openDmg('capot','Capot')"
-          d="M140,78 L360,78 L365,200 L135,200 Z"/>
+        <path class="cp" data-id="capot" onclick="openDmg('capot','Capot')" d="M140,78 L360,78 L365,200 L135,200 Z"/>
         <text class="cl" x="250" y="145">Capot</text>
-
-        <!-- Phares -->
         <ellipse cx="175" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
         <ellipse cx="325" cy="50" rx="18" ry="5" fill="rgba(255,220,100,.06)" stroke="#2a2a30" stroke-width=".5"/>
-
-        <!-- ===== PARE-BRISE ===== -->
-        <path class="cp cg" data-id="parebrise" onclick="openDmg('parebrise','Pare-brise')"
-          d="M135,200 L365,200 L355,240 L145,240 Z"/>
+        <path class="cp cg" data-id="parebrise" onclick="openDmg('parebrise','Pare-brise')" d="M135,200 L365,200 L355,240 L145,240 Z"/>
         <text class="cl" x="250" y="223">Pare-brise</text>
-
-        <!-- ===== AILE AV GAUCHE ===== -->
-        <path class="cp" data-id="aile-av-g" onclick="openDmg('aile-av-g','Aile avant gauche')"
-          d="M110,90 L140,78 L135,200 L105,200 Q100,150 102,120 Z"/>
-        <text class="cl cl-s" x="108" y="148">Aile AV</text>
-
-        <!-- ===== AILE AV DROITE ===== -->
-        <path class="cp" data-id="aile-av-d" onclick="openDmg('aile-av-d','Aile avant droite')"
-          d="M390,90 L360,78 L365,200 L395,200 Q400,150 398,120 Z"/>
-        <text class="cl cl-s" x="392" y="148">Aile AV</text>
-
-        <!-- ===== RETRO GAUCHE ===== -->
-        <ellipse class="cp" data-id="retro-g" onclick="openDmg('retro-g','Rétroviseur gauche')" cx="96" cy="215" rx="10" ry="6"/>
-        <text class="cl" x="72" y="215" font-size="6">Rétro</text>
-
-        <!-- ===== RETRO DROIT ===== -->
-        <ellipse class="cp" data-id="retro-d" onclick="openDmg('retro-d','Rétroviseur droit')" cx="404" cy="215" rx="10" ry="6"/>
-        <text class="cl" x="428" y="215" font-size="6">Rétro</text>
-
-        <!-- ===== PORTE AV GAUCHE ===== -->
-        <path class="cp" data-id="porte-av-g" onclick="openDmg('porte-av-g','Porte avant gauche')"
-          d="M105,200 L145,200 L145,390 L100,390 Q95,300 98,240 Z"/>
-        <text class="cl cl-s" x="108" y="300">Porte AV</text>
-
-        <!-- ===== PORTE AV DROITE ===== -->
-        <path class="cp" data-id="porte-av-d" onclick="openDmg('porte-av-d','Porte avant droite')"
-          d="M395,200 L355,200 L355,390 L400,390 Q405,300 402,240 Z"/>
-        <text class="cl cl-s" x="392" y="300">Porte AV</text>
-
-        <!-- ===== TOIT ===== -->
-        <path class="cp" data-id="toit" onclick="openDmg('toit','Toit')"
-          d="M145,240 L355,240 L355,560 L145,560 Z"/>
+        <path class="cp" data-id="aile-av-g" onclick="openDmg('aile-av-g','Aile avant gauche')" d="M95,80 L140,78 L135,200 L90,200 Q88,130 90,100 Z"/>
+        <text class="cl cl-s" x="100" y="148">Aile AV</text>
+        <path class="cp" data-id="aile-av-d" onclick="openDmg('aile-av-d','Aile avant droite')" d="M405,80 L360,78 L365,200 L410,200 Q412,130 410,100 Z"/>
+        <text class="cl cl-s" x="400" y="148">Aile AV</text>
+        <ellipse class="cp" data-id="retro-g" onclick="openDmg('retro-g','Rétroviseur gauche')" cx="82" cy="215" rx="10" ry="6"/>
+        <text class="cl" x="60" y="215" font-size="6">Rétro</text>
+        <ellipse class="cp" data-id="retro-d" onclick="openDmg('retro-d','Rétroviseur droit')" cx="418" cy="215" rx="10" ry="6"/>
+        <text class="cl" x="440" y="215" font-size="6">Rétro</text>
+        <path class="cp" data-id="porte-av-g" onclick="openDmg('porte-av-g','Porte avant gauche')" d="M90,200 L145,200 L145,390 L85,390 Q82,300 85,240 Z"/>
+        <text class="cl cl-s" x="100" y="300">Porte AV</text>
+        <path class="cp" data-id="porte-av-d" onclick="openDmg('porte-av-d','Porte avant droite')" d="M410,200 L355,200 L355,390 L415,390 Q418,300 415,240 Z"/>
+        <text class="cl cl-s" x="400" y="300">Porte AV</text>
+        <path class="cp" data-id="toit" onclick="openDmg('toit','Toit')" d="M145,240 L355,240 L355,560 L145,560 Z"/>
         <text class="cl" x="250" y="405">Toit</text>
-
-        <!-- Séparation vitres latérales -->
         <line x1="145" y1="390" x2="355" y2="390" stroke="#1e1e22" stroke-width=".5" stroke-dasharray="4,4"/>
-        <text class="cl" x="250" y="383" font-size="6" fill="#333">Montant B</text>
-
-        <!-- ===== PORTE AR GAUCHE ===== -->
-        <path class="cp" data-id="porte-ar-g" onclick="openDmg('porte-ar-g','Porte arrière gauche')"
-          d="M100,390 L145,390 L145,560 L100,560 Q95,480 98,430 Z"/>
-        <text class="cl cl-s" x="108" y="480">Porte AR</text>
-
-        <!-- ===== PORTE AR DROITE ===== -->
-        <path class="cp" data-id="porte-ar-d" onclick="openDmg('porte-ar-d','Porte arrière droite')"
-          d="M400,390 L355,390 L355,560 L400,560 Q405,480 402,430 Z"/>
-        <text class="cl cl-s" x="392" y="480">Porte AR</text>
-
-        <!-- ===== LUNETTE ARRIÈRE ===== -->
-        <path class="cp cg" data-id="lunette" onclick="openDmg('lunette','Lunette arrière')"
-          d="M145,560 L355,560 L365,600 L135,600 Z"/>
+        <path class="cp" data-id="porte-ar-g" onclick="openDmg('porte-ar-g','Porte arrière gauche')" d="M85,390 L145,390 L145,560 L85,560 Q82,480 85,430 Z"/>
+        <text class="cl cl-s" x="100" y="480">Porte AR</text>
+        <path class="cp" data-id="porte-ar-d" onclick="openDmg('porte-ar-d','Porte arrière droite')" d="M415,390 L355,390 L355,560 L415,560 Q418,480 415,430 Z"/>
+        <text class="cl cl-s" x="400" y="480">Porte AR</text>
+        <path class="cp cg" data-id="lunette" onclick="openDmg('lunette','Lunette arrière')" d="M145,560 L355,560 L365,600 L135,600 Z"/>
         <text class="cl" x="250" y="583">Lunette arrière</text>
-
-        <!-- ===== AILE AR GAUCHE ===== -->
-        <path class="cp" data-id="aile-ar-g" onclick="openDmg('aile-ar-g','Aile arrière gauche')"
-          d="M100,560 L135,560 L135,710 L112,710 Q98,670 98,620 Z"/>
-        <text class="cl cl-s" x="108" y="640">Aile AR</text>
-
-        <!-- ===== AILE AR DROITE ===== -->
-        <path class="cp" data-id="aile-ar-d" onclick="openDmg('aile-ar-d','Aile arrière droite')"
-          d="M400,560 L365,560 L365,710 L388,710 Q402,670 402,620 Z"/>
-        <text class="cl cl-s" x="392" y="640">Aile AR</text>
-
-        <!-- ===== COFFRE ===== -->
-        <path class="cp" data-id="coffre" onclick="openDmg('coffre','Coffre')"
-          d="M135,600 L365,600 L365,710 L355,740 L145,740 L135,710 Z"/>
+        <path class="cp" data-id="aile-ar-g" onclick="openDmg('aile-ar-g','Aile arrière gauche')" d="M85,560 L135,560 L135,710 L100,710 Q85,670 85,620 Z"/>
+        <text class="cl cl-s" x="96" y="640">Aile AR</text>
+        <path class="cp" data-id="aile-ar-d" onclick="openDmg('aile-ar-d','Aile arrière droite')" d="M415,560 L365,560 L365,710 L400,710 Q415,670 415,620 Z"/>
+        <text class="cl cl-s" x="404" y="640">Aile AR</text>
+        <path class="cp" data-id="coffre" onclick="openDmg('coffre','Coffre')" d="M135,600 L365,600 L365,710 L355,740 L145,740 L135,710 Z"/>
         <text class="cl" x="250" y="675">Coffre</text>
-
-        <!-- ===== PARE-CHOCS ARRIERE ===== -->
-        <path class="cp" data-id="pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-          d="M145,740 L355,740 L360,760 Q350,800 250,808 Q150,800 140,760 Z"/>
+        <path class="cp" data-id="pc-arriere" onclick="openDmg('pc-arriere','Pare-chocs arrière')" d="M145,740 L355,740 L360,760 Q350,800 250,808 Q150,800 140,760 Z"/>
         <text class="cl" x="250" y="775">Pare-chocs arrière</text>
-
-        <!-- ===== BAS DE CAISSE GAUCHE ===== -->
-        <path class="cp" data-id="bas-caisse-g" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')"
-          d="M80,120 L100,90 L98,240 L100,390 L100,560 L98,620 Q96,670 100,710 L80,740 Q72,700 72,440 Q72,180 80,120 Z"/>
-        <text class="cl" x="62" y="440" transform="rotate(-90,62,440)" font-size="7">Bas de caisse G</text>
-
-        <!-- ===== BAS DE CAISSE DROIT ===== -->
-        <path class="cp" data-id="bas-caisse-d" onclick="openDmg('bas-caisse-d','Bas de caisse droit')"
-          d="M420,120 L400,90 L402,240 L400,390 L400,560 L402,620 Q404,670 400,710 L420,740 Q428,700 428,440 Q428,180 420,120 Z"/>
-        <text class="cl" x="438" y="440" transform="rotate(90,438,440)" font-size="7">Bas de caisse D</text>
-
-        <!-- Feux arrière -->
+        <path class="cp" data-id="bas-caisse-g" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" d="M72,120 L95,80 L90,200 L85,390 L85,560 L85,620 Q83,670 85,710 L72,740 Q65,700 65,440 Q65,180 72,120 Z"/>
+        <text class="cl" x="50" y="440" transform="rotate(-90,50,440)" font-size="7">Bas de caisse G</text>
+        <path class="cp" data-id="bas-caisse-d" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" d="M428,120 L405,80 L410,200 L415,390 L415,560 L415,620 Q417,670 415,710 L428,740 Q435,700 435,440 Q435,180 428,120 Z"/>
+        <text class="cl" x="450" y="440" transform="rotate(90,450,440)" font-size="7">Bas de caisse D</text>
         <ellipse cx="175" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
         <ellipse cx="325" cy="790" rx="18" ry="5" fill="rgba(239,68,68,.06)" stroke="#2a2a30" stroke-width=".5"/>
-
-        <!-- Roues -->
-        <rect class="cw" x="85" y="118" width="16" height="48" rx="6"/>
-        <rect class="cw" x="399" y="118" width="16" height="48" rx="6"/>
-        <rect class="cw" x="85" y="648" width="16" height="48" rx="6"/>
-        <rect class="cw" x="399" y="648" width="16" height="48" rx="6"/>
-
-        <!-- Ligne centrale -->
+        <rect class="cw" x="78" y="118" width="16" height="48" rx="6"/>
+        <rect class="cw" x="406" y="118" width="16" height="48" rx="6"/>
+        <rect class="cw" x="78" y="648" width="16" height="48" rx="6"/>
+        <rect class="cw" x="406" y="648" width="16" height="48" rx="6"/>
         <line x1="250" y1="38" x2="250" y2="802" stroke="#141418" stroke-width=".5" stroke-dasharray="3,8"/>
       </svg>
     </div>
-
     <div class="bp-legend">
       <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
       <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
       <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
     </div>
   </div>
+
 
   <div style="max-width:700px;margin:0 auto;padding:0 20px">
     <div class="quote" id="quoteSummary" style="display:none">
@@ -247,6 +195,8 @@ function updateVis(){document.querySelectorAll('.cp[data-id]').forEach(function(
 function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',obs);
+
+
 </script>
 </body>
 </html>
