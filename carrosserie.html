@@ -117,54 +117,45 @@
 <footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Navigation</div><a href="index.html" class="ft-a">Véhicules d'occasion</a><a href="carrosserie.html" class="ft-a">Espace carrosserie</a><a href="tel:0761509269" class="ft-a">Demander un devis</a></div></div><div class="ft-bot"><span class="ft-c">&copy; 2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
-var damages={},currentPart=null,currentPartName='',selectedLevel=0,skApi=null;
+var damages={},currentPart=null,selectedLevel=0,skApi=null;
 var dmgLabels={1:'Rayure simple',2:'Enfoncement léger',3:'Dégâts importants'};
-var dmgColors={1:[1,.75,.14],2:[.98,.45,.09],3:[.94,.27,.17]};
 var partNames={'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise','toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre','pc-arriere':'Pare-chocs arrière','aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite','porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite','porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite','aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite','retro-g':'Rétroviseur gauche','retro-d':'Rétroviseur droit','bas-caisse':'Bas de caisse'};
+var dmgRGB={1:[1,.75,.14],2:[.98,.45,.09],3:[.94,.27,.17]};
 
-var nodeInstances={}; // instanceID -> partId
-var origMaterials={}; // instanceID -> cloned original material
-var hoveredIID=null;
-var tooltip=null;
+var nodeInstances={};
+var matMap={}; // materialID -> {original channels, partId}
+var allMaterials=[];
+var tooltip;
 
-function matchPart(name){
+function mp(name){
   if(!name)return null;
   var n=name.toLowerCase().replace(/[\s\-\.]/g,'_');
-  // Keywords
-  if(/hood|capot|bonnet/.test(n))return'capot';
-  if(/roof|toit/.test(n)&&!/proof/.test(n))return'toit';
+  if(/hood|capot|bonnet/.test(n)&&!/neighbor/.test(n))return'capot';
+  if(/\broof\b|toit/.test(n))return'toit';
   if(/trunk|coffre|boot|tailgate|hatch/.test(n))return'coffre';
-  if(/bumper/.test(n)||/pare.?choc/.test(n)){
-    if(/front|avant|frt|_f[^a-z]/.test(n))return'pc-avant';
-    if(/rear|arri|rr|_r[^a-z]/.test(n))return'pc-arriere';
+  if(/bumper|pare.?choc/.test(n)){
+    if(/front|avant|frt|_f\b/.test(n))return'pc-avant';
+    if(/rear|arri|_r\b/.test(n))return'pc-arriere';
     return'pc-avant';
   }
-  if(/door|porte/.test(n)){
-    var rear=/rear|arri|rl|rr|_r[^ie]/.test(n);
-    var right=/right|droit|_r$|fr$|rr$|passenger/.test(n);
-    if(rear)return right?'porte-ar-d':'porte-ar-g';
-    return right?'porte-av-d':'porte-av-g';
+  if(/\bdoor\b|porte/.test(n)){
+    var r=/rear|arri|_rl|_rr/.test(n),rt=/right|_r$|_fr|_rr|\.r\b/.test(n);
+    return r?(rt?'porte-ar-d':'porte-ar-g'):(rt?'porte-av-d':'porte-av-g');
   }
-  if(/fender|aile|quarter|panel/.test(n)&&!/dash|inst/.test(n)){
-    var rear2=/rear|arri|quarter|rl|rr/.test(n);
-    var right2=/right|droit|_r$|fr$|rr$/.test(n);
-    if(rear2)return right2?'aile-ar-d':'aile-ar-g';
-    return right2?'aile-av-d':'aile-av-g';
+  if(/fender|aile|quarter/.test(n)&&!/defend/.test(n)){
+    var r2=/rear|arri|quarter|_rl|_rr/.test(n),rt2=/right|_r$|_fr|_rr|\.r\b/.test(n);
+    return r2?(rt2?'aile-ar-d':'aile-ar-g'):(rt2?'aile-av-d':'aile-av-g');
   }
   if(/windshield|windscreen|pare.?brise/.test(n))return'parebrise';
-  if(/rear.?window|rear.?glass|lunette/.test(n))return'lunette';
-  if(/mirror|retro/.test(n)){
-    return/right|_r$|rr/.test(n)?'retro-d':'retro-g';
-  }
+  if(/rear.?window|rear.?glass|lunette|backlight/.test(n))return'lunette';
+  if(/mirror|retro/.test(n))return/right|_r$|\.r\b/.test(n)?'retro-d':'retro-g';
   if(/rocker|skirt|sill|bas.?caisse/.test(n))return'bas-caisse';
-  if(/body|chassis|frame|shell/.test(n)&&!/underbody/.test(n))return'bas-caisse';
   return null;
 }
 
 function initViewer(){
   var iframe=document.getElementById('api-frame');
   tooltip=document.getElementById('carTooltip');
-  // Generic Sedan Car by MMC Works — separated parts, textures, not smooth
   var uid='58c33766470d46e7b2aed542650494e5';
   var client=new Sketchfab(iframe);
   client.init(uid,{
@@ -172,72 +163,87 @@ function initViewer(){
       skApi=api;
       api.start();
       api.addEventListener('viewerready',function(){
-        // Map all nodes
-        api.getNodeMap(function(err,nodes){
-          if(err)return;
-          var vals=Object.values(nodes);
-          vals.forEach(function(node){
-            var pid=matchPart(node.name);
-            if(pid){
-              nodeInstances[node.instanceID]=pid;
-            }
-          });
-          console.log('Mapped '+Object.keys(nodeInstances).length+' parts');
+
+        // Configure highlight appearance
+        api.setHighlightOptions({
+          color:[.75,.78,.82],
+          outlineWidth:2,
+          outlineColor:[.85,.87,.9]
         });
 
-        // HOVER: highlight on mouse enter
-        api.addEventListener('nodeMouseEnter',function(node){
-          if(!node||node.instanceID===undefined)return;
-          var pid=nodeInstances[node.instanceID];
-          if(!pid)pid=matchPart(node.name);
+        // Map nodes
+        api.getNodeMap(function(err,nodes){
+          if(err)return;
+          Object.values(nodes).forEach(function(nd){
+            var pid=mp(nd.name);
+            if(pid)nodeInstances[nd.instanceID]=pid;
+          });
+        });
+
+        // Get materials for color changes
+        api.getMaterialList(function(err,materials){
+          if(!err)allMaterials=materials;
+        });
+
+        // HOVER HIGHLIGHT
+        api.addEventListener('nodeMouseEnter',function(nd){
+          if(!nd||nd.instanceID===undefined)return;
+          var pid=nodeInstances[nd.instanceID];
+          if(!pid)pid=mp(nd.name);
           if(!pid)return;
-          hoveredIID=node.instanceID;
-          var label=partNames[pid]||pid;
-          tooltip.textContent=label;
+          // Show tooltip
+          tooltip.textContent=partNames[pid]||pid;
           tooltip.classList.add('vis');
-          // Highlight: brighten the material
-          highlightNode(node.instanceID,true);
+          // Highlight material via the click info material
+          api.getMaterialList(function(err,mats){
+            if(err||!mats)return;
+            // Find materials associated with this node - highlight all body-paint type
+            mats.forEach(function(m){
+              if(m.name&&mp(m.name)===pid){
+                api.highlightMaterial(m);
+              }
+            });
+          });
         },{pick:'fast'});
 
-        // HOVER: unhighlight on mouse leave
-        api.addEventListener('nodeMouseLeave',function(node){
-          if(!node||node.instanceID===undefined)return;
+        api.addEventListener('nodeMouseLeave',function(nd){
           tooltip.classList.remove('vis');
-          highlightNode(node.instanceID,false);
-          hoveredIID=null;
+          api.highlightMaterial(null);
         },{pick:'fast'});
 
-        // CLICK: select part for damage
+        // CLICK
         api.addEventListener('click',function(info){
-          if(info.instanceID===undefined)return;
+          if(!info||info.instanceID===undefined)return;
           var pid=nodeInstances[info.instanceID];
+          if(!pid&&info.material)pid=mp(info.material.name);
           if(!pid){
-            // Try to match name directly
             api.getNodeMap(function(err,nodes){
               if(err)return;
-              var node=nodes[info.instanceID];
-              if(!node)return;
-              pid=matchPart(node.name);
+              var nd=nodes[info.instanceID];
+              if(!nd)return;
+              pid=mp(nd.name);
               if(!pid){
-                var raw=node.name||'Element';
-                var clean=raw.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
-                pid=raw.toLowerCase().replace(/\s+/g,'-');
-                if(!partNames[pid])partNames[pid]=clean;
+                var raw=nd.name||'Element';
+                pid=raw.toLowerCase().replace(/[\s\.]/g,'-');
+                if(!partNames[pid])partNames[pid]=raw.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
               }
               nodeInstances[info.instanceID]=pid;
               openDmg(pid,partNames[pid]||pid);
             });
-          }else{
-            openDmg(pid,partNames[pid]);
+            return;
           }
+          openDmg(pid,partNames[pid]||pid);
         },{pick:'slow'});
+
       });
     },
     error:function(){console.log('Viewer error')},
     autostart:1,
+    transparent:1,
+    dnt:1,
     ui_theme:'dark',
     ui_infos:0,
-    ui_controls:1,
+    ui_controls:0,
     ui_stop:0,
     ui_inspector:0,
     ui_watermark:0,
@@ -248,63 +254,51 @@ function initViewer(){
     ui_vr:0,
     ui_fullscreen:0,
     ui_annotations:0,
-    transparent:1,
-    dnt:1
+    ui_hint:0,
+    ui_loading:0,
+    ui_general_controls:0
   });
 }
 
-// Track mouse position for tooltip
+// Tooltip follows mouse
 document.addEventListener('DOMContentLoaded',function(){
-  var viewer=document.getElementById('carViewer');
-  viewer.addEventListener('mousemove',function(e){
+  var vw=document.getElementById('carViewer');
+  vw.addEventListener('mousemove',function(e){
     if(!tooltip)return;
-    var r=viewer.getBoundingClientRect();
+    var r=vw.getBoundingClientRect();
     tooltip.style.left=(e.clientX-r.left+16)+'px';
     tooltip.style.top=(e.clientY-r.top-12)+'px';
   });
 });
 
-function highlightNode(iid,on){
-  if(!skApi)return;
-  var pid=nodeInstances[iid];
-  var lvl=pid?damages[pid]:0;
-
-  if(on&&!lvl){
-    // Highlight: set emissive to silver glow
-    skApi.setColor(iid,[.7,.72,.75]); 
-  }else if(!on&&!lvl){
-    // Restore original
-    skApi.setColor(iid,null);
-  }
-  // If damaged, keep damage color
-  if(lvl&&!on){
-    skApi.setColor(iid,dmgColors[lvl]);
-  }
-}
-
 function updateVis(){
-  if(!skApi)return;
-  // Apply damage colors to all mapped nodes
-  Object.keys(nodeInstances).forEach(function(iid){
-    var pid=nodeInstances[iid];
+  if(!skApi||!allMaterials.length)return;
+  // Change material colors based on damage
+  allMaterials.forEach(function(mat){
+    var pid=mp(mat.name);
+    if(!pid)return;
     var lvl=damages[pid]||0;
     if(lvl){
-      skApi.setColor(parseInt(iid),dmgColors[lvl]);
-    }else{
-      skApi.setColor(parseInt(iid),null);
+      mat.channels.AlbedoPBR.color=dmgRGB[lvl];
+      mat.channels.AlbedoPBR.factor=1;
     }
+    skApi.setMaterial(mat);
   });
+  // For reset: reload materials
+  if(Object.keys(damages).length===0){
+    skApi.getMaterialList(function(err,mats){
+      if(!err)allMaterials=mats;
+    });
+  }
 }
 
-function openDmg(id,name){currentPart=id;currentPartName=name;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
+function openDmg(id,name){currentPart=id;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
 function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
 function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});el.classList.add('selected');selectedLevel=l;}
 function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
 function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
 function resetAll(){damages={};updateVis();updateQuote();}
-
 function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
-
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
 </script>
