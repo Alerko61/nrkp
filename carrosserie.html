@@ -21,28 +21,41 @@
 .sec{padding:80px 48px 100px;max-width:1240px;margin:0 auto}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}.sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
 @media(max-width:768px){.sec{padding:60px 20px 80px}.sec-h2{font-size:30px}}
 
-/* ===== CAR VIEWER & BLUEPRINT ===== */
-.car-viewer-wrap{max-width:960px;margin:48px auto 0;animation:gridIn .8s .3s both}
-.car-viewer{width:100%;height:520px;border-radius:16px;background:#080810;border:1px solid #1a1a1e;position:relative;overflow:hidden}
-.car-viewer iframe{width:100%;height:calc(100% + 80px)!important;border:none;border-radius:16px;margin-top:-40px}
+/* ===== CAR VIEWER & LAYOUT ===== */
+.car-viewer-wrap{max-width:1200px;margin:48px auto 0;padding:0 20px;animation:gridIn .8s .3s both}
+.car-layout{display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.car-layout{grid-template-columns:1fr;}.car-recap{order:2}}
+.car-viewer{width:100%;height:540px;border-radius:16px;background:#080810;border:1px solid #1a1a1e;position:relative;overflow:hidden}
+.car-viewer iframe{width:100%;height:calc(100% + 100px)!important;border:none;border-radius:16px;margin-top:-50px}
 @media(max-width:768px){.car-viewer{height:340px}}
-.bp-view{background:rgba(10,10,14,.8);border:1px solid #1a1a1e;border-radius:16px;padding:12px;position:relative;overflow:hidden}
-.bp-view::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(192,192,192,.012) 0%,transparent 70%);pointer-events:none}
-.cp{cursor:pointer;fill:rgba(180,190,210,.06);stroke:#2a2a30;stroke-width:1;transition:all .4s cubic-bezier(.16,1,.3,1)}
-.cp:hover{fill:rgba(192,192,192,.12);stroke:var(--ac);stroke-width:1.5;filter:drop-shadow(0 0 8px rgba(192,192,192,.12))}
-.cp.dmg-1{fill:rgba(251,191,36,.15);stroke:var(--yellow);stroke-width:1.5;animation:pulse 2.5s infinite}
-.cp.dmg-2{fill:rgba(249,115,22,.18);stroke:var(--orange);stroke-width:1.5;animation:pulse 2.5s infinite}
-.cp.dmg-3{fill:rgba(239,68,68,.2);stroke:var(--red);stroke-width:1.5;animation:pulse 2.5s infinite}
-.cg{fill:rgba(100,150,200,.07);stroke:#2a2a30;stroke-width:.7}
-.cw{fill:#0a0a0e;stroke:#222;stroke-width:1}
-.cl{font-size:9px;fill:#666;text-anchor:middle;pointer-events:none;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase;dominant-baseline:central}
-.cl-s{font-size:7px}
-.cl-dir{font-size:8px;fill:#333;text-anchor:middle;letter-spacing:4px;text-transform:uppercase;font-family:'Outfit',sans-serif;font-weight:600}
+
+/* Recap panel (left side) */
+.car-recap{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:16px;overflow:hidden;position:sticky;top:90px}
+.car-recap-header{padding:18px 20px;border-bottom:1px solid #141418;display:flex;align-items:center;justify-content:space-between}
+.car-recap-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--w)}
+.car-recap-count{font-size:10px;color:#888;background:rgba(255,255,255,.04);border:1px solid #1e1e22;padding:3px 10px;border-radius:12px}
+.car-recap-empty{padding:32px 20px;text-align:center;color:#333;font-size:12px;line-height:1.7}
+.car-recap-items{padding:6px 14px;max-height:320px;overflow-y:auto}
+.car-recap-items::-webkit-scrollbar{width:3px}
+.car-recap-items::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+.car-recap-item{display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px solid #111;animation:slideUp .3s ease}
+.car-recap-item:last-child{border-bottom:none}
+.car-recap-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.car-recap-dot.l1{background:var(--yellow)}.car-recap-dot.l2{background:var(--orange)}.car-recap-dot.l3{background:var(--red)}
+.car-recap-name{font-size:12px;color:var(--w);font-weight:500}
+.car-recap-type{font-size:10px;color:#666}
+.car-recap-del{background:none;border:none;color:#444;cursor:pointer;font-size:12px;margin-left:auto;padding:4px;transition:color .2s;flex-shrink:0}.car-recap-del:hover{color:var(--red)}
+.car-recap-footer{padding:14px 20px;border-top:1px solid #141418;display:flex;flex-direction:column;gap:10px}
+.car-recap-actions{display:flex;gap:8px}
+.car-recap-btn{flex:1;padding:10px;border-radius:8px;font-size:10px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
+.car-recap-btn.call{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.car-recap-btn.call:hover{transform:translateY(-1px)}
+.car-recap-btn.rst{background:none;border:1px solid #1e1e22;color:#666}.car-recap-btn.rst:hover{border-color:var(--red);color:var(--red)}
+@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .bp-legend{display:flex;justify-content:center;gap:28px;margin-top:20px;flex-wrap:wrap}
 .bp-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
 .bp-legend-dot{width:10px;height:10px;border-radius:50%;border:2px solid}
 
-/* POPUPS & QUOTE */
+/* POPUPS */
 .dmg-ov{position:fixed;inset:0;background:rgba(5,5,8,.9);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(16px)}.dmg-ov.open{display:flex}
 .dmg-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(440px,94vw);overflow:hidden;animation:popIn .35s cubic-bezier(.16,1,.3,1);box-shadow:0 32px 80px rgba(0,0,0,.6)}
 .dmg-header{padding:24px 28px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}.dmg-header-left{display:flex;align-items:center;gap:12px}.dmg-part-icon{width:40px;height:40px;border-radius:10px;background:rgba(192,192,192,.06);border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center}.dmg-part-icon svg{width:20px;height:20px;color:var(--ac)}.dmg-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}.dmg-sub{font-size:11px;color:#666;margin-top:1px}.dmg-close{background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#666;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:14px}.dmg-close:hover{border-color:var(--ac);color:var(--w)}
@@ -53,8 +66,6 @@
 .dmg-opt-info{flex:1}.dmg-opt-name{font-size:14px;font-weight:600;color:var(--w)}.dmg-opt-desc{font-size:11px;color:#666;margin-top:2px}
 .dmg-footer{padding:16px 28px;border-top:1px solid #1a1a1e;display:flex;gap:10px}.dmg-btn{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}.dmg-btn.reset:hover{background:rgba(239,68,68,.1)}
 
-.quote{max-width:700px;margin:40px auto 0;border:1px solid #1e1e22;border-radius:16px;background:#0a0a0e;overflow:hidden}.quote-header{padding:20px 28px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}.quote-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--w)}.quote-count{font-size:11px;color:#888;background:rgba(255,255,255,.04);border:1px solid #1e1e22;padding:4px 12px;border-radius:20px}.quote-items{padding:8px 28px}.quote-item{display:flex;align-items:center;padding:14px 0;border-bottom:1px solid #111}.quote-item:last-child{border-bottom:none}.quote-item-left{display:flex;align-items:center;gap:12px}.quote-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.quote-item-dot.l1{background:var(--yellow)}.quote-item-dot.l2{background:var(--orange)}.quote-item-dot.l3{background:var(--red)}.quote-item-name{font-size:13px;color:var(--w);font-weight:500}.quote-item-type{font-size:11px;color:#666}
-.quote-footer{padding:20px 28px;border-top:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.quote-total-label{font-size:11px;color:#888;letter-spacing:2px;text-transform:uppercase}.quote-total-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--w)}.quote-cta{display:flex;gap:10px}.quote-cta-btn{padding:12px 24px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;border:none;display:flex;align-items:center;gap:8px}.quote-cta-btn.primary{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.quote-cta-btn.primary:hover{transform:translateY(-1px)}.quote-cta-btn.reset{background:none;border:1px solid #1e1e22;color:#666}.quote-cta-btn.reset:hover{border-color:#ef4444;color:#ef4444}
 
 .srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:48px}.srv-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:28px 24px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}.srv-card:hover{border-color:#2a2a2e;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}.srv-card:hover::before{opacity:.6}.srv-icon{width:44px;height:44px;border-radius:12px;background:rgba(192,192,192,.05);border:1px solid #1e1e22;display:flex;align-items:center;justify-content:center;color:var(--ac);margin-bottom:18px}.srv-icon svg{width:20px;height:20px}.srv-name{font-size:16px;font-weight:600;color:var(--w);margin-bottom:6px}.srv-desc{font-size:12px;color:#777;line-height:1.7}
 .tarif-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:48px}.tarif-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:24px;text-align:center;transition:all .3s}.tarif-card:hover{border-color:#2a2a2e}.tarif-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--w)}.tarif-unit{font-size:11px;color:#666;margin-top:2px}.tarif-label{font-size:12px;color:#999;margin-top:10px;font-weight:500}
@@ -70,26 +81,54 @@
   <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
 
   <div class="car-viewer-wrap">
-    <div class="car-viewer" id="carViewer">
-      <iframe src="" id="api-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" style="width:100%;height:100%;border:none;border-radius:16px"></iframe>
-      <div id="carTooltip" style="position:absolute;background:rgba(5,5,8,.85);backdrop-filter:blur(8px);border:1px solid #2a2a2e;color:var(--w);padding:7px 16px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap;top:10px;left:10px"></div>
-    </div>
-    <p style="text-align:center;font-size:10px;color:#555;margin-top:10px;letter-spacing:2px;text-transform:uppercase">Cliquez sur une partie du véhicule pour sélectionner un dégât — Glissez pour tourner</p>
-    <div class="bp-legend">
-      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure simple</div>
-      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement léger</div>
-      <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
+    <div class="car-layout">
+
+      <!-- LEFT: Recap panel -->
+      <div class="car-recap" id="carRecap">
+        <div class="car-recap-header">
+          <span class="car-recap-title">Récapitulatif</span>
+          <span class="car-recap-count" id="recapCount">0</span>
+        </div>
+        <div id="recapContent">
+          <div class="car-recap-empty" id="recapEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28" style="color:#222;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            Cliquez sur une partie<br>du véhicule pour ajouter<br>un dégât
+          </div>
+        </div>
+        <div class="car-recap-items" id="recapItems" style="display:none"></div>
+        <div class="car-recap-footer" id="recapFooter" style="display:none">
+          <div class="car-recap-actions">
+            <a href="tel:0761509269" class="car-recap-btn call">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+              Appeler
+            </a>
+            <button class="car-recap-btn rst" onclick="resetAll()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: 3D Viewer -->
+      <div>
+        <div class="car-viewer" id="carViewer">
+          <iframe src="" id="api-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          <div id="carTooltip" style="position:absolute;background:rgba(5,5,8,.88);backdrop-filter:blur(8px);border:1px solid #2a2a2e;color:var(--w);padding:7px 16px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap;top:10px;left:10px"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px">
+          <p style="font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase">Cliquez sur une partie — Glissez pour tourner</p>
+          <div class="bp-legend">
+            <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure</div>
+            <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement</div>
+            <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-
-  <div style="max-width:700px;margin:0 auto;padding:0 20px">
-    <div class="quote" id="quoteSummary" style="display:none">
-      <div class="quote-header"><span class="quote-title">Récapitulatif</span><span class="quote-count" id="quoteCount">0</span></div>
-      <div class="quote-items" id="quoteItems"></div>
-      <div class="quote-footer"><div><div class="quote-total-label">Estimation</div><div class="quote-total-val" id="quoteTotal">Contactez-nous</div></div><div class="quote-cta"><button class="quote-cta-btn reset" onclick="resetAll()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Réinitialiser</button><a href="tel:0761509269" class="quote-cta-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Nous contacter</a></div></div>
-    </div>
-  </div>
 </section>
 
 <div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()"><div class="dmg-box"><div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">—</div><div class="dmg-sub">Sélectionnez le type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div><div class="dmg-body"><div class="dmg-options"><div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Rayure simple</div><div class="dmg-opt-desc">Rayure superficielle, micro-rayures, éclat de peinture</div></div></div><div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Enfoncement léger</div><div class="dmg-opt-desc">Petite bosse, enfoncement sans déchirure</div></div></div><div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Dégâts importants</div><div class="dmg-opt-desc">Enfoncement sévère, déchirure, remplacement</div></div></div></div></div><div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div></div></div>
@@ -157,7 +196,7 @@ function mp(name){
 function initViewer(){
   var iframe=document.getElementById('api-frame');
   tooltip=document.getElementById('carTooltip');
-  var uid='bac51a49aa86470da01c0f80dc09490a'; // Realistic Mercedes S-Class Textured Black
+  var uid='1d2f29140fa144ff987fb9b62d22ec2e'; // Real Car 4 - Separated Parts, PBR textures
   var client=new Sketchfab(iframe);
   client.init(uid,{
     success:function(api){
@@ -165,8 +204,8 @@ function initViewer(){
       api.start();
       api.addEventListener('viewerready',function(){
 
-        // Lock camera: horizontal orbit only, slight tilt, no zoom
-        api.setFov(45);
+        // Zoom closer
+        api.setFov(30);
         
         // Configure highlight: outline glow
         api.setHighlightOptions({
@@ -311,7 +350,26 @@ function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(
 function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
 function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
 function resetAll(){damages={};updateVis();updateQuote();}
-function updateQuote(){var keys=Object.keys(damages);var el=document.getElementById('quoteSummary');if(!keys.length){el.style.display='none';return;}el.style.display='';var h='';keys.forEach(function(k){var l=damages[k];h+='<div class="quote-item"><div class="quote-item-left"><div class="quote-item-dot l'+l+'"></div><div><div class="quote-item-name">'+(partNames[k]||k)+'</div><div class="quote-item-type">'+dmgLabels[l]+'</div></div></div></div>';});document.getElementById('quoteItems').innerHTML=h;document.getElementById('quoteCount').textContent=keys.length+' élément'+(keys.length>1?'s':'');document.getElementById('quoteTotal').textContent=keys.length>=3?'Devis personnalisé':'Contactez-nous';document.getElementById('quoteTotal').style.color=keys.length>=3?'var(--ac)':'var(--w)';}
+function updateQuote(){
+  var keys=Object.keys(damages);
+  var items=document.getElementById('recapItems');
+  var empty=document.getElementById('recapEmpty');
+  var footer=document.getElementById('recapFooter');
+  var count=document.getElementById('recapCount');
+  if(!keys.length){
+    items.style.display='none';empty.style.display='';footer.style.display='none';
+    count.textContent='0';return;
+  }
+  items.style.display='';empty.style.display='none';footer.style.display='';
+  count.textContent=keys.length;
+  var h='';
+  keys.forEach(function(k){
+    var l=damages[k];
+    h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div><div class="car-recap-name">'+(partNames[k]||k)+'</div><div class="car-recap-type">'+dmgLabels[l]+'</div></div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
+  });
+  items.innerHTML=h;
+}
+function delDmg(id){delete damages[id];updateVis();updateQuote();}
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
 </script>
