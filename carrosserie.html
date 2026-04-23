@@ -30,26 +30,34 @@
 @media(max-width:768px){.car-viewer{height:340px}}
 
 /* Recap panel (left side) */
-.car-recap{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:16px;overflow:hidden;position:sticky;top:90px}
-.car-recap-header{padding:18px 20px;border-bottom:1px solid #141418;display:flex;align-items:center;justify-content:space-between}
-.car-recap-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--w)}
-.car-recap-count{font-size:10px;color:#888;background:rgba(255,255,255,.04);border:1px solid #1e1e22;padding:3px 10px;border-radius:12px}
-.car-recap-empty{padding:32px 20px;text-align:center;color:#333;font-size:12px;line-height:1.7}
-.car-recap-items{padding:6px 14px;max-height:320px;overflow-y:auto}
-.car-recap-items::-webkit-scrollbar{width:3px}
-.car-recap-items::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
-.car-recap-item{display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px solid #111;animation:slideUp .3s ease}
-.car-recap-item:last-child{border-bottom:none}
-.car-recap-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.car-recap-dot.l1{background:var(--yellow)}.car-recap-dot.l2{background:var(--orange)}.car-recap-dot.l3{background:var(--red)}
-.car-recap-name{font-size:12px;color:var(--w);font-weight:500}
-.car-recap-type{font-size:10px;color:#666}
-.car-recap-del{background:none;border:none;color:#444;cursor:pointer;font-size:12px;margin-left:auto;padding:4px;transition:color .2s;flex-shrink:0}.car-recap-del:hover{color:var(--red)}
-.car-recap-footer{padding:14px 20px;border-top:1px solid #141418;display:flex;flex-direction:column;gap:10px}
-.car-recap-actions{display:flex;gap:8px}
-.car-recap-btn{flex:1;padding:10px;border-radius:8px;font-size:10px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;border:none}
-.car-recap-btn.call{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.car-recap-btn.call:hover{transform:translateY(-1px)}
-.car-recap-btn.rst{background:none;border:1px solid #1e1e22;color:#666}.car-recap-btn.rst:hover{border-color:var(--red);color:var(--red)}
+.car-recap{background:rgba(10,10,14,.6);backdrop-filter:blur(12px);border:1px solid #1a1a1e;border-radius:16px;overflow:hidden;position:sticky;top:90px}
+.car-recap-header{padding:20px 22px 16px;display:flex;align-items:center;gap:12px}
+.car-recap-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(192,192,192,.1),rgba(192,192,192,.04));border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.car-recap-icon svg{width:16px;height:16px;color:var(--ac)}
+.car-recap-htxt{flex:1}
+.car-recap-title{font-size:13px;font-weight:600;color:var(--w);letter-spacing:.5px}
+.car-recap-subtitle{font-size:10px;color:#555;margin-top:1px}
+.car-recap-count{font-size:18px;font-weight:700;color:var(--ac);font-family:'Cormorant Garamond',serif;line-height:1}
+.car-recap-divider{height:1px;background:linear-gradient(90deg,transparent,#1e1e22,transparent);margin:0 22px}
+.car-recap-empty{padding:36px 22px;text-align:center}
+.car-recap-empty-icon{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid #1a1a1e;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
+.car-recap-empty-icon svg{width:20px;height:20px;color:#222}
+.car-recap-empty-txt{font-size:11px;color:#444;line-height:1.8}
+.car-recap-items{padding:8px 10px;max-height:340px;overflow-y:auto}
+.car-recap-items::-webkit-scrollbar{width:3px}.car-recap-items::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+.car-recap-item{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:4px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid transparent;transition:all .3s;animation:slideUp .3s ease}
+.car-recap-item:hover{border-color:#1e1e22;background:rgba(255,255,255,.035)}
+.car-recap-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.car-recap-dot.l1{background:var(--yellow);box-shadow:0 0 6px rgba(251,191,36,.3)}.car-recap-dot.l2{background:var(--orange);box-shadow:0 0 6px rgba(249,115,22,.3)}.car-recap-dot.l3{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.3)}
+.car-recap-info{flex:1;min-width:0}
+.car-recap-name{font-size:11px;color:var(--w);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.car-recap-type{font-size:9px;color:#555;margin-top:1px}
+.car-recap-del{background:none;border:none;color:#333;cursor:pointer;font-size:10px;padding:4px 6px;transition:all .2s;flex-shrink:0;border-radius:4px}.car-recap-del:hover{color:var(--red);background:rgba(239,68,68,.08)}
+.car-recap-footer{padding:12px 14px;border-top:1px solid #141418}
+.car-recap-actions{display:flex;gap:6px}
+.car-recap-btn{flex:1;padding:10px;border-radius:8px;font-size:9px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;border:none}
+.car-recap-btn.call{background:linear-gradient(135deg,rgba(192,192,192,.12),rgba(192,192,192,.06));border:1px solid rgba(192,192,192,.18);color:var(--w)}.car-recap-btn.call:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.car-recap-btn.rst{background:none;border:1px solid #1a1a1e;color:#555}.car-recap-btn.rst:hover{border-color:var(--red);color:var(--red)}
 @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .bp-legend{display:flex;justify-content:center;gap:28px;margin-top:20px;flex-wrap:wrap}
 .bp-legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
@@ -86,24 +94,33 @@
       <!-- LEFT: Recap panel -->
       <div class="car-recap" id="carRecap">
         <div class="car-recap-header">
-          <span class="car-recap-title">Récapitulatif</span>
-          <span class="car-recap-count" id="recapCount">0</span>
+          <div class="car-recap-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+          </div>
+          <div class="car-recap-htxt">
+            <div class="car-recap-title">Votre devis</div>
+            <div class="car-recap-subtitle">Zones sélectionnées</div>
+          </div>
+          <div class="car-recap-count" id="recapCount">0</div>
         </div>
+        <div class="car-recap-divider"></div>
         <div id="recapContent">
           <div class="car-recap-empty" id="recapEmpty">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28" style="color:#222;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-            Cliquez sur une partie<br>du véhicule pour ajouter<br>un dégât
+            <div class="car-recap-empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="car-recap-empty-txt">Cliquez sur une partie<br>du véhicule 3D pour<br>ajouter un dégât</div>
           </div>
         </div>
         <div class="car-recap-items" id="recapItems" style="display:none"></div>
         <div class="car-recap-footer" id="recapFooter" style="display:none">
           <div class="car-recap-actions">
             <a href="tel:0761509269" class="car-recap-btn call">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
               Appeler
             </a>
             <button class="car-recap-btn rst" onclick="resetAll()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
               Reset
             </button>
           </div>
@@ -205,7 +222,7 @@ function initViewer(){
       api.addEventListener('viewerready',function(){
 
         // Zoom closer
-        api.setFov(30);
+        api.setFov(38);
         
         // Configure highlight: outline glow
         api.setHighlightOptions({
