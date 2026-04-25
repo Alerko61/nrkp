@@ -11,6 +11,10 @@
 *{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#000;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}:root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes lineGrow{from{width:0}to{width:50px}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes boltIn{0%{opacity:0;transform:scaleY(.7)}60%{opacity:1;transform:scaleY(1.02)}100%{opacity:1;transform:scaleY(1)}}@keyframes boltGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(192,192,192,.2))}50%{filter:drop-shadow(0 0 25px rgba(192,192,192,.4))}}@keyframes sparkle{0%{opacity:0;transform:scale(0)}15%{opacity:1;transform:scale(1.5)}30%{opacity:0;transform:scale(0)}100%{opacity:0}}
 
+/* VIDEO & SMOKE */
+.bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.30;pointer-events:none}
+.smoke-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden;background:transparent}.smoke-canvas{position:absolute;inset:0;width:100%;height:100%}.smoke-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;background:rgba(0,0,0,0.45);will-change:opacity}.page{position:relative;z-index:3}
+
 /* HERO */
 .hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at 50% 40%,#0a0a0a 0%,#000 70%)}.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}.hero-h1{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:700;color:#fff;line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-sep{color:#333;font-size:24px;margin:8px 0;letter-spacing:8px}.hero-sub{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ac);line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}.hero-arrow:hover{opacity:1}.hero-arrow svg{animation:bounce 2s ease-in-out infinite}.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
 @media(max-width:768px){.hero-h1{font-size:36px!important}.hero-sub{font-size:26px!important}}
@@ -52,6 +56,12 @@
 </style>
 </head>
 <body>
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="bg-video.mp4" type="video/mp4">
+</video>
+<div class="smoke-bg"><canvas class="smoke-canvas" id="smokeCanvas"></canvas></div>
+<div class="smoke-overlay" id="smokeOverlay"></div>
+<div class="page">
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -99,8 +109,13 @@
   </a>
 </div>
 
+</div><!-- /page -->
+
 <!-- FOOTER -->
 <footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
+<script>
+(function(){var c=document.getElementById('smokeCanvas'),x=c.getContext('2d'),W,H;function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);function S(){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}S.prototype.update=function(){this.life++;this.x+=this.vx+Math.sin(this.life*.008)*.5;this.y+=this.vy;this.r+=0.3;this.vx*=.999;var p=this.life/this.maxLife;this.opacity=p<.15?p/.15:p>.6?1-(p-.6)/.4:1;this.opacity*=.08;if(this.life>=this.maxLife){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}};S.prototype.draw=function(){var g=x.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);g.addColorStop(0,'rgba(180,180,180,'+this.opacity+')');g.addColorStop(.4,'rgba(140,140,140,'+(this.opacity*.5)+')');g.addColorStop(1,'rgba(100,100,100,0)');x.fillStyle=g;x.beginPath();x.arc(this.x,this.y,this.r,0,Math.PI*2);x.fill()};var P=[];for(var i=0;i<35;i++){var s=new S();s.life=Math.random()*s.maxLife;s.y=Math.random()*H;P.push(s)}(function a(){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){P[i].update();P[i].draw()}requestAnimationFrame(a)})()})();
+</script>
 </body>
 </html>
