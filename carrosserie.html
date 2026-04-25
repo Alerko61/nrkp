@@ -12,12 +12,12 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
 :root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444;--green:#22c55e}
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes lineGrow{from{width:0}to{width:50px}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}@keyframes gridIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineGrow{from{width:0}to{width:50px}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes gridIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 .reveal{opacity:0;transform:translateY(35px);transition:all .85s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,8,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04)}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:3px;text-decoration:none;text-transform:uppercase}.nav-logo span{color:var(--ac);font-weight:400}.nav-links{display:flex;gap:6px}.nav-link{padding:8px 18px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .3s;border:1px solid transparent}.nav-link.vehicles{color:#999;background:rgba(255,255,255,.04);border-color:#1e1e1e}.nav-link.vehicles:hover{border-color:var(--ac);color:var(--w)}.nav-link.carrosserie{color:#fff;background:rgba(192,192,192,.1);border-color:rgba(192,192,192,.2)}
-@media(max-width:600px){.nav{padding:12px 16px}.nav-link{font-size:9px;padding:6px 12px}}
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at 50% 30%,#0d0d12 0%,#050508 70%)}.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}.hero-h1{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:#fff;line-height:1.05;text-transform:uppercase;letter-spacing:4px}.hero-sub{font-size:15px;color:#666;margin-top:16px;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto}.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}.hero-arrow:hover{opacity:1}.hero-arrow svg{animation:bounce 2s ease-in-out infinite}.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
-@media(max-width:768px){.hero-h1{font-size:32px!important}.hero-sub{font-size:13px}}
 .sec{padding:80px 48px 100px;max-width:1240px;margin:0 auto}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:20px auto 0}.sec-sub{text-align:center;color:#666;font-size:14px;max-width:560px;margin:16px auto 0;line-height:1.7}
 @media(max-width:768px){.sec{padding:60px 20px 80px}.sec-h2{font-size:30px}}
 
@@ -28,6 +28,8 @@
 .car-viewer{width:100%;height:540px;border-radius:16px;background:#080810;border:1px solid #1a1a1e;position:relative;overflow:hidden}
 .car-viewer iframe{width:100%;height:calc(100% + 100px)!important;border:none;border-radius:16px;margin-top:-50px}
 @media(max-width:768px){.car-viewer{height:340px}}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--ac);cursor:pointer;border:2px solid #050508;box-shadow:0 0 8px rgba(192,192,192,.3)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--ac);cursor:pointer;border:2px solid #050508}
 
 /* Recap panel (left side) */
 .car-recap{background:rgba(10,10,14,.6);backdrop-filter:blur(12px);border:1px solid #1a1a1e;border-radius:16px;overflow:hidden;position:sticky;top:90px}
@@ -35,7 +37,7 @@
 .car-recap-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,rgba(192,192,192,.1),rgba(192,192,192,.04));border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .car-recap-icon svg{width:16px;height:16px;color:var(--ac)}
 .car-recap-htxt{flex:1}
-.car-recap-title{font-size:13px;font-weight:600;color:var(--w);letter-spacing:.5px}
+.car-recap-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:1px}
 .car-recap-subtitle{font-size:10px;color:#555;margin-top:1px}
 .car-recap-count{font-size:18px;font-weight:700;color:var(--ac);font-family:'Cormorant Garamond',serif;line-height:1}
 .car-recap-divider{height:1px;background:linear-gradient(90deg,transparent,#1e1e22,transparent);margin:0 22px}
@@ -75,17 +77,13 @@
 .dmg-footer{padding:16px 28px;border-top:1px solid #1a1a1e;display:flex;gap:10px}.dmg-btn{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}.dmg-btn.reset:hover{background:rgba(239,68,68,.1)}
 
 
-.srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:48px}.srv-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:28px 24px;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:0;transition:opacity .3s}.srv-card:hover{border-color:#2a2a2e;transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}.srv-card:hover::before{opacity:.6}.srv-icon{width:44px;height:44px;border-radius:12px;background:rgba(192,192,192,.05);border:1px solid #1e1e22;display:flex;align-items:center;justify-content:center;color:var(--ac);margin-bottom:18px}.srv-icon svg{width:20px;height:20px}.srv-name{font-size:16px;font-weight:600;color:var(--w);margin-bottom:6px}.srv-desc{font-size:12px;color:#777;line-height:1.7}
-.tarif-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:48px}.tarif-card{background:#0a0a0e;border:1px solid #1a1a1e;border-radius:14px;padding:24px;text-align:center;transition:all .3s}.tarif-card:hover{border-color:#2a2a2e}.tarif-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--w)}.tarif-unit{font-size:11px;color:#666;margin-top:2px}.tarif-label{font-size:12px;color:#999;margin-top:10px;font-weight:500}
 .footer{border-top:1px solid #1a1a1e;padding:56px 48px 24px;background:#08080c}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141418}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
 @media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
 </style>
 </head>
 <body>
-<nav class="nav"><a href="index.html" class="nav-logo">ASH <span>Prestige Custom</span></a><div class="nav-links"><a href="vente.html" class="nav-link vehicles">Véhicules</a><a href="carrosserie.html" class="nav-link carrosserie">Carrosserie</a></div></nav>
-<section class="hero"><div class="hero-c"><p class="hero-tag">Service Carrosserie</p><h1 class="hero-h1">ESPACE<br>CARROSSERIE</h1><p class="hero-sub">Réparation, peinture, débosselage — estimez vos réparations en ligne.</p><div class="hero-line"></div></div><a href="#devis" class="hero-arrow"><span>Estimer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a></section>
 
-<section class="sec" id="devis">
+<section class="sec" id="devis" style="padding-top:40px">
   <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
 
   <div class="car-viewer-wrap">
@@ -134,7 +132,11 @@
           <div id="carTooltip" style="position:absolute;background:rgba(5,5,8,.88);backdrop-filter:blur(8px);border:1px solid #2a2a2e;color:var(--w);padding:7px 16px;border-radius:8px;font-size:11px;font-weight:500;letter-spacing:1px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;white-space:nowrap;top:10px;left:10px"></div>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:8px">
-          <p style="font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase">Cliquez sur une partie — Glissez pour tourner</p>
+          <div style="flex:1;display:flex;align-items:center;gap:10px;min-width:200px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5" width="14" height="14"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+            <input type="range" id="rotateSlider" min="0" max="360" value="0" style="flex:1;-webkit-appearance:none;appearance:none;height:3px;background:#1a1a1e;border-radius:2px;outline:none;cursor:pointer" oninput="rotateModel(this.value)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5" width="14" height="14"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          </div>
           <div class="bp-legend">
             <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure</div>
             <div class="bp-legend-item"><div class="bp-legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement</div>
@@ -150,28 +152,8 @@
 
 <div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()"><div class="dmg-box"><div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">—</div><div class="dmg-sub">Sélectionnez le type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div><div class="dmg-body"><div class="dmg-options"><div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Rayure simple</div><div class="dmg-opt-desc">Rayure superficielle, micro-rayures, éclat de peinture</div></div></div><div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Enfoncement léger</div><div class="dmg-opt-desc">Petite bosse, enfoncement sans déchirure</div></div></div><div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Dégâts importants</div><div class="dmg-opt-desc">Enfoncement sévère, déchirure, remplacement</div></div></div></div></div><div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div></div></div>
 
-<section class="sec" id="services"><div class="reveal"><span class="sec-tag">Nos prestations</span><h2 class="sec-h2">Services Carrosserie</h2><div class="sec-line"></div></div><div class="srv-grid"><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div class="srv-name">Réparation carrosserie</div><div class="srv-desc">Débosselage, redressage, remplacement de panneaux.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="srv-name">Peinture complète</div><div class="srv-desc">Peinture partielle ou totale, raccords, vernis.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="srv-name">Remontage kit</div><div class="srv-desc">Kits carrosserie, spoilers, jupes latérales.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><div class="srv-name">Remontage volant</div><div class="srv-desc">Volants, airbags, commandes au volant.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div><div class="srv-name">Rénovation jantes</div><div class="srv-desc">Ponçage, peinture et vernis jantes alu.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><div class="srv-name">Vitres teintées</div><div class="srv-desc">Films homologués, plusieurs niveaux de teinte.</div></div><div class="srv-card reveal"><div class="srv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="srv-name">Devis sur mesure</div><div class="srv-desc">Devis personnalisé adapté à vos besoins.</div></div></div></section>
 
-<section class="sec" style="padding-top:0">
-  <div class="reveal" style="text-align:center">
-    <span class="sec-tag">Contactez-nous</span>
-    <h2 class="sec-h2">Un devis personnalisé ?</h2>
-    <div class="sec-line"></div>
-    <p class="sec-sub">Appelez-nous ou envoyez un email pour obtenir une estimation adaptée à votre véhicule. Prise en charge assurance disponible.</p>
-    <div style="display:flex;justify-content:center;gap:14px;margin-top:36px;flex-wrap:wrap">
-      <a href="tel:0761509269" style="display:flex;align-items:center;gap:10px;padding:16px 36px;border-radius:12px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .3s;background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,.4)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
-        07 61 50 92 69
-      </a>
-      <a href="mailto:nrkprestige@gmail.com" style="display:flex;align-items:center;gap:10px;padding:16px 36px;border-radius:12px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .3s;background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#999" onmouseover="this.style.borderColor='var(--ac)';this.style.color='#fff';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#1e1e22';this.style.color='#999';this.style.transform=''">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Envoyer un email
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Navigation</div><a href="vente.html" class="ft-a">Véhicules d'occasion</a><a href="carrosserie.html" class="ft-a">Espace carrosserie</a><a href="tel:0761509269" class="ft-a">Demander un devis</a></div></div><div class="ft-bot"><span class="ft-c">&copy; 2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
+<footer class="footer"><div class="ft-inner"><div class="ft-top" style="grid-template-columns:1.2fr 1fr"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Carrosserie professionnelle à Mions, près de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div></div><div class="ft-bot"><span class="ft-c">&copy; 2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
 var damages={},currentPart=null,selectedLevel=0,skApi=null;
@@ -382,11 +364,21 @@ function updateQuote(){
   var h='';
   keys.forEach(function(k){
     var l=damages[k];
-    h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div><div class="car-recap-name">'+(partNames[k]||k)+'</div><div class="car-recap-type">'+dmgLabels[l]+'</div></div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
+    var pn=partNames[k]||k;
+    var dn=dmgLabels[l];
+    h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div class="car-recap-info"><div class="car-recap-name">'+pn+' <span style="color:#555;font-weight:400">— '+dn+'</span></div></div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
   });
   items.innerHTML=h;
 }
 function delDmg(id){delete damages[id];updateVis();updateQuote();}
+var camDist=5.5,camHeight=1.8;
+function rotateModel(deg){
+  if(!skApi)return;
+  var rad=deg*Math.PI/180;
+  var x=Math.cos(rad)*camDist;
+  var z=Math.sin(rad)*camDist;
+  skApi.setCameraLookAt([x,camHeight,z],[0,0.5,0],0.3);
+}
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
 </script>
