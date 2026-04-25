@@ -2,173 +2,105 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ASH Prestige Custom — Véhicules & Carrosserie — Mions (69)</title>
-<meta name="description" content="ASH Prestige Custom — Vente de véhicules d'occasion prestige et service carrosserie professionnel à Mions (69).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden}
-body{background:#000;font-family:'Outfit',sans-serif;color:#fff}
-::selection{background:#c0c0c0;color:#000}
+*{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#000;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}:root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}@keyframes lineGrow{from{width:0}to{width:50px}}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes boltIn{0%{opacity:0;transform:scaleY(.7)}60%{opacity:1;transform:scaleY(1.02)}100%{opacity:1;transform:scaleY(1)}}@keyframes boltGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(192,192,192,.2))}50%{filter:drop-shadow(0 0 25px rgba(192,192,192,.4))}}@keyframes sparkle{0%{opacity:0;transform:scale(0)}15%{opacity:1;transform:scale(1.5)}30%{opacity:0;transform:scale(0)}100%{opacity:0}}
 
-/* === SPLIT LAYOUT === */
+/* HERO */
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at 50% 40%,#0a0a0a 0%,#000 70%)}.hero-c{text-align:center;padding:0 20px;animation:fadeUp 1.2s .2s both}.hero-tag{font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--ac);font-weight:400;margin-bottom:24px}.hero-h1{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:700;color:#fff;line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-sep{color:#333;font-size:24px;margin:8px 0;letter-spacing:8px}.hero-sub{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ac);line-height:1;text-transform:uppercase;letter-spacing:4px}.hero-line{width:0;height:1px;background:var(--ac);margin:36px auto 0;animation:lineGrow 1s 1.2s forwards}.hero-arrow{position:absolute;bottom:48px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;color:var(--ac);opacity:.45;animation:fadeUp 1s 1.5s both;transition:opacity .3s;text-decoration:none}.hero-arrow:hover{opacity:1}.hero-arrow svg{animation:bounce 2s ease-in-out infinite}.hero-arrow span{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
+@media(max-width:768px){.hero-h1{font-size:36px!important}.hero-sub{font-size:26px!important}}
+
+/* SPLIT */
 .split{display:flex;height:100vh;position:relative}
-
-.panel{flex:1;position:relative;overflow:hidden;cursor:pointer;transition:flex .6s cubic-bezier(.16,1,.3,1)}
-.panel:hover{flex:1.15}
-.panel:not(:hover){flex:.92}
-.split:not(:hover) .panel{flex:1}
-
-/* Background images / previews */
-.panel-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}
-.panel:hover .panel-bg{transform:scale(1.05)}
+.panel{flex:1;position:relative;overflow:hidden;cursor:pointer;transition:flex .6s cubic-bezier(.16,1,.3,1);text-decoration:none;color:#fff}.panel:hover{flex:1.15}.panel:not(:hover){flex:.92}.split:not(:hover) .panel{flex:1}
+.panel-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}.panel:hover .panel-bg{transform:scale(1.05)}
 .panel-overlay{position:absolute;inset:0;transition:opacity .6s}
-
-/* Left panel - Vente */
 .panel-vente .panel-bg{background-image:url('https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&q=80');background-position:center 40%}
 .panel-vente .panel-overlay{background:linear-gradient(135deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.7) 100%)}
 .panel-vente:hover .panel-overlay{background:linear-gradient(135deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.35) 50%,rgba(0,0,0,.55) 100%)}
-
-/* Right panel - Carrosserie */
 .panel-carro .panel-bg{background-image:url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1200&q=80');background-position:center 60%}
 .panel-carro .panel-overlay{background:linear-gradient(225deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.7) 100%)}
 .panel-carro:hover .panel-overlay{background:linear-gradient(225deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.35) 50%,rgba(0,0,0,.55) 100%)}
-
-/* Panel content */
-.panel-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding:60px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.panel-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding:60px}
 .panel-vente .panel-content{align-items:flex-start;padding-right:100px}
 .panel-carro .panel-content{align-items:flex-end;padding-left:100px;text-align:right}
+.panel-tag{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:rgba(192,192,192,.7);margin-bottom:16px}
+.panel-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,72px);font-weight:700;line-height:1;text-transform:uppercase;letter-spacing:3px}
+.panel-sub2{font-size:13px;color:rgba(255,255,255,.5);margin-top:14px;line-height:1.7;max-width:320px}
+.panel-arr{display:inline-flex;align-items:center;gap:10px;margin-top:28px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ac);transition:gap .3s}.panel:hover .panel-arr{gap:16px}.panel-arr svg{transition:transform .3s}.panel:hover .panel-arr svg{transform:translateX(4px)}
+.panel-vente::after{content:'';position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent 10%,rgba(192,192,192,.15) 50%,transparent 90%);z-index:5;opacity:0;transition:opacity .3s}.panel-vente:hover::after{opacity:1}
+.panel-carro::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent 10%,rgba(192,192,192,.15) 50%,transparent 90%);z-index:5;opacity:0;transition:opacity .3s}.panel-carro:hover::before{opacity:1}
 
-.panel-tag{font-size:10px;letter-spacing:6px;text-transform:uppercase;color:rgba(192,192,192,.7);margin-bottom:16px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .4s forwards}
-.panel-h{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,72px);font-weight:700;line-height:1;text-transform:uppercase;letter-spacing:3px;opacity:0;transform:translateY(30px);animation:fadeUp .8s .6s forwards}
-.panel-sub{font-size:13px;color:rgba(255,255,255,.5);margin-top:14px;line-height:1.7;max-width:320px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .8s forwards}
-.panel-arrow{display:inline-flex;align-items:center;gap:10px;margin-top:28px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ac,#c0c0c0);text-decoration:none;opacity:0;transform:translateY(20px);animation:fadeUp .8s 1s forwards;transition:gap .3s}
-.panel:hover .panel-arrow{gap:16px}
-.panel-arrow svg{transition:transform .3s}
-.panel:hover .panel-arrow svg{transform:translateX(4px)}
-
-/* Hover glow line on edges */
-.panel-vente::after{content:'';position:absolute;top:0;right:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent 10%,rgba(192,192,192,.15) 50%,transparent 90%);z-index:5;transition:opacity .3s;opacity:0}
-.panel-vente:hover::after{opacity:1}
-.panel-carro::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent 10%,rgba(192,192,192,.15) 50%,transparent 90%);z-index:5;transition:opacity .3s;opacity:0}
-.panel-carro:hover::before{opacity:1}
-
-/* === CENTER LOGO + LIGHTNING === */
+/* BOLT */
 .center-bolt{position:absolute;left:50%;top:0;bottom:0;width:120px;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-
-.center-logo{text-align:center;margin-bottom:24px;opacity:0;animation:fadeIn 1s .2s forwards}
-.center-logo-main{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#fff;text-shadow:0 0 40px rgba(0,0,0,.8)}
-.center-logo-sub{font-size:8px;letter-spacing:6px;text-transform:uppercase;color:rgba(192,192,192,.6);margin-top:2px}
-
-/* Lightning bolt SVG */
-.bolt-svg{opacity:0;animation:boltIn 1s .5s forwards;filter:drop-shadow(0 0 20px rgba(192,192,192,.3)) drop-shadow(0 0 60px rgba(192,192,192,.1))}
-@keyframes boltIn{0%{opacity:0;transform:scaleY(.7)}60%{opacity:1;transform:scaleY(1.02)}100%{opacity:1;transform:scaleY(1)}}
-
-/* Glow pulse on bolt */
+.bolt-svg{opacity:0;animation:boltIn 1s .5s forwards}
 .bolt-glow{animation:boltGlow 3s 1.5s infinite ease-in-out}
-@keyframes boltGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(192,192,192,.2)) drop-shadow(0 0 40px rgba(192,192,192,.05))}50%{filter:drop-shadow(0 0 25px rgba(192,192,192,.4)) drop-shadow(0 0 60px rgba(192,192,192,.15))}}
-
-/* Sparks */
 .spark{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(192,192,192,.8);opacity:0}
-.spark-1{left:52%;top:38%;animation:sparkle 2.5s 2s infinite}
-.spark-2{left:46%;top:55%;animation:sparkle 2.5s 2.8s infinite}
-.spark-3{left:55%;top:48%;animation:sparkle 2.5s 3.3s infinite}
-.spark-4{left:48%;top:62%;animation:sparkle 2.5s 1.8s infinite}
-@keyframes sparkle{0%{opacity:0;transform:scale(0)}15%{opacity:1;transform:scale(1.5)}30%{opacity:0;transform:scale(0)}100%{opacity:0}}
-
-/* Left/right labels on bolt */
+.spark-1{left:52%;top:38%;animation:sparkle 2.5s 2s infinite}.spark-2{left:46%;top:55%;animation:sparkle 2.5s 2.8s infinite}.spark-3{left:55%;top:48%;animation:sparkle 2.5s 3.3s infinite}.spark-4{left:48%;top:62%;animation:sparkle 2.5s 1.8s infinite}
 .bolt-label{position:absolute;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(192,192,192,.35);white-space:nowrap}
-.bolt-label-left{left:-50px;top:50%;transform:translateY(-50%) rotate(-90deg)}
-.bolt-label-right{right:-60px;top:50%;transform:translateY(-50%) rotate(90deg)}
+.bolt-label-left{left:-50px;top:50%;transform:translateY(-50%) rotate(-90deg)}.bolt-label-right{right:-60px;top:50%;transform:translateY(-50%) rotate(90deg)}
 
-/* === ANIMATIONS === */
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{to{opacity:1}}
-
-/* === MOBILE === */
-@media(max-width:768px){
-  .split{flex-direction:column}
-  .panel:hover{flex:1.1}
-  .panel:not(:hover){flex:.95}
-  .panel-content{padding:40px 30px!important;justify-content:flex-end;padding-bottom:60px!important}
-  .panel-vente .panel-content,.panel-carro .panel-content{align-items:center;text-align:center;padding-right:30px!important;padding-left:30px!important}
-  .center-bolt{left:0;right:0;top:auto;bottom:auto;width:100%;height:60px;transform:none;flex-direction:row;top:50%;margin-top:-30px}
-  .center-bolt svg{transform:rotate(90deg)}
-  .bolt-label{display:none}
-  .center-logo{display:none}
-  .panel-h{font-size:32px!important}
-}
+/* FOOTER */
+.footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-soc{display:flex;gap:14px;margin-top:4px}.ft-s{width:36px;height:36px;border-radius:50%;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#3a3a3a;transition:all .3s;text-decoration:none}.ft-s:hover{border-color:var(--ac);color:var(--w);transform:translateY(-2px)}.ft-s svg{width:15px;height:15px}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
+@media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
+@media(max-width:768px){.split{flex-direction:column}.panel:hover{flex:1.1}.panel:not(:hover){flex:.95}.panel-content{padding:40px 30px!important;justify-content:flex-end;padding-bottom:60px!important}.panel-vente .panel-content,.panel-carro .panel-content{align-items:center;text-align:center;padding-right:30px!important;padding-left:30px!important}.center-bolt{left:0;right:0;top:auto;width:100%;height:60px;transform:none;flex-direction:row;top:50%;margin-top:-30px}.center-bolt svg{transform:rotate(90deg)}.bolt-label{display:none}}
 </style>
 </head>
 <body>
 
-<div class="split">
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-c">
+    <p class="hero-tag">Automobile de prestige</p>
+    <h1 class="hero-h1">ASH PRESTIGE CUSTOM</h1>
+    <div class="hero-sep">&#10005;</div>
+    <div class="hero-sub">NRK PRESTIGE</div>
+    <div class="hero-line"></div>
+  </div>
+  <a href="#choose" class="hero-arrow"><span>Explorer</span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></a>
+</section>
 
-  <!-- LEFT: VENTE -->
-  <a href="vente.html" class="panel panel-vente" style="text-decoration:none;color:#fff">
+<!-- SPLIT SCREEN -->
+<div class="split" id="choose">
+  <a href="vente.html" class="panel panel-vente">
     <div class="panel-bg"></div>
     <div class="panel-overlay"></div>
     <div class="panel-content">
       <span class="panel-tag">Collection</span>
       <h1 class="panel-h">Véhicules</h1>
-      <p class="panel-sub">Notre sélection de véhicules d'occasion prestige. BMW, Mercedes, Audi et plus encore.</p>
-      <span class="panel-arrow">
-        Découvrir
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
+      <p class="panel-sub2">Notre sélection de véhicules d'occasion prestige. BMW, Mercedes, Audi et plus encore.</p>
+      <span class="panel-arr">Découvrir <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
     </div>
   </a>
-
-  <!-- CENTER: LIGHTNING BOLT -->
   <div class="center-bolt">
-    <div class="center-logo">
-      <div class="center-logo-main">ASH</div>
-      <div class="center-logo-sub">Prestige Custom</div>
-    </div>
     <svg class="bolt-svg bolt-glow" width="48" height="220" viewBox="0 0 48 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Lightning bolt shape -->
-      <path d="M28 0 L32 0 L20 95 L36 95 L14 220 L18 130 L4 130 Z" fill="url(#boltGrad)" stroke="rgba(192,192,192,.3)" stroke-width=".5"/>
-      <!-- Inner glow line -->
+      <path d="M28 0 L32 0 L20 95 L36 95 L14 220 L18 130 L4 130 Z" fill="url(#bG)" stroke="rgba(192,192,192,.3)" stroke-width=".5"/>
       <path d="M27 8 L30 8 L19.5 92 L33 92 L15.5 210 L19 132 L7 132 Z" fill="none" stroke="rgba(255,255,255,.08)" stroke-width=".5"/>
-      <defs>
-        <linearGradient id="boltGrad" x1="24" y1="0" x2="24" y2="220" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="rgba(200,200,210,.6)"/>
-          <stop offset="30%" stop-color="rgba(192,192,192,.4)"/>
-          <stop offset="50%" stop-color="rgba(220,220,230,.5)"/>
-          <stop offset="70%" stop-color="rgba(192,192,192,.35)"/>
-          <stop offset="100%" stop-color="rgba(160,160,170,.2)"/>
-        </linearGradient>
-      </defs>
+      <defs><linearGradient id="bG" x1="24" y1="0" x2="24" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="rgba(200,200,210,.6)"/><stop offset="50%" stop-color="rgba(220,220,230,.5)"/><stop offset="100%" stop-color="rgba(160,160,170,.2)"/></linearGradient></defs>
     </svg>
-    <!-- Sparks -->
-    <div class="spark spark-1"></div>
-    <div class="spark spark-2"></div>
-    <div class="spark spark-3"></div>
-    <div class="spark spark-4"></div>
-    <!-- Side labels -->
+    <div class="spark spark-1"></div><div class="spark spark-2"></div><div class="spark spark-3"></div><div class="spark spark-4"></div>
     <span class="bolt-label bolt-label-left">Vente</span>
     <span class="bolt-label bolt-label-right">Carrosserie</span>
   </div>
-
-  <!-- RIGHT: CARROSSERIE -->
-  <a href="carrosserie.html" class="panel panel-carro" style="text-decoration:none;color:#fff">
+  <a href="carrosserie.html" class="panel panel-carro">
     <div class="panel-bg"></div>
     <div class="panel-overlay"></div>
     <div class="panel-content">
       <span class="panel-tag">Atelier</span>
       <h1 class="panel-h">Carrosserie</h1>
-      <p class="panel-sub">Réparation, peinture, débosselage. Estimez vos réparations en ligne.</p>
-      <span class="panel-arrow">
-        Découvrir
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
+      <p class="panel-sub2">Réparation, peinture, débosselage. Estimez vos réparations en ligne.</p>
+      <span class="panel-arr">Découvrir <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
     </div>
   </a>
-
 </div>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 </body>
 </html>
