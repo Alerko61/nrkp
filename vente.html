@@ -327,11 +327,6 @@ textarea.inp{resize:vertical}
 </style>
 </head>
 <body>
-<video class="bg-video" autoplay muted loop playsinline>
-  <source src="bg-video.mp4" type="video/mp4">
-</video>
-<div class="smoke-bg"><canvas class="smoke-canvas" id="smokeCanvas"></canvas></div>
-<div class="smoke-overlay" id="smokeOverlay"></div>
 <div class="page">
 <section class="sec-v" id="vehicles" style="padding-top:40px"><div class="reveal"><span class="sec-tag">Notre selection</span><h2 class="sec-h2">Vehicules Disponibles</h2><div class="sec-line"></div></div>
 <div class="f-trigger-wrap">
@@ -608,8 +603,6 @@ textarea.inp{resize:vertical}
 
 <div class="crop-ov" id="cropOv"><div class="crop-lbl">Recadrer l'image</div><div class="crop-wrap" id="cropWrap"><img class="crop-img" id="cropImg" alt=""><div class="crop-sel" id="cropSel"></div></div><div class="crop-info" id="cropInfo">Cliquer-glisser pour selectionner la zone</div><div class="crop-actions"><button class="crop-btn ok" onclick="applyCrop()">Appliquer</button><button class="crop-btn cancel" onclick="closeCrop()">Annuler</button></div></div>
 <script>
-(function(){var c=document.getElementById('smokeCanvas'),x=c.getContext('2d'),W,H;function r(){W=c.width=innerWidth;H=c.height=innerHeight}r();addEventListener('resize',r);function S(){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}S.prototype.update=function(){this.life++;this.x+=this.vx+Math.sin(this.life*.008)*.5;this.y+=this.vy;this.r+=0.3;this.vx*=.999;var p=this.life/this.maxLife;this.opacity=p<.15?p/.15:p>.6?1-(p-.6)/.4:1;this.opacity*=.08;if(this.life>=this.maxLife){this.x=Math.random()*W;this.y=H+Math.random()*100;this.r=40+Math.random()*120;this.vx=(Math.random()-.5)*1.5;this.vy=-(0.3+Math.random()*0.8);this.life=0;this.maxLife=200+Math.random()*300;this.opacity=0}};S.prototype.draw=function(){var g=x.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);g.addColorStop(0,'rgba(180,180,180,'+this.opacity+')');g.addColorStop(.4,'rgba(140,140,140,'+(this.opacity*.5)+')');g.addColorStop(1,'rgba(100,100,100,0)');x.fillStyle=g;x.beginPath();x.arc(this.x,this.y,this.r,0,Math.PI*2);x.fill()};var P=[];for(var i=0;i<35;i++){var s=new S();s.life=Math.random()*s.maxLife;s.y=Math.random()*H;P.push(s)}(function a(){x.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){P[i].update();P[i].draw()}requestAnimationFrame(a)})()})();
-function handleScroll(){var y=scrollY,h=innerHeight,p=Math.min(1,y/(h*.6));p=p*p*(3-2*p);document.getElementById('smokeOverlay').style.opacity=0.3+(1-p*.75)*0.3}addEventListener('scroll',handleScroll,{passive:true});handleScroll();
 var FC={apiKey:"AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",authDomain:"nrk-prestige.firebaseapp.com",databaseURL:"https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nrk-prestige",storageBucket:"nrk-prestige.firebasestorage.app",messagingSenderId:"671314844628",appId:"1:671314844628:web:6db907b19fc9fb79841441"};
 var V=[],uImgs=[],gIdx=0,cImgs=[],db=null,fbOK=false,editId=null;
 function fmtN(v){if(!v||v==='—')return'—';var n=parseInt(String(v).replace(/[\s.km€]/gi,''),10);return isNaN(n)?v:n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
