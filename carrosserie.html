@@ -202,7 +202,20 @@ function initViewer(){
       skApi=api;
       api.start();
       api.addEventListener('viewerready',function(){
-        api.setFov(38);
+        api.setFov(42);
+
+        // Capture initial camera for rotation
+        api.getCameraLookAt(function(err,camera){
+          if(!err){
+            var pos=camera.position;
+            var tgt=camera.target;
+            camTarget=[tgt[0],tgt[1],tgt[2]];
+            var dx=pos[0]-tgt[0],dy=pos[1]-tgt[1],dz=pos[2]-tgt[2];
+            camDist=Math.sqrt(dx*dx+dz*dz);
+            camHeight=pos[1];
+            camReady=true;
+          }
+        });
 
         // Highlight style
         api.setHighlightOptions({
@@ -394,14 +407,16 @@ function updateQuote(){
   items.innerHTML=h;
 }
 function delDmg(id){delete damages[id];updateVis();updateQuote();}
-var camDist=5.5,camHeight=1.8,lastSliderVal=0;
+var camDist=0,camHeight=0,camTarget=[0,0,0],camReady=false;
 function rotateModel(deg){
-  if(!skApi)return;
-  var rad=(360-deg)*Math.PI/180;
+  if(!skApi||!camReady)return;
+  // Stop autospin
+  skApi.setAutospin(0);
+  // Convert slider 0-360 to angle, left=0 right=360
+  var rad=deg*Math.PI/180;
   var x=Math.sin(rad)*camDist;
   var z=Math.cos(rad)*camDist;
-  skApi.setCameraLookAt([x,camHeight,z],[0,0.5,0],0.15);
-  lastSliderVal=deg;
+  skApi.setCameraLookAt([x,camHeight,z],camTarget,0);
 }
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
