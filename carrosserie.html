@@ -204,99 +204,69 @@ function initViewer(){
       api.addEventListener('viewerready',function(){
         api.setFov(42);
 
-        // Capture initial camera for rotation
-        api.getCameraLookAt(function(err,camera){
-          if(!err){
-            var pos=camera.position;
-            var tgt=camera.target;
-            camTarget=[tgt[0],tgt[1],tgt[2]];
-            var dx=pos[0]-tgt[0],dy=pos[1]-tgt[1],dz=pos[2]-tgt[2];
-            camDist=Math.sqrt(dx*dx+dz*dz);
-            camHeight=pos[1];
-            camReady=true;
-          }
-        });
-
-        // Highlight style
+        // Highlight config
         api.setHighlightOptions({
-          outlineWidth:3,
+          outlineWidth:2,
           outlineColor:[.85,.87,.9],
           color:[.55,.57,.6]
         });
 
-        // Log ALL nodes for debugging and map them
+        // Map nodes
         api.getNodeMap(function(err,nodes){
           if(err)return;
           var all=Object.values(nodes);
           all.forEach(function(nd){
             if(!nd.name)return;
             var pid=mp(nd.name);
-            if(pid){
-              nodeInstances[nd.instanceID]=pid;
-            }
+            if(pid)nodeInstances[nd.instanceID]=pid;
           });
-          // Also store all node names for fallback
           window._allNodes=nodes;
-          console.log('Mapped '+Object.keys(nodeInstances).length+' car parts');
         });
 
         // Get materials
         api.getMaterialList(function(err,materials){
           if(!err){
             allMaterials=materials;
-            // Store originals
+            window._origMats={};
             materials.forEach(function(m){
-              window._origMats=window._origMats||{};
-              window._origMats[m.id]=JSON.parse(JSON.stringify(m.channels));
+              try{window._origMats[m.id]=JSON.parse(JSON.stringify(m.channels))}catch(e){}
             });
           }
         });
 
-        // HOVER — use highlight API on the instance
+        // HOVER
         api.addEventListener('nodeMouseEnter',function(nd){
           if(!nd||nd.instanceID===undefined)return;
           var pid=nodeInstances[nd.instanceID];
-          // Try matching name if not in map
           if(!pid&&nd.name)pid=mp(nd.name);
-          if(!pid){
-            // Walk up parents
-            if(window._allNodes){
-              var node=window._allNodes[nd.instanceID];
-              if(node&&node.name)pid=mp(node.name);
-            }
+          if(!pid&&window._allNodes){
+            var node=window._allNodes[nd.instanceID];
+            if(node&&node.name)pid=mp(node.name);
           }
           if(!pid)return;
           var label=partNames[pid]||pid;
-          // If damaged, show damage info
-          if(damages[pid]){
-            label+=' — '+dmgLabels[damages[pid]];
-          }
+          if(damages[pid])label+=' — '+dmgLabels[damages[pid]];
           tooltip.textContent=label;
           tooltip.classList.add('vis');
-          // Highlight the node
-          api.highlight(nd.instanceID,{outlineWidth:3,outlineColor:[.85,.87,.9],color:[.55,.57,.6]});
+          // Highlight via highlightMaterial on click material
+          api.highlightMaterial(nd);
         },{pick:'fast'});
 
-        api.addEventListener('nodeMouseLeave',function(nd){
+        api.addEventListener('nodeMouseLeave',function(){
           tooltip.classList.remove('vis');
-          if(nd&&nd.instanceID!==undefined){
-            api.highlight(nd.instanceID,null);
-          }
+          api.highlightMaterial(null);
         },{pick:'fast'});
 
-        // CLICK — open damage selector
+        // CLICK
         api.addEventListener('click',function(info){
           if(!info||info.instanceID===undefined)return;
           var pid=nodeInstances[info.instanceID];
-          // Try material name
           if(!pid&&info.material&&info.material.name)pid=mp(info.material.name);
-          // Try node name from map
           if(!pid&&window._allNodes){
             var nd=window._allNodes[info.instanceID];
             if(nd&&nd.name){
               pid=mp(nd.name);
               if(!pid){
-                // Use cleaned node name as-is
                 var raw=nd.name;
                 pid=raw.toLowerCase().replace(/[\s\.]+/g,'-');
                 var clean=raw.replace(/_/g,' ').replace(/\./g,' ').replace(/\b\w/g,function(l){return l.toUpperCase()});
@@ -315,15 +285,12 @@ function initViewer(){
     autostart:1,
     transparent:1,
     dnt:1,
-    autospin:0.12,
+    autospin:0,
     scrollwheel:0,
     double_click:0,
-    orbit_constraint_pan:1,
-    orbit_constraint_pitch_down:0.2,
-    orbit_constraint_pitch_up:0.8,
     ui_theme:'dark',
     ui_infos:0,
-    ui_controls:0,
+    ui_controls:1,
     ui_stop:0,
     ui_inspector:0,
     ui_watermark:0,
@@ -407,16 +374,13 @@ function updateQuote(){
   items.innerHTML=h;
 }
 function delDmg(id){delete damages[id];updateVis();updateQuote();}
-var camDist=0,camHeight=0,camTarget=[0,0,0],camReady=false;
 function rotateModel(deg){
-  if(!skApi||!camReady)return;
-  // Stop autospin
-  skApi.setAutospin(0);
-  // Convert slider 0-360 to angle, left=0 right=360
+  if(!skApi)return;
   var rad=deg*Math.PI/180;
-  var x=Math.sin(rad)*camDist;
-  var z=Math.cos(rad)*camDist;
-  skApi.setCameraLookAt([x,camHeight,z],camTarget,0);
+  var r=5;
+  var x=Math.sin(rad)*r;
+  var z=Math.cos(rad)*r;
+  skApi.setCameraLookAt([x,2,z],[0,0.5,0],0.5);
 }
 function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
 document.addEventListener('DOMContentLoaded',function(){obs();initViewer();});
