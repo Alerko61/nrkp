@@ -88,43 +88,43 @@
   <div class="car-diagram">
     <img src="car-blueprint.png" alt="Schéma véhicule">
     <svg viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet">
-      <!-- VUE DE FACE -->
-      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="265,65 640,65 658,88 658,120 247,120 247,88"/>
-      <circle class="cz cz-body" data-id="roue-av-d" data-name="Roue avant droite" onclick="openDmg('roue-av-d','Roue avant droite')" cx="248" cy="58" r="28"/>
+      <!-- FACE VIEW - mirrored: left in image = right car -->
+      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="265,65 640,65 658,90 658,118 247,118 247,90"/>
       <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="655" cy="58" r="28"/>
+      <circle class="cz cz-body" data-id="roue-av-d" data-name="Roue avant droite" onclick="openDmg('roue-av-d','Roue avant droite')" cx="248" cy="58" r="28"/>
 
-      <!-- VUE DU DESSUS -->
-      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="310,138 595,138 620,158 585,192 318,192 282,158"/>
-      <polygon class="cz cz-body" data-id="aile-av-d" data-name="Aile avant droite" onclick="openDmg('aile-av-d','Aile avant droite')" points="188,155 282,138 282,195 170,205"/>
-      <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')" points="620,138 715,155 732,205 620,195"/>
-      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="318,192 585,192 562,222 338,222"/>
-      <polygon class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')" points="165,205 338,205 338,275 158,275"/>
-      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="562,205 738,205 742,275 562,275"/>
-      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="338,222 562,222 562,330 338,330"/>
-      <polygon class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arrière droite')" points="155,275 338,275 338,342 150,342"/>
-      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="562,275 742,275 748,342 562,342"/>
-      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="338,330 562,330 582,358 318,358"/>
-      <polygon class="cz cz-body" data-id="aile-ar-d" data-name="Aile arrière droite" onclick="openDmg('aile-ar-d','Aile arrière droite')" points="150,342 318,342 305,388 170,378"/>
-      <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arrière gauche')" points="582,342 748,342 732,378 598,388"/>
-      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="318,358 582,358 598,392 305,392"/>
-      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="305,392 598,392 590,408 310,408"/>
+      <!-- TOP VIEW - normal: left=left, right=right -->
+      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="325,132 590,132 575,192 360,192"/>
+      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="360,192 575,192 555,209 375,209"/>
+      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="375,209 555,209 555,347 375,347"/>
+      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="375,347 555,347 575,362 360,362"/>
+      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="360,362 575,362 590,400 325,400"/>
+      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="325,400 590,400 585,415 330,415"/>
+      <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')" points="175,148 325,132 360,192 165,200"/>
+      <polygon class="cz cz-body" data-id="aile-av-d" data-name="Aile avant droite" onclick="openDmg('aile-av-d','Aile avant droite')" points="590,132 730,148 740,200 575,192"/>
+      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="162,200 375,200 375,280 155,280"/>
+      <polygon class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')" points="555,200 742,200 748,280 555,280"/>
+      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="155,280 375,280 375,347 150,347"/>
+      <polygon class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arrière droite')" points="555,280 748,280 752,347 555,347"/>
+      <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arrière gauche')" points="150,347 360,347 325,400 160,395"/>
+      <polygon class="cz cz-body" data-id="aile-ar-d" data-name="Aile arrière droite" onclick="openDmg('aile-ar-d','Aile arrière droite')" points="555,347 752,347 745,395 575,362"/>
 
-      <!-- PANNEAUX LATERAUX -->
-      <rect class="cz cz-body" data-id="bas-caisse-d" data-name="Bas de caisse droit" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" x="62" y="192" width="36" height="180" rx="2"/>
-      <rect class="cz cz-body" data-id="bas-caisse-g" data-name="Bas de caisse gauche" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" x="802" y="192" width="36" height="180" rx="2"/>
+      <!-- SIDE STRIPS -->
+      <rect class="cz cz-body" data-id="bas-caisse-g" data-name="Bas de caisse gauche" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" x="62" y="192" width="58" height="178" rx="2"/>
+      <rect class="cz cz-body" data-id="bas-caisse-d" data-name="Bas de caisse droit" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" x="762" y="192" width="52" height="178" rx="2"/>
 
-      <!-- VUE LATERALE -->
-      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="168,462 190,448 198,502 168,502"/>
-      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="190,448 268,425 290,435 198,460"/>
-      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="268,425 348,402 348,418 290,435"/>
-      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="348,400 558,400 558,412 348,412"/>
-      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="558,400 635,428 635,442 558,412"/>
-      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="198,460 290,435 348,418 425,418 425,502 198,502"/>
-      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="425,418 558,412 635,442 665,472 665,502 425,502"/>
-      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="635,442 690,462 698,498 665,502 665,472"/>
-      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="698,490 718,500 718,505 698,505"/>
-      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="252" cy="502" r="25"/>
-      <circle class="cz cz-body" data-id="roue-ar-g" data-name="Roue arrière gauche" onclick="openDmg('roue-ar-g','Roue arrière gauche')" cx="632" cy="502" r="25"/>
+      <!-- SIDE VIEW (left side of car) -->
+      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="168,465 192,450 200,502 168,502"/>
+      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="192,450 275,420 295,432 200,458"/>
+      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="275,420 345,396 348,410 295,432"/>
+      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="345,396 565,396 565,408 345,408"/>
+      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="565,396 645,430 645,445 565,408"/>
+      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="200,458 295,432 348,410 430,410 430,502 200,502"/>
+      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="430,410 565,408 645,445 668,475 668,502 430,502"/>
+      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="645,445 692,465 700,500 668,502 668,475"/>
+      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="700,492 718,500 718,505 700,505"/>
+      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="255" cy="502" r="26"/>
+      <circle class="cz cz-body" data-id="roue-ar-g" data-name="Roue arrière gauche" onclick="openDmg('roue-ar-g','Roue arrière gauche')" cx="635" cy="502" r="26"/>
     </svg>
   </div>
   <div class="legend">
