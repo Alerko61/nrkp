@@ -3,127 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ASH Prestige Custom | Carrosserie — Mions (69)</title>
+<title>ASH Prestige Custom | Carrosserie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}
-body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
 :root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lineGrow{from{width:0}to{width:50px}}
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
-.gif-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.08;background:url('https://irp.cdn-website.com/a2912637/dms3rep/multi/Ceramic+Coating+Application+Process+-+GIF.gif') center/cover no-repeat}
+.gif-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.08;background:url('https://irp.cdn-website.com/a2912637/dms3rep/multi/Ceramic+Coating+Application+Process+-+GIF.gif') center/cover no-repeat}
 .back-arrow{position:fixed;top:20px;left:20px;z-index:100;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#999;transition:all .3s;backdrop-filter:blur(8px)}.back-arrow:hover{border-color:var(--ac);color:#fff}
-.sec{padding:50px 48px 60px;max-width:1240px;margin:0 auto;position:relative;z-index:1}
-.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}
-.sec-h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}
-.sec-line{width:40px;height:1px;background:var(--ac);margin:18px auto 0}
-.sec-sub{text-align:center;color:#666;font-size:13px;max-width:500px;margin:14px auto 0;line-height:1.7}
-@media(max-width:768px){.sec{padding:40px 16px 50px}.sec-h2{font-size:28px}}
-
-/* Layout */
+.sec{padding:50px 48px 60px;max-width:1240px;margin:0 auto;position:relative;z-index:1}.sec-tag{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--ac);text-align:center;display:block}.sec-h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:var(--w);margin-top:10px;text-align:center}.sec-line{width:40px;height:1px;background:var(--ac);margin:18px auto 0}.sec-sub{text-align:center;color:#666;font-size:13px;max-width:500px;margin:14px auto 0;line-height:1.7}
+@media(max-width:768px){.sec{padding:40px 16px}.sec-h2{font-size:28px}}
 .car-wrap{max-width:1200px;margin:40px auto 0;padding:0 20px;position:relative;z-index:1}
 .car-layout{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
 @media(max-width:960px){.car-layout{grid-template-columns:1fr}.car-recap{order:2}}
-
-/* Recap */
 .car-recap{background:rgba(10,10,14,.7);backdrop-filter:blur(12px);border:1px solid #1a1a1e;border-radius:16px;overflow:hidden;position:sticky;top:20px}
 .car-recap-header{padding:24px 22px 18px;display:flex;align-items:center;gap:14px}
-.car-recap-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(192,192,192,.1),rgba(192,192,192,.04));border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.car-recap-icon svg{width:18px;height:18px;color:var(--ac)}
-.car-recap-htxt{flex:1}
-.car-recap-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--w)}
-.car-recap-subtitle{font-size:10px;color:#555;margin-top:2px}
+.car-recap-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(192,192,192,.1),rgba(192,192,192,.04));border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center;flex-shrink:0}.car-recap-icon svg{width:18px;height:18px;color:var(--ac)}
+.car-recap-htxt{flex:1}.car-recap-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--w)}.car-recap-subtitle{font-size:10px;color:#555;margin-top:2px}
 .car-recap-count{font-size:24px;font-weight:700;color:var(--ac);font-family:'Cormorant Garamond',serif}
 .car-recap-divider{height:1px;background:linear-gradient(90deg,transparent,#1e1e22,transparent);margin:0 22px}
-.car-recap-empty{padding:40px 22px;text-align:center}
-.car-recap-empty-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid #1a1a1e;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}
-.car-recap-empty-icon svg{width:22px;height:22px;color:#222}
-.car-recap-empty-txt{font-size:11px;color:#444;line-height:1.8}
-.car-recap-items{padding:8px 12px;max-height:400px;overflow-y:auto}
-.car-recap-items::-webkit-scrollbar{width:3px}.car-recap-items::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
-.car-recap-item{display:flex;align-items:center;gap:10px;padding:11px 12px;margin-bottom:4px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid transparent;transition:all .3s;animation:fadeUp .3s ease}
-.car-recap-item:hover{border-color:#1e1e22;background:rgba(255,255,255,.04)}
-.car-recap-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.car-recap-dot.l1{background:var(--yellow);box-shadow:0 0 6px rgba(251,191,36,.3)}
-.car-recap-dot.l2{background:var(--orange);box-shadow:0 0 6px rgba(249,115,22,.3)}
-.car-recap-dot.l3{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.3)}
-.car-recap-info{flex:1;min-width:0}
-.car-recap-name{font-size:12px;color:var(--w);font-weight:500}
-.car-recap-price{font-size:10px;color:var(--ac);margin-top:1px}
+.car-recap-empty{padding:40px 22px;text-align:center}.car-recap-empty-icon{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid #1a1a1e;margin:0 auto 14px;display:flex;align-items:center;justify-content:center}.car-recap-empty-icon svg{width:22px;height:22px;color:#222}.car-recap-empty-txt{font-size:11px;color:#444;line-height:1.8}
+.car-recap-items{padding:8px 12px;max-height:400px;overflow-y:auto}.car-recap-items::-webkit-scrollbar{width:3px}.car-recap-items::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+.car-recap-item{display:flex;align-items:center;gap:10px;padding:11px 12px;margin-bottom:4px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid transparent;transition:all .3s;animation:fadeUp .3s}.car-recap-item:hover{border-color:#1e1e22;background:rgba(255,255,255,.04)}
+.car-recap-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.car-recap-dot.l1{background:var(--yellow);box-shadow:0 0 6px rgba(251,191,36,.3)}.car-recap-dot.l2{background:var(--orange);box-shadow:0 0 6px rgba(249,115,22,.3)}.car-recap-dot.l3{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.3)}
+.car-recap-info{flex:1;min-width:0}.car-recap-name{font-size:12px;color:var(--w);font-weight:500}.car-recap-price{font-size:10px;color:var(--ac);margin-top:1px}
 .car-recap-del{background:none;border:none;color:#333;cursor:pointer;font-size:10px;padding:4px 6px;transition:all .2s;flex-shrink:0;border-radius:4px}.car-recap-del:hover{color:var(--red);background:rgba(239,68,68,.08)}
 .car-recap-footer{padding:14px 16px;border-top:1px solid #141418}
-.car-recap-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px}
-.car-recap-total-label{font-size:10px;color:#666;letter-spacing:2px;text-transform:uppercase}
-.car-recap-total-val{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--w)}
-.car-recap-actions{display:flex;gap:6px}
-.car-recap-btn{flex:1;padding:11px;border-radius:8px;font-size:9px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;border:none}
+.car-recap-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:0 4px}.car-recap-total-label{font-size:10px;color:#666;letter-spacing:2px;text-transform:uppercase}.car-recap-total-val{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--w)}
+.car-recap-actions{display:flex;gap:6px}.car-recap-btn{flex:1;padding:11px;border-radius:8px;font-size:9px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;border:none}
 .car-recap-btn.call{background:linear-gradient(135deg,rgba(192,192,192,.12),rgba(192,192,192,.06));border:1px solid rgba(192,192,192,.18);color:var(--w)}.car-recap-btn.call:hover{transform:translateY(-1px)}
 .car-recap-btn.rst{background:none;border:1px solid #1a1a1e;color:#555}.car-recap-btn.rst:hover{border-color:var(--red);color:var(--red)}
-
-/* SVG Diagram */
-.car-diagram{border-radius:16px;overflow:hidden;background:#0a0a0e;border:1px solid #1a1a1e;padding:20px}
-.car-diagram svg{display:block;width:100%;height:auto;max-height:900px;margin:0 auto}
-/* Clickable zones */
-.cz{cursor:pointer;transition:all .35s}
-.cz-body{fill:transparent;stroke:transparent;stroke-width:0}
+.car-diagram{border-radius:16px;overflow:hidden;background:#08080c;border:1px solid #1a1a1e;position:relative}
+.car-diagram img{display:block;width:100%;height:auto;user-select:none;pointer-events:none;opacity:.85}
+.car-diagram svg{position:absolute;top:0;left:0;width:100%;height:100%}
+.cz{cursor:pointer;transition:all .35s}.cz-body,.cz-glass{fill:transparent;stroke:transparent;stroke-width:0}
 .cz-body:hover{fill:rgba(192,192,192,.08);stroke:rgba(192,192,192,.25);stroke-width:1}
-.cz-glass{fill:transparent;stroke:transparent;stroke-width:0}
 .cz-glass:hover{fill:rgba(120,170,220,.1);stroke:rgba(120,170,220,.3);stroke-width:1}
-.cz-wheel{fill:transparent;stroke:transparent;stroke-width:0}
 .cz.dmg-1{fill:rgba(251,191,36,.18)!important;stroke:var(--yellow)!important;stroke-width:1.5!important;animation:pulse 2.5s infinite}
 .cz.dmg-2{fill:rgba(249,115,22,.2)!important;stroke:var(--orange)!important;stroke-width:1.5!important;animation:pulse 2.5s infinite}
 .cz.dmg-3{fill:rgba(239,68,68,.22)!important;stroke:var(--red)!important;stroke-width:1.5!important;animation:pulse 2.5s infinite}
-.cl{font-size:7.5px;fill:#555;text-anchor:middle;pointer-events:none;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase;dominant-baseline:central}
-
-/* Legend */
-.legend{display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#888}
-.legend-dot{width:9px;height:9px;border-radius:50%;border:2px solid}
-
-/* Damage popup */
+.legend{display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap}.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#888}.legend-dot{width:9px;height:9px;border-radius:50%;border:2px solid}
 .dmg-ov{position:fixed;inset:0;background:rgba(5,5,8,.9);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px)}.dmg-ov.open{display:flex}
 .dmg-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(440px,94vw);overflow:hidden;animation:popIn .3s;box-shadow:0 32px 80px rgba(0,0,0,.6)}
-.dmg-header{padding:22px 26px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}
-.dmg-header-left{display:flex;align-items:center;gap:12px}
-.dmg-part-icon{width:38px;height:38px;border-radius:10px;background:rgba(192,192,192,.06);border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center}
-.dmg-part-icon svg{width:18px;height:18px;color:var(--ac)}
-.dmg-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--w)}
-.dmg-sub{font-size:10px;color:#666;margin-top:1px}
-.dmg-close{background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#666;width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:13px}.dmg-close:hover{border-color:var(--ac);color:var(--w)}
+.dmg-header{padding:22px 26px;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;justify-content:space-between}.dmg-header-left{display:flex;align-items:center;gap:12px}.dmg-part-icon{width:38px;height:38px;border-radius:10px;background:rgba(192,192,192,.06);border:1px solid #2a2a2e;display:flex;align-items:center;justify-content:center}.dmg-part-icon svg{width:18px;height:18px;color:var(--ac)}.dmg-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--w)}.dmg-sub{font-size:10px;color:#666;margin-top:1px}.dmg-close{background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#666;width:32px;height:32px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:13px}.dmg-close:hover{border-color:var(--ac);color:var(--w)}
 .dmg-body{padding:22px 26px}.dmg-options{display:flex;flex-direction:column;gap:8px}
-.dmg-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:11px;border:1px solid #1e1e22;background:rgba(255,255,255,.02);cursor:pointer;transition:all .3s}
-.dmg-opt:hover{border-color:#333;transform:translateX(3px)}.dmg-opt.selected{border-width:2px}
-.dmg-opt[data-level="1"].selected{border-color:var(--yellow);background:rgba(251,191,36,.06)}
-.dmg-opt[data-level="2"].selected{border-color:var(--orange);background:rgba(249,115,22,.06)}
-.dmg-opt[data-level="3"].selected{border-color:var(--red);background:rgba(239,68,68,.06)}
-.dmg-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;border:2px solid #333;transition:all .3s}
-.dmg-opt[data-level="1"] .dmg-dot{border-color:var(--yellow)}.dmg-opt[data-level="1"].selected .dmg-dot{background:var(--yellow)}
-.dmg-opt[data-level="2"] .dmg-dot{border-color:var(--orange)}.dmg-opt[data-level="2"].selected .dmg-dot{background:var(--orange)}
-.dmg-opt[data-level="3"] .dmg-dot{border-color:var(--red)}.dmg-opt[data-level="3"].selected .dmg-dot{background:var(--red)}
-.dmg-opt-info{flex:1}.dmg-opt-name{font-size:13px;font-weight:600;color:var(--w)}.dmg-opt-desc{font-size:10px;color:#666;margin-top:2px}
-.dmg-opt-price{font-size:12px;color:var(--ac);font-weight:600;flex-shrink:0}
-.dmg-footer{padding:14px 26px;border-top:1px solid #1a1a1e;display:flex;gap:8px}
-.dmg-btn{flex:1;padding:11px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}
-.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}
-.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}
-.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}
-
-/* Admin */
+.dmg-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:11px;border:1px solid #1e1e22;background:rgba(255,255,255,.02);cursor:pointer;transition:all .3s}.dmg-opt:hover{border-color:#333;transform:translateX(3px)}.dmg-opt.selected{border-width:2px}
+.dmg-opt[data-level="1"].selected{border-color:var(--yellow);background:rgba(251,191,36,.06)}.dmg-opt[data-level="2"].selected{border-color:var(--orange);background:rgba(249,115,22,.06)}.dmg-opt[data-level="3"].selected{border-color:var(--red);background:rgba(239,68,68,.06)}
+.dmg-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;border:2px solid #333;transition:all .3s}.dmg-opt[data-level="1"] .dmg-dot{border-color:var(--yellow)}.dmg-opt[data-level="1"].selected .dmg-dot{background:var(--yellow)}.dmg-opt[data-level="2"] .dmg-dot{border-color:var(--orange)}.dmg-opt[data-level="2"].selected .dmg-dot{background:var(--orange)}.dmg-opt[data-level="3"] .dmg-dot{border-color:var(--red)}.dmg-opt[data-level="3"].selected .dmg-dot{background:var(--red)}
+.dmg-opt-info{flex:1}.dmg-opt-name{font-size:13px;font-weight:600;color:var(--w)}.dmg-opt-desc{font-size:10px;color:#666;margin-top:2px}.dmg-opt-price{font-size:12px;color:var(--ac);font-weight:600;flex-shrink:0}
+.dmg-footer{padding:14px 26px;border-top:1px solid #1a1a1e;display:flex;gap:8px}.dmg-btn{flex:1;padding:11px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}
 .fab{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(10,10,14,.8);border:1px solid #1e1e22;color:#555;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;transition:all .3s;backdrop-filter:blur(8px)}.fab:hover{border-color:var(--ac);color:var(--w)}.fab svg{width:20px;height:20px}
-.adm-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}.adm-ov.open{display:flex}
-.adm-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(480px,94vw);overflow:hidden;animation:popIn .3s}
-.adm-hd{padding:24px 28px;border-bottom:1px solid #1a1a1e;text-align:center}.adm-hd h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--w)}.adm-hd p{font-size:10px;color:#555;margin-top:4px}
-.adm-body{padding:24px 28px}
-.adm-field{margin-bottom:16px}.adm-field label{display:block;font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}.adm-field input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid #1e1e22;background:rgba(255,255,255,.03);color:var(--w);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .3s}.adm-field input:focus{border-color:var(--ac)}.adm-field .adm-hint{font-size:9px;color:#444;margin-top:4px}
-.adm-actions{display:flex;gap:10px;margin-top:8px}.adm-actions button{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .3s}
-.adm-save{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2)!important;color:var(--w)}.adm-cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22!important}
-
-/* Footer */
+.adm-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}.adm-ov.open{display:flex}.adm-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(480px,94vw);overflow:hidden;animation:popIn .3s}.adm-hd{padding:24px 28px;border-bottom:1px solid #1a1a1e;text-align:center}.adm-hd h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--w)}.adm-hd p{font-size:10px;color:#555;margin-top:4px}.adm-body{padding:24px 28px}.adm-field{margin-bottom:16px}.adm-field label{display:block;font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}.adm-field input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid #1e1e22;background:rgba(255,255,255,.03);color:var(--w);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .3s}.adm-field input:focus{border-color:var(--ac)}.adm-field .adm-hint{font-size:9px;color:#444;margin-top:4px}.adm-actions{display:flex;gap:10px;margin-top:8px}.adm-actions button{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .3s}.adm-save{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2)!important;color:var(--w)}.adm-cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22!important}
 .footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a;position:relative;z-index:1}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-soc{display:flex;gap:14px;margin-top:4px}.ft-s{width:36px;height:36px;border-radius:50%;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#3a3a3a;transition:all .3s;text-decoration:none}.ft-s:hover{border-color:var(--ac);color:var(--w);transform:translateY(-2px)}.ft-s svg{width:15px;height:15px}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
 @media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
 </style>
@@ -133,214 +69,153 @@ body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x
 <a href="index.html" class="back-arrow" title="Accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></a>
 
 <section class="sec" id="devis">
-  <div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
-  <div class="car-wrap">
-    <div class="car-layout">
-      <!-- Recap -->
-      <div class="car-recap">
-        <div class="car-recap-header"><div class="car-recap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div><div class="car-recap-htxt"><div class="car-recap-title">Votre devis</div><div class="car-recap-subtitle">Zones sélectionnées</div></div><div class="car-recap-count" id="recapCount">0</div></div>
-        <div class="car-recap-divider"></div>
-        <div id="recapEmpty" class="car-recap-empty"><div class="car-recap-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="car-recap-empty-txt">Cliquez sur une zone<br>du véhicule pour<br>ajouter un dégât</div></div>
-        <div class="car-recap-items" id="recapItems" style="display:none"></div>
-        <div class="car-recap-footer" id="recapFooter" style="display:none">
-          <div class="car-recap-total"><span class="car-recap-total-label">Estimation</span><span class="car-recap-total-val" id="recapTotal">—</span></div>
-          <div class="car-recap-actions">
-            <a href="tel:0761509269" class="car-recap-btn call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a>
-            <button class="car-recap-btn rst" onclick="resetAll()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Reset</button>
-          </div>
-        </div>
-      </div>
-      <!-- Car SVG -->
-      <div>
-        <div class="car-diagram" style="padding:0;position:relative;background:#08080c">
-          <img src="car-blueprint.png" alt="Schéma véhicule" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none;opacity:.85">
-          <svg viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:0;left:0;width:100%;height:100%">
-
-            <!-- ===== VUE DE FACE (haut, inversée = dessous du véhicule vu de face) ===== -->
-            <!-- Pare-chocs avant (barre large en haut, y65-110) -->
-            <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-              points="260,65 645,65 665,90 665,115 240,115 240,90"/>
-            <!-- Calandre/grille (zone centrale sous le PC, y100-130) -->
-            <polygon class="cz cz-body" data-id="calandre" data-name="Calandre / Grille" onclick="openDmg('calandre','Calandre / Grille')"
-              points="310,115 595,115 600,135 305,135"/>
-            <!-- Roue AV gauche (cercle gauche) -->
-            <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')"
-              cx="248" cy="58" r="28"/>
-            <!-- Roue AV droite (cercle droit) -->
-            <circle class="cz cz-body" data-id="roue-av-d" data-name="Roue avant droite" onclick="openDmg('roue-av-d','Roue avant droite')"
-              cx="660" cy="58" r="28"/>
-
-            <!-- ===== VUE DU DESSUS (centre) ===== -->
-            <!-- Capot (y140-205, forme trapèze) -->
-            <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')"
-              points="310,140 595,140 610,160 575,195 325,195 290,160"/>
-            <!-- Pare-brise (y195-230, trapèze incliné) -->
-            <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')"
-              points="325,195 575,195 555,230 340,230"/>
-            <!-- Toit (y230-325, rectangle avec toit ouvrant) -->
-            <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')"
-              points="340,230 555,230 555,325 340,325"/>
-            <!-- Lunette arrière (y325-360, trapèze inversé) -->
-            <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')"
-              points="340,325 555,325 575,360 325,360"/>
-            <!-- Coffre (y360-395) -->
-            <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')"
-              points="325,360 575,360 590,390 310,390"/>
-
-            <!-- Aile AV gauche (triangle entre capot et porte gauche) -->
-            <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')"
-              points="195,160 290,145 295,195 185,210"/>
-            <!-- Aile AV droite -->
-            <polygon class="cz cz-body" data-id="aile-av-d" data-name="Aile avant droite" onclick="openDmg('aile-av-d','Aile avant droite')"
-              points="610,145 710,160 720,210 610,195"/>
-
-            <!-- Porte AV gauche (y210-280) -->
-            <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')"
-              points="175,210 340,210 340,280 168,280"/>
-            <!-- Porte AV droite -->
-            <polygon class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')"
-              points="555,210 730,210 735,280 555,280"/>
-
-            <!-- Porte AR gauche (y280-345) -->
-            <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')"
-              points="168,280 340,280 340,345 165,345"/>
-            <!-- Porte AR droite -->
-            <polygon class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arrière droite')"
-              points="555,280 735,280 738,345 555,345"/>
-
-            <!-- Aile AR gauche -->
-            <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arrière gauche')"
-              points="165,345 325,345 310,390 180,385"/>
-            <!-- Aile AR droite -->
-            <polygon class="cz cz-body" data-id="aile-ar-d" data-name="Aile arrière droite" onclick="openDmg('aile-ar-d','Aile arrière droite')"
-              points="575,345 738,345 725,385 590,390"/>
-
-            <!-- PC Arrière (y385-400) -->
-            <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-              points="310,390 590,390 595,405 305,405"/>
-
-            <!-- ===== PANNEAUX LATÉRAUX ===== -->
-            <!-- Côté gauche haut (PC AV) -->
-            <rect class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-              x="62" y="195" width="36" height="40" rx="2"/>
-            <!-- Côté gauche milieu (porte) -->
-            <rect class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')"
-              x="62" y="235" width="36" height="65" rx="2"/>
-            <!-- Côté gauche bas (porte AR) -->
-            <rect class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')"
-              x="62" y="300" width="36" height="65" rx="2"/>
-
-            <!-- Côté droit haut -->
-            <rect class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-              x="800" y="195" width="36" height="40" rx="2"/>
-            <!-- Côté droit milieu -->
-            <rect class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')"
-              x="800" y="235" width="36" height="65" rx="2"/>
-            <!-- Côté droit bas -->
-            <rect class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arrière droite')"
-              x="800" y="300" width="36" height="65" rx="2"/>
-
-            <!-- ===== VUE LATÉRALE (bas, y400-530) ===== -->
-            <!-- PC avant latéral -->
-            <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')"
-              points="170,462 190,450 195,505 170,505"/>
-            <!-- Aile AV latérale -->
-            <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')"
-              points="195,450 265,425 290,435 200,465"/>
-            <!-- Capot latéral -->
-            <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')"
-              points="265,425 290,415 290,435"/>
-            <!-- Pare-brise latéral -->
-            <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')"
-              points="290,415 350,400 350,420 290,435"/>
-            <!-- Toit latéral -->
-            <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')"
-              points="350,400 565,400 565,415 350,415"/>
-            <!-- Vitre AV latérale -->
-            <polygon class="cz cz-glass" data-id="vitre-av" data-name="Vitre avant" onclick="openDmg('vitre-av','Vitre avant')"
-              points="290,435 350,420 350,455 290,455"/>
-            <!-- Vitre AR latérale -->
-            <polygon class="cz cz-glass" data-id="vitre-ar" data-name="Vitre arrière" onclick="openDmg('vitre-ar','Vitre arrière')"
-              points="430,420 565,415 620,440 430,455"/>
-            <!-- Lunette latérale -->
-            <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')"
-              points="565,400 640,425 640,445 565,415"/>
-            <!-- Porte AV latérale -->
-            <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')"
-              points="200,465 290,455 430,455 430,505 200,505"/>
-            <!-- Porte AR latérale -->
-            <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')"
-              points="430,455 620,445 660,470 665,505 430,505"/>
-            <!-- Aile AR latérale -->
-            <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arrière gauche')"
-              points="660,470 690,480 700,505 665,505"/>
-            <!-- PC arrière latéral -->
-            <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')"
-              points="700,490 718,498 718,505 700,505"/>
-            <!-- Roue AV latérale -->
-            <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')"
-              cx="253" cy="505" r="25"/>
-            <!-- Roue AR latérale -->
-            <circle class="cz cz-body" data-id="roue-ar-g" data-name="Roue arrière gauche" onclick="openDmg('roue-ar-g','Roue arrière gauche')"
-              cx="632" cy="505" r="25"/>
-          </svg>
-        </div></div>
-        <div class="legend">
-          <div class="legend-item"><div class="legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure</div>
-          <div class="legend-item"><div class="legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement</div>
-          <div class="legend-item"><div class="legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
-        </div>
-      </div>
+<div class="reveal"><span class="sec-tag">Devis en ligne</span><h2 class="sec-h2">Sélectionnez les zones endommagées</h2><div class="sec-line"></div><p class="sec-sub">Cliquez sur chaque élément pour indiquer le type de dégât.</p></div>
+<div class="car-wrap"><div class="car-layout">
+<div class="car-recap">
+  <div class="car-recap-header"><div class="car-recap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div><div class="car-recap-htxt"><div class="car-recap-title">Votre devis</div><div class="car-recap-subtitle">Zones sélectionnées</div></div><div class="car-recap-count" id="recapCount">0</div></div>
+  <div class="car-recap-divider"></div>
+  <div id="recapEmpty" class="car-recap-empty"><div class="car-recap-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="car-recap-empty-txt">Cliquez sur une zone<br>du véhicule pour<br>ajouter un dégât</div></div>
+  <div class="car-recap-items" id="recapItems" style="display:none"></div>
+  <div class="car-recap-footer" id="recapFooter" style="display:none">
+    <div class="car-recap-total"><span class="car-recap-total-label">Estimation</span><span class="car-recap-total-val" id="recapTotal">—</span></div>
+    <div class="car-recap-actions">
+      <a href="tel:0761509269" class="car-recap-btn call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.1 1.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>Appeler</a>
+      <button class="car-recap-btn rst" onclick="resetAll()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>Reset</button>
     </div>
   </div>
+</div>
+<div>
+  <div class="car-diagram">
+    <img src="car-blueprint.png" alt="Schéma véhicule">
+    <svg viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet">
+      <!-- VUE DE FACE -->
+      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="268,68 640,68 660,88 660,118 245,118 245,88"/>
+      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="248" cy="58" r="30"/>
+      <circle class="cz cz-body" data-id="roue-av-d" data-name="Roue avant droite" onclick="openDmg('roue-av-d','Roue avant droite')" cx="658" cy="58" r="30"/>
+      <!-- VUE DU DESSUS -->
+      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="305,140 598,140 615,162 580,192 322,192 288,162"/>
+      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="322,192 580,192 558,222 340,222"/>
+      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="340,222 558,222 558,328 340,328"/>
+      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arri\u00e8re')" points="340,328 558,328 578,358 322,358"/>
+      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="322,358 578,358 595,388 305,388"/>
+      <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')" points="190,162 288,145 290,195 178,210"/>
+      <polygon class="cz cz-body" data-id="aile-av-d" data-name="Aile avant droite" onclick="openDmg('aile-av-d','Aile avant droite')" points="615,145 712,162 722,210 612,195"/>
+      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="172,210 340,210 340,278 168,278"/>
+      <polygon class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')" points="558,210 730,210 734,278 558,278"/>
+      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arri\u00e8re gauche')" points="168,278 340,278 340,342 162,342"/>
+      <polygon class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arri\u00e8re droite')" points="558,278 734,278 738,342 558,342"/>
+      <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arri\u00e8re gauche')" points="162,342 322,342 305,388 178,382"/>
+      <polygon class="cz cz-body" data-id="aile-ar-d" data-name="Aile arrière droite" onclick="openDmg('aile-ar-d','Aile arri\u00e8re droite')" points="578,342 738,342 722,382 595,388"/>
+      <!-- PANNEAUX LATERAUX -->
+      <rect class="cz cz-body" data-id="bas-caisse-g" data-name="Bas de caisse gauche" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" x="64" y="192" width="34" height="180" rx="2"/>
+      <rect class="cz cz-body" data-id="bas-caisse-d" data-name="Bas de caisse droit" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" x="802" y="192" width="34" height="180" rx="2"/>
+      <!-- VUE LATERALE -->
+      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="170,462 192,448 198,502 170,502"/>
+      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="192,448 272,422 288,432 198,458"/>
+      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="272,422 345,402 348,418 288,432"/>
+      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="345,402 560,402 560,412 345,412"/>
+      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arri\u00e8re')" points="560,402 635,428 635,442 560,412"/>
+      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="198,458 348,418 348,455 428,455 428,502 198,502"/>
+      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arri\u00e8re gauche')" points="428,455 560,412 635,442 662,472 662,502 428,502"/>
+      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="635,442 688,462 698,498 662,502 662,472"/>
+      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arri\u00e8re')" points="698,488 716,498 716,502 698,502"/>
+      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="252" cy="502" r="26"/>
+      <circle class="cz cz-body" data-id="roue-ar-g" data-name="Roue arrière gauche" onclick="openDmg('roue-ar-g','Roue arri\u00e8re gauche')" cx="630" cy="502" r="26"/>
+    </svg>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure</div>
+    <div class="legend-item"><div class="legend-dot" style="border-color:var(--orange);background:rgba(249,115,22,.3)"></div>Enfoncement</div>
+    <div class="legend-item"><div class="legend-dot" style="border-color:var(--red);background:rgba(239,68,68,.3)"></div>Dégâts importants</div>
+  </div>
+</div>
+</div></div>
 </section>
 
-<!-- Damage popup -->
-<div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()">
-  <div class="dmg-box">
-    <div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">—</div><div class="dmg-sub">Sélectionnez le type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div>
-    <div class="dmg-body"><div class="dmg-options">
-      <div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Rayure</div><div class="dmg-opt-desc">Rayure superficielle, micro-rayures, éclat</div></div><div class="dmg-opt-price" id="price1">—</div></div>
-      <div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Enfoncement</div><div class="dmg-opt-desc">Petite bosse, enfoncement léger</div></div><div class="dmg-opt-price" id="price2">—</div></div>
-      <div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Dégâts importants</div><div class="dmg-opt-desc">Enfoncement sévère, remplacement</div></div><div class="dmg-opt-price" id="price3">—</div></div>
-    </div></div>
-    <div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div>
-  </div>
-</div>
+<div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()"><div class="dmg-box">
+<div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">-</div><div class="dmg-sub">Type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div>
+<div class="dmg-body"><div class="dmg-options">
+<div class="dmg-opt" data-level="1" onclick="selectDmg(this,1)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Rayure</div><div class="dmg-opt-desc">Rayure superficielle, éclat</div></div><div class="dmg-opt-price" id="price1">-</div></div>
+<div class="dmg-opt" data-level="2" onclick="selectDmg(this,2)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Enfoncement</div><div class="dmg-opt-desc">Bosse, enfoncement léger</div></div><div class="dmg-opt-price" id="price2">-</div></div>
+<div class="dmg-opt" data-level="3" onclick="selectDmg(this,3)"><div class="dmg-dot"></div><div class="dmg-opt-info"><div class="dmg-opt-name">Dégâts importants</div><div class="dmg-opt-desc">Sévère, remplacement</div></div><div class="dmg-opt-price" id="price3">-</div></div>
+</div></div>
+<div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div>
+</div></div>
 
-<!-- Admin -->
 <button class="fab" onclick="openAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button>
-<div class="adm-ov" id="admModal" onclick="if(event.target===this)closeAdmin()">
-  <div class="adm-box">
-    <div id="admLogin"><div class="adm-hd"><h3>Administration</h3><p>Gestion des tarifs carrosserie</p></div><div class="adm-body"><div class="adm-field"><label>Mot de passe</label><input type="password" id="admPwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')loginAdmin()"></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Annuler</button><button class="adm-save" onclick="loginAdmin()">Accéder</button></div></div></div>
-    <div id="admDash" style="display:none"><div class="adm-hd"><h3>Tarifs Carrosserie</h3><p>Modifier les prix des prestations</p></div><div class="adm-body"><div class="adm-field"><label>Prix — Rayure (€)</label><input type="number" id="admP1" placeholder="Ex: 150"><div class="adm-hint">Prix affiché pour les rayures</div></div><div class="adm-field"><label>Prix — Enfoncement (€)</label><input type="number" id="admP2" placeholder="Ex: 350"><div class="adm-hint">Prix affiché pour les enfoncements</div></div><div class="adm-field"><label>Prix — Dégâts importants (€)</label><input type="number" id="admP3" placeholder="Ex: 800"><div class="adm-hint">Prix affiché pour les gros dégâts</div></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Fermer</button><button class="adm-save" onclick="savePrices()">Enregistrer</button></div></div></div>
-  </div>
-</div>
+<div class="adm-ov" id="admModal" onclick="if(event.target===this)closeAdmin()"><div class="adm-box">
+<div id="admLogin"><div class="adm-hd"><h3>Administration</h3><p>Tarifs carrosserie</p></div><div class="adm-body"><div class="adm-field"><label>Mot de passe</label><input type="password" id="admPwd" placeholder="********" onkeydown="if(event.key==='Enter')loginAdmin()"></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Annuler</button><button class="adm-save" onclick="loginAdmin()">Accéder</button></div></div></div>
+<div id="admDash" style="display:none"><div class="adm-hd"><h3>Tarifs</h3><p>Modifier les prix</p></div><div class="adm-body"><div class="adm-field"><label>Rayure (EUR)</label><input type="number" id="admP1" placeholder="150"><div class="adm-hint">Prix rayures</div></div><div class="adm-field"><label>Enfoncement (EUR)</label><input type="number" id="admP2" placeholder="350"><div class="adm-hint">Prix enfoncements</div></div><div class="adm-field"><label>Dégâts importants (EUR)</label><input type="number" id="admP3" placeholder="800"><div class="adm-hint">Prix gros dégâts</div></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Fermer</button><button class="adm-save" onclick="savePrices()">Enregistrer</button></div></div></div>
+</div></div>
 
-<!-- Footer -->
-<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:ashotsargsyan28@gmail.com" class="ft-a">ashotsargsyan28@gmail.com</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
+<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
 var prices={1:0,2:0,3:0};
-function loadPrices(){try{var s=localStorage.getItem('ash_carro_prices');if(s)prices=JSON.parse(s)}catch(e){}updatePriceDisplay();}
-function savePrices(){prices[1]=parseInt(document.getElementById('admP1').value)||0;prices[2]=parseInt(document.getElementById('admP2').value)||0;prices[3]=parseInt(document.getElementById('admP3').value)||0;localStorage.setItem('ash_carro_prices',JSON.stringify(prices));updatePriceDisplay();closeAdmin();updateQuote();}
-function updatePriceDisplay(){document.getElementById('price1').textContent=prices[1]?prices[1]+' €':'—';document.getElementById('price2').textContent=prices[2]?prices[2]+' €':'—';document.getElementById('price3').textContent=prices[3]?prices[3]+' €':'—';}
+var damages={};
+var currentPart=null;
+var selectedLevel=0;
 var admLoggedIn=false;
+var dmgLabels={1:'Rayure',2:'Enfoncement',3:'Dégâts importants'};
+var partNames={
+  'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise',
+  'toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre',
+  'pc-arriere':'Pare-chocs arrière',
+  'aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite',
+  'porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite',
+  'porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite',
+  'aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite',
+  'bas-caisse-g':'Bas de caisse gauche','bas-caisse-d':'Bas de caisse droit',
+  'roue-av-g':'Roue avant gauche','roue-av-d':'Roue avant droite',
+  'roue-ar-g':'Roue arrière gauche'
+};
+
+function loadPrices(){try{var s=localStorage.getItem('ash_carro_prices');if(s)prices=JSON.parse(s);}catch(e){}updatePriceDisplay();}
+function savePrices(){prices[1]=parseInt(document.getElementById('admP1').value)||0;prices[2]=parseInt(document.getElementById('admP2').value)||0;prices[3]=parseInt(document.getElementById('admP3').value)||0;localStorage.setItem('ash_carro_prices',JSON.stringify(prices));updatePriceDisplay();closeAdmin();updateQuote();}
+function updatePriceDisplay(){document.getElementById('price1').textContent=prices[1]?prices[1]+' \u20ac':'\u2014';document.getElementById('price2').textContent=prices[2]?prices[2]+' \u20ac':'\u2014';document.getElementById('price3').textContent=prices[3]?prices[3]+' \u20ac':'\u2014';}
+
 function openAdmin(){document.getElementById('admModal').classList.add('open');if(admLoggedIn){document.getElementById('admLogin').style.display='none';document.getElementById('admDash').style.display='';document.getElementById('admP1').value=prices[1]||'';document.getElementById('admP2').value=prices[2]||'';document.getElementById('admP3').value=prices[3]||'';}else{document.getElementById('admLogin').style.display='';document.getElementById('admDash').style.display='none';document.getElementById('admPwd').value='';}}
 function closeAdmin(){document.getElementById('admModal').classList.remove('open');}
-function loginAdmin(){if(document.getElementById('admPwd').value==='nrk2024'){admLoggedIn=true;document.getElementById('admLogin').style.display='none';document.getElementById('admDash').style.display='';document.getElementById('admP1').value=prices[1]||'';document.getElementById('admP2').value=prices[2]||'';document.getElementById('admP3').value=prices[3]||'';}else{document.getElementById('admPwd').style.borderColor='var(--red)';setTimeout(function(){document.getElementById('admPwd').style.borderColor=''},1500);}}
-var damages={},currentPart=null,selectedLevel=0;
-var dmgLabels={1:'Rayure',2:'Enfoncement',3:'Dégâts importants'};
-function openDmg(id,name){currentPart=id;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
+function loginAdmin(){if(document.getElementById('admPwd').value==='nrk2024'){admLoggedIn=true;document.getElementById('admLogin').style.display='none';document.getElementById('admDash').style.display='';document.getElementById('admP1').value=prices[1]||'';document.getElementById('admP2').value=prices[2]||'';document.getElementById('admP3').value=prices[3]||'';}else{document.getElementById('admPwd').style.borderColor='var(--red)';setTimeout(function(){document.getElementById('admPwd').style.borderColor='';},1500);}}
+
+function openDmg(id,name){currentPart=id;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected');});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
 function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
-function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});el.classList.add('selected');selectedLevel=l;}
+function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected');});el.classList.add('selected');selectedLevel=l;}
 function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
 function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
 function resetAll(){damages={};updateVis();updateQuote();}
 function delDmg(id){delete damages[id];updateVis();updateQuote();}
-function updateVis(){document.querySelectorAll('.cz[data-id]').forEach(function(el){var id=el.getAttribute('data-id');el.classList.remove('dmg-1','dmg-2','dmg-3');if(damages[id])el.classList.add('dmg-'+damages[id]);});}
-function updateQuote(){var keys=Object.keys(damages);var items=document.getElementById('recapItems');var empty=document.getElementById('recapEmpty');var footer=document.getElementById('recapFooter');var count=document.getElementById('recapCount');if(!keys.length){items.style.display='none';empty.style.display='';footer.style.display='none';count.textContent='0';return;}items.style.display='';empty.style.display='none';footer.style.display='';count.textContent=keys.length;var total=0,h='';keys.forEach(function(k){var l=damages[k];var el=document.querySelector('.cz[data-id="'+k+'"]');var name=el?el.getAttribute('data-name'):k;var p=prices[l]||0;total+=p;h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div class="car-recap-info"><div class="car-recap-name">'+name+' <span style="color:#555;font-weight:400">— '+dmgLabels[l]+'</span></div>'+(p?'<div class="car-recap-price">'+p+' €</div>':'')+'</div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';});items.innerHTML=h;document.getElementById('recapTotal').textContent=total?total+' €':'Sur devis';}
-function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++)if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}},{threshold:.08});for(var j=0;j<els.length;j++)o.observe(els[j]);}
+
+function updateVis(){
+  document.querySelectorAll('.cz[data-id]').forEach(function(el){
+    var id=el.getAttribute('data-id');
+    el.classList.remove('dmg-1','dmg-2','dmg-3');
+    if(damages[id])el.classList.add('dmg-'+damages[id]);
+  });
+}
+
+function updateQuote(){
+  var keys=Object.keys(damages);
+  var items=document.getElementById('recapItems');
+  var empty=document.getElementById('recapEmpty');
+  var footer=document.getElementById('recapFooter');
+  var count=document.getElementById('recapCount');
+  if(!keys.length){items.style.display='none';empty.style.display='';footer.style.display='none';count.textContent='0';return;}
+  items.style.display='';empty.style.display='none';footer.style.display='';count.textContent=keys.length;
+  var total=0;var h='';
+  keys.forEach(function(k){
+    var l=damages[k];
+    var el=document.querySelector('.cz[data-id="'+k+'"]');
+    var name=el?el.getAttribute('data-name'):(partNames[k]||k);
+    var p=prices[l]||0;
+    total+=p;
+    h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div class="car-recap-info"><div class="car-recap-name">'+name+' <span style="color:#555;font-weight:400">\u2014 '+dmgLabels[l]+'</span></div>'+(p?'<div class="car-recap-price">'+p+' \u20ac</div>':'')+'</div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
+  });
+  items.innerHTML=h;
+  document.getElementById('recapTotal').textContent=total?total+' \u20ac':'Sur devis';
+}
+
+function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++){if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}}},{threshold:.08});for(var j=0;j<els.length;j++){o.observe(els[j]);}}
 document.addEventListener('DOMContentLoaded',function(){obs();loadPrices();});
 </script>
 </body>
