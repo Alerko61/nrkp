@@ -7,13 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}::selection{background:#c0c0c0;color:#000}::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}html{scroll-behavior:smooth}body{background:#050508;color:#d4d4d4;font-family:'Outfit',sans-serif;overflow-x:hidden}
-:root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444}
+:root{--ac:#c0c0c0;--w:#f0f0f0;--brd:#1a1a1a;--yellow:#fbbf24;--orange:#f97316;--red:#ef4444;--green:#22c55e}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes lineGrow{from{width:0}to{width:50px}}
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:translateY(0)}
 .gif-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.08;background:url('https://irp.cdn-website.com/a2912637/dms3rep/multi/Ceramic+Coating+Application+Process+-+GIF.gif') center/cover no-repeat}
 .back-arrow{position:fixed;top:20px;left:20px;z-index:100;width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#999;transition:all .3s;backdrop-filter:blur(8px)}.back-arrow:hover{border-color:var(--ac);color:#fff}
@@ -42,7 +45,7 @@
 .car-diagram{border-radius:16px;overflow:hidden;background:#08080c;border:1px solid #1a1a1e;position:relative}
 .car-diagram img{display:block;width:100%;height:auto;user-select:none;pointer-events:none;opacity:.85}
 .car-diagram svg{position:absolute;top:0;left:0;width:100%;height:100%}
-.cz{cursor:pointer;transition:all .35s}.cz-body{fill:rgba(255,0,0,.2);stroke:rgba(255,255,0,.8);stroke-width:1.5}.cz-glass{fill:rgba(0,100,255,.2);stroke:rgba(0,200,255,.8);stroke-width:1.5}
+.cz{cursor:pointer;transition:all .35s}.cz-body,.cz-glass{fill:transparent;stroke:transparent;stroke-width:0}
 .cz-body:hover{fill:rgba(192,192,192,.08);stroke:rgba(192,192,192,.25);stroke-width:1}
 .cz-glass:hover{fill:rgba(120,170,220,.1);stroke:rgba(120,170,220,.3);stroke-width:1}
 .cz.dmg-1{fill:rgba(251,191,36,.18)!important;stroke:var(--yellow)!important;stroke-width:1.5!important;animation:pulse 2.5s infinite}
@@ -59,9 +62,121 @@
 .dmg-opt-info{flex:1}.dmg-opt-name{font-size:13px;font-weight:600;color:var(--w)}.dmg-opt-desc{font-size:10px;color:#666;margin-top:2px}.dmg-opt-price{font-size:12px;color:var(--ac);font-weight:600;flex-shrink:0}
 .dmg-footer{padding:14px 26px;border-top:1px solid #1a1a1e;display:flex;gap:8px}.dmg-btn{flex:1;padding:11px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;border:none}.dmg-btn.cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}.dmg-btn.cancel:hover{border-color:#444;color:var(--w)}.dmg-btn.confirm{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2);color:var(--w)}.dmg-btn.confirm:hover{transform:translateY(-1px)}.dmg-btn.reset{background:rgba(239,68,68,.06);color:#ef4444;border:1px solid rgba(239,68,68,.12)}
 .fab{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(10,10,14,.8);border:1px solid #1e1e22;color:#555;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;transition:all .3s;backdrop-filter:blur(8px)}.fab:hover{border-color:var(--ac);color:var(--w)}.fab svg{width:20px;height:20px}
-.adm-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}.adm-ov.open{display:flex}.adm-box{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;width:min(480px,94vw);overflow:hidden;animation:popIn .3s}.adm-hd{padding:24px 28px;border-bottom:1px solid #1a1a1e;text-align:center}.adm-hd h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--w)}.adm-hd p{font-size:10px;color:#555;margin-top:4px}.adm-body{padding:24px 28px}.adm-field{margin-bottom:16px}.adm-field label{display:block;font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}.adm-field input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid #1e1e22;background:rgba(255,255,255,.03);color:var(--w);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .3s}.adm-field input:focus{border-color:var(--ac)}.adm-field .adm-hint{font-size:9px;color:#444;margin-top:4px}.adm-actions{display:flex;gap:10px;margin-top:8px}.adm-actions button{flex:1;padding:12px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .3s}.adm-save{background:linear-gradient(135deg,rgba(192,192,192,.15),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.2)!important;color:var(--w)}.adm-cancel{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22!important}
+
+/* === ADMIN PANEL FULLSCREEN === */
+.adm-full{position:fixed;inset:0;background:#080808;z-index:2000;display:none;flex-direction:column}
+.adm-full.open{display:flex}
+.adm-topbar{padding:14px 22px;background:#0d0d10;border-bottom:1px solid #1a1a1e;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.adm-brand{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:3px;margin-right:auto}
+.adm-brand span{font-size:9px;letter-spacing:3px;color:#666;font-family:'Outfit',sans-serif;font-weight:400;margin-left:6px}
+.adm-tabs{display:flex;gap:4px}
+.adm-tab-btn{background:transparent;border:1px solid transparent;color:#888;padding:7px 16px;border-radius:7px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .25s}
+.adm-tab-btn:hover{color:#fff;background:rgba(255,255,255,.04)}
+.adm-tab-btn.active{color:var(--w);background:rgba(192,192,192,.08);border-color:rgba(192,192,192,.2)}
+.adm-close-btn{background:rgba(255,255,255,.04);border:1px solid #1e1e22;color:#888;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.adm-close-btn:hover{border-color:var(--red);color:var(--red)}
+.adm-content{flex:1;overflow:hidden;display:flex}
+.adm-tab-pane{display:none;flex:1;overflow:auto}
+.adm-tab-pane.active{display:flex}
+
+/* Login screen */
+.adm-login{display:flex;align-items:center;justify-content:center;flex:1;padding:20px}
+.adm-login-card{background:#0d0d10;border:1px solid #1e1e22;border-radius:16px;padding:40px 32px;width:min(380px,94vw);text-align:center}
+.adm-login-card h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--w);margin-bottom:6px}
+.adm-login-card p{font-size:10px;color:#555;margin-bottom:28px;letter-spacing:2px;text-transform:uppercase}
+.adm-input{width:100%;padding:13px 16px;border-radius:10px;border:1px solid #1e1e22;background:rgba(255,255,255,.03);color:var(--w);font-family:'Outfit',sans-serif;font-size:13px;outline:none;transition:border-color .3s;margin-bottom:14px;text-align:center}
+.adm-input:focus{border-color:var(--ac)}
+.adm-btn{padding:13px 24px;border-radius:10px;font-size:11px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.adm-btn-primary{background:linear-gradient(135deg,rgba(192,192,192,.18),rgba(192,192,192,.08));border:1px solid rgba(192,192,192,.25);color:var(--w)}
+.adm-btn-primary:hover{transform:translateY(-1px);background:linear-gradient(135deg,rgba(192,192,192,.25),rgba(192,192,192,.12))}
+.adm-btn-secondary{background:rgba(255,255,255,.04);color:#888;border:1px solid #1e1e22}
+.adm-btn-secondary:hover{border-color:#444;color:var(--w)}
+.adm-btn-danger{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff}
+.adm-btn-danger:hover{background:linear-gradient(135deg,#ef4444,#dc2626)}
+.adm-btn-success{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}
+.adm-btn-success:hover{transform:translateY(-1px)}
+
+/* Tarifs tab */
+.adm-tarifs{padding:32px 28px;width:100%;max-width:540px;margin:0 auto}
+.adm-tarifs h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--w);margin-bottom:6px}
+.adm-tarifs .lead{font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.tarif-field{margin-bottom:18px}
+.tarif-field label{display:block;font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:500}
+.tarif-field input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid #1e1e22;background:rgba(255,255,255,.03);color:var(--w);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .3s}
+.tarif-field input:focus{border-color:var(--ac)}
+.tarif-field .hint{font-size:9px;color:#444;margin-top:4px}
+.adm-actions{display:flex;gap:10px;margin-top:24px}
+.adm-actions button{flex:1}
+
+/* Schema editor tab */
+.sch-layout{flex:1;display:flex;overflow:hidden}
+.sch-canvas{flex:1;position:relative;overflow:auto;background:#050508;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.sch-diagram{position:relative;display:inline-block;flex-shrink:0}
+.sch-diagram img{display:block;width:900px;height:auto;user-select:none;-webkit-user-drag:none;opacity:.85}
+.sch-diagram svg{position:absolute;top:0;left:0;width:100%;height:100%}
+.sch-cz{cursor:move;transition:fill .15s,stroke .15s}
+.sch-cz.cz-body{fill:rgba(192,192,192,.10);stroke:rgba(192,192,192,.55);stroke-width:1.3}
+.sch-cz.cz-glass{fill:rgba(120,170,220,.13);stroke:rgba(120,170,220,.65);stroke-width:1.3}
+.sch-cz:hover{fill:rgba(251,191,36,.28)!important;stroke:#fbbf24!important;stroke-width:2!important}
+.sch-cz.selected{fill:rgba(34,197,94,.35)!important;stroke:#22c55e!important;stroke-width:2.5!important}
+.sch-handle{fill:#22c55e;stroke:#0a0a0e;stroke-width:1.5;cursor:nwse-resize}
+.sch-draft-line{stroke:#22c55e;stroke-width:2;stroke-dasharray:4 3;fill:none;pointer-events:none}
+.sch-draft-pt{fill:#22c55e;stroke:#0a0a0e;stroke-width:1.5;pointer-events:none}
+.sch-side{width:300px;background:#0d0d10;border-left:1px solid #1a1a1e;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.sch-toolbar{padding:12px 14px;border-bottom:1px solid #1a1a1e;display:flex;flex-wrap:wrap;gap:6px}
+.sch-tool-btn{background:#1a1a1e;border:1px solid #2a2a2e;color:#ccc;padding:7px 12px;border-radius:6px;cursor:pointer;font-size:10px;font-family:inherit;transition:all .15s;flex:1;min-width:60px;text-align:center}
+.sch-tool-btn:hover{background:#252529;color:#fff}
+.sch-tool-btn.active{background:#22c55e;border-color:#22c55e;color:#000;font-weight:700}
+.sch-list-h{padding:12px 16px 8px;font-size:10px;color:#888;letter-spacing:2px;text-transform:uppercase;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+.sch-list{flex:1;overflow-y:auto;padding:0 8px}
+.sch-row{padding:8px 11px;margin-bottom:3px;border-radius:5px;background:#141418;border:1px solid #1e1e22;cursor:pointer;transition:all .12s}
+.sch-row:hover{background:#1a1a1e;border-color:#2a2a2e}
+.sch-row.active{background:rgba(34,197,94,.10);border-color:#22c55e}
+.sch-row-name{font-size:11px;color:#fff;font-weight:500;margin-bottom:2px}
+.sch-row-id{font-family:monospace;font-size:9px;color:#666}
+.sch-editor{padding:12px 16px;border-top:1px solid #1e1e22;background:#08080c;flex-shrink:0}
+.sch-editor.hidden{display:none}
+.sch-field{margin-bottom:8px}
+.sch-field label{display:block;font-size:9px;color:#888;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:500}
+.sch-field input,.sch-field select{width:100%;padding:7px 9px;background:#0d0d10;border:1px solid #1e1e22;color:#fff;border-radius:5px;font-size:11px;font-family:inherit;outline:none}
+.sch-field input:focus,.sch-field select:focus{border-color:#22c55e}
+.sch-actions{display:flex;gap:5px;margin-top:10px}
+.sch-actions button{flex:1;padding:7px;font-size:10px;border-radius:6px;border:1px solid #1e1e22;background:#1a1a1e;color:#ccc;cursor:pointer;font-family:inherit;transition:all .15s}
+.sch-actions button:hover{background:#252529;color:#fff}
+.sch-actions button.del{color:#ef4444;border-color:rgba(239,68,68,.2)}
+.sch-actions button.del:hover{background:rgba(239,68,68,.1);border-color:#ef4444}
+.sch-status{padding:10px 16px;border-top:1px solid #1e1e22;font-size:10px;color:#666;display:flex;justify-content:space-between;align-items:center}
+.sch-status .dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+.sch-status .dot.ok{background:#22c55e}
+.sch-status .dot.load{background:#fbbf24;animation:pulse 1.5s infinite}
+.sch-status .dot.err{background:#ef4444}
+.sch-draft-bar{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(34,197,94,.95);color:#000;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;z-index:60;display:none;align-items:center;gap:14px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.sch-draft-bar.show{display:flex}
+.sch-draft-bar button{background:rgba(0,0,0,.15);border:1px solid rgba(0,0,0,.3);color:#000;padding:4px 10px;font-size:10px;font-weight:700;border-radius:5px;cursor:pointer}
+.sch-draft-bar button:hover{background:rgba(0,0,0,.25)}
+
+/* Confirmation modal (delete) */
+.confirm-ov{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(20px)}
+.confirm-ov.open{display:flex}
+.confirm-box{background:linear-gradient(165deg,#141414 0%,#0d0d0d 100%);border:1px solid #252525;border-radius:16px;width:min(400px,92vw);overflow:hidden;animation:popIn .3s;box-shadow:0 32px 80px rgba(0,0,0,.7)}
+.confirm-icon{width:64px;height:64px;border-radius:50%;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.15);display:flex;align-items:center;justify-content:center;margin:30px auto 16px;color:var(--red)}
+.confirm-icon svg{width:28px;height:28px}
+.confirm-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;text-align:center;margin-bottom:6px;padding:0 24px}
+.confirm-msg{font-size:13px;color:#888;text-align:center;line-height:1.6;padding:0 32px;margin-bottom:24px}
+.confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 28px 28px}
+.confirm-actions button{padding:13px 16px;border-radius:10px;font-size:12px;font-family:'Outfit',sans-serif;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .25s}
+.confirm-actions button.cancel{background:rgba(255,255,255,.06);color:#999;border:1px solid #2a2a2a}
+.confirm-actions button.cancel:hover{background:rgba(255,255,255,.1);color:#fff;border-color:#555}
+.confirm-actions button.delete{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff}
+.confirm-actions button.delete:hover{background:linear-gradient(135deg,#ef4444,#dc2626);transform:translateY(-1px)}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#22c55e;color:#000;padding:11px 20px;border-radius:8px;font-size:12px;font-weight:700;z-index:5000;animation:fadeUp .25s;letter-spacing:.5px}
+.toast.err{background:#ef4444;color:#fff}
+.sp{width:14px;height:14px;border:2px solid #222;border-top-color:#22c55e;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle}
+
 .footer{border-top:1px solid var(--brd);padding:56px 48px 24px;background:#0a0a0a;position:relative;z-index:1}.ft-inner{max-width:1240px;margin:0 auto}.ft-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;padding-bottom:36px;border-bottom:1px solid #141414}.ft-ct{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;margin-bottom:16px;font-weight:500}.ft-a{display:block;color:#888;font-size:13px;text-decoration:none;padding:4px 0;transition:color .3s;line-height:1.7}.ft-a:hover{color:var(--w)}.ft-soc{display:flex;gap:14px;margin-top:4px}.ft-s{width:36px;height:36px;border-radius:50%;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#3a3a3a;transition:all .3s;text-decoration:none}.ft-s:hover{border-color:var(--ac);color:var(--w);transform:translateY(-2px)}.ft-s svg{width:15px;height:15px}.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;flex-wrap:wrap;gap:10px}.ft-c{color:#666;font-size:11px}.ft-c a{color:#777;text-decoration:none}.ft-c a:hover{color:var(--w)}
-@media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}}
+@media(max-width:768px){.ft-top{grid-template-columns:1fr!important;gap:28px!important;text-align:center}.ft-soc{justify-content:center}.ft-bot{justify-content:center;text-align:center}.footer{padding:36px 20px 18px}.sch-side{width:240px}.sch-diagram img{width:600px}}
 </style>
 </head>
 <body>
@@ -87,45 +202,7 @@
 <div>
   <div class="car-diagram">
     <img src="car-blueprint.png" alt="Schéma véhicule">
-    <svg viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet">
-      <!-- FACE VIEW - mirrored: left in image = right car -->
-      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="265,65 640,65 658,90 658,118 247,118 247,90"/>
-      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="655" cy="58" r="28"/>
-      <circle class="cz cz-body" data-id="roue-av-d" data-name="Roue avant droite" onclick="openDmg('roue-av-d','Roue avant droite')" cx="248" cy="58" r="28"/>
-
-      <!-- TOP VIEW - normal: left=left, right=right -->
-      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="325,132 590,132 575,192 360,192"/>
-      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="360,192 575,192 555,209 375,209"/>
-      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="375,209 555,209 555,347 375,347"/>
-      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="375,347 555,347 575,362 360,362"/>
-      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="360,362 575,362 590,400 325,400"/>
-      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="325,400 590,400 585,415 330,415"/>
-      <polygon class="cz cz-body" data-id="aile-av-g" data-name="Aile avant gauche" onclick="openDmg('aile-av-g','Aile avant gauche')" points="175,148 325,132 360,192 165,200"/>
-      <polygon class="cz cz-body" data-id="aile-av-d" data-name="Aile avant droite" onclick="openDmg('aile-av-d','Aile avant droite')" points="590,132 730,148 740,200 575,192"/>
-      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="162,200 375,200 375,280 155,280"/>
-      <polygon class="cz cz-body" data-id="porte-av-d" data-name="Porte avant droite" onclick="openDmg('porte-av-d','Porte avant droite')" points="555,200 742,200 748,280 555,280"/>
-      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="155,280 375,280 375,347 150,347"/>
-      <polygon class="cz cz-body" data-id="porte-ar-d" data-name="Porte arrière droite" onclick="openDmg('porte-ar-d','Porte arrière droite')" points="555,280 748,280 752,347 555,347"/>
-      <polygon class="cz cz-body" data-id="aile-ar-g" data-name="Aile arrière gauche" onclick="openDmg('aile-ar-g','Aile arrière gauche')" points="150,347 360,347 325,400 160,395"/>
-      <polygon class="cz cz-body" data-id="aile-ar-d" data-name="Aile arrière droite" onclick="openDmg('aile-ar-d','Aile arrière droite')" points="555,347 752,347 745,395 575,362"/>
-
-      <!-- SIDE STRIPS -->
-      <rect class="cz cz-body" data-id="bas-caisse-g" data-name="Bas de caisse gauche" onclick="openDmg('bas-caisse-g','Bas de caisse gauche')" x="62" y="192" width="58" height="178" rx="2"/>
-      <rect class="cz cz-body" data-id="bas-caisse-d" data-name="Bas de caisse droit" onclick="openDmg('bas-caisse-d','Bas de caisse droit')" x="762" y="192" width="52" height="178" rx="2"/>
-
-      <!-- SIDE VIEW (left side of car) -->
-      <polygon class="cz cz-body" data-id="pc-avant" data-name="Pare-chocs avant" onclick="openDmg('pc-avant','Pare-chocs avant')" points="168,465 192,450 200,502 168,502"/>
-      <polygon class="cz cz-body" data-id="capot" data-name="Capot" onclick="openDmg('capot','Capot')" points="192,450 275,420 295,432 200,458"/>
-      <polygon class="cz cz-glass" data-id="parebrise" data-name="Pare-brise" onclick="openDmg('parebrise','Pare-brise')" points="275,420 345,396 348,410 295,432"/>
-      <polygon class="cz cz-body" data-id="toit" data-name="Toit" onclick="openDmg('toit','Toit')" points="345,396 565,396 565,408 345,408"/>
-      <polygon class="cz cz-glass" data-id="lunette" data-name="Lunette arrière" onclick="openDmg('lunette','Lunette arrière')" points="565,396 645,430 645,445 565,408"/>
-      <polygon class="cz cz-body" data-id="porte-av-g" data-name="Porte avant gauche" onclick="openDmg('porte-av-g','Porte avant gauche')" points="200,458 295,432 348,410 430,410 430,502 200,502"/>
-      <polygon class="cz cz-body" data-id="porte-ar-g" data-name="Porte arrière gauche" onclick="openDmg('porte-ar-g','Porte arrière gauche')" points="430,410 565,408 645,445 668,475 668,502 430,502"/>
-      <polygon class="cz cz-body" data-id="coffre" data-name="Coffre" onclick="openDmg('coffre','Coffre')" points="645,445 692,465 700,500 668,502 668,475"/>
-      <polygon class="cz cz-body" data-id="pc-arriere" data-name="Pare-chocs arrière" onclick="openDmg('pc-arriere','Pare-chocs arrière')" points="700,492 718,500 718,505 700,505"/>
-      <circle class="cz cz-body" data-id="roue-av-g" data-name="Roue avant gauche" onclick="openDmg('roue-av-g','Roue avant gauche')" cx="255" cy="502" r="26"/>
-      <circle class="cz cz-body" data-id="roue-ar-g" data-name="Roue arrière gauche" onclick="openDmg('roue-ar-g','Roue arrière gauche')" cx="635" cy="502" r="26"/>
-    </svg>
+    <svg id="publicSvg" viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet"></svg>
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="border-color:var(--yellow);background:rgba(251,191,36,.3)"></div>Rayure</div>
@@ -136,6 +213,7 @@
 </div></div>
 </section>
 
+<!-- Damage modal -->
 <div class="dmg-ov" id="dmgModal" onclick="if(event.target===this)closeDmg()"><div class="dmg-box">
 <div class="dmg-header"><div class="dmg-header-left"><div class="dmg-part-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div><div><div class="dmg-title" id="dmgTitle">-</div><div class="dmg-sub">Type de dégât</div></div></div><button class="dmg-close" onclick="closeDmg()">&#10005;</button></div>
 <div class="dmg-body"><div class="dmg-options">
@@ -146,81 +224,878 @@
 <div class="dmg-footer"><button class="dmg-btn cancel" onclick="closeDmg()">Annuler</button><button class="dmg-btn reset" onclick="removeDmg()" id="dmgRemoveBtn" style="display:none">Retirer</button><button class="dmg-btn confirm" onclick="confirmDmg()">Valider</button></div>
 </div></div>
 
-<button class="fab" onclick="openAdmin()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button>
-<div class="adm-ov" id="admModal" onclick="if(event.target===this)closeAdmin()"><div class="adm-box">
-<div id="admLogin"><div class="adm-hd"><h3>Administration</h3><p>Tarifs carrosserie</p></div><div class="adm-body"><div class="adm-field"><label>Mot de passe</label><input type="password" id="admPwd" placeholder="********" onkeydown="if(event.key==='Enter')loginAdmin()"></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Annuler</button><button class="adm-save" onclick="loginAdmin()">Accéder</button></div></div></div>
-<div id="admDash" style="display:none"><div class="adm-hd"><h3>Tarifs</h3><p>Modifier les prix</p></div><div class="adm-body"><div class="adm-field"><label>Rayure (EUR)</label><input type="number" id="admP1" placeholder="150"><div class="adm-hint">Prix rayures</div></div><div class="adm-field"><label>Enfoncement (EUR)</label><input type="number" id="admP2" placeholder="350"><div class="adm-hint">Prix enfoncements</div></div><div class="adm-field"><label>Dégâts importants (EUR)</label><input type="number" id="admP3" placeholder="800"><div class="adm-hint">Prix gros dégâts</div></div><div class="adm-actions"><button class="adm-cancel" onclick="closeAdmin()">Fermer</button><button class="adm-save" onclick="savePrices()">Enregistrer</button></div></div></div>
-</div></div>
+<button class="fab" onclick="openAdmin()" title="Admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button>
 
-<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
+<!-- ADMIN PANEL FULLSCREEN -->
+<div class="adm-full" id="admPanel">
+
+  <!-- Login screen -->
+  <div class="adm-login" id="admLogin">
+    <div class="adm-login-card">
+      <h3>Administration</h3>
+      <p>Connexion sécurisée</p>
+      <input type="password" class="adm-input" id="admPwd" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')loginAdmin()">
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <button class="adm-btn adm-btn-secondary" style="flex:1" onclick="closeAdmin()">Annuler</button>
+        <button class="adm-btn adm-btn-primary" style="flex:1" onclick="loginAdmin()">Accéder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connected state -->
+  <div id="admMain" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+    <div class="adm-topbar">
+      <div class="adm-brand">ASH<span>Admin Panel</span></div>
+      <div class="adm-tabs">
+        <button class="adm-tab-btn active" data-tab="tarifs" onclick="switchAdmTab('tarifs')">💰 Tarifs</button>
+        <button class="adm-tab-btn" data-tab="schema" onclick="switchAdmTab('schema')">🚗 Schéma</button>
+      </div>
+      <button class="adm-close-btn" onclick="closeAdmin()" title="Fermer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="adm-content">
+      <!-- TARIFS TAB -->
+      <div class="adm-tab-pane active" id="tab-tarifs">
+        <div class="adm-tarifs">
+          <h3>Tarifs carrosserie</h3>
+          <p class="lead">Définir les prix par type de dégât</p>
+          <div class="tarif-field">
+            <label>Rayure (EUR)</label>
+            <input type="number" id="admP1" placeholder="150">
+            <div class="hint">Rayure superficielle, éclat</div>
+          </div>
+          <div class="tarif-field">
+            <label>Enfoncement (EUR)</label>
+            <input type="number" id="admP2" placeholder="350">
+            <div class="hint">Bosse, enfoncement léger</div>
+          </div>
+          <div class="tarif-field">
+            <label>Dégâts importants (EUR)</label>
+            <input type="number" id="admP3" placeholder="800">
+            <div class="hint">Sévère, remplacement</div>
+          </div>
+          <div class="adm-actions">
+            <button class="adm-btn adm-btn-secondary" onclick="closeAdmin()">Fermer</button>
+            <button class="adm-btn adm-btn-primary" onclick="savePrices()">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCHEMA EDITOR TAB -->
+      <div class="adm-tab-pane" id="tab-schema">
+        <div class="sch-layout">
+          <div class="sch-canvas">
+            <div class="sch-diagram" id="schDiagram">
+              <img src="car-blueprint.png" alt="Schéma">
+              <svg id="schSvg" viewBox="0 0 900 556" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <div class="sch-draft-bar" id="schDraftBar">
+              <span id="schDraftMsg">Mode tracé</span>
+              <button onclick="schFinishDraft()">✓ Terminer</button>
+              <button onclick="schCancelDraft()">✕ Annuler</button>
+            </div>
+          </div>
+          <aside class="sch-side">
+            <div class="sch-toolbar">
+              <button class="sch-tool-btn active" data-mode="select" onclick="schSetMode('select')">↖ Sélection</button>
+              <button class="sch-tool-btn" data-mode="draw" onclick="schSetMode('draw')">✎ Polygone</button>
+              <button class="sch-tool-btn" data-mode="rect" onclick="schSetMode('rect')">▭ Rectangle</button>
+              <button class="sch-tool-btn" data-mode="circle" onclick="schSetMode('circle')">◯ Cercle</button>
+            </div>
+            <div class="sch-list-h">
+              <span>Zones (<span id="schCnt">0</span>)</span>
+            </div>
+            <div class="sch-list" id="schList"></div>
+            <div class="sch-editor hidden" id="schEditor">
+              <div class="sch-field">
+                <label>ID interne</label>
+                <input id="sch-id" oninput="schUpdateSelected()">
+              </div>
+              <div class="sch-field">
+                <label>Nom affiché</label>
+                <input id="sch-name" oninput="schUpdateSelected()">
+              </div>
+              <div class="sch-field">
+                <label>Type</label>
+                <select id="sch-type" onchange="schUpdateSelected()">
+                  <option value="cz-body">Carrosserie</option>
+                  <option value="cz-glass">Vitre</option>
+                </select>
+              </div>
+              <div class="sch-actions">
+                <button onclick="schDuplicate()">Dupliquer</button>
+                <button class="del" onclick="schAskDelete()">Supprimer</button>
+              </div>
+            </div>
+            <div class="sch-status">
+              <span><span class="dot" id="schDot"></span><span id="schStatus">Chargement…</span></span>
+              <button onclick="schSaveToFirebase()" class="adm-btn adm-btn-success" style="padding:6px 12px;font-size:9px;letter-spacing:1px">💾 Publier</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Confirmation modal -->
+<div class="confirm-ov" id="confirmModal" onclick="if(event.target===this)closeConfirm()">
+  <div class="confirm-box">
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+    </div>
+    <div class="confirm-title" id="confirmTitle">Supprimer cette zone ?</div>
+    <div class="confirm-msg" id="confirmMsg">Cette action ne peut pas être annulée. La zone sera retirée du schéma.</div>
+    <div class="confirm-actions">
+      <button class="cancel" onclick="closeConfirm()">Annuler</button>
+      <button class="delete" id="confirmOk" onclick="doConfirm()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="ft-inner"><div class="ft-top"><div><div style="margin-bottom:14px"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--w);letter-spacing:3px">ASH</span><span style="font-size:10px;letter-spacing:4px;color:#333;text-transform:uppercase;margin-left:4px">Prestige Custom</span></div><p style="color:#777;font-size:12px;line-height:1.8;max-width:260px">Votre vendeur de voitures d'occasion a Mions, pres de Lyon.</p></div><div><div class="ft-ct">Contact</div><a href="tel:0761509269" class="ft-a">07 61 50 92 69</a><a href="mailto:ashotsargsyan28@gmail.com" class="ft-a">ashotsargsyan28@gmail.com</a><a href="mailto:nrkprestige@gmail.com" class="ft-a">nrkprestige@gmail.com</a><a href="https://maps.google.com/?q=33+Rue+Joliot+Curie+69780+Mions" target="_blank" class="ft-a">33 Rue Joliot Curie, 69780 Mions</a></div><div><div class="ft-ct">Suivez-nous</div><div class="ft-soc"><a href="https://instagram.com/ash_prestige_custom" target="_blank" class="ft-s" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://tiktok.com/@ash_prestige_custom" target="_blank" class="ft-s" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.71a8.21 8.21 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.14z"/></svg></a></div></div></div><div class="ft-bot"><span class="ft-c">2025 Ash Prestige Custom</span><span class="ft-c">Designed by <a href="https://www.digiora.fr" target="_blank">Digiora</a></span></div></div></footer>
 
 <script>
-var prices={1:0,2:0,3:0};
-var damages={};
-var currentPart=null;
-var selectedLevel=0;
-var admLoggedIn=false;
-var dmgLabels={1:'Rayure',2:'Enfoncement',3:'Dégâts importants'};
-var partNames={
-  'pc-avant':'Pare-chocs avant','capot':'Capot','parebrise':'Pare-brise',
-  'toit':'Toit','lunette':'Lunette arrière','coffre':'Coffre',
-  'pc-arriere':'Pare-chocs arrière',
-  'aile-av-g':'Aile avant gauche','aile-av-d':'Aile avant droite',
-  'porte-av-g':'Porte avant gauche','porte-av-d':'Porte avant droite',
-  'porte-ar-g':'Porte arrière gauche','porte-ar-d':'Porte arrière droite',
-  'aile-ar-g':'Aile arrière gauche','aile-ar-d':'Aile arrière droite',
-  'bas-caisse-g':'Bas de caisse gauche','bas-caisse-d':'Bas de caisse droit',
-  'roue-av-g':'Roue avant gauche','roue-av-d':'Roue avant droite',
-  'roue-ar-g':'Roue arrière gauche'
+// ============================================================================
+// FIREBASE
+// ============================================================================
+var FC = {
+  apiKey: "AIzaSyDR5SExnBJvFuNbSVHngUHHQ2YUlW4k_9g",
+  authDomain: "nrk-prestige.firebaseapp.com",
+  databaseURL: "https://nrk-prestige-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "nrk-prestige",
+  storageBucket: "nrk-prestige.firebasestorage.app",
+  messagingSenderId: "671314844628",
+  appId: "1:671314844628:web:6db907b19fc9fb79841441"
 };
+var fbApp, fbDB;
+try {
+  fbApp = firebase.apps && firebase.apps.length ? firebase.apps[0] : firebase.initializeApp(FC);
+  fbDB = firebase.database(fbApp);
+} catch (e) { console.error('Firebase init:', e); }
 
-function loadPrices(){try{var s=localStorage.getItem('ash_carro_prices');if(s)prices=JSON.parse(s);}catch(e){}updatePriceDisplay();}
-function savePrices(){prices[1]=parseInt(document.getElementById('admP1').value)||0;prices[2]=parseInt(document.getElementById('admP2').value)||0;prices[3]=parseInt(document.getElementById('admP3').value)||0;localStorage.setItem('ash_carro_prices',JSON.stringify(prices));updatePriceDisplay();closeAdmin();updateQuote();}
-function updatePriceDisplay(){document.getElementById('price1').textContent=prices[1]?prices[1]+' \u20ac':'\u2014';document.getElementById('price2').textContent=prices[2]?prices[2]+' \u20ac':'\u2014';document.getElementById('price3').textContent=prices[3]?prices[3]+' \u20ac':'\u2014';}
+// ============================================================================
+// STATE - Public devis
+// ============================================================================
+var prices = {1: 0, 2: 0, 3: 0};
+var damages = {};
+var currentPart = null;
+var selectedLevel = 0;
+var admLoggedIn = false;
+var dmgLabels = {1: 'Rayure', 2: 'Enfoncement', 3: 'Dégâts importants'};
 
-function openAdmin(){document.getElementById('admModal').classList.add('open');if(admLoggedIn){document.getElementById('admLogin').style.display='none';document.getElementById('admDash').style.display='';document.getElementById('admP1').value=prices[1]||'';document.getElementById('admP2').value=prices[2]||'';document.getElementById('admP3').value=prices[3]||'';}else{document.getElementById('admLogin').style.display='';document.getElementById('admDash').style.display='none';document.getElementById('admPwd').value='';}}
-function closeAdmin(){document.getElementById('admModal').classList.remove('open');}
-function loginAdmin(){if(document.getElementById('admPwd').value==='nrk2024'){admLoggedIn=true;document.getElementById('admLogin').style.display='none';document.getElementById('admDash').style.display='';document.getElementById('admP1').value=prices[1]||'';document.getElementById('admP2').value=prices[2]||'';document.getElementById('admP3').value=prices[3]||'';}else{document.getElementById('admPwd').style.borderColor='var(--red)';setTimeout(function(){document.getElementById('admPwd').style.borderColor='';},1500);}}
+// Default zones (used as initial seed for Firebase if empty)
+var DEFAULT_ZONES = [
+  {id:'roue-avant-droite',name:'Roue avant droite',type:'cz-body',shape:'circle',cx:268,cy:65,r:34},
+  {id:'roue-arriere-droite',name:'Roue arrière droite',type:'cz-body',shape:'circle',cx:600,cy:65,r:37},
+  {id:'bas-de-caisse-droite',name:'Bas de caisse Droite',type:'cz-body',shape:'polygon',points:[[313,57],[553,56],[557,75],[310,75],[312,57]]},
+  {id:'portiere-avant-droite',name:'Portière avant droite',type:'cz-body',shape:'polygon',points:[[469,199],[420,199],[402,193],[328,153],[322,110],[324,78],[465,79],[469,199]]},
+  {id:'porte-arriere-droite',name:'Porte Arriere droite',type:'cz-body',shape:'polygon',points:[[466,77],[547,77],[561,101],[575,112],[590,121],[593,130],[587,140],[541,198],[470,198],[467,77]]},
+  {id:'aile-arriere-droite',name:'Aile arrière Droite',type:'cz-body',shape:'polygon',points:[[644,58],[704,59],[709,74],[717,81],[715,99],[703,105],[696,105],[701,128],[715,125],[704,144],[658,152],[549,198],[595,136],[596,118],[599,107],[636,87],[645,54]]},
+  {id:'aile-avant-droite',name:'Aile avant droite',type:'cz-body',shape:'polygon',points:[[188,56],[178,75],[170,81],[171,101],[201,102],[207,125],[187,125],[226,142],[278,144],[314,149],[324,153],[322,78],[309,78],[296,99],[256,107],[227,82],[218,58],[188,57]]},
+  {id:'capot',name:'Capot',type:'cz-body',shape:'polygon',points:[[190,190],[330,187],[326,369],[191,370],[179,313],[182,242],[190,190]]},
+  {id:'toit',name:'Toit',type:'cz-body',shape:'polygon',points:[[392,213],[559,211],[559,354],[393,356],[395,267]]},
+  {id:'coffre',name:'Coffre',type:'cz-body',shape:'polygon',points:[[665,190],[716,191],[717,367],[668,368],[665,193]]},
+  {id:'roue-avant-gauche',name:'Roue avant gauche',type:'cz-body',shape:'circle',cx:266,cy:490,r:37},
+  {id:'roue-arriere-gauche',name:'Roue arrière Gauche',type:'cz-body',shape:'circle',cx:601,cy:490,r:38},
+  {id:'porte-avant-gauche',name:'Porte avant gauche',type:'cz-body',shape:'polygon',points:[[329,406],[324,451],[332,499],[469,498],[469,359],[405,362],[328,408]]},
+  {id:'porte-arriere-gauche',name:'Porte arrière gauche',type:'cz-body',shape:'polygon',points:[[475,360],[538,361],[580,404],[590,434],[560,461],[546,498],[475,499]]},
+  {id:'aile-arriere-gauche',name:'Aile arrière gauche',type:'cz-body',shape:'polygon',points:[[587,411],[653,409],[684,410],[715,424],[710,430],[701,426],[699,441],[699,453],[719,461],[718,477],[715,480],[710,484],[700,494],[697,499],[683,497],[665,501],[653,500],[646,492],[641,482],[635,470],[631,460],[623,455],[619,453],[609,451],[600,447],[596,442],[595,437],[594,423],[587,413]]},
+  {id:'aile-avant-gauche',name:'Aile avant gauche',type:'cz-body',shape:'polygon',points:[[188,432],[326,408],[331,500],[316,500],[289,456],[271,452],[255,450],[235,462],[229,467],[217,481],[215,493],[214,499],[204,502],[188,496],[178,487],[170,474],[172,460],[175,452],[197,455],[201,456],[206,442],[205,437],[195,433],[193,432]]},
+  {id:'pare-choc-avant',name:'Pare Choc Avant',type:'cz-body',shape:'polygon',points:[[64,185],[85,173],[99,179],[121,186],[121,235],[116,239],[118,321],[123,324],[124,373],[98,377],[85,386],[79,380],[63,371],[64,184]]},
+  {id:'pare-choc-arriere',name:'Pare Choc Arrière',type:'cz-body',shape:'rect',x:748,y:164,w:72,h:229}
+];
 
-function openDmg(id,name){currentPart=id;selectedLevel=damages[id]||0;document.getElementById('dmgTitle').textContent=name;document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected');});if(selectedLevel>0){var s=document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');if(s)s.classList.add('selected');document.getElementById('dmgRemoveBtn').style.display='';}else{document.getElementById('dmgRemoveBtn').style.display='none';}document.getElementById('dmgModal').classList.add('open');}
-function closeDmg(){document.getElementById('dmgModal').classList.remove('open');currentPart=null;selectedLevel=0;}
-function selectDmg(el,l){document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected');});el.classList.add('selected');selectedLevel=l;}
-function confirmDmg(){if(!currentPart||!selectedLevel)return;damages[currentPart]=selectedLevel;updateVis();updateQuote();closeDmg();}
-function removeDmg(){if(!currentPart)return;delete damages[currentPart];updateVis();updateQuote();closeDmg();}
-function resetAll(){damages={};updateVis();updateQuote();}
-function delDmg(id){delete damages[id];updateVis();updateQuote();}
+// Live zones (synced from Firebase)
+var ZONES = [];
 
-function updateVis(){
-  document.querySelectorAll('.cz[data-id]').forEach(function(el){
-    var id=el.getAttribute('data-id');
-    el.classList.remove('dmg-1','dmg-2','dmg-3');
-    if(damages[id])el.classList.add('dmg-'+damages[id]);
+// ============================================================================
+// FIREBASE SYNC - Public read
+// ============================================================================
+function loadFromFirebase() {
+  if (!fbDB) { ZONES = DEFAULT_ZONES.slice(); renderPublicSvg(); return; }
+  // Load prices
+  fbDB.ref('carrosserie/prices').once('value').then(function(snap) {
+    var p = snap.val();
+    if (p) prices = p;
+    updatePriceDisplay();
+  }).catch(function(){});
+  // Load zones with realtime listener
+  fbDB.ref('carrosserie/bodyparts').on('value', function(snap) {
+    var v = snap.val();
+    if (v && Array.isArray(v) && v.length) {
+      ZONES = v;
+    } else if (v && typeof v === 'object') {
+      ZONES = Object.values(v).filter(Boolean);
+    } else {
+      ZONES = DEFAULT_ZONES.slice();
+    }
+    renderPublicSvg();
+    if (admLoggedIn && schState) schRender();
+  }, function(err) {
+    console.error('Firebase read error:', err);
+    ZONES = DEFAULT_ZONES.slice();
+    renderPublicSvg();
   });
 }
 
-function updateQuote(){
-  var keys=Object.keys(damages);
-  var items=document.getElementById('recapItems');
-  var empty=document.getElementById('recapEmpty');
-  var footer=document.getElementById('recapFooter');
-  var count=document.getElementById('recapCount');
-  if(!keys.length){items.style.display='none';empty.style.display='';footer.style.display='none';count.textContent='0';return;}
-  items.style.display='';empty.style.display='none';footer.style.display='';count.textContent=keys.length;
-  var total=0;var h='';
-  keys.forEach(function(k){
-    var l=damages[k];
-    var el=document.querySelector('.cz[data-id="'+k+'"]');
-    var name=el?el.getAttribute('data-name'):(partNames[k]||k);
-    var p=prices[l]||0;
-    total+=p;
-    h+='<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div class="car-recap-info"><div class="car-recap-name">'+name+' <span style="color:#555;font-weight:400">\u2014 '+dmgLabels[l]+'</span></div>'+(p?'<div class="car-recap-price">'+p+' \u20ac</div>':'')+'</div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
-  });
-  items.innerHTML=h;
-  document.getElementById('recapTotal').textContent=total?total+' \u20ac':'Sur devis';
+function savePricesToFirebase() {
+  if (!fbDB) return Promise.resolve(false);
+  return fbDB.ref('carrosserie/prices').set(prices)
+    .then(function(){ return true; })
+    .catch(function(e){ console.error('Save prices:', e); return false; });
 }
 
-function obs(){var els=document.querySelectorAll('.reveal:not(.vis)');var o=new IntersectionObserver(function(en){for(var i=0;i<en.length;i++){if(en[i].isIntersecting){en[i].target.classList.add('vis');o.unobserve(en[i].target);}}},{threshold:.08});for(var j=0;j<els.length;j++){o.observe(els[j]);}}
-document.addEventListener('DOMContentLoaded',function(){obs();loadPrices();});
+function saveZonesToFirebase(zones) {
+  if (!fbDB) return Promise.resolve(false);
+  return fbDB.ref('carrosserie/bodyparts').set(zones)
+    .then(function(){ return true; })
+    .catch(function(e){ console.error('Save zones:', e); return false; });
+}
+
+// ============================================================================
+// PUBLIC SVG RENDERING (devis side)
+// ============================================================================
+function renderPublicSvg() {
+  var svg = document.getElementById('publicSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+  ZONES.forEach(function(z) {
+    var el;
+    if (z.shape === 'circle') {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      el.setAttribute('cx', z.cx); el.setAttribute('cy', z.cy); el.setAttribute('r', z.r);
+    } else if (z.shape === 'rect') {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      el.setAttribute('x', z.x); el.setAttribute('y', z.y);
+      el.setAttribute('width', z.w); el.setAttribute('height', z.h);
+      el.setAttribute('rx', '2');
+    } else {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      el.setAttribute('points', z.points.map(function(p){return p.join(',')}).join(' '));
+    }
+    el.setAttribute('class', 'cz ' + (z.type || 'cz-body') + (damages[z.id] ? ' dmg-' + damages[z.id] : ''));
+    el.setAttribute('data-id', z.id);
+    el.setAttribute('data-name', z.name);
+    el.addEventListener('click', function() { openDmg(z.id, z.name); });
+    svg.appendChild(el);
+  });
+}
+
+// ============================================================================
+// PRICES
+// ============================================================================
+function updatePriceDisplay() {
+  document.getElementById('price1').textContent = prices[1] ? prices[1] + ' €' : '—';
+  document.getElementById('price2').textContent = prices[2] ? prices[2] + ' €' : '—';
+  document.getElementById('price3').textContent = prices[3] ? prices[3] + ' €' : '—';
+}
+
+function savePrices() {
+  prices[1] = parseInt(document.getElementById('admP1').value) || 0;
+  prices[2] = parseInt(document.getElementById('admP2').value) || 0;
+  prices[3] = parseInt(document.getElementById('admP3').value) || 0;
+  savePricesToFirebase().then(function(ok) {
+    if (ok) {
+      showToast('✓ Tarifs enregistrés');
+      updatePriceDisplay();
+      updateQuote();
+    } else {
+      showToast('Erreur lors de la sauvegarde', 'err');
+    }
+  });
+}
+
+// ============================================================================
+// DAMAGE MODAL (devis)
+// ============================================================================
+function openDmg(id, name) {
+  currentPart = id;
+  selectedLevel = damages[id] || 0;
+  document.getElementById('dmgTitle').textContent = name;
+  document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')});
+  if (selectedLevel > 0) {
+    var s = document.querySelector('.dmg-opt[data-level="'+selectedLevel+'"]');
+    if (s) s.classList.add('selected');
+    document.getElementById('dmgRemoveBtn').style.display = '';
+  } else {
+    document.getElementById('dmgRemoveBtn').style.display = 'none';
+  }
+  document.getElementById('dmgModal').classList.add('open');
+}
+function closeDmg() { document.getElementById('dmgModal').classList.remove('open'); currentPart = null; selectedLevel = 0; }
+function selectDmg(el, l) { document.querySelectorAll('.dmg-opt').forEach(function(o){o.classList.remove('selected')}); el.classList.add('selected'); selectedLevel = l; }
+function confirmDmg() {
+  if (!currentPart || !selectedLevel) return;
+  damages[currentPart] = selectedLevel;
+  renderPublicSvg();
+  updateQuote();
+  closeDmg();
+}
+function removeDmg() { if (!currentPart) return; delete damages[currentPart]; renderPublicSvg(); updateQuote(); closeDmg(); }
+function resetAll() { damages = {}; renderPublicSvg(); updateQuote(); }
+function delDmg(id) { delete damages[id]; renderPublicSvg(); updateQuote(); }
+
+function updateQuote() {
+  var keys = Object.keys(damages);
+  var items = document.getElementById('recapItems');
+  var empty = document.getElementById('recapEmpty');
+  var footer = document.getElementById('recapFooter');
+  var count = document.getElementById('recapCount');
+  if (!keys.length) {
+    items.style.display = 'none'; empty.style.display = ''; footer.style.display = 'none';
+    count.textContent = '0';
+    return;
+  }
+  items.style.display = ''; empty.style.display = 'none'; footer.style.display = '';
+  count.textContent = keys.length;
+  var total = 0, h = '';
+  keys.forEach(function(k) {
+    var l = damages[k];
+    var z = ZONES.find(function(zz){ return zz.id === k; });
+    var name = z ? z.name : k;
+    var p = prices[l] || 0;
+    total += p;
+    h += '<div class="car-recap-item"><div class="car-recap-dot l'+l+'"></div><div class="car-recap-info"><div class="car-recap-name">'+name+' <span style="color:#555;font-weight:400">— '+dmgLabels[l]+'</span></div>'+(p?'<div class="car-recap-price">'+p+' €</div>':'')+'</div><button class="car-recap-del" onclick="delDmg(\''+k+'\')" title="Retirer">&#10005;</button></div>';
+  });
+  items.innerHTML = h;
+  document.getElementById('recapTotal').textContent = total ? total + ' €' : 'Sur devis';
+}
+
+// ============================================================================
+// ADMIN LOGIN
+// ============================================================================
+function openAdmin() {
+  document.getElementById('admPanel').classList.add('open');
+  if (admLoggedIn) {
+    document.getElementById('admLogin').style.display = 'none';
+    document.getElementById('admMain').style.display = 'flex';
+    document.getElementById('admP1').value = prices[1] || '';
+    document.getElementById('admP2').value = prices[2] || '';
+    document.getElementById('admP3').value = prices[3] || '';
+  } else {
+    document.getElementById('admLogin').style.display = 'flex';
+    document.getElementById('admMain').style.display = 'none';
+    document.getElementById('admPwd').value = '';
+    setTimeout(function(){ document.getElementById('admPwd').focus(); }, 100);
+  }
+}
+function closeAdmin() { document.getElementById('admPanel').classList.remove('open'); }
+function loginAdmin() {
+  if (document.getElementById('admPwd').value === 'nrk2024') {
+    admLoggedIn = true;
+    document.getElementById('admLogin').style.display = 'none';
+    document.getElementById('admMain').style.display = 'flex';
+    document.getElementById('admP1').value = prices[1] || '';
+    document.getElementById('admP2').value = prices[2] || '';
+    document.getElementById('admP3').value = prices[3] || '';
+  } else {
+    var inp = document.getElementById('admPwd');
+    inp.style.borderColor = 'var(--red)';
+    setTimeout(function(){ inp.style.borderColor = ''; inp.value = ''; inp.focus(); }, 1500);
+  }
+}
+
+function switchAdmTab(tab) {
+  document.querySelectorAll('.adm-tab-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab') === tab); });
+  document.querySelectorAll('.adm-tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'schema' && !schState) schInit();
+}
+
+// ============================================================================
+// SCHEMA EDITOR (admin)
+// ============================================================================
+var schState = null;
+var schDirty = false;
+
+function schInit() {
+  if (schState) return;
+  schState = {
+    zones: JSON.parse(JSON.stringify(ZONES)),
+    selectedIdx: -1,
+    mode: 'select',
+    dragging: null,
+    resizing: null,
+    dragStart: null,
+    draftPoints: [],
+    rectStart: null,
+    circleCenter: null
+  };
+  schSetupListeners();
+  schRender();
+  setSchStatus('ok', 'Synchronisé');
+}
+
+function setSchStatus(state, txt) {
+  var dot = document.getElementById('schDot');
+  var t = document.getElementById('schStatus');
+  if (!dot || !t) return;
+  dot.className = 'dot ' + state;
+  t.textContent = txt;
+}
+
+function schGetSvgPoint(evt) {
+  var svg = document.getElementById('schSvg');
+  var rect = svg.getBoundingClientRect();
+  var vb = svg.viewBox.baseVal;
+  return {
+    x: Math.round((evt.clientX - rect.left) * vb.width / rect.width),
+    y: Math.round((evt.clientY - rect.top) * vb.height / rect.height)
+  };
+}
+
+function schRender() {
+  if (!schState) return;
+  var svg = document.getElementById('schSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+
+  schState.zones.forEach(function(z, i) {
+    var el;
+    if (z.shape === 'circle') {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      el.setAttribute('cx', z.cx); el.setAttribute('cy', z.cy); el.setAttribute('r', z.r);
+    } else if (z.shape === 'rect') {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      el.setAttribute('x', z.x); el.setAttribute('y', z.y);
+      el.setAttribute('width', z.w); el.setAttribute('height', z.h);
+      el.setAttribute('rx', '2');
+    } else {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      el.setAttribute('points', z.points.map(function(p){return p.join(',')}).join(' '));
+    }
+    var cls = 'sch-cz ' + (z.type || 'cz-body');
+    if (i === schState.selectedIdx) cls += ' selected';
+    el.setAttribute('class', cls);
+    el.setAttribute('data-idx', i);
+    svg.appendChild(el);
+  });
+
+  if (schState.selectedIdx >= 0 && schState.mode === 'select') {
+    var z = schState.zones[schState.selectedIdx];
+    if (z) {
+      var handles;
+      if (z.shape === 'circle') handles = [{x: z.cx + z.r, y: z.cy}];
+      else if (z.shape === 'rect') handles = [{x: z.x + z.w, y: z.y + z.h}];
+      else handles = z.points.map(function(p){ return {x: p[0], y: p[1]}; });
+      handles.forEach(function(h, hi) {
+        var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', h.x); c.setAttribute('cy', h.y); c.setAttribute('r', 5);
+        c.setAttribute('class', 'sch-handle');
+        c.setAttribute('data-handle', hi);
+        svg.appendChild(c);
+      });
+    }
+  }
+
+  if (schState.mode === 'draw' && schState.draftPoints.length) {
+    if (schState.draftPoints.length > 1) {
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      path.setAttribute('points', schState.draftPoints.map(function(p){return p.join(',')}).join(' '));
+      path.setAttribute('class', 'sch-draft-line');
+      svg.appendChild(path);
+    }
+    schState.draftPoints.forEach(function(p) {
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', p[0]); c.setAttribute('cy', p[1]); c.setAttribute('r', 3.5);
+      c.setAttribute('class', 'sch-draft-pt');
+      svg.appendChild(c);
+    });
+  }
+  if (schState.mode === 'circle' && schState.circleCenter) {
+    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', schState.circleCenter[0]); c.setAttribute('cy', schState.circleCenter[1]); c.setAttribute('r', 3.5);
+    c.setAttribute('class', 'sch-draft-pt');
+    svg.appendChild(c);
+  }
+
+  schRenderList();
+  document.getElementById('schCnt').textContent = schState.zones.length;
+}
+
+function schRenderList() {
+  var l = document.getElementById('schList');
+  l.innerHTML = '';
+  schState.zones.forEach(function(z, i) {
+    var div = document.createElement('div');
+    div.className = 'sch-row' + (i === schState.selectedIdx ? ' active' : '');
+    div.onclick = function() {
+      schState.selectedIdx = i;
+      if (schState.mode !== 'select') schSetMode('select');
+      else { schRender(); schShowEditor(); }
+    };
+    div.innerHTML = '<div class="sch-row-name">' + escHtml(z.name) + '</div><div class="sch-row-id">' + escHtml(z.id) + ' · ' + z.shape + '</div>';
+    l.appendChild(div);
+  });
+}
+
+function schShowEditor() {
+  var ed = document.getElementById('schEditor');
+  if (schState.selectedIdx < 0 || schState.selectedIdx >= schState.zones.length) {
+    ed.classList.add('hidden'); return;
+  }
+  ed.classList.remove('hidden');
+  var z = schState.zones[schState.selectedIdx];
+  document.getElementById('sch-id').value = z.id;
+  document.getElementById('sch-name').value = z.name;
+  document.getElementById('sch-type').value = z.type || 'cz-body';
+}
+
+function schUpdateSelected() {
+  if (schState.selectedIdx < 0) return;
+  var z = schState.zones[schState.selectedIdx];
+  z.id = document.getElementById('sch-id').value;
+  z.name = document.getElementById('sch-name').value;
+  z.type = document.getElementById('sch-type').value;
+  schDirty = true;
+  setSchStatus('load', 'Modifications non publiées');
+  schRender();
+}
+
+// === Listeners ===
+function schSetupListeners() {
+  var diagram = document.getElementById('schDiagram');
+
+  diagram.addEventListener('mousedown', schPointerDown);
+  diagram.addEventListener('touchstart', schPointerDown, {passive: false});
+  document.addEventListener('mousemove', schPointerMove);
+  document.addEventListener('touchmove', schPointerMove, {passive: false});
+  document.addEventListener('mouseup', schPointerUp);
+  document.addEventListener('touchend', schPointerUp);
+  diagram.addEventListener('click', schClick);
+  diagram.addEventListener('dblclick', function(e) {
+    if (schState.mode === 'draw' && schState.draftPoints.length >= 3) schFinishDraft();
+  });
+
+  document.addEventListener('keydown', schKeyDown);
+}
+
+function schPointerDown(evt) {
+  if (!schState) return;
+  if (evt.button !== undefined && evt.button !== 0) return;
+  var ev = evt.touches ? evt.touches[0] : evt;
+  var target = evt.target;
+  var p = schGetSvgPoint(ev);
+
+  if (schState.mode === 'select') {
+    if (target.classList && target.classList.contains('sch-handle')) {
+      evt.preventDefault(); evt.stopPropagation();
+      var hi = parseInt(target.getAttribute('data-handle'));
+      schState.resizing = {idx: schState.selectedIdx, handle: hi};
+      schState.dragStart = {x: p.x, y: p.y, orig: JSON.parse(JSON.stringify(schState.zones[schState.selectedIdx]))};
+      return;
+    }
+    if (target.classList && target.classList.contains('sch-cz')) {
+      evt.preventDefault(); evt.stopPropagation();
+      var idx = parseInt(target.getAttribute('data-idx'));
+      if (isNaN(idx)) return;
+      schState.selectedIdx = idx;
+      schState.dragging = idx;
+      schState.dragStart = {x: p.x, y: p.y, orig: JSON.parse(JSON.stringify(schState.zones[idx]))};
+      schRender();
+      schShowEditor();
+      return;
+    }
+    if (target.tagName === 'svg' || target.tagName === 'IMG') {
+      schState.selectedIdx = -1;
+      schRender();
+      schShowEditor();
+    }
+    return;
+  }
+
+  if (schState.mode === 'rect') {
+    if (target.classList && (target.classList.contains('sch-cz') || target.classList.contains('sch-handle'))) return;
+    evt.preventDefault();
+    schState.rectStart = {x: p.x, y: p.y};
+  }
+}
+
+function schPointerMove(evt) {
+  if (!schState) return;
+  var ev = evt.touches ? evt.touches[0] : evt;
+  var p = schGetSvgPoint(ev);
+
+  if (schState.dragging !== null || schState.resizing) {
+    evt.preventDefault();
+    var dx = p.x - schState.dragStart.x;
+    var dy = p.y - schState.dragStart.y;
+    if (schState.resizing) {
+      var z = schState.zones[schState.resizing.idx];
+      var orig = schState.dragStart.orig;
+      if (z.shape === 'circle') z.r = Math.max(5, Math.round(orig.r + Math.max(dx, dy)));
+      else if (z.shape === 'rect') { z.w = Math.max(10, Math.round(orig.w + dx)); z.h = Math.max(10, Math.round(orig.h + dy)); }
+      else z.points[schState.resizing.handle] = [Math.round(orig.points[schState.resizing.handle][0] + dx), Math.round(orig.points[schState.resizing.handle][1] + dy)];
+      schDirty = true; setSchStatus('load', 'Modifications non publiées');
+      schRender();
+    } else if (schState.dragging !== null) {
+      var z = schState.zones[schState.dragging];
+      var orig = schState.dragStart.orig;
+      if (z.shape === 'circle') { z.cx = Math.round(orig.cx + dx); z.cy = Math.round(orig.cy + dy); }
+      else if (z.shape === 'rect') { z.x = Math.round(orig.x + dx); z.y = Math.round(orig.y + dy); }
+      else z.points = orig.points.map(function(pt){ return [Math.round(pt[0] + dx), Math.round(pt[1] + dy)]; });
+      schDirty = true; setSchStatus('load', 'Modifications non publiées');
+      schRender();
+    }
+    return;
+  }
+
+  if (schState.mode === 'rect' && schState.rectStart) {
+    var x = Math.min(p.x, schState.rectStart.x), y = Math.min(p.y, schState.rectStart.y);
+    var w = Math.abs(p.x - schState.rectStart.x), h = Math.abs(p.y - schState.rectStart.y);
+    schRender();
+    var svg = document.getElementById('schSvg');
+    var preview = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    preview.setAttribute('x', x); preview.setAttribute('y', y);
+    preview.setAttribute('width', w); preview.setAttribute('height', h);
+    preview.setAttribute('class', 'sch-draft-line');
+    preview.setAttribute('fill', 'rgba(34,197,94,.15)');
+    svg.appendChild(preview);
+  }
+}
+
+function schPointerUp(evt) {
+  if (!schState) return;
+  if (schState.dragging !== null || schState.resizing) {
+    schState.dragging = null; schState.resizing = null; schState.dragStart = null;
+    return;
+  }
+  if (schState.mode === 'rect' && schState.rectStart) {
+    var ev = evt.changedTouches ? evt.changedTouches[0] : evt;
+    var p = schGetSvgPoint(ev);
+    var x = Math.min(p.x, schState.rectStart.x), y = Math.min(p.y, schState.rectStart.y);
+    var w = Math.abs(p.x - schState.rectStart.x), h = Math.abs(p.y - schState.rectStart.y);
+    schState.rectStart = null;
+    if (w < 5 || h < 5) { schRender(); return; }
+    schFinishRect(x, y, w, h);
+  }
+}
+
+function schClick(evt) {
+  if (!schState) return;
+  if (schState.mode !== 'draw' && schState.mode !== 'circle') return;
+  var target = evt.target;
+  if (target.classList && (target.classList.contains('sch-cz') || target.classList.contains('sch-handle'))) return;
+  var p = schGetSvgPoint(evt);
+  if (schState.mode === 'draw') {
+    schState.draftPoints.push([p.x, p.y]);
+    schRender();
+  } else if (schState.mode === 'circle') {
+    if (!schState.circleCenter) {
+      schState.circleCenter = [p.x, p.y];
+      schRender();
+    } else {
+      var c = schState.circleCenter;
+      var r = Math.round(Math.sqrt((p.x-c[0])*(p.x-c[0]) + (p.y-c[1])*(p.y-c[1])));
+      schState.circleCenter = null;
+      schFinishCircle(c[0], c[1], r);
+    }
+  }
+}
+
+function schKeyDown(e) {
+  if (!schState || !document.getElementById('admPanel').classList.contains('open')) return;
+  if (document.getElementById('tab-schema').classList.contains('active') === false) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+  if (e.key === 'Escape' && schState.mode !== 'select') { schCancelDraft(); e.preventDefault(); return; }
+  if (e.key === 'Enter' && schState.mode === 'draw') { schFinishDraft(); e.preventDefault(); return; }
+
+  if (schState.selectedIdx < 0 || schState.mode !== 'select') return;
+  var step = e.shiftKey ? 10 : 1;
+  var z = schState.zones[schState.selectedIdx];
+  var moved = false;
+  if (e.key === 'ArrowLeft') { schMoveZone(z, -step, 0); moved = true; }
+  else if (e.key === 'ArrowRight') { schMoveZone(z, step, 0); moved = true; }
+  else if (e.key === 'ArrowUp') { schMoveZone(z, 0, -step); moved = true; }
+  else if (e.key === 'ArrowDown') { schMoveZone(z, 0, step); moved = true; }
+  else if (e.key === 'Delete' || e.key === 'Backspace') { schAskDelete(); moved = true; }
+  if (moved) { e.preventDefault(); schDirty = true; setSchStatus('load', 'Modifications non publiées'); schRender(); }
+}
+
+function schMoveZone(z, dx, dy) {
+  if (z.shape === 'circle') { z.cx += dx; z.cy += dy; }
+  else if (z.shape === 'rect') { z.x += dx; z.y += dy; }
+  else z.points = z.points.map(function(p){ return [p[0]+dx, p[1]+dy]; });
+}
+
+function schSetMode(m) {
+  schState.draftPoints = []; schState.rectStart = null; schState.circleCenter = null;
+  schState.mode = m;
+  document.querySelectorAll('.sch-tool-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-mode') === m); });
+  document.getElementById('schDraftBar').classList.toggle('show', m !== 'select');
+  if (m === 'draw') document.getElementById('schDraftMsg').textContent = 'Clique pour ajouter des points · Entrée pour terminer';
+  else if (m === 'rect') document.getElementById('schDraftMsg').textContent = 'Glisse pour dessiner un rectangle';
+  else if (m === 'circle') document.getElementById('schDraftMsg').textContent = 'Clique au centre, puis sur le bord';
+  document.getElementById('schDiagram').style.cursor = (m !== 'select') ? 'crosshair' : '';
+  schRender();
+}
+
+function schFinishDraft() {
+  if (!schState || schState.mode !== 'draw' || schState.draftPoints.length < 3) {
+    schState.draftPoints = []; schRender(); return;
+  }
+  var name = prompt('Nom de la zone :', 'Nouvelle zone');
+  if (!name) { schState.draftPoints = []; schRender(); return; }
+  schState.zones.push({
+    id: nameToId(name), name: name, type: 'cz-body',
+    shape: 'polygon', points: schState.draftPoints.slice()
+  });
+  schState.selectedIdx = schState.zones.length - 1;
+  schState.draftPoints = [];
+  schDirty = true; setSchStatus('load', 'Modifications non publiées');
+  schSetMode('select');
+  schShowEditor();
+}
+
+function schFinishRect(x, y, w, h) {
+  var name = prompt('Nom de la zone :', 'Nouvelle zone');
+  if (!name) { schRender(); return; }
+  schState.zones.push({
+    id: nameToId(name), name: name, type: 'cz-body',
+    shape: 'rect', x: x, y: y, w: w, h: h
+  });
+  schState.selectedIdx = schState.zones.length - 1;
+  schDirty = true; setSchStatus('load', 'Modifications non publiées');
+  schSetMode('select');
+  schShowEditor();
+}
+
+function schFinishCircle(cx, cy, r) {
+  if (r < 5) { schRender(); return; }
+  var name = prompt('Nom de la zone :', 'Nouvelle zone');
+  if (!name) { schRender(); return; }
+  schState.zones.push({
+    id: nameToId(name), name: name, type: 'cz-body',
+    shape: 'circle', cx: cx, cy: cy, r: r
+  });
+  schState.selectedIdx = schState.zones.length - 1;
+  schDirty = true; setSchStatus('load', 'Modifications non publiées');
+  schSetMode('select');
+  schShowEditor();
+}
+
+function schCancelDraft() {
+  schState.draftPoints = []; schState.rectStart = null; schState.circleCenter = null;
+  schSetMode('select');
+}
+
+function schDuplicate() {
+  if (schState.selectedIdx < 0) return;
+  var z = JSON.parse(JSON.stringify(schState.zones[schState.selectedIdx]));
+  z.id = z.id + '-copy';
+  z.name = z.name + ' (copie)';
+  if (z.shape === 'circle') { z.cx += 20; z.cy += 20; }
+  else if (z.shape === 'rect') { z.x += 20; z.y += 20; }
+  else z.points = z.points.map(function(p){ return [p[0]+20, p[1]+20]; });
+  schState.zones.splice(schState.selectedIdx+1, 0, z);
+  schState.selectedIdx = schState.selectedIdx + 1;
+  schDirty = true; setSchStatus('load', 'Modifications non publiées');
+  schRender(); schShowEditor();
+}
+
+// Delete with confirmation
+function schAskDelete() {
+  if (schState.selectedIdx < 0) return;
+  var z = schState.zones[schState.selectedIdx];
+  askConfirm(
+    'Supprimer cette zone ?',
+    'La zone "' + z.name + '" sera retirée du schéma. Pense à publier pour appliquer la modification.',
+    'Supprimer',
+    function() {
+      schState.zones.splice(schState.selectedIdx, 1);
+      schState.selectedIdx = -1;
+      document.getElementById('schEditor').classList.add('hidden');
+      schDirty = true; setSchStatus('load', 'Modifications non publiées');
+      schRender();
+    }
+  );
+}
+
+// Save changes to Firebase
+function schSaveToFirebase() {
+  if (!schState) return;
+  setSchStatus('load', 'Publication…');
+  saveZonesToFirebase(schState.zones).then(function(ok) {
+    if (ok) {
+      schDirty = false;
+      setSchStatus('ok', 'Publié ✓');
+      showToast('✓ Schéma publié sur le site');
+    } else {
+      setSchStatus('err', 'Erreur de publication');
+      showToast('Erreur lors de la publication', 'err');
+    }
+  });
+}
+
+function nameToId(name) {
+  return name.toLowerCase()
+    .replace(/[àâ]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i')
+    .replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/[ç]/g,'c')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});
+}
+
+// ============================================================================
+// CONFIRMATION MODAL
+// ============================================================================
+var pendingConfirm = null;
+function askConfirm(title, msg, btnLabel, callback) {
+  pendingConfirm = callback;
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent = msg;
+  document.getElementById('confirmOk').textContent = btnLabel;
+  document.getElementById('confirmModal').classList.add('open');
+}
+function closeConfirm() { document.getElementById('confirmModal').classList.remove('open'); pendingConfirm = null; }
+function doConfirm() { if (pendingConfirm) pendingConfirm(); closeConfirm(); }
+
+// ============================================================================
+// TOAST
+// ============================================================================
+function showToast(msg, type) {
+  var t = document.createElement('div');
+  t.className = 'toast' + (type === 'err' ? ' err' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2500);
+}
+
+// ============================================================================
+// REVEAL ANIMATIONS
+// ============================================================================
+function obs() {
+  var els = document.querySelectorAll('.reveal:not(.vis)');
+  var o = new IntersectionObserver(function(en) {
+    en.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('vis'); o.unobserve(e.target); } });
+  }, {threshold: .08});
+  els.forEach(function(e){ o.observe(e); });
+}
+
+// ============================================================================
+// INIT
+// ============================================================================
+document.addEventListener('DOMContentLoaded', function() {
+  obs();
+  loadFromFirebase();
+});
+
+// Warn if leaving with unsaved schema changes
+window.addEventListener('beforeunload', function(e) {
+  if (schDirty && admLoggedIn) {
+    e.preventDefault();
+    e.returnValue = 'Tu as des modifications non publiées. Quitter quand même ?';
+    return e.returnValue;
+  }
+});
 </script>
 </body>
 </html>
